@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Contador.Core\Contador.Core.csproj" />
+    <ProjectReference Include="..\Contador.DAL\Contador.DAL.csproj" />
   </ItemGroup>
 
 </Project>
