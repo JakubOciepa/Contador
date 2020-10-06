@@ -1,4 +1,5 @@
 ﻿using Contador.Api.Models;
+using Contador.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -10,19 +11,27 @@ namespace Contador.Api.Controllers
     [ApiController]
     public class ExpenseController : ControllerBase
     {
+        private readonly ExpenseService _expenseService;
         /// <summary>
-        /// Gets all available expense.
+        /// Constructor method of <see cref="ExpenseController>.
+        /// </summary>
+        /// <param name="expenses">Reposirory of expenses.</param>
+        public ExpenseController(ExpenseService expenses)
+        {
+            _expenseService = expenses;
+        }
+
+        /// <summary>
+        /// Gets all available expenses.
         /// </summary>
         /// <returns>IEnumerable of expenses.</returns>
         [HttpGet("expenses")]
         public ActionResult<IEnumerable<Expense>> GetExpenses()
         {
-            return new[]
-            {
-                new Expense("Marysia", 123, 0,"słodycze"),
-                new Expense("Marysia", 123, 0,"słodycze"),
-                new Expense("Marysia", 123, 0,"słodycze"),
-            };
+            var expenses = _expenseService.GetExpenses();
+
+
+
         }
 
         /// <summary>
