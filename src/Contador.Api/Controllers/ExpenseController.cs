@@ -13,7 +13,7 @@ namespace Contador.Api.Controllers
     {
         private readonly ExpenseService _expenseService;
         /// <summary>
-        /// Constructor method of <see cref="ExpenseController>.
+        /// Creates instance of <see cref="ExpenseController> class.
         /// </summary>
         /// <param name="expenses">Reposirory of expenses.</param>
         public ExpenseController(ExpenseService expenses)
@@ -26,12 +26,16 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <returns>IEnumerable of expenses.</returns>
         [HttpGet("expenses")]
-        public ActionResult<IEnumerable<Expense>> GetExpenses()
+        public ActionResult<IList<Expense>> GetExpenses()
         {
-            var expenses = _expenseService.GetExpenses();
+            var result = _expenseService.GetExpenses();
 
+            if (result.ResponseCode == Core.Common.ResponseCode.NotFound)
+            {
+                return NotFound();
+            }
 
-
+            return Ok(result.ReturnedObject);
         }
 
         /// <summary>
@@ -42,18 +46,18 @@ namespace Contador.Api.Controllers
         [HttpGet("expenses/{id}")]
         public ActionResult<Expense> GetExpense(int id)
         {
-            return new Expense("Marysia", 123, 0, "słodycze");
+            throw new System.Exception();
         }
 
         /// <summary>
-        /// Creates new expense and add it to db.
+        /// Creates new expense and adds it to db.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Http code.</returns>
         [HttpPost("expenses")]
         public ActionResult CreateExpense(Expense expense)
         {
-            return Ok();
+            throw new System.Exception();
         }
 
         /// <summary>
@@ -65,7 +69,7 @@ namespace Contador.Api.Controllers
         [HttpPut("expense/{id}")]
         public ActionResult UpdateExpense(int id, Expense expense)
         {
-            return Ok();
+            throw new System.Exception();
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace Contador.Api.Controllers
         [HttpDelete("expense/{id}")]
         public ActionResult RemoveExpense(int id)
         {
-            return Ok();
+            throw new System.Exception();
         }
     }
 }

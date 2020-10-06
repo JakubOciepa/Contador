@@ -1,26 +1,32 @@
 ﻿using Contador.Core.Models;
-using Contador.Core.Utils;
 using Contador.DAL.DbContext;
 
 namespace Contador.DAL.Repositories
 {
+    /// <summary>
+    /// Manages expense categories in db.
+    /// </summary>
     public class ExpenseCategoryRepository
     {
         private readonly ContadorContext _db;
 
+        /// <summary>
+        /// Creates instance of <see cref="ExpenseCategoryRepository"/> class.
+        /// </summary>
+        /// <param name="context">DbContext.</param>
         public ExpenseCategoryRepository(ContadorContext context)
         {
             _db = context;
         }
 
-        public string GetCategoryNameById(int id)
+        /// <summary>
+        /// Gets category by its id.
+        /// </summary>
+        /// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
+        /// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
+        public ExpenseCategory GetCategoryById(int categoryId)
         {
-            var category = _db.Set<ExpenseCategory>().Find(id);
-
-            if (category is ExpenseCategory)
-                return category.Name;
-
-            return Messages.NotFound;
+            return new ExpenseCategory() { Name = "Słodycze" };
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Contador.Api.Models
+﻿using Contador.Core.Models;
+
+namespace Contador.Api.Models
 {
     /// <summary>
     /// Expense info.
@@ -11,14 +13,14 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// The name of the <see cref="Category"/> that the expense belongs.
+        /// The <see cref="Category"/> that the expense belongs.
         /// </summary>
-        public string CategoryName { get; set; }
+        public ExpenseCategory Category { get; set; }
 
         /// <summary>
-        /// Id of the <see cref="User"/> which is the creator of this expense.
+        /// The <see cref="Contador.Core.Models.User"/> which is the creator of this expense.
         /// </summary>
-        public int UserId { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// Value of the expense.
@@ -31,14 +33,17 @@
         public string Description { get; set; }
 
         /// <summary>
-        /// Constructor of the expese.
-        /// </summary>
-        public Expense(string name, decimal value, int userId, string categoryName)
+        /// Creates instanse of <see cref="Expense"/> class.
+        /// <param name="name">Name of the expense.</param>
+        /// <param name="value">Value of the expense.</param>
+        /// <param name="user">The owner of the expense.</param>
+        /// <param name="category">Category of the expense.</param>
+        public Expense(string name, decimal value, User user, ExpenseCategory category)
         {
             Name = name;
             Value = value;
-            UserId = userId;
-            CategoryName = categoryName;
+            User = user;
+            Category = category;
         }
     }
 }
