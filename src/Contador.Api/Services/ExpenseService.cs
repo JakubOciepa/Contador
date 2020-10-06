@@ -1,6 +1,7 @@
 ﻿using Contador.Api.Models;
 using Contador.Core.Common;
 using Contador.DAL.Repositories;
+using Contador.DAL.Repositories.Interfaces;
 using System.Collections.Generic;
 
 namespace Contador.Api.Services
@@ -8,11 +9,11 @@ namespace Contador.Api.Services
     /// <summary>
     /// Expense manager.
     /// </summary>
-    public class ExpenseService
+    public class ExpenseService : IExpenseService
     {
-        private readonly ExpensesRepository _expenseRepo;
-        private readonly ExpenseCategoryRepository _expenseCategoryRepo;
-        private readonly UsersRepository _userRepository;
+        private readonly IExpensesRepository _expenseRepo;
+        private readonly IExpenseCategoryRepository _expenseCategoryRepo;
+        private readonly IUsersRepository _userRepository;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseService"/> class.
@@ -20,7 +21,7 @@ namespace Contador.Api.Services
         /// <param name="expenses">Repository of expenses.</param>
         /// <param name="expenseCategory">Repository of expense categories.</param>
         /// <param name="users">Repository of users.</param>
-        public ExpenseService(ExpensesRepository expenses, ExpenseCategoryRepository expenseCategory, UsersRepository users)
+        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryRepository expenseCategory, IUsersRepository users)
         {
             _expenseRepo = expenses;
             _expenseCategoryRepo = expenseCategory;

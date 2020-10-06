@@ -11,12 +11,12 @@ namespace Contador.Api.Controllers
     [ApiController]
     public class ExpenseController : ControllerBase
     {
-        private readonly ExpenseService _expenseService;
+        private readonly IExpenseService _expenseService;
         /// <summary>
         /// Creates instance of <see cref="ExpenseController> class.
         /// </summary>
         /// <param name="expenses">Reposirory of expenses.</param>
-        public ExpenseController(ExpenseService expenses)
+        public ExpenseController(IExpenseService expenses)
         {
             _expenseService = expenses;
         }

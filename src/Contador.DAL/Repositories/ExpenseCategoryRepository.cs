@@ -1,12 +1,13 @@
 ﻿using Contador.Core.Models;
 using Contador.DAL.DbContext;
+using Contador.DAL.Repositories.Interfaces;
 
 namespace Contador.DAL.Repositories
 {
     /// <summary>
     /// Manages expense categories in db.
     /// </summary>
-    public class ExpenseCategoryRepository
+    public class ExpenseCategoryRepository : IExpenseCategoryRepository
     {
         private readonly ContadorContext _db;
 
@@ -14,9 +15,9 @@ namespace Contador.DAL.Repositories
         /// Creates instance of <see cref="ExpenseCategoryRepository"/> class.
         /// </summary>
         /// <param name="context">DbContext.</param>
-        public ExpenseCategoryRepository(ContadorContext context)
+        public ExpenseCategoryRepository()
         {
-            _db = context;
+            //_db = context;
         }
 
         /// <summary>

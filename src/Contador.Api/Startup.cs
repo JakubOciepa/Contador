@@ -1,3 +1,6 @@
+using Contador.Api.Services;
+using Contador.DAL.Repositories;
+using Contador.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +22,11 @@ namespace Contador.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
+            services.AddScoped<IExpensesRepository, ExpensesRepository>();
+            services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IExpenseService, ExpenseService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
