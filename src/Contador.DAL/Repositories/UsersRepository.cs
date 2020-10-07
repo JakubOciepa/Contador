@@ -1,6 +1,7 @@
-﻿using Contador.Core.Models;
+﻿using System.Collections.Generic;
+
+using Contador.Core.Models;
 using Contador.DAL.Repositories.Interfaces;
-using System.Collections.Generic;
 
 namespace Contador.DAL.Repositories
 {

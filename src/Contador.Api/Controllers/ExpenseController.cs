@@ -1,7 +1,9 @@
-﻿using Contador.Api.Models;
+﻿using System.Collections.Generic;
+
+using Contador.Api.Models;
 using Contador.Api.Services;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace Contador.Api.Controllers
 {
@@ -12,6 +14,7 @@ namespace Contador.Api.Controllers
     public class ExpenseController : ControllerBase
     {
         private readonly IExpenseService _expenseService;
+
         /// <summary>
         /// Creates instance of <see cref="ExpenseController> class.
         /// </summary>

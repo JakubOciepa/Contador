@@ -1,6 +1,7 @@
-﻿using Contador.Api.Models;
+﻿using System.Collections.Generic;
+
+using Contador.Api.Models;
 using Contador.Core.Common;
-using System.Collections.Generic;
 
 namespace Contador.Api.Services
 {

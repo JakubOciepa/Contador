@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30524.135
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Core", "Contador.Core\Contador.Core.csproj", "{9D10DF47-46FF-461C-9FEE-4A84A2E13DB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core", "Contador.Core\Contador.Core.csproj", "{9D10DF47-46FF-461C-9FEE-4A84A2E13DB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Api", "Contador.Api\Contador.Api.csproj", "{3EF6CD82-C750-4A20-8C5B-2E66F833F7EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Api", "Contador.Api\Contador.Api.csproj", "{3EF6CD82-C750-4A20-8C5B-2E66F833F7EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.DAL", "Contador.DAL\Contador.DAL.csproj", "{719C79BE-1E47-475E-949B-107F4AD18A74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.DAL", "Contador.DAL\Contador.DAL.csproj", "{719C79BE-1E47-475E-949B-107F4AD18A74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7B476DB-5B77-43F6-885B-981A2581B833}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9D10DF47-46FF-461C-9FEE-4A84A2E13DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +60,11 @@ Global
 		{719C79BE-1E47-475E-949B-107F4AD18A74}.Release|x64.Build.0 = Release|Any CPU
 		{719C79BE-1E47-475E-949B-107F4AD18A74}.Release|x86.ActiveCfg = Release|Any CPU
 		{719C79BE-1E47-475E-949B-107F4AD18A74}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22DC46F9-8FE9-418C-8537-6B95EBF9BDB3}
 	EndGlobalSection
 EndGlobal

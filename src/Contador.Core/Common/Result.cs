@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Contador.Core.Common
+﻿namespace Contador.Core.Common
 {
     /// <summary>
     /// Result that contains returned object and proper response code which indicates if execution were ok.
