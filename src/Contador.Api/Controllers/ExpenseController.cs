@@ -87,7 +87,14 @@ namespace Contador.Api.Controllers
         [HttpPut("expense/{id}")]
         public ActionResult UpdateExpense(int id, Expense expense)
         {
-            throw new System.Exception();
+            var result = _expenseService.Update(id, expense);
+
+            if (result.ResponseCode == ResponseCode.Ok)
+            {
+                return Ok(result.ReturnedObject);
+            }
+
+            return BadRequest("Error occured while updating expense.");
         }
 
         /// <summary>

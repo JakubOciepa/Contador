@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Contador.Core.Models;
@@ -49,6 +50,26 @@ namespace Contador.DAL.Repositories
             _stub.Add(expense);
 
             return expense;
+        }
+
+        /// <inheritdoc/>
+        public Expense Update(int id, Expense info)
+        {
+            var expenseToUpdate = _stub.Find(e => e.Id == id);
+
+            if (expenseToUpdate == default)
+            {
+                return default;
+            }
+
+            expenseToUpdate.Name = info.Name;
+            expenseToUpdate.Value = info.Value;
+            expenseToUpdate.CategoryId = info.CategoryId;
+            expenseToUpdate.UserId = info.UserId;
+            expenseToUpdate.Description = info.Description;
+            expenseToUpdate.LastEditDate = DateTime.Now;
+
+            return expenseToUpdate;
         }
     }
 }

@@ -66,7 +66,21 @@ namespace Contador.Api.Services
         {
             var result = _expenseRepo.Add(new Core.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
 
-            if (result is Core.Models.Expense)
+            if (result != default)
+            {
+                return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+            }
+
+            return new Result<ResponseCode, Expense>(ResponseCode.Error, default);
+        }
+
+
+        /// <inheritdoc/>
+        public Result<ResponseCode, Expense> Update(int id, Expense expense)
+        {
+            var result = _expenseRepo.Update(id, new Core.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
+
+            if (result != default)
             {
                 return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
             }

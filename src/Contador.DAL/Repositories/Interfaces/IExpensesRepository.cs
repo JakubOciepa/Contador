@@ -23,10 +23,18 @@ namespace Contador.DAL.Repositories.Interfaces
         IList<Expense> GetExpenses();
 
         /// <summary>
-        /// Adds provided expense to storage.
+        /// Adds provided <see cref="Expense"/> to storage.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
-        /// <returns>Added expense.</returns>
+        /// <returns>Added expense or default</returns>
         Expense Add(Expense expense);
+
+        /// <summary>
+        /// Updates <see cref="Expense"/> of provided id.
+        /// </summary>
+        /// <param name="id">Id of expense to update.</param>
+        /// <param name="info">Expense info.</param>
+        /// <returns>Updated expense or default.</returns>
+        Expense Update(int id, Expense info);
     }
 }
