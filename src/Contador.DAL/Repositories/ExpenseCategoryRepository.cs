@@ -1,6 +1,7 @@
 ﻿using Contador.Core.Models;
 using Contador.DAL.DbContext;
 using Contador.DAL.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Contador.DAL.Repositories
 {
@@ -10,6 +11,7 @@ namespace Contador.DAL.Repositories
     public class ExpenseCategoryRepository : IExpenseCategoryRepository
     {
         private readonly ContadorContext _db;
+        private readonly List<ExpenseCategory> _stub;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseCategoryRepository"/> class.
@@ -18,6 +20,14 @@ namespace Contador.DAL.Repositories
         public ExpenseCategoryRepository()
         {
             //_db = context;
+            _stub = new List<ExpenseCategory>
+            {
+                new ExpenseCategory()
+                {
+                    Id = 0,
+                    Name = "Słodycze",
+                },
+            };
         }
 
         /// <summary>
@@ -27,7 +37,7 @@ namespace Contador.DAL.Repositories
         /// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
         public ExpenseCategory GetCategoryById(int categoryId)
         {
-            return new ExpenseCategory() { Name = "Słodycze" };
+            return _stub.Find(c => c.Id == categoryId);
         }
     }
 }

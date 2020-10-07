@@ -1,5 +1,6 @@
 ﻿using Contador.Core.Models;
 using Contador.DAL.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Contador.DAL.Repositories
 {
@@ -8,6 +9,19 @@ namespace Contador.DAL.Repositories
     /// </summary>
     public class UsersRepository : IUsersRepository
     {
+        private readonly List<User> _stub;
+
+        /// <summary>
+        /// Creates new instance of <see cref="UsersRepository"/> class.
+        /// </summary>
+        public UsersRepository()
+        {
+            _stub = new List<User>
+            {
+                new User { Id = 0, Name = "Marysia", Email = "m@o.com"},
+            };
+        }
+
         /// <summary>
         /// Gets user by provided id.
         /// </summary>
@@ -15,7 +29,7 @@ namespace Contador.DAL.Repositories
         /// <returns>User of provided id.</returns>
         public User GetUserById(int id)
         {
-            return new User() { Name = "Marysia" };
+            return _stub.Find(x => x.Id == id);
         }
     }
 }

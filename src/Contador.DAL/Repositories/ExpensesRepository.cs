@@ -11,6 +11,7 @@ namespace Contador.DAL.Repositories
     public class ExpensesRepository : IExpensesRepository
     {
         private readonly ContadorContext _db;
+        private readonly List<Expense> _stub;
 
         /// <summary>
         /// Creates instance of <see cref="ExpensesRepository"/> class.
@@ -19,6 +20,12 @@ namespace Contador.DAL.Repositories
         public ExpensesRepository()
         {
             //_db = context;
+            _stub = new List<Expense>
+            {
+                new Expense("Słodkości", 123, 0,0){ Id=0 },
+                new Expense("Słodkości", 123, 0,0){ Id=1 },
+                new Expense("Słodkości", 123, 0,0){ Id=2 },
+            };
         }
 
         /// <summary>
@@ -28,7 +35,7 @@ namespace Contador.DAL.Repositories
         /// <returns><see cref="Expense"/> of provided Id.</returns>
         public Expense GetExpense(int expenseId)
         {
-            return new Expense("Marysia", 123, 0, 0);
+            return _stub.Find(e => e.Id == expenseId);
         }
 
         /// <summary>
@@ -37,12 +44,7 @@ namespace Contador.DAL.Repositories
         /// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
         public IList<Expense> GetExpenses()
         {
-            return new[]
-            {
-                new Expense("Słodkości", 123, 0,0),
-                new Expense("Słodkości", 123, 0,0),
-                new Expense("Słodkości", 123, 0,0),
-            };
+            return _stub;
         }
     }
 }
