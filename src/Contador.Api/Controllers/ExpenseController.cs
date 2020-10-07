@@ -105,7 +105,14 @@ namespace Contador.Api.Controllers
         [HttpDelete("expense/{id}")]
         public ActionResult RemoveExpense(int id)
         {
-            throw new System.Exception();
+            var result = _expenseService.Remove(id);
+
+            if (result == ResponseCode.Ok)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Error occured while removing expense.");
         }
     }
 }

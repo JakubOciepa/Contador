@@ -36,5 +36,12 @@ namespace Contador.DAL.Repositories.Interfaces
         /// <param name="info">Expense info.</param>
         /// <returns>Updated expense or default.</returns>
         Expense Update(int id, Expense info);
+
+        /// <summary>
+        /// Removes <see cref="Expense"/> of provided id from storage.
+        /// </summary>
+        /// <param name="id">Id of expense to remove.</param>
+        /// <returns>True if removed, false otherwise.</returns>
+        bool Remove(int id);
     }
 }

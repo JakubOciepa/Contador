@@ -71,5 +71,20 @@ namespace Contador.DAL.Repositories
 
             return expenseToUpdate;
         }
+
+        /// <inheritdoc/>
+        public bool Remove(int id)
+        {
+            var expenseToRemove = _stub.Find(e => e.Id == id);
+
+            if (expenseToRemove == default)
+            {
+                return true;
+            }
+
+            _stub.Remove(expenseToRemove);
+
+            return !_stub.Contains(expenseToRemove);
+        }
     }
 }

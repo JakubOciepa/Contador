@@ -37,5 +37,12 @@ namespace Contador.Api.Services
         /// <param name="expense">Expense info.</param>
         /// <returns>Correct <see cref="ResponseCode"/> for operation and updated expense.</returns>
         Result<ResponseCode, Expense> Update(int id, Expense expense);
+
+        /// <summary>
+        /// Removes <see cref="Expense"/> of provided id.
+        /// </summary>
+        /// <param name="id">Id of expense to remove.</param>
+        /// <returns>Correct <see cref="ResponseCode"/> for operation</returns>
+        ResponseCode Remove(int id);
     }
 }

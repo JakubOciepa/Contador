@@ -88,6 +88,14 @@ namespace Contador.Api.Services
             return new Result<ResponseCode, Expense>(ResponseCode.Error, default);
         }
 
+        /// <inheritdoc/>
+        public ResponseCode Remove(int id)
+        {
+            var result = _expenseRepo.Remove(id);
+
+            return result ? ResponseCode.Ok : ResponseCode.Error;
+        }
+
         private Expense GetExpenseApiFromCore(Core.Models.Expense coreExpense)
         {
             var category = _expenseCategoryRepo.GetCategoryById(coreExpense.CategoryId);
