@@ -22,5 +22,12 @@ namespace Contador.Api.Services
         /// <param name="id">Id of requested Epxense.</param>
         /// <returns><see cref="Expense"/> of provided id.</returns>
         Result<ResponseCode, Expense> GetExpense(int id);
+
+        /// <summary>
+        /// Adds provided expense into storage.
+        /// </summary>
+        /// <param name="expense">Expense to add.</param>
+        /// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
+        Result<ResponseCode, Expense> Add(Expense expense);
     }
 }

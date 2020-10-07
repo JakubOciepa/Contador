@@ -43,9 +43,8 @@ namespace Contador.Api.Models
         /// <param name="value">Value of the expense.</param>
         /// <param name="user">The owner of the expense.</param>
         /// <param name="category">Category of the expense.</param>
-        public Expense(int id, string name, decimal value, User user, ExpenseCategory category)
+        public Expense(string name, decimal value, User user, ExpenseCategory category)
         {
-            Id = id;
             Name = name;
             Value = value;
             User = user;

@@ -5,7 +5,6 @@
     /// </summary>
     public class User
     {
-
         /// <summary>
         /// Id of this user.
         /// </summary>
@@ -20,6 +19,5 @@
         /// Email of this user.
         /// </summary>
         public string Email { get; set; }
-
     }
 }

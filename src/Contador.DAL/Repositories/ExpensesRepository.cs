@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Contador.Core.Models;
 using Contador.DAL.DbContext;
@@ -12,7 +13,12 @@ namespace Contador.DAL.Repositories
     public class ExpensesRepository : IExpensesRepository
     {
         private readonly ContadorContext _db;
-        private readonly List<Expense> _stub;
+        private static readonly List<Expense> _stub = new List<Expense>
+            {
+                new Expense("Słodkości", 123, 0,0){ Id = 0 },
+                new Expense("Słodkości", 123, 0,0){ Id = 1 },
+                new Expense("Słodkości", 123, 0,0){ Id = 2 },
+            };
 
         /// <summary>
         /// Creates instance of <see cref="ExpensesRepository"/> class.
@@ -21,12 +27,6 @@ namespace Contador.DAL.Repositories
         public ExpensesRepository()
         {
             //_db = context;
-            _stub = new List<Expense>
-            {
-                new Expense("Słodkości", 123, 0,0){ Id=0 },
-                new Expense("Słodkości", 123, 0,0){ Id=1 },
-                new Expense("Słodkości", 123, 0,0){ Id=2 },
-            };
         }
 
         ///<inheritdoc/>
@@ -39,6 +39,16 @@ namespace Contador.DAL.Repositories
         public IList<Expense> GetExpenses()
         {
             return _stub;
+        }
+
+        /// <inheritdoc/>
+        public Expense Add(Expense expense)
+        {
+            var lastId = _stub.Max(e => e.Id);
+            expense.Id = lastId + 1;
+            _stub.Add(expense);
+
+            return expense;
         }
     }
 }

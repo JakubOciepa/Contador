@@ -2,6 +2,7 @@
 
 using Contador.Api.Models;
 using Contador.Api.Services;
+using Contador.Core.Common;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace Contador.Api.Controllers
 
             if (result.ResponseCode == Core.Common.ResponseCode.NotFound)
             {
-                return NotFound();
+                return BadRequest("No expense found");
             }
 
             return Ok(result.ReturnedObject);
@@ -53,21 +54,28 @@ namespace Contador.Api.Controllers
 
             if (result.ResponseCode == Core.Common.ResponseCode.NotFound)
             {
-                return NotFound();
+                return BadRequest("Expense not found.");
             }
 
             return Ok(result.ReturnedObject);
         }
 
         /// <summary>
-        /// Creates new expense and adds it to db.
+        /// Adds new expense and adds it to db.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Http code.</returns>
         [HttpPost("expenses")]
-        public ActionResult CreateExpense(Expense expense)
+        public ActionResult AddExpense(Expense expense)
         {
-            throw new System.Exception();
+            var result = _expenseService.Add(expense);
+
+            if (result.ResponseCode == ResponseCode.Ok)
+            {
+                return Ok(result.ReturnedObject);
+            }
+
+            return BadRequest("Error occured while saving expense.");
         }
 
         /// <summary>

@@ -21,5 +21,12 @@ namespace Contador.DAL.Repositories.Interfaces
         /// </summary>
         /// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
         IList<Expense> GetExpenses();
+
+        /// <summary>
+        /// Adds provided expense to storage.
+        /// </summary>
+        /// <param name="expense">Expense to add.</param>
+        /// <returns>Added expense.</returns>
+        Expense Add(Expense expense);
     }
 }

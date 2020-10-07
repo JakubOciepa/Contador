@@ -38,11 +38,7 @@ namespace Contador.Api.Services
                 return new Result<ResponseCode, Expense>(ResponseCode.NotFound, default);
             }
 
-            var category = _expenseCategoryRepo.GetCategoryById(result.CategoryId);
-            var user = _userRepository.GetUserById(result.UserId);
-            var expense = new Expense(result.Id, result.Name, result.Value, user, category);
-
-            return new Result<ResponseCode, Expense>(ResponseCode.Ok, expense);
+            return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
         }
 
         /// <inheritdoc/>
@@ -59,13 +55,34 @@ namespace Contador.Api.Services
 
             foreach (var expense in result)
             {
-                var user = _userRepository.GetUserById(expense.UserId);
-                var category = _expenseCategoryRepo.GetCategoryById(expense.CategoryId);
-
-                list.Add(new Expense(expense.Id, expense.Name, expense.Value, user, category));
+                list.Add(GetExpenseApiFromCore(expense));
             }
 
             return new Result<ResponseCode, IList<Expense>>(ResponseCode.Ok, list);
+        }
+
+        /// <inheritdoc/>
+        public Result<ResponseCode, Expense> Add(Expense expense)
+        {
+            var result = _expenseRepo.Add(new Core.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
+
+            if (result is Core.Models.Expense)
+            {
+                return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+            }
+
+            return new Result<ResponseCode, Expense>(ResponseCode.Error, default);
+        }
+
+        private Expense GetExpenseApiFromCore(Core.Models.Expense coreExpense)
+        {
+            var category = _expenseCategoryRepo.GetCategoryById(coreExpense.CategoryId);
+            var user = _userRepository.GetUserById(coreExpense.UserId);
+
+            return new Expense(coreExpense.Name, coreExpense.Value, user, category)
+            {
+                Id = coreExpense.Id,
+            };
         }
     }
 }
