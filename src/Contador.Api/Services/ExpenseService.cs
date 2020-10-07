@@ -14,7 +14,7 @@ namespace Contador.Api.Services
     {
         private readonly IExpensesRepository _expenseRepo;
         private readonly IExpenseCategoryService _expenseCategoryService;
-        private readonly IUsersRepository _userRepository;
+        private readonly IUserService _usersService;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseService"/> class.
@@ -22,11 +22,11 @@ namespace Contador.Api.Services
         /// <param name="expenses">Repository of expenses.</param>
         /// <param name="expenseCategory">Repository of expense categories.</param>
         /// <param name="users">Repository of users.</param>
-        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryService expenseCategory, IUsersRepository users)
+        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryService expenseCategory, IUserService users)
         {
             _expenseRepo = expenses;
             _expenseCategoryService = expenseCategory;
-            _userRepository = users;
+            _usersService = users;
         }
 
         /// <inheritdoc/>
@@ -100,7 +100,7 @@ namespace Contador.Api.Services
         private Expense GetExpenseApiFromCore(Core.Models.Expense coreExpense)
         {
             var category = _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
-            var user = _userRepository.GetUserById(coreExpense.UserId);
+            var user = _usersService.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user, category)
             {
