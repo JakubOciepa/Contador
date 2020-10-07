@@ -30,11 +30,7 @@ namespace Contador.DAL.Repositories
             };
         }
 
-        /// <summary>
-        /// Gets category by its id.
-        /// </summary>
-        /// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
-        /// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
+        ///<inheritdoc/>
         public ExpenseCategory GetCategoryById(int categoryId)
         {
             return _stub.Find(c => c.Id == categoryId);

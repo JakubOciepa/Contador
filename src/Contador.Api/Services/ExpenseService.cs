@@ -1,6 +1,5 @@
 ﻿using Contador.Api.Models;
 using Contador.Core.Common;
-using Contador.DAL.Repositories;
 using Contador.DAL.Repositories.Interfaces;
 using System.Collections.Generic;
 
@@ -28,10 +27,13 @@ namespace Contador.Api.Services
             _userRepository = users;
         }
 
-        /// <summary>
-        /// Gets all available expenses.
-        /// </summary>
-        /// <returns>Result wich proper response code and list of expenses.</returns>
+        /// <inheritdoc/>
+        public Result<ResponseCode, Expense> GetExpense(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public Result<ResponseCode, IList<Expense>> GetExpenses()
         {
             var dbExpenses = _expenseRepo.GetExpenses();

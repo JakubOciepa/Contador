@@ -46,6 +46,7 @@ namespace Contador.Api.Controllers
         [HttpGet("expenses/{id}")]
         public ActionResult<Expense> GetExpense(int id)
         {
+            //var result = _expenseService.GetExpense(id);
             throw new System.Exception();
         }
 

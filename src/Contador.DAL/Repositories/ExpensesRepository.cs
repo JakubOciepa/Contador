@@ -28,20 +28,13 @@ namespace Contador.DAL.Repositories
             };
         }
 
-        /// <summary>
-        /// Gets <see cref="Expense"/> of provided id.
-        /// </summary>
-        /// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
-        /// <returns><see cref="Expense"/> of provided Id.</returns>
+        ///<inheritdoc/>
         public Expense GetExpense(int expenseId)
         {
             return _stub.Find(e => e.Id == expenseId);
         }
 
-        /// <summary>
-        /// Gets all available expenses.
-        /// </summary>
-        /// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
+        ///<inheritdoc/>
         public IList<Expense> GetExpenses()
         {
             return _stub;
