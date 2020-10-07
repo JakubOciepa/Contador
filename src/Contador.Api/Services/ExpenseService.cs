@@ -2,7 +2,7 @@
 
 using Contador.Api.Models;
 using Contador.Core.Common;
-using Contador.DAL.Repositories.Interfaces;
+using Contador.DAL.Repositories;
 
 namespace Contador.Api.Services
 {

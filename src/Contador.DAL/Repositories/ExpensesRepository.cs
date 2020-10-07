@@ -4,7 +4,6 @@ using System.Linq;
 
 using Contador.Core.Models;
 using Contador.DAL.DbContext;
-using Contador.DAL.Repositories.Interfaces;
 
 namespace Contador.DAL.Repositories
 {

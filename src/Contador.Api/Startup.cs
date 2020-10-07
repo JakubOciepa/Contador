@@ -1,6 +1,5 @@
 using Contador.Api.Services;
 using Contador.DAL.Repositories;
-using Contador.DAL.Repositories.Interfaces;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
