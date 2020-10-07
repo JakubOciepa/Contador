@@ -30,22 +30,33 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public Result<ResponseCode, Expense> GetExpense(int id)
         {
-            throw new System.NotImplementedException();
+            var result = _expenseRepo.GetExpense(id);
+
+            if (result == default)
+            {
+                return new Result<ResponseCode, Expense>(ResponseCode.NotFound, default);
+            }
+
+            var category = _expenseCategoryRepo.GetCategoryById(result.CategoryId);
+            var user = _userRepository.GetUserById(result.UserId);
+            var expense = new Expense(result.Id, result.Name, result.Value, user, category);
+
+            return new Result<ResponseCode, Expense>(ResponseCode.Ok, expense);
         }
 
         /// <inheritdoc/>
         public Result<ResponseCode, IList<Expense>> GetExpenses()
         {
-            var dbExpenses = _expenseRepo.GetExpenses();
+            var result = _expenseRepo.GetExpenses();
 
-            if (dbExpenses.Count == 0)
+            if (result.Count == 0)
             {
                 return new Result<ResponseCode, IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
             }
 
             var list = new List<Expense>();
 
-            foreach (var expense in dbExpenses)
+            foreach (var expense in result)
             {
                 var user = _userRepository.GetUserById(expense.UserId);
                 var category = _expenseCategoryRepo.GetCategoryById(expense.CategoryId);

@@ -46,8 +46,14 @@ namespace Contador.Api.Controllers
         [HttpGet("expenses/{id}")]
         public ActionResult<Expense> GetExpense(int id)
         {
-            //var result = _expenseService.GetExpense(id);
-            throw new System.Exception();
+            var result = _expenseService.GetExpense(id);
+
+            if (result.ResponseCode == Core.Common.ResponseCode.NotFound)
+            {
+                return NotFound();
+            }
+
+            return Ok(result.ReturnedObject);
         }
 
         /// <summary>
