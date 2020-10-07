@@ -1,5 +1,7 @@
-﻿using Contador.Api.Services.Interfaces;
-using Contador.Core.Models;
+﻿using System.Collections.Generic;
+
+using Contador.Api.Models;
+using Contador.Core.Common;
 using Contador.DAL.Repositories;
 
 namespace Contador.Api.Services
@@ -19,9 +21,73 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public ExpenseCategory GetCategoryById(int id)
+        public Result<ResponseCode, IList<ExpenseCategory>> GetCategories()
         {
-            return _repository.GetCategoryById(id);
+            var result = _repository.GetCategories();
+
+            if (result.Count == 0)
+            {
+                return new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
+            }
+
+            var list = new List<ExpenseCategory>();
+
+            foreach (var category in result)
+            {
+                list.Add(new ExpenseCategory(category.Name) { Id = category.Id });
+            }
+
+            return new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.Ok, list);
+        }
+
+        /// <inheritdoc/>
+        public Result<ResponseCode, ExpenseCategory> GetCategoryById(int id)
+        {
+            var result = _repository.GetCategoryById(id);
+
+            if (result == default)
+            {
+                return new Result<ResponseCode, ExpenseCategory>(ResponseCode.NotFound, default);
+            }
+
+            return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
+                new ExpenseCategory(result.Name) { Id = result.Id });
+        }
+
+        /// <inheritdoc/>
+        public Result<ResponseCode, ExpenseCategory> Add(ExpenseCategory category)
+        {
+            var result = _repository.Add(new Core.Models.ExpenseCategory(category.Name));
+
+            if (result != default)
+            {
+                return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
+                    new ExpenseCategory(result.Name) { Id = result.Id });
+            }
+
+            return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Error, default);
+        }
+
+        /// <inheritdoc/>
+        public Result<ResponseCode, ExpenseCategory> Update(int id, ExpenseCategory category)
+        {
+            var result = _repository.Update(id, new Core.Models.ExpenseCategory(category.Name));
+
+            if (result != default)
+            {
+                return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
+                    new ExpenseCategory(result.Name) { Id = result.Id });
+            }
+
+            return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Error, default);
+        }
+
+        /// <inheritdoc/>
+        public ResponseCode Remove(int id)
+        {
+            var result = _repository.Remove(id);
+
+            return result ? ResponseCode.Ok : ResponseCode.Error;
         }
     }
 }

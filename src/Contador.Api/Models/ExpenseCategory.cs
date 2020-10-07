@@ -1,4 +1,4 @@
-﻿namespace Contador.Core.Models
+﻿namespace Contador.Api.Models
 {
     /// <summary>
     /// The category of the expenses.
@@ -15,10 +15,6 @@
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// Creates instance of <see cref="ExpenseCategory"/> class.
-        /// </summary>
-        /// <param name="name">Name of the category.</param>
         public ExpenseCategory(string name)
         {
             Name = name;

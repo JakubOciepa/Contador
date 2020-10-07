@@ -1,5 +1,4 @@
 using Contador.Api.Services;
-using Contador.Api.Services.Interfaces;
 using Contador.DAL.Repositories;
 
 using Microsoft.AspNetCore.Builder;
@@ -28,7 +27,7 @@ namespace Contador.Api
             services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
-            services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddScoped<Services.IExpenseService, ExpenseService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

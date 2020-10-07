@@ -1,5 +1,4 @@
-﻿using Contador.Api.Services.Interfaces;
-using Contador.Core.Models;
+﻿using Contador.Core.Models;
 using Contador.DAL.Repositories;
 
 namespace Contador.Api.Services

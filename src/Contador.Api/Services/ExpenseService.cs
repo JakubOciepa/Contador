@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using Contador.Api.Models;
-using Contador.Api.Services.Interfaces;
 using Contador.Core.Common;
 using Contador.DAL.Repositories;
 
@@ -75,7 +74,6 @@ namespace Contador.Api.Services
             return new Result<ResponseCode, Expense>(ResponseCode.Error, default);
         }
 
-
         /// <inheritdoc/>
         public Result<ResponseCode, Expense> Update(int id, Expense expense)
         {
@@ -102,7 +100,8 @@ namespace Contador.Api.Services
             var category = _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
             var user = _usersService.GetUserById(coreExpense.UserId);
 
-            return new Expense(coreExpense.Name, coreExpense.Value, user, category)
+            return new Expense(coreExpense.Name, coreExpense.Value, user,
+                category.ResponseCode == ResponseCode.Ok ? category.ReturnedObject : default)
             {
                 Id = coreExpense.Id,
             };

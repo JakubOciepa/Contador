@@ -1,6 +1,6 @@
 ﻿using Contador.Core.Models;
 
-namespace Contador.Api.Services.Interfaces
+namespace Contador.Api.Services
 {
     /// <summary>
     /// Users manager.

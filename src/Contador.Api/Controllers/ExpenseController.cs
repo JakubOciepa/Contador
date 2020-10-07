@@ -19,7 +19,7 @@ namespace Contador.Api.Controllers
         /// <summary>
         /// Creates instance of <see cref="ExpenseController> class.
         /// </summary>
-        /// <param name="expenses">Reposirory of expenses.</param>
+        /// <param name="expenses">Repository of expenses.</param>
         public ExpenseController(IExpenseService expenses)
         {
             _expenseService = expenses;
@@ -28,13 +28,13 @@ namespace Contador.Api.Controllers
         /// <summary>
         /// Gets all available expenses.
         /// </summary>
-        /// <returns>IEnumerable of expenses.</returns>
-        [HttpGet("expenses")]
+        /// <returns>IList of expenses.</returns>
+        [HttpGet("expense")]
         public ActionResult<IList<Expense>> GetExpenses()
         {
             var result = _expenseService.GetExpenses();
 
-            if (result.ResponseCode == Core.Common.ResponseCode.NotFound)
+            if (result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("No expense found");
             }
@@ -47,12 +47,12 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="id">Id of the requested expense.</param>
         /// <returns>Expense of requested id.</returns>
-        [HttpGet("expenses/{id}")]
+        [HttpGet("expense/{id}")]
         public ActionResult<Expense> GetExpense(int id)
         {
             var result = _expenseService.GetExpense(id);
 
-            if (result.ResponseCode == Core.Common.ResponseCode.NotFound)
+            if (result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("Expense not found.");
             }
@@ -61,11 +61,11 @@ namespace Contador.Api.Controllers
         }
 
         /// <summary>
-        /// Adds new expense and adds it to db.
+        /// Adds new expense.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Http code.</returns>
-        [HttpPost("expenses")]
+        [HttpPost("expense")]
         public ActionResult AddExpense(Expense expense)
         {
             var result = _expenseService.Add(expense);
@@ -82,7 +82,7 @@ namespace Contador.Api.Controllers
         /// Updates expense of provided id.
         /// </summary>
         /// <param name="id">Id of expense to update.</param>
-        /// <param name="expense">Data of expense to update.</param>
+        /// <param name="expense">Expense info.</param>
         /// <returns>Http code.</returns>
         [HttpPut("expense/{id}")]
         public ActionResult UpdateExpense(int id, Expense expense)
