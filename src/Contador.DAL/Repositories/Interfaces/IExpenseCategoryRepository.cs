@@ -5,7 +5,7 @@ using Contador.Core.Models;
 namespace Contador.DAL.Repositories
 {
     /// <summary>
-    /// Manages expense categories in db.
+    /// Manages expense categories in storage.
     /// </summary>
     public interface IExpenseCategoryRepository
     {
