@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Contador.Api.Models;
+using Contador.Api.Services.Interfaces;
 using Contador.Core.Common;
 using Contador.DAL.Repositories;
 
@@ -12,7 +13,7 @@ namespace Contador.Api.Services
     public class ExpenseService : IExpenseService
     {
         private readonly IExpensesRepository _expenseRepo;
-        private readonly IExpenseCategoryRepository _expenseCategoryRepo;
+        private readonly IExpenseCategoryService _expenseCategoryService;
         private readonly IUsersRepository _userRepository;
 
         /// <summary>
@@ -21,10 +22,10 @@ namespace Contador.Api.Services
         /// <param name="expenses">Repository of expenses.</param>
         /// <param name="expenseCategory">Repository of expense categories.</param>
         /// <param name="users">Repository of users.</param>
-        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryRepository expenseCategory, IUsersRepository users)
+        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryService expenseCategory, IUsersRepository users)
         {
             _expenseRepo = expenses;
-            _expenseCategoryRepo = expenseCategory;
+            _expenseCategoryService = expenseCategory;
             _userRepository = users;
         }
 
@@ -98,7 +99,7 @@ namespace Contador.Api.Services
 
         private Expense GetExpenseApiFromCore(Core.Models.Expense coreExpense)
         {
-            var category = _expenseCategoryRepo.GetCategoryById(coreExpense.CategoryId);
+            var category = _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
             var user = _userRepository.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user, category)
