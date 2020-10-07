@@ -48,7 +48,7 @@ namespace Contador.Api.Services
                 var user = _userRepository.GetUserById(expense.UserId);
                 var category = _expenseCategoryRepo.GetCategoryById(expense.CategoryId);
 
-                list.Add(new Expense(expense.Name, expense.Value, user, category));
+                list.Add(new Expense(expense.Id, expense.Name, expense.Value, user, category));
             }
 
             return new Result<ResponseCode, IList<Expense>>(ResponseCode.Ok, list);

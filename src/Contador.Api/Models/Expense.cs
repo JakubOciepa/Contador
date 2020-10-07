@@ -8,6 +8,11 @@ namespace Contador.Api.Models
     public class Expense
     {
         /// <summary>
+        /// Id of this expense.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// The name of the expense e.g. what has been bought.
         /// </summary>
         public string Name { get; set; }
@@ -38,8 +43,9 @@ namespace Contador.Api.Models
         /// <param name="value">Value of the expense.</param>
         /// <param name="user">The owner of the expense.</param>
         /// <param name="category">Category of the expense.</param>
-        public Expense(string name, decimal value, User user, ExpenseCategory category)
+        public Expense(int id, string name, decimal value, User user, ExpenseCategory category)
         {
+            Id = id;
             Name = name;
             Value = value;
             User = user;
