@@ -12,7 +12,12 @@ namespace Contador.Api
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext().WriteTo.Console().CreateLogger();
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File(@"logs\log-.log", 
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}", 
+                    rollingInterval: RollingInterval.Month)
+                .CreateLogger();
             try
             {
                 Log.Information("Starting up");
