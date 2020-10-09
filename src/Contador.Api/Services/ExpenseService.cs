@@ -4,6 +4,8 @@ using Contador.Api.Models;
 using Contador.Core.Common;
 using Contador.DAL.Repositories;
 
+using Microsoft.Extensions.Logging;
+
 namespace Contador.Api.Services
 {
     /// <summary>
@@ -14,6 +16,7 @@ namespace Contador.Api.Services
         private readonly IExpensesRepository _expenseRepo;
         private readonly IExpenseCategoryService _expenseCategoryService;
         private readonly IUserService _usersService;
+        private readonly ILogger<ExpenseService> _logger;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseService"/> class.
@@ -21,11 +24,13 @@ namespace Contador.Api.Services
         /// <param name="expenses">Repository of expenses.</param>
         /// <param name="expenseCategory">Repository of expense categories.</param>
         /// <param name="users">Repository of users.</param>
-        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryService expenseCategory, IUserService users)
+        public ExpenseService(IExpensesRepository expenses, IExpenseCategoryService expenseCategory, IUserService users,
+            ILogger<ExpenseService> logger)
         {
             _expenseRepo = expenses;
             _expenseCategoryService = expenseCategory;
             _usersService = users;
+            _logger = logger;
         }
 
         /// <inheritdoc/>
@@ -35,6 +40,7 @@ namespace Contador.Api.Services
 
             if (result == default)
             {
+                _logger.LogWarning($"Expesne of the {id} not found.");
                 return new Result<ResponseCode, Expense>(ResponseCode.NotFound, default);
             }
 
@@ -48,6 +54,7 @@ namespace Contador.Api.Services
 
             if (result.Count == 0)
             {
+                _logger.LogWarning("Expenses not found.");
                 return new Result<ResponseCode, IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
             }
 
@@ -68,6 +75,7 @@ namespace Contador.Api.Services
 
             if (result != default)
             {
+                _logger.LogWarning("Cannot add the expense.");
                 return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
             }
 
@@ -81,6 +89,7 @@ namespace Contador.Api.Services
 
             if (result != default)
             {
+                _logger.LogWarning($"Cannot update the expense of the {id}.");
                 return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
             }
 

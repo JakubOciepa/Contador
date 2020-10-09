@@ -4,20 +4,24 @@ using Contador.Api.Models;
 using Contador.Core.Common;
 using Contador.DAL.Repositories;
 
+using Microsoft.Extensions.Logging;
+
 namespace Contador.Api.Services
 {
     /// <inheritdoc/>
     public class ExpenseCategoryService : IExpenseCategoryService
     {
         private readonly IExpenseCategoryRepository _repository;
+        private readonly ILogger<ExpenseCategoryService> _logger;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseCategoryService"/> class.
         /// </summary>
         /// <param name="repository">Expense category repository.</param>
-        public ExpenseCategoryService(IExpenseCategoryRepository repository)
+        public ExpenseCategoryService(IExpenseCategoryRepository repository, ILogger<ExpenseCategoryService> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         /// <inheritdoc/>
@@ -27,6 +31,7 @@ namespace Contador.Api.Services
 
             if (result.Count == 0)
             {
+                _logger.LogWarning("Can not find any expense categories");
                 return new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
             }
 
@@ -47,6 +52,7 @@ namespace Contador.Api.Services
 
             if (result == default)
             {
+                _logger.LogWarning($"Can not find any expense category of the {id}.");
                 return new Result<ResponseCode, ExpenseCategory>(ResponseCode.NotFound, default);
             }
 
@@ -61,6 +67,7 @@ namespace Contador.Api.Services
 
             if (result != default)
             {
+                _logger.LogWarning("Can not add expense category.");
                 return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
                     new ExpenseCategory(result.Name) { Id = result.Id });
             }
@@ -75,6 +82,7 @@ namespace Contador.Api.Services
 
             if (result != default)
             {
+                _logger.LogWarning($"Can not update expense category of the {id}.");
                 return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
                     new ExpenseCategory(result.Name) { Id = result.Id });
             }
