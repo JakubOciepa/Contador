@@ -20,7 +20,11 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public User GetUserById(int id)
         {
-            return _repository.GetUserById(id);
+            var user = _repository.GetUserById(id);
+
+            return user != null
+                ? new User() { Name = user.Name, Email = user.Email }
+                : default;
         }
     }
 }

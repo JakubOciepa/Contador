@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using Contador.Api.Models;
 using Contador.Core.Common;
+using Contador.Core.Models;
 
 namespace Contador.Api.Services
 {

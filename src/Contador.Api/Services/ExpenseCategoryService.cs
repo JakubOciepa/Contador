@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using Contador.Api.Models;
 using Contador.Core.Common;
+using Contador.Core.Models;
 using Contador.DAL.Repositories;
 
 using Microsoft.Extensions.Logging;
@@ -63,7 +63,7 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public Result<ResponseCode, ExpenseCategory> Add(ExpenseCategory category)
         {
-            var result = _repository.Add(new Core.Models.ExpenseCategory(category.Name));
+            var result = _repository.Add(new DAL.Models.ExpenseCategory(category.Name));
 
             if (result != default)
             {
@@ -78,7 +78,7 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public Result<ResponseCode, ExpenseCategory> Update(int id, ExpenseCategory category)
         {
-            var result = _repository.Update(id, new Core.Models.ExpenseCategory(category.Name));
+            var result = _repository.Update(id, new DAL.Models.ExpenseCategory(category.Name));
 
             if (result != default)
             {

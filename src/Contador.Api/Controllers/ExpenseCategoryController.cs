@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using Contador.Api.Models;
 using Contador.Api.Services;
 using Contador.Core.Common;
+using Contador.Core.Models;
 
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using Contador.Api.Models;
 using Contador.Core.Common;
+using Contador.Core.Models;
 using Contador.DAL.Repositories;
 
 using Microsoft.Extensions.Logging;
@@ -71,7 +71,7 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public Result<ResponseCode, Expense> Add(Expense expense)
         {
-            var result = _expenseRepo.Add(new Core.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
+            var result = _expenseRepo.Add(new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
 
             if (result != default)
             {
@@ -85,7 +85,7 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public Result<ResponseCode, Expense> Update(int id, Expense expense)
         {
-            var result = _expenseRepo.Update(id, new Core.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
+            var result = _expenseRepo.Update(id, new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
 
             if (result != default)
             {
@@ -104,7 +104,7 @@ namespace Contador.Api.Services
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }
 
-        private Expense GetExpenseApiFromCore(Core.Models.Expense coreExpense)
+        private Expense GetExpenseApiFromCore(DAL.Models.Expense coreExpense)
         {
             var category = _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
             var user = _usersService.GetUserById(coreExpense.UserId);

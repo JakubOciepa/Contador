@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Contador.DAL\Contador.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
