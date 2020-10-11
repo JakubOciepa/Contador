@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Contador.Core.Models;
+using Contador.DAL.Models;
 using Contador.DAL.DbContext;
 
 namespace Contador.DAL.Repositories

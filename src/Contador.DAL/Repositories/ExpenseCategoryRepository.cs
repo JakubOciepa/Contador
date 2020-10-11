@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Contador.Core.Models;
 using Contador.DAL.DbContext;
+using Contador.DAL.Models;
 
 namespace Contador.DAL.Repositories
 {
