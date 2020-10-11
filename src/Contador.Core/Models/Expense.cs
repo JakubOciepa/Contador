@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Contador.Core.Models
+﻿namespace Contador.Core.Models
 {
     /// <summary>
     /// Expense info.
@@ -8,7 +6,7 @@ namespace Contador.Core.Models
     public class Expense
     {
         /// <summary>
-        /// Id of the expense.
+        /// Id of this expense.
         /// </summary>
         public int Id { get; set; }
 
@@ -18,14 +16,14 @@ namespace Contador.Core.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// The id of the <see cref="Category"/> that the expense belongs.
+        /// The <see cref="Category"/> that the expense belongs.
         /// </summary>
-        public int CategoryId { get; set; }
+        public ExpenseCategory Category { get; set; }
 
         /// <summary>
-        /// Id of the <see cref="User"/> which is the creator of this expense.
+        /// The <see cref="Contador.Core.Models.User"/> which is the creator of this expense.
         /// </summary>
-        public int UserId { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// Value of the expense.
@@ -38,35 +36,17 @@ namespace Contador.Core.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Date when the expense has been created.
-        /// </summary>
-        public DateTime CreatedDate { get; }
-
-        /// <summary>
-        /// Date when the expense has been edited last time.
-        /// </summary>
-        public DateTime LastEditDate { get; set; }
-
-        /// <summary>
-        /// Constructor of the expese.
-        /// </summary>
-        public Expense(string name, decimal value, int userId, int categoryId)
+        /// Creates instanse of <see cref="Expense"/> class.
+        /// <param name="name">Name of the expense.</param>
+        /// <param name="value">Value of the expense.</param>
+        /// <param name="user">The owner of the expense.</param>
+        /// <param name="category">Category of the expense.</param>
+        public Expense(string name, decimal value, User user, ExpenseCategory category)
         {
             Name = name;
             Value = value;
-            UserId = userId;
-            CategoryId = categoryId;
-            CreatedDate = DateTime.Now;
-            LastEditDate = DateTime.Now;
-        }
-
-        /// <summary>
-        /// Creates string with most important info about Expense.
-        /// </summary>
-        /// <returns>String with this info.</returns>
-        public override string ToString()
-        {
-            return $"Expense: Id = {Id}, Name = {Name}, Value = {Value}";
+            User = user;
+            Category = category;
         }
     }
 }
