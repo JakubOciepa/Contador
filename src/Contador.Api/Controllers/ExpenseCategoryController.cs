@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.Api.Services;
 using Contador.Core.Common;
@@ -30,9 +31,9 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <returns>IList of expense categories.</returns>
         [HttpGet("expensecategory")]
-        public ActionResult<IList<ExpenseCategory>> GetExpenseCategories()
+        public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
         {
-            var result = _expenseCategoryService.GetCategories();
+            var result = await _expenseCategoryService.GetCategories();
 
             if (result.ResponseCode == ResponseCode.NotFound)
             {

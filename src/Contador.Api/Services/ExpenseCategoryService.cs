@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
@@ -25,14 +26,16 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, IList<ExpenseCategory>> GetCategories()
+        public Task<Result<ResponseCode, IList<ExpenseCategory>>> GetCategories()
         {
             var result = _repository.GetCategories();
 
             if (result.Count == 0)
             {
                 _logger.LogWarning("Can not find any expense categories");
-                return new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
+
+                return new Task<Result<ResponseCode, IList<ExpenseCategory>>>(()
+                    => new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>()));
             }
 
             var list = new List<ExpenseCategory>();
@@ -42,7 +45,8 @@ namespace Contador.Api.Services
                 list.Add(new ExpenseCategory(category.Name) { Id = category.Id });
             }
 
-            return new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.Ok, list);
+            return new Task<Result<ResponseCode, IList<ExpenseCategory>>>(() 
+                => new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.Ok, list));
         }
 
         /// <inheritdoc/>

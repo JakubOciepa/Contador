@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
@@ -21,7 +22,7 @@ namespace Contador.Api.Services
         /// Gets all available expense categories.
         /// </summary>
         /// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-        Result<ResponseCode, IList<ExpenseCategory>> GetCategories();
+        Task<Result<ResponseCode, IList<ExpenseCategory>>> GetCategories();
 
         /// <summary>
         /// Adds expense category.
