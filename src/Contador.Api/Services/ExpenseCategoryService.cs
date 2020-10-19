@@ -50,18 +50,19 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<ExpenseCategory> GetCategoryById(int id)
+        public Task<Result<ExpenseCategory>> GetCategoryById(int id)
         {
             var result = _repository.GetCategoryById(id);
 
             if (result == default)
             {
                 _logger.LogWarning($"Can not find any expense category of the {id}.");
-                return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
+                return new Task<Result<ExpenseCategory>>(
+                    () => new Result<ExpenseCategory>(ResponseCode.NotFound, default));
             }
 
-            return new Result<ExpenseCategory>(ResponseCode.Ok,
-                new ExpenseCategory(result.Name) { Id = result.Id });
+            return new Task<Result<ExpenseCategory>>(() => new Result<ExpenseCategory>(ResponseCode.Ok,
+                new ExpenseCategory(result.Name) { Id = result.Id }));
         }
 
         /// <inheritdoc/>

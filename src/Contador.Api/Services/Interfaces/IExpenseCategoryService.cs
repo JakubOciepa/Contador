@@ -16,7 +16,7 @@ namespace Contador.Api.Services
         /// </summary>
         /// <param name="id">Id of requested expense category</param>
         /// <returns>Correct ExpenseCategory or default</returns>
-        Result<ExpenseCategory> GetCategoryById(int id);
+        Task<Result<ExpenseCategory>> GetCategoryById(int id);
 
         /// <summary>
         /// Gets all available expense categories.
