@@ -26,7 +26,7 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Task<Result<IList<ExpenseCategory>>> GetCategories()
+        public Result<IList<ExpenseCategory>> GetCategories()
         {
             var result = _repository.GetCategories();
 
@@ -34,8 +34,7 @@ namespace Contador.Api.Services
             {
                 _logger.LogWarning("Can not find any expense categories");
 
-                return new Task<Result<IList<ExpenseCategory>>>(()
-                    => new Result<IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>()));
+                return new Result<IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
             }
 
             var list = new List<ExpenseCategory>();
@@ -45,24 +44,21 @@ namespace Contador.Api.Services
                 list.Add(new ExpenseCategory(category.Name) { Id = category.Id });
             }
 
-            return new Task<Result<IList<ExpenseCategory>>>(()
-                => new Result<IList<ExpenseCategory>>(ResponseCode.Ok, list));
+            return new Result<IList<ExpenseCategory>>(ResponseCode.Ok, list);
         }
 
         /// <inheritdoc/>
-        public Task<Result<ExpenseCategory>> GetCategoryById(int id)
+        public Result<ExpenseCategory> GetCategoryById(int id)
         {
             var result = _repository.GetCategoryById(id);
 
             if (result == default)
             {
                 _logger.LogWarning($"Can not find any expense category of the {id}.");
-                return new Task<Result<ExpenseCategory>>(
-                    () => new Result<ExpenseCategory>(ResponseCode.NotFound, default));
+                return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
             }
 
-            return new Task<Result<ExpenseCategory>>(() => new Result<ExpenseCategory>(ResponseCode.Ok,
-                new ExpenseCategory(result.Name) { Id = result.Id }));
+            return  new Result<ExpenseCategory>(ResponseCode.Ok,new ExpenseCategory(result.Name) { Id = result.Id });
         }
 
         /// <inheritdoc/>

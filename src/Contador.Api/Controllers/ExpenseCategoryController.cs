@@ -31,9 +31,10 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <returns>IList of expense categories.</returns>
         [HttpGet("expensecategory")]
-        public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
+        [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
+        public ActionResult<IList<ExpenseCategory>> GetExpenseCategories()
         {
-            var result = await _expenseCategoryService.GetCategories();
+            var result = _expenseCategoryService.GetCategories();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -51,8 +52,7 @@ namespace Contador.Api.Controllers
         [HttpGet("expensecategory/{id}")]
         public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
         {
-            var result = await _expenseCategoryService.GetCategoryById(id);
-
+            var result = await Task.Run(() => _expenseCategoryService.GetCategoryById(id)).ConfigureAwait(false);
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("Expense category not found.");
