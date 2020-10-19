@@ -34,28 +34,28 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, Expense> GetExpense(int id)
+        public Result<Expense> GetExpense(int id)
         {
             var result = _expenseRepo.GetExpense(id);
 
             if (result == default)
             {
                 _logger.LogWarning($"Expesne of the {id} not found.");
-                return new Result<ResponseCode, Expense>(ResponseCode.NotFound, default);
+                return new Result<Expense>(ResponseCode.NotFound, default);
             }
 
-            return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+            return new Result<Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, IList<Expense>> GetExpenses()
+        public Result<IList<Expense>> GetExpenses()
         {
             var result = _expenseRepo.GetExpenses();
 
             if (result.Count == 0)
             {
                 _logger.LogWarning("Expenses not found.");
-                return new Result<ResponseCode, IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
+                return new Result<IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
             }
 
             var list = new List<Expense>();
@@ -65,35 +65,35 @@ namespace Contador.Api.Services
                 list.Add(GetExpenseApiFromCore(expense));
             }
 
-            return new Result<ResponseCode, IList<Expense>>(ResponseCode.Ok, list);
+            return new Result<IList<Expense>>(ResponseCode.Ok, list);
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, Expense> Add(Expense expense)
+        public Result<Expense> Add(Expense expense)
         {
             var result = _expenseRepo.Add(new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
 
             if (result != default)
             {
                 _logger.LogWarning("Cannot add the expense.");
-                return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+                return new Result<Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
             }
 
-            return new Result<ResponseCode, Expense>(ResponseCode.Error, default);
+            return new Result<Expense>(ResponseCode.Error, default);
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, Expense> Update(int id, Expense expense)
+        public Result<Expense> Update(int id, Expense expense)
         {
             var result = _expenseRepo.Update(id, new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
 
             if (result != default)
             {
                 _logger.LogWarning($"Cannot update the expense of the {id}.");
-                return new Result<ResponseCode, Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+                return new Result<Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
             }
 
-            return new Result<ResponseCode, Expense>(ResponseCode.Error, default);
+            return new Result<Expense>(ResponseCode.Error, default);
         }
 
         /// <inheritdoc/>
@@ -110,7 +110,7 @@ namespace Contador.Api.Services
             var user = _usersService.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user,
-                category.ResponseCode == ResponseCode.Ok ? category.ReturnedObject : default)
+                (ResponseCode)category.ResponseCode == ResponseCode.Ok ? category.ReturnedObject : default)
             {
                 Id = coreExpense.Id,
             };

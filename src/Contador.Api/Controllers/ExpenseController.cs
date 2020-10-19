@@ -34,7 +34,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseService.GetExpenses();
 
-            if (result.ResponseCode == ResponseCode.NotFound)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("No expense found");
             }
@@ -52,7 +52,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseService.GetExpense(id);
 
-            if (result.ResponseCode == ResponseCode.NotFound)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("Expense not found.");
             }
@@ -70,7 +70,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseService.Add(expense);
 
-            if (result.ResponseCode == ResponseCode.Ok)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
                 return Ok(result.ReturnedObject);
             }
@@ -89,7 +89,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseService.Update(id, expense);
 
-            if (result.ResponseCode == ResponseCode.Ok)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
                 return Ok(result.ReturnedObject);
             }

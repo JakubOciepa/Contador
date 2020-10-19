@@ -26,7 +26,7 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Task<Result<ResponseCode, IList<ExpenseCategory>>> GetCategories()
+        public Task<Result<IList<ExpenseCategory>>> GetCategories()
         {
             var result = _repository.GetCategories();
 
@@ -34,8 +34,8 @@ namespace Contador.Api.Services
             {
                 _logger.LogWarning("Can not find any expense categories");
 
-                return new Task<Result<ResponseCode, IList<ExpenseCategory>>>(()
-                    => new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>()));
+                return new Task<Result<IList<ExpenseCategory>>>(()
+                    => new Result<IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>()));
             }
 
             var list = new List<ExpenseCategory>();
@@ -45,53 +45,53 @@ namespace Contador.Api.Services
                 list.Add(new ExpenseCategory(category.Name) { Id = category.Id });
             }
 
-            return new Task<Result<ResponseCode, IList<ExpenseCategory>>>(() 
-                => new Result<ResponseCode, IList<ExpenseCategory>>(ResponseCode.Ok, list));
+            return new Task<Result<IList<ExpenseCategory>>>(()
+                => new Result<IList<ExpenseCategory>>(ResponseCode.Ok, list));
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, ExpenseCategory> GetCategoryById(int id)
+        public Result<ExpenseCategory> GetCategoryById(int id)
         {
             var result = _repository.GetCategoryById(id);
 
             if (result == default)
             {
                 _logger.LogWarning($"Can not find any expense category of the {id}.");
-                return new Result<ResponseCode, ExpenseCategory>(ResponseCode.NotFound, default);
+                return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
             }
 
-            return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
+            return new Result<ExpenseCategory>(ResponseCode.Ok,
                 new ExpenseCategory(result.Name) { Id = result.Id });
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, ExpenseCategory> Add(ExpenseCategory category)
+        public Result<ExpenseCategory> Add(ExpenseCategory category)
         {
             var result = _repository.Add(new DAL.Models.ExpenseCategory(category.Name));
 
             if (result != default)
             {
                 _logger.LogWarning("Can not add expense category.");
-                return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
+                return new Result<ExpenseCategory>(ResponseCode.Ok,
                     new ExpenseCategory(result.Name) { Id = result.Id });
             }
 
-            return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Error, default);
+            return new Result<ExpenseCategory>(ResponseCode.Error, default);
         }
 
         /// <inheritdoc/>
-        public Result<ResponseCode, ExpenseCategory> Update(int id, ExpenseCategory category)
+        public Result<ExpenseCategory> Update(int id, ExpenseCategory category)
         {
             var result = _repository.Update(id, new DAL.Models.ExpenseCategory(category.Name));
 
             if (result != default)
             {
                 _logger.LogWarning($"Can not update expense category of the {id}.");
-                return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Ok,
+                return new Result<ExpenseCategory>(ResponseCode.Ok,
                     new ExpenseCategory(result.Name) { Id = result.Id });
             }
 
-            return new Result<ResponseCode, ExpenseCategory>(ResponseCode.Error, default);
+            return new Result<ExpenseCategory>(ResponseCode.Error, default);
         }
 
         /// <inheritdoc/>

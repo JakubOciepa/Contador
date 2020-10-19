@@ -3,16 +3,14 @@
     /// <summary>
     /// Result that contains returned object and proper response code which indicates if execution were ok.
     /// </summary>
-    /// <typeparam name="TResponse">Enum type which indicates result of execution.</typeparam>
     /// <typeparam name="TResult">Returned object type.</typeparam>
-    public class Result<TResponse, TResult>
-        where TResponse : System.Enum
+    public class Result<TResult>
         where TResult : class
     {
         /// <summary>
         /// Execution result code.
         /// </summary>
-        public TResponse ResponseCode { get; }
+        public System.Enum ResponseCode { get; }
 
         /// <summary>
         /// Returned object.
@@ -29,7 +27,7 @@
         /// </summary>
         /// <param name="code">Execution result code.</param>
         /// <param name="obj">Returned object.</param>
-        public Result(TResponse code, TResult obj)
+        public Result(System.Enum code, TResult obj)
         {
             ResponseCode = code;
             ReturnedObject = obj;

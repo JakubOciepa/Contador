@@ -35,7 +35,7 @@ namespace Contador.Api.Controllers
         {
             var result = await _expenseCategoryService.GetCategories();
 
-            if (result.ResponseCode == ResponseCode.NotFound)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("No expense category found");
             }
@@ -53,7 +53,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseCategoryService.GetCategoryById(id);
 
-            if (result.ResponseCode == ResponseCode.NotFound)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
                 return BadRequest("Expense category not found.");
             }
@@ -71,7 +71,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseCategoryService.Add(category);
 
-            if (result.ResponseCode == ResponseCode.Ok)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
                 return Ok(result.ReturnedObject);
             }
@@ -90,7 +90,7 @@ namespace Contador.Api.Controllers
         {
             var result = _expenseCategoryService.Update(id, category);
 
-            if (result.ResponseCode == ResponseCode.Ok)
+            if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
                 return Ok(result.ReturnedObject);
             }
