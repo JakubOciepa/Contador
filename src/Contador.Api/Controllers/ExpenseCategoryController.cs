@@ -5,6 +5,7 @@ using Contador.Api.Services;
 using Contador.Core.Common;
 using Contador.Core.Models;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contador.Api.Controllers
@@ -32,6 +33,7 @@ namespace Contador.Api.Controllers
         /// <returns>IList of expense categories.</returns>
         [HttpGet("expensecategory")]
         [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
         {
             var result = await _expenseCategoryService.GetCategories()
@@ -39,7 +41,7 @@ namespace Contador.Api.Controllers
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
-                return BadRequest("No expense category found");
+                return NotFound("No expense category found");
             }
 
             return Ok(result.ReturnedObject);
@@ -51,6 +53,8 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of the requested expense category.</param>
         /// <returns>Expense category of requested id.</returns>
         [HttpGet("expensecategory/{id}")]
+        [ProducesResponseType(typeof(ExpenseCategory), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
         {
             var result = await _expenseCategoryService.GetCategoryById(id)
@@ -58,7 +62,7 @@ namespace Contador.Api.Controllers
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
-                return BadRequest("Expense category not found.");
+                return NotFound("Expense category not found.");
             }
 
             return Ok(result.ReturnedObject);
