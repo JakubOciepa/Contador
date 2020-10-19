@@ -49,9 +49,9 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of the requested expense category.</param>
         /// <returns>Expense category of requested id.</returns>
         [HttpGet("expensecategory/{id}")]
-        public ActionResult<ExpenseCategory> GetExpenseCategory(int id)
+        public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(int id)
         {
-            var result = _expenseCategoryService.GetCategoryById(id);
+            var result = await _expenseCategoryService.GetCategoryById(id);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {

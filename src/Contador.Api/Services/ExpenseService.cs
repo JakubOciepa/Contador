@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
@@ -44,7 +45,7 @@ namespace Contador.Api.Services
                 return new Result<Expense>(ResponseCode.NotFound, default);
             }
 
-            return new Result<Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+            return new Result<Expense>(ResponseCode.Ok, Task.Run(() => GetExpenseApiFromCore(result)).Result);
         }
 
         /// <inheritdoc/>
@@ -62,7 +63,7 @@ namespace Contador.Api.Services
 
             foreach (var expense in result)
             {
-                list.Add(GetExpenseApiFromCore(expense));
+                list.Add(Task.Run(() => GetExpenseApiFromCore(expense)).Result);
             }
 
             return new Result<IList<Expense>>(ResponseCode.Ok, list);
@@ -76,7 +77,7 @@ namespace Contador.Api.Services
             if (result != default)
             {
                 _logger.LogWarning("Cannot add the expense.");
-                return new Result<Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+                return new Result<Expense>(ResponseCode.Ok, Task.Run(() => GetExpenseApiFromCore(result)).Result);
             }
 
             return new Result<Expense>(ResponseCode.Error, default);
@@ -90,7 +91,7 @@ namespace Contador.Api.Services
             if (result != default)
             {
                 _logger.LogWarning($"Cannot update the expense of the {id}.");
-                return new Result<Expense>(ResponseCode.Ok, GetExpenseApiFromCore(result));
+                return new Result<Expense>(ResponseCode.Ok, Task.Run(() => GetExpenseApiFromCore(result)).Result);
             }
 
             return new Result<Expense>(ResponseCode.Error, default);
@@ -104,9 +105,9 @@ namespace Contador.Api.Services
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }
 
-        private Expense GetExpenseApiFromCore(DAL.Models.Expense coreExpense)
+        private async Task<Expense> GetExpenseApiFromCore(DAL.Models.Expense coreExpense)
         {
-            var category = _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
+            var category = await _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
             var user = _usersService.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user,
