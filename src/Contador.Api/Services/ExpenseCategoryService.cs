@@ -66,18 +66,19 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<ExpenseCategory> Add(ExpenseCategory category)
+        public Task<Result<ExpenseCategory>> Add(ExpenseCategory category)
         {
             var result = _repository.Add(new DAL.Models.ExpenseCategory(category.Name));
 
             if (result != default)
             {
                 _logger.LogWarning("Can not add expense category.");
-                return new Result<ExpenseCategory>(ResponseCode.Ok,
-                    new ExpenseCategory(result.Name) { Id = result.Id });
+                return new Task<Result<ExpenseCategory>>(() => new Result<ExpenseCategory>(ResponseCode.Ok,
+                    new ExpenseCategory(result.Name) { Id = result.Id }));
             }
 
-            return new Result<ExpenseCategory>(ResponseCode.Error, default);
+            return new Task<Result<ExpenseCategory>>(() =>
+                    new Result<ExpenseCategory>(ResponseCode.Error, default));
         }
 
         /// <inheritdoc/>

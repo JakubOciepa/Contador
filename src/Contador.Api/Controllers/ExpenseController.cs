@@ -48,7 +48,7 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of the requested expense.</param>
         /// <returns>Expense of requested id.</returns>
         [HttpGet("expense/{id}")]
-        public ActionResult<Expense> GetExpense(int id)
+        public ActionResult<Expense> GetExpense([FromRoute] int id)
         {
             var result = _expenseService.GetExpense(id);
 
@@ -85,7 +85,7 @@ namespace Contador.Api.Controllers
         /// <param name="expense">Expense info.</param>
         /// <returns>Http code.</returns>
         [HttpPut("expense/{id}")]
-        public ActionResult UpdateExpense(int id, Expense expense)
+        public ActionResult UpdateExpense([FromRoute]int id, Expense expense)
         {
             var result = _expenseService.Update(id, expense);
 
@@ -103,7 +103,7 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of expense to remove.</param>
         /// <returns>Http code.</returns>
         [HttpDelete("expense/{id}")]
-        public ActionResult RemoveExpense(int id)
+        public ActionResult RemoveExpense([FromRoute] int id)
         {
             var result = _expenseService.Remove(id);
 

@@ -49,7 +49,7 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of the requested expense category.</param>
         /// <returns>Expense category of requested id.</returns>
         [HttpGet("expensecategory/{id}")]
-        public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(int id)
+        public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
         {
             var result = await _expenseCategoryService.GetCategoryById(id);
 
@@ -67,9 +67,9 @@ namespace Contador.Api.Controllers
         /// <param name="category">Expense category to add.</param>
         /// <returns>Http code.</returns>
         [HttpPost("expensecategory")]
-        public ActionResult AddExpenseCategory(ExpenseCategory category)
+        public async Task<ActionResult> AddExpenseCategory(ExpenseCategory category)
         {
-            var result = _expenseCategoryService.Add(category);
+            var result = await _expenseCategoryService.Add(category);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
@@ -86,7 +86,7 @@ namespace Contador.Api.Controllers
         /// <param name="category">Expense category info.</param>
         /// <returns>Http code.</returns>
         [HttpPut("expensecategory/{id}")]
-        public ActionResult UpdateExpense(int id, ExpenseCategory category)
+        public ActionResult UpdateExpense([FromRoute] int id, ExpenseCategory category)
         {
             var result = _expenseCategoryService.Update(id, category);
 
@@ -104,7 +104,7 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of expense category to remove.</param>
         /// <returns>Http code.</returns>
         [HttpDelete("expensecategory/{id}")]
-        public ActionResult RemoveExpense(int id)
+        public ActionResult RemoveExpense([FromRoute] int id)
         {
             var result = _expenseCategoryService.Remove(id);
 
