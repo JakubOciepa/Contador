@@ -107,7 +107,7 @@ namespace Contador.Api.Services
 
         private async Task<Expense> GetExpenseApiFromCore(DAL.Models.Expense coreExpense)
         {
-            var category = _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
+            var category = await _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
             var user = _usersService.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user,

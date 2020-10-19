@@ -48,9 +48,9 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<ExpenseCategory> GetCategoryById(int id)
+        public async Task<Result<ExpenseCategory>> GetCategoryById(int id)
         {
-            var result = _repository.GetCategoryById(id);
+            var result = await _repository.GetCategoryById(id);
 
             if (result == default)
             {

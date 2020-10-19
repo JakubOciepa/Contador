@@ -15,7 +15,7 @@ namespace Contador.DAL.Repositories
         /// </summary>
         /// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
         /// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
-        ExpenseCategory GetCategoryById(int categoryId);
+        Task<ExpenseCategory> GetCategoryById(int categoryId);
 
         /// <summary>
         /// Gets all available expense categories.

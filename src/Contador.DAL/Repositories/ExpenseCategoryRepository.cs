@@ -47,7 +47,7 @@ namespace Contador.DAL.Repositories
         }
 
         ///<inheritdoc/>
-        public ExpenseCategory GetCategoryById(int categoryId)
+        public async Task<ExpenseCategory> GetCategoryById(int categoryId)
         {
             return _stub.Find(c => c.Id == categoryId);
         }
