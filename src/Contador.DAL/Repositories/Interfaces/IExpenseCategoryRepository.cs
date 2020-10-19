@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.DAL.Models;
 
@@ -20,7 +21,7 @@ namespace Contador.DAL.Repositories
         /// Gets all available expense categories.
         /// </summary>
         /// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-        IList<ExpenseCategory> GetCategories();
+        Task<IList<ExpenseCategory>> GetCategories();
 
         /// <summary>
         /// Adds expense category to storage.

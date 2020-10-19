@@ -22,7 +22,7 @@ namespace Contador.Api.Services
         /// Gets all available expense categories.
         /// </summary>
         /// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-        Result<IList<ExpenseCategory>> GetCategories();
+        Task<Result<IList<ExpenseCategory>>> GetCategories();
 
         /// <summary>
         /// Adds expense category.

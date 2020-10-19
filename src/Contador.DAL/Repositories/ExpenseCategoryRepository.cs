@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Contador.DAL.DbContext;
 using Contador.DAL.Models;
@@ -40,7 +41,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public IList<ExpenseCategory> GetCategories()
+        public async Task<IList<ExpenseCategory>> GetCategories()
         {
             return _stub;
         }

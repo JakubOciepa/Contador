@@ -32,9 +32,9 @@ namespace Contador.Api.Controllers
         /// <returns>IList of expense categories.</returns>
         [HttpGet("expensecategory")]
         [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
-        public ActionResult<IList<ExpenseCategory>> GetExpenseCategories()
+        public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
         {
-            var result = _expenseCategoryService.GetCategories();
+            var result = await _expenseCategoryService.GetCategories().ConfigureAwait(false);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {

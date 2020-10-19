@@ -26,9 +26,9 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<IList<ExpenseCategory>> GetCategories()
+        public async Task<Result<IList<ExpenseCategory>>> GetCategories()
         {
-            var result = _repository.GetCategories();
+            var result = await _repository.GetCategories();
 
             if (result.Count == 0)
             {
