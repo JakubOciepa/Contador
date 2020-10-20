@@ -90,7 +90,8 @@ namespace Contador.Api.Controllers
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
-                return Ok(result.ReturnedObject);
+                return CreatedAtAction(nameof(GetExpenseCategory), 
+                    new { id = result.ReturnedObject.Id }, result.ReturnedObject);
             }
 
             return BadRequest("Error occured while saving expense category.");
