@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Api.Services;
@@ -13,6 +14,7 @@ namespace Contador.Api.Controllers
     /// <summary>
     /// Expense controller.
     /// </summary>
+    [Route("/api/[controller]")]
     [ApiController]
     public class ExpenseCategoryController : ControllerBase
     {
@@ -31,7 +33,7 @@ namespace Contador.Api.Controllers
         /// Gets all available expense categories.
         /// </summary>
         /// <returns>IList of expense categories.</returns>
-        [HttpGet("expensecategory")]
+        [HttpGet]
         [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
@@ -52,7 +54,7 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="id">Id of the requested expense category.</param>
         /// <returns>Expense category of requested id.</returns>
-        [HttpGet("expensecategory/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(ExpenseCategory), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
@@ -73,9 +75,17 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="category">Expense category to add.</param>
         /// <returns>Http code.</returns>
-        [HttpPost("expensecategory")]
-        public async Task<ActionResult> AddExpenseCategory(ExpenseCategory category)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult> AddExpenseCategory([FromBody] ExpenseCategory category)
         {
+            if ((await _expenseCategoryService.GetCategories().ConfigureAwait(false))
+                .ReturnedObject.Any(x => x.Name == category.Name))
+            {
+                return Conflict(category);
+            }
+
             var result = await _expenseCategoryService.Add(category);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
@@ -92,9 +102,18 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of expense category to update.</param>
         /// <param name="category">Expense category info.</param>
         /// <returns>Http code.</returns>
-        [HttpPut("expensecategory/{id}")]
-        public ActionResult UpdateExpense([FromRoute] int id, ExpenseCategory category)
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ExpenseCategory), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] ExpenseCategory category)
         {
+            if ((await _expenseCategoryService.GetCategories().ConfigureAwait(false))
+                .ReturnedObject.All(x => x.Name != category.Name))
+            {
+                return NotFound(category);
+            }
+
             var result = _expenseCategoryService.Update(id, category);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
@@ -110,9 +129,19 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="id">Id of expense category to remove.</param>
         /// <returns>Http code.</returns>
-        [HttpDelete("expensecategory/{id}")]
-        public ActionResult RemoveExpense([FromRoute] int id)
+        /// [HttpGet("{id}")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> RemoveExpense([FromRoute] int id)
         {
+            if ((await _expenseCategoryService.GetCategories().ConfigureAwait(false))
+                .ReturnedObject.All(x => x.Id != id))
+            {
+                return NotFound(id);
+            }
+
             var result = _expenseCategoryService.Remove(id);
 
             if (result == ResponseCode.Ok)

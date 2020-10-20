@@ -11,6 +11,7 @@ namespace Contador.Api.Controllers
     /// <summary>
     /// Expense controller.
     /// </summary>
+    [Route("/api/[controller]")]
     [ApiController]
     public class ExpenseController : ControllerBase
     {
