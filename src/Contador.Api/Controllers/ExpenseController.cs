@@ -4,6 +4,7 @@ using Contador.Api.Services;
 using Contador.Core.Common;
 using Contador.Core.Models;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contador.Api.Controllers
@@ -30,14 +31,16 @@ namespace Contador.Api.Controllers
         /// Gets all available expenses.
         /// </summary>
         /// <returns>IList of expenses.</returns>
-        [HttpGet("expense")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IList<Expense>> GetExpenses()
         {
             var result = _expenseService.GetExpenses();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
-                return BadRequest("No expense found");
+                return NotFound("No expense found");
             }
 
             return Ok(result.ReturnedObject);
@@ -48,14 +51,16 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="id">Id of the requested expense.</param>
         /// <returns>Expense of requested id.</returns>
-        [HttpGet("expense/{id}")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ExpenseCategory), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Expense> GetExpense([FromRoute] int id)
         {
             var result = _expenseService.GetExpense(id);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
-                return BadRequest("Expense not found.");
+                return NotFound("Expense not found.");
             }
 
             return Ok(result.ReturnedObject);
@@ -66,14 +71,17 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Http code.</returns>
-        [HttpPost("expense")]
-        public ActionResult AddExpense(Expense expense)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult AddExpense([FromBody] Expense expense)
         {
             var result = _expenseService.Add(expense);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
-                return Ok(result.ReturnedObject);
+                return CreatedAtAction(nameof(GetExpense),
+                    new { id = result.ReturnedObject.Id }, result.ReturnedObject);
             }
 
             return BadRequest("Error occured while saving expense.");
@@ -85,9 +93,17 @@ namespace Contador.Api.Controllers
         /// <param name="id">Id of expense to update.</param>
         /// <param name="expense">Expense info.</param>
         /// <returns>Http code.</returns>
-        [HttpPut("expense/{id}")]
-        public ActionResult UpdateExpense([FromRoute]int id, Expense expense)
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ExpenseCategory), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
         {
+            if(_expenseService.GetExpense(id).ReturnedObject == null)
+            {
+                NotFound(expense);
+            }
+
             var result = _expenseService.Update(id, expense);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
@@ -103,9 +119,17 @@ namespace Contador.Api.Controllers
         /// </summary>
         /// <param name="id">Id of expense to remove.</param>
         /// <returns>Http code.</returns>
-        [HttpDelete("expense/{id}")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult RemoveExpense([FromRoute] int id)
         {
+            if (_expenseService.GetExpense(id).ReturnedObject == null)
+            {
+                NotFound(id);
+            }
+
             var result = _expenseService.Remove(id);
 
             if (result == ResponseCode.Ok)

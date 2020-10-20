@@ -76,10 +76,10 @@ namespace Contador.Api.Services
 
             if (result != default)
             {
-                _logger.LogWarning("Cannot add the expense.");
                 return new Result<Expense>(ResponseCode.Ok, Task.Run(() => GetExpenseApiFromCore(result)).Result);
             }
 
+            _logger.LogWarning("Cannot add the expense.");
             return new Result<Expense>(ResponseCode.Error, default);
         }
 
