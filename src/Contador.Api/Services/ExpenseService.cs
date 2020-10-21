@@ -37,7 +37,7 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> GetExpense(int id)
         {
-            var result = await _expenseRepo.GetExpense(id);
+            var result = await _expenseRepo.GetExpense(id).ConfigureAwait(false);
 
             if (result == default)
             {
@@ -51,7 +51,7 @@ namespace Contador.Api.Services
         /// <inheritdoc/>
         public async Task<Result<IList<Expense>>> GetExpenses()
         {
-            var result = await _expenseRepo.GetExpenses();
+            var result = await _expenseRepo.GetExpenses().ConfigureAwait(false);
 
             if (result.Count == 0)
             {
@@ -70,9 +70,10 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<Expense> Add(Expense expense)
+        public async Task<Result<Expense>> Add(Expense expense)
         {
-            var result = _expenseRepo.Add(new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
+            var result = await _expenseRepo.Add(new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id))
+                       .ConfigureAwait(false);
 
             if (result != default)
             {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Contador.DAL.Models;
-using Contador.DAL.DbContext;
 using System.Threading.Tasks;
+
+using Contador.DAL.DbContext;
+using Contador.DAL.Models;
 
 namespace Contador.DAL.Repositories
 {
@@ -43,7 +43,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public Expense Add(Expense expense)
+        public async Task<Expense> Add(Expense expense)
         {
             var lastId = _stub.Max(e => e.Id);
             expense.Id = lastId + 1;

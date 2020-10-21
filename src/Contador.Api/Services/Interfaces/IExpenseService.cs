@@ -29,7 +29,7 @@ namespace Contador.Api.Services
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
-        Result<Expense> Add(Expense expense);
+        Task<Result<Expense>> Add(Expense expense);
 
         /// <summary>
         /// Updates <see cref="Expense"/> of provided id.

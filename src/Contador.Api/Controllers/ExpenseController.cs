@@ -75,9 +75,9 @@ namespace Contador.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult AddExpense([FromBody] Expense expense)
+        public async Task<ActionResult> AddExpense([FromBody] Expense expense)
         {
-            var result = _expenseService.Add(expense);
+            var result = await _expenseService.Add(expense).ConfigureAwait(false);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {

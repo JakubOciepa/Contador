@@ -28,7 +28,7 @@ namespace Contador.DAL.Repositories
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Added expense or default</returns>
-        Expense Add(Expense expense);
+        Task<Expense> Add(Expense expense);
 
         /// <summary>
         /// Updates <see cref="Expense"/> of provided id.
