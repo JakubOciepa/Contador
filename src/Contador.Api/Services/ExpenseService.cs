@@ -85,9 +85,10 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<Expense> Update(int id, Expense expense)
+        public async Task<Result<Expense>> Update(int id, Expense expense)
         {
-            var result = _expenseRepo.Update(id, new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id));
+            var result = await _expenseRepo.Update(id, new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id))
+                       .ConfigureAwait(false);
 
             if (result != default)
             {

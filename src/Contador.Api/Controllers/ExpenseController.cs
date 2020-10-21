@@ -106,7 +106,7 @@ namespace Contador.Api.Controllers
                 NotFound(expense);
             }
 
-            var result = _expenseService.Update(id, expense);
+            var result = await _expenseService.Update(id, expense).ConfigureAwait(false);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {

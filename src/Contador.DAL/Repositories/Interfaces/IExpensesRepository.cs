@@ -36,7 +36,7 @@ namespace Contador.DAL.Repositories
         /// <param name="id">Id of expense to update.</param>
         /// <param name="info">Expense info.</param>
         /// <returns>Updated expense or default.</returns>
-        Expense Update(int id, Expense info);
+        Task<Expense> Update(int id, Expense info);
 
         /// <summary>
         /// Removes <see cref="Expense"/> of provided id from storage.

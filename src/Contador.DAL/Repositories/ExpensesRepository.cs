@@ -53,7 +53,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public Expense Update(int id, Expense info)
+        public async Task<Expense> Update(int id, Expense info)
         {
             var expenseToUpdate = _stub.Find(e => e.Id == id);
 
