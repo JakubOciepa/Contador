@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
@@ -14,7 +15,7 @@ namespace Contador.Api.Services
         /// Gets all available expenses.
         /// </summary>
         /// <returns>Result wich proper response code and list of expenses.</returns>
-        Result<IList<Expense>> GetExpenses();
+        Task<Result<IList<Expense>>> GetExpenses();
 
         /// <summary>
         /// Gets <see cref="Expense"/> of provided id.

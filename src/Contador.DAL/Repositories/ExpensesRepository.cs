@@ -4,6 +4,7 @@ using System.Linq;
 
 using Contador.DAL.Models;
 using Contador.DAL.DbContext;
+using System.Threading.Tasks;
 
 namespace Contador.DAL.Repositories
 {
@@ -36,7 +37,7 @@ namespace Contador.DAL.Repositories
         }
 
         ///<inheritdoc/>
-        public IList<Expense> GetExpenses()
+        public async Task<IList<Expense>> GetExpenses()
         {
             return _stub;
         }

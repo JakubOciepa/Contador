@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.DAL.Models;
 
@@ -20,7 +21,7 @@ namespace Contador.DAL.Repositories
         /// Gets all available expenses.
         /// </summary>
         /// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-        IList<Expense> GetExpenses();
+        Task<IList<Expense>> GetExpenses();
 
         /// <summary>
         /// Adds provided <see cref="Expense"/> to storage.

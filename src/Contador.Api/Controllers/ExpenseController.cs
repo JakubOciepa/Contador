@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Contador.Api.Services;
 using Contador.Core.Common;
@@ -34,9 +35,9 @@ namespace Contador.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IList<Expense>> GetExpenses()
+        public async Task<ActionResult<IList<Expense>>> GetExpenses()
         {
-            var result = _expenseService.GetExpenses();
+            var result = await _expenseService.GetExpenses();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {

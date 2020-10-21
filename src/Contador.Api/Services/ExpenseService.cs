@@ -49,9 +49,9 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<IList<Expense>> GetExpenses()
+        public async Task<Result<IList<Expense>>> GetExpenses()
         {
-            var result = _expenseRepo.GetExpenses();
+            var result = await _expenseRepo.GetExpenses();
 
             if (result.Count == 0)
             {
