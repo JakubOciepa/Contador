@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "Contador.sln",
+    "projects": [
+      "Contador.Core\\Contador.Core.csproj",
+      "Contador.Mobile\\Contador.Mobile.Android\\Contador.Mobile.Android.csproj",
+      "Contador.Mobile\\Contador.Mobile\\Contador.Mobile.csproj"
+    ]
+  }
+}

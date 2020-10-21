@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "Contador.sln",
+    "projects": [
+      "Contador.Blazor\\Contador.Blazor.csproj",
+      "Contador.Core\\Contador.Core.csproj"
+    ]
+  }
+}

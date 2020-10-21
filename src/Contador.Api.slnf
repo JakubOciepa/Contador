@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "Contador.sln",
+    "projects": [
+      "Contador.Api\\Contador.Api.csproj",
+      "Contador.Core\\Contador.Core.csproj",
+      "Contador.DAL\\Contador.DAL.csproj"
+    ]
+  }
+}

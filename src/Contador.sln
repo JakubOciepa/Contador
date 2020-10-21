@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Mobile.Android", "Contador.Mobile\Contador.Mobile.Android\Contador.Mobile.Android.csproj", "{0F757BB2-7982-494E-95A7-09311687B5B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Mobile", "Contador.Mobile\Contador.Mobile\Contador.Mobile.csproj", "{0A4DA939-8AF5-4A46-8961-4DC25DCEDC6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Mobile", "Contador.Mobile\Contador.Mobile\Contador.Mobile.csproj", "{0A4DA939-8AF5-4A46-8961-4DC25DCEDC6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Blazor", "Contador.Blazor\Contador.Blazor.csproj", "{F660D039-7F1D-46A3-960B-00F0F406CFE5}"
 EndProject
