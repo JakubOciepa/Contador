@@ -15,7 +15,7 @@ namespace Contador.DAL.Repositories
         /// </summary>
         /// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
         /// <returns><see cref="Expense"/> of provided Id.</returns>
-        Expense GetExpense(int expenseId);
+        Task<Expense> GetExpense(int expenseId);
 
         /// <summary>
         /// Gets all available expenses.

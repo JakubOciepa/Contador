@@ -35,9 +35,9 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public Result<Expense> GetExpense(int id)
+        public async Task<Result<Expense>> GetExpense(int id)
         {
-            var result = _expenseRepo.GetExpense(id);
+            var result = await _expenseRepo.GetExpense(id);
 
             if (result == default)
             {

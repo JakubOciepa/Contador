@@ -37,7 +37,7 @@ namespace Contador.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<Expense>>> GetExpenses()
         {
-            var result = await _expenseService.GetExpenses();
+            var result = await _expenseService.GetExpenses().ConfigureAwait(false);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -55,9 +55,9 @@ namespace Contador.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ExpenseCategory), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Expense> GetExpense([FromRoute] int id)
+        public async Task<ActionResult<Expense>> GetExpense([FromRoute] int id)
         {
-            var result = _expenseService.GetExpense(id);
+            var result = await _expenseService.GetExpense(id).ConfigureAwait(false);
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -98,9 +98,10 @@ namespace Contador.Api.Controllers
         [ProducesResponseType(typeof(ExpenseCategory), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
+        public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
         {
-            if(_expenseService.GetExpense(id).ReturnedObject == null)
+            if ((await _expenseService.GetExpense(id).ConfigureAwait(false))
+                    .ReturnedObject == null)
             {
                 NotFound(expense);
             }
@@ -124,9 +125,10 @@ namespace Contador.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult RemoveExpense([FromRoute] int id)
+        public async Task<ActionResult> RemoveExpense([FromRoute] int id)
         {
-            if (_expenseService.GetExpense(id).ReturnedObject == null)
+            if ((await _expenseService.GetExpense(id).ConfigureAwait(false))
+                    .ReturnedObject == null)
             {
                 NotFound(id);
             }

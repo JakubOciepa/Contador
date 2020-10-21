@@ -31,7 +31,7 @@ namespace Contador.DAL.Repositories
         }
 
         ///<inheritdoc/>
-        public Expense GetExpense(int expenseId)
+        public async Task<Expense> GetExpense(int expenseId)
         {
             return _stub.Find(e => e.Id == expenseId);
         }

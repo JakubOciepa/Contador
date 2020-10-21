@@ -22,7 +22,7 @@ namespace Contador.Api.Services
         /// </summary>
         /// <param name="id">Id of requested Epxense.</param>
         /// <returns><see cref="Expense"/> of provided id.</returns>
-        Result<Expense> GetExpense(int id);
+        Task<Result<Expense>> GetExpense(int id);
 
         /// <summary>
         /// Adds provided <see cref="Expense"/> into storage.
