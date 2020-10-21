@@ -43,6 +43,6 @@ namespace Contador.DAL.Repositories
         /// </summary>
         /// <param name="id">Id of expense to remove.</param>
         /// <returns>True if removed, false otherwise.</returns>
-        bool Remove(int id);
+        Task<bool> Remove(int id);
     }
 }

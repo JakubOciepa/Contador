@@ -100,9 +100,9 @@ namespace Contador.Api.Services
         }
 
         /// <inheritdoc/>
-        public ResponseCode Remove(int id)
+        public async Task<ResponseCode> Remove(int id)
         {
-            var result = _expenseRepo.Remove(id);
+            var result = await _expenseRepo.Remove(id).ConfigureAwait(false);
 
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }

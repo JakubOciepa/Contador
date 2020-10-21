@@ -44,6 +44,6 @@ namespace Contador.Api.Services
         /// </summary>
         /// <param name="id">Id of expense to remove.</param>
         /// <returns>Correct <see cref="ResponseCode"/> for operation</returns>
-        ResponseCode Remove(int id);
+        Task<ResponseCode> Remove(int id);
     }
 }

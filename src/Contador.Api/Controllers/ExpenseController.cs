@@ -133,7 +133,7 @@ namespace Contador.Api.Controllers
                 NotFound(id);
             }
 
-            var result = _expenseService.Remove(id);
+            var result = await _expenseService.Remove(id).ConfigureAwait(false);
 
             if (result == ResponseCode.Ok)
             {

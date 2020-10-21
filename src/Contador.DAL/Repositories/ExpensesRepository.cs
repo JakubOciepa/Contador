@@ -73,7 +73,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public bool Remove(int id)
+        public async Task<bool> Remove(int id)
         {
             var expenseToRemove = _stub.Find(e => e.Id == id);
 
