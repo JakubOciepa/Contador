@@ -1,11 +1,12 @@
+using Contador.DAL.Repositories;
+using Contador.Web.Server.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
+using Microsoft.OpenApi.Models;
 
 namespace Contador.Web.Server
 {
@@ -22,6 +23,17 @@ namespace Contador.Web.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IExpensesRepository, ExpensesRepository>();
+            services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
+            services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" });
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -34,6 +46,8 @@ namespace Contador.Web.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contador.Api v1"));
             }
             else
             {

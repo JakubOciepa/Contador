@@ -6,15 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-rc.2.20475.17" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="InheritDoc" Version="2.5.2" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Contador.Core\Contador.Core.csproj" />
     <ProjectReference Include="..\..\Contador.DAL\Contador.DAL.csproj" />
+    <ProjectReference Include="..\Client\Contador.Web.Client.csproj" />
   </ItemGroup>
 
 
