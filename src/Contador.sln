@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30524.135
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core", "Contador.Core\Contador.Core.csproj", "{9D10DF47-46FF-461C-9FEE-4A84A2E13DB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core", "Contador.Core\Core\Contador.Core.csproj", "{9D10DF47-46FF-461C-9FEE-4A84A2E13DB1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.DAL", "Contador.DAL\Contador.DAL.csproj", "{719C79BE-1E47-475E-949B-107F4AD18A74}"
 EndProject

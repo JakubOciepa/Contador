@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Contador.Core\Contador.Core.csproj" />
+    <ProjectReference Include="..\..\Contador.Core\Core\Contador.Core.csproj" />
     <ProjectReference Include="..\..\Contador.DAL\Contador.DAL.csproj" />
     <ProjectReference Include="..\Client\Contador.Web.Client.csproj" />
   </ItemGroup>
