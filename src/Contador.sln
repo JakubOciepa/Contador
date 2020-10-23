@@ -16,9 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Mobile.Android", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Mobile", "Contador.Mobile\Contador.Mobile\Contador.Mobile.csproj", "{0A4DA939-8AF5-4A46-8961-4DC25DCEDC6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Web.Server", "Contador.Web\Server\Contador.Web.Server.csproj", "{1917B865-27CB-4510-A3B1-CA16754FEADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Server", "Contador.Web\Server\Contador.Web.Server.csproj", "{1917B865-27CB-4510-A3B1-CA16754FEADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Web.Client", "Contador.Web\Client\Contador.Web.Client.csproj", "{661F2DCB-8121-4EA9-92C7-457078BB685B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Client", "Contador.Web\Client\Contador.Web.Client.csproj", "{661F2DCB-8121-4EA9-92C7-457078BB685B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Core.Tests", "Contador.Core\Core.Tests\Contador.Core.Tests.csproj", "{AF0CF47D-138C-4348-9D44-D285D124725C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +110,18 @@ Global
 		{661F2DCB-8121-4EA9-92C7-457078BB685B}.Release|x64.Build.0 = Release|Any CPU
 		{661F2DCB-8121-4EA9-92C7-457078BB685B}.Release|x86.ActiveCfg = Release|Any CPU
 		{661F2DCB-8121-4EA9-92C7-457078BB685B}.Release|x86.Build.0 = Release|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Debug|x64.Build.0 = Debug|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Debug|x86.Build.0 = Debug|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Release|x64.ActiveCfg = Release|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Release|x64.Build.0 = Release|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Release|x86.ActiveCfg = Release|Any CPU
+		{AF0CF47D-138C-4348-9D44-D285D124725C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

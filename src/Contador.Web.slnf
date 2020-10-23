@@ -2,7 +2,8 @@
   "solution": {
     "path": "Contador.sln",
     "projects": [
-      "Contador.Core\\Contador.Core.csproj",
+      "Contador.Core\\Core.Tests\\Contador.Core.Tests.csproj",
+      "Contador.Core\\Core\\Contador.Core.csproj",
       "Contador.DAL\\Contador.DAL.csproj",
       "Contador.Web\\Client\\Contador.Web.Client.csproj",
       "Contador.Web\\Server\\Contador.Web.Server.csproj"
