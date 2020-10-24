@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Client", "Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core.Tests", "Contador.Core\Core.Tests\Contador.Core.Tests.csproj", "{AF0CF47D-138C-4348-9D44-D285D124725C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Tests", "Contador.Web\Server.Tests\Server.Tests.csproj", "{B4E2893E-2519-4B71-BFCB-A1FECA373796}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contador.Web.Server.Tests", "Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj", "{B4E2893E-2519-4B71-BFCB-A1FECA373796}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

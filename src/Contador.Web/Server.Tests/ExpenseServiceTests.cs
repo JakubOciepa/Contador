@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Server.Tests
 {
-    public class UnitTest1
+    public class ExpenseServiceTests
     {
         [Fact]
         public void Test1()

@@ -19,4 +19,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contador.Core\Core\Contador.Core.csproj" />
+    <ProjectReference Include="..\..\Contador.DAL\Contador.DAL.csproj" />
+    <ProjectReference Include="..\Server\Contador.Web.Server.csproj" />
+  </ItemGroup>
+
 </Project>
