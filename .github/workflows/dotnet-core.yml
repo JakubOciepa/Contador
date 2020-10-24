@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: "5.0.100-rc.2.20479.15"
     - name: Install dependencies
-      run: dotnet restore .\src\Contador.sln
+      run: dotnet restore ./src/Contador.sln
     - name: Build Core
       run: dotnet build --configuration Debug --no-restore .\src\Contador.Core\Core\Contador.Core.csproj
     - name: Build DAL
