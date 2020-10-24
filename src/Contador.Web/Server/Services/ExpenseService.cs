@@ -46,7 +46,7 @@ namespace Contador.Web.Server.Services
 
             foreach (var expense in result)
             {
-                list.Add(Task.Run(() => GetExpenseApiFromCore(expense)).Result);
+                list.Add(await GetExpenseApiFromCore(expense));
             }
 
             return new Result<IList<Expense>>(ResponseCode.Ok, list);
@@ -106,7 +106,7 @@ namespace Contador.Web.Server.Services
 
         private async Task<Expense> GetExpenseApiFromCore(DAL.Models.Expense coreExpense)
         {
-            var category = await _expenseCategoryService.GetCategoryById(coreExpense.CategoryId);
+            var category = await _expenseCategoryService.GetCategoryById(coreExpense.CategoryId).ConfigureAwait(false);
             var user = _usersService.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user,
