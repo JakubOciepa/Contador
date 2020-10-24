@@ -18,14 +18,14 @@ jobs:
       with:
         dotnet-version: "5.0.100-rc.2.20479.15"
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore .\src\Contador.sln
     - name: Build Core
-      run: dotnet build --configuration Debug --no-restore .\Contador.Core\Core\Contador.Core.csproj
+      run: dotnet build --configuration Debug --no-restore .\src\Contador.Core\Core\Contador.Core.csproj
     - name: Build DAL
-      run: dotnet build --configuration Debug --no-restore .\Contador.DAL\Contador.DAL.csproj
+      run: dotnet build --configuration Debug --no-restore .\src\Contador.DAL\Contador.DAL.csproj
     - name: Build WEB
-      run: dotnet build --configuration Debug --no-restore .\Contador.Web\Server\Contador.Web.Server.csproj
+      run: dotnet build --configuration Debug --no-restore .\src\Contador.Web\Server\Contador.Web.Server.csproj
     - name: Build Mobile
-      run: dotnet build --configuration Debug --no-restore .\Contador.Mobile\Contador.Mobile.Android\Contador.Mobile.Android.csproj
+      run: dotnet build --configuration Debug --no-restore .\src\Contador.Mobile\Contador.Mobile.Android\Contador.Mobile.Android.csproj
     - name: Test
-      run: dotnet test --no-restore --verbosity normal .\Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj
+      run: dotnet test --no-restore --verbosity normal .\src\Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj
