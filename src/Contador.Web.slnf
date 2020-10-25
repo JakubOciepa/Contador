@@ -6,6 +6,7 @@
       "Contador.Core\\Core\\Contador.Core.csproj",
       "Contador.DAL\\Contador.DAL.csproj",
       "Contador.Web\\Client\\Contador.Web.Client.csproj",
+      "Contador.Web\\Server.Tests\\Contador.Web.Server.Tests.csproj",
       "Contador.Web\\Server\\Contador.Web.Server.csproj"
     ]
   }
