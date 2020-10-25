@@ -63,6 +63,33 @@ namespace Server.Tests
             expenses.ReturnedObject.Count.Should().Equals(_returnedExpenses.Count);
             expenses.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses);
         }
+
+        [Fact]
+        public async void GetExpenses_WhenNoExpensesAvailable_ReturnsNotFound()
+        {
+            //arrange
+            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var categoriesRepoMock = new Mock<IExpenseCategoryService>();
+            var usersRepoMock = new Mock<IUserService>();
+            var loggerMock = new Mock<ILogger<ExpenseService>>();
+
+            expenseRepoMock.Setup(r => r.GetExpenses())
+                .Returns(Task.FromResult(new List<Contador.DAL.Models.Expense>() as IList<Contador.DAL.Models.Expense>));
+
+            categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
+                .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
+
+            usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+
+            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
+                                        usersRepoMock.Object, loggerMock.Object);
+
+            //act
+            var expenses = await expenseService.GetExpenses();
+
+            //assert
+            expenses.ResponseCode.Should().Equals(ResponseCode.NotFound);
+        }
     }
 }
 
