@@ -1,0 +1,1 @@
+dotnet test ".\src\Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj"
