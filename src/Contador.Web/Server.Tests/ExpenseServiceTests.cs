@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
 using Contador.DAL.Repositories;
 using Contador.Web.Server.Services;
 
@@ -56,7 +57,7 @@ namespace Server.Tests
                                         usersRepoMock.Object, loggerMock.Object);
 
             //act
-            var expenses = await expenseService.GetExpenses();
+            var expenses = await expenseService.GetExpenses().CAF();
 
             //assert
             expenses.ResponseCode.Should().Equals(ResponseCode.Ok);
@@ -85,7 +86,7 @@ namespace Server.Tests
                                         usersRepoMock.Object, loggerMock.Object);
 
             //act
-            var expenses = await expenseService.GetExpenses();
+            var expenses = await expenseService.GetExpenses().CAF();
 
             //assert
             expenses.ResponseCode.Should().Equals(ResponseCode.NotFound);

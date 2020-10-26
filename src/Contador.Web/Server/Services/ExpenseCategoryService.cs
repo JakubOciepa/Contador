@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
 using Contador.DAL.Repositories;
 
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<IList<ExpenseCategory>>> GetCategories()
         {
-            var result = await _repository.GetCategories();
+            var result = await _repository.GetCategories().CAF();
 
             if (result.Count == 0)
             {
@@ -49,7 +50,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> GetCategoryById(int id)
         {
-            var result = await _repository.GetCategoryById(id);
+            var result = await _repository.GetCategoryById(id).CAF();
 
             if (result == default)
             {

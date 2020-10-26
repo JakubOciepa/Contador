@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
 using Contador.DAL.Repositories;
 
 using Microsoft.Extensions.Logging;
@@ -34,7 +35,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<IList<Expense>>> GetExpenses()
         {
-            var result = await _expenseRepo.GetExpenses().ConfigureAwait(false);
+            var result = await _expenseRepo.GetExpenses().CAF();
 
             if (result.Count == 0)
             {
@@ -46,7 +47,7 @@ namespace Contador.Web.Server.Services
 
             foreach (var expense in result)
             {
-                list.Add(await GetExpenseApiFromCore(expense));
+                list.Add(await GetExpenseApiFromCore(expense).CAF());
             }
 
             return new Result<IList<Expense>>(ResponseCode.Ok, list);
@@ -55,7 +56,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> GetExpense(int id)
         {
-            var result = await _expenseRepo.GetExpense(id).ConfigureAwait(false);
+            var result = await _expenseRepo.GetExpense(id).CAF();
 
             if (result == default)
             {
@@ -70,7 +71,7 @@ namespace Contador.Web.Server.Services
         public async Task<Result<Expense>> Add(Expense expense)
         {
             var result = await _expenseRepo.Add(new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id))
-                       .ConfigureAwait(false);
+                       .CAF();
 
             if (result != default)
             {
@@ -85,7 +86,7 @@ namespace Contador.Web.Server.Services
         public async Task<Result<Expense>> Update(int id, Expense expense)
         {
             var result = await _expenseRepo.Update(id, new DAL.Models.Expense(expense.Name, expense.Value, expense.User.Id, expense.Category.Id))
-                       .ConfigureAwait(false);
+                       .CAF();
 
             if (result != default)
             {
@@ -99,14 +100,14 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<ResponseCode> Remove(int id)
         {
-            var result = await _expenseRepo.Remove(id).ConfigureAwait(false);
+            var result = await _expenseRepo.Remove(id).CAF();
 
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }
 
         private async Task<Expense> GetExpenseApiFromCore(DAL.Models.Expense coreExpense)
         {
-            var category = await _expenseCategoryService.GetCategoryById(coreExpense.CategoryId).ConfigureAwait(false);
+            var category = await _expenseCategoryService.GetCategoryById(coreExpense.CategoryId).CAF();
             var user = _usersService.GetUserById(coreExpense.UserId);
 
             return new Expense(coreExpense.Name, coreExpense.Value, user,

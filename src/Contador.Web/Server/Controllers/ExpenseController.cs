@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Contador.Web.Server.Services;
 using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
+using Contador.Web.Server.Services;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<Expense>>> GetExpenses()
         {
-            var result = await _expenseService.GetExpenses().ConfigureAwait(false);
+            var result = await _expenseService.GetExpenses().CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -57,7 +58,7 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Expense>> GetExpense([FromRoute] int id)
         {
-            var result = await _expenseService.GetExpense(id).ConfigureAwait(false);
+            var result = await _expenseService.GetExpense(id).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -77,7 +78,7 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> AddExpense([FromBody] Expense expense)
         {
-            var result = await _expenseService.Add(expense).ConfigureAwait(false);
+            var result = await _expenseService.Add(expense).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
@@ -100,13 +101,13 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
         {
-            if ((await _expenseService.GetExpense(id).ConfigureAwait(false))
+            if ((await _expenseService.GetExpense(id).CAF())
                     .ReturnedObject == null)
             {
                 NotFound(expense);
             }
 
-            var result = await _expenseService.Update(id, expense).ConfigureAwait(false);
+            var result = await _expenseService.Update(id, expense).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
@@ -127,13 +128,13 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> RemoveExpense([FromRoute] int id)
         {
-            if ((await _expenseService.GetExpense(id).ConfigureAwait(false))
+            if ((await _expenseService.GetExpense(id).CAF())
                     .ReturnedObject == null)
             {
                 NotFound(id);
             }
 
-            var result = await _expenseService.Remove(id).ConfigureAwait(false);
+            var result = await _expenseService.Remove(id).CAF();
 
             if (result == ResponseCode.Ok)
             {
