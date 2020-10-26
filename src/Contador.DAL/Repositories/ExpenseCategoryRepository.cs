@@ -53,7 +53,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public bool Remove(int id)
+        public async Task<bool> Remove(int id)
         {
             var categoryToRemove = _stub.Find(e => e.Id == id);
 
@@ -68,7 +68,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public ExpenseCategory Update(int id, ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> Update(int id, ExpenseCategory expenseCategory)
         {
             var categoryToUpdate = _stub.Find(e => e.Id == id);
 

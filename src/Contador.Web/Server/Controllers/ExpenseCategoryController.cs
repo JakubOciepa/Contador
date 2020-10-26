@@ -114,7 +114,7 @@ namespace Contador.Web.Server.Controllers
                 return NotFound(category);
             }
 
-            var result = _expenseCategoryService.Update(id, category);
+            var result = await _expenseCategoryService.Update(id, category).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
@@ -142,7 +142,7 @@ namespace Contador.Web.Server.Controllers
                 return NotFound(id);
             }
 
-            var result = _expenseCategoryService.Remove(id);
+            var result = await _expenseCategoryService.Remove(id).CAF();
 
             if (result == ResponseCode.Ok)
             {

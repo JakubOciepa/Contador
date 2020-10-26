@@ -77,9 +77,9 @@ namespace Contador.Web.Server.Services
         }
 
         /// <inheritdoc/>
-        public Result<ExpenseCategory> Update(int id, ExpenseCategory category)
+        public async Task<Result<ExpenseCategory>> Update(int id, ExpenseCategory category)
         {
-            var result = _repository.Update(id, new DAL.Models.ExpenseCategory(category.Name));
+            var result = await _repository.Update(id, new DAL.Models.ExpenseCategory(category.Name)).CAF();
 
             if (result != default)
             {
@@ -92,9 +92,9 @@ namespace Contador.Web.Server.Services
         }
 
         /// <inheritdoc/>
-        public ResponseCode Remove(int id)
+        public async Task<ResponseCode> Remove(int id)
         {
-            var result = _repository.Remove(id);
+            var result = await _repository.Remove(id).CAF();
 
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }

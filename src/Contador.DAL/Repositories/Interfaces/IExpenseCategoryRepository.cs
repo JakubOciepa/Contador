@@ -36,13 +36,13 @@ namespace Contador.DAL.Repositories
         /// <param name="id">Id of expense category to update.</param>
         /// <param name="expenseCategory">Category info.</param>
         /// <returns>Updated category.</returns>
-        ExpenseCategory Update(int id, ExpenseCategory expenseCategory);
+        Task<ExpenseCategory> Update(int id, ExpenseCategory expenseCategory);
 
         /// <summary>
         /// Removes expense category from storage.
         /// </summary>
         /// <param name="id">Id of expense category to remove.</param>
         /// <returns>True if removed, false otherwise.</returns>
-        bool Remove(int id);
+        Task<bool> Remove(int id);
     }
 }
