@@ -64,7 +64,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> Add(ExpenseCategory category)
         {
-            var result = _repository.Add(new DAL.Models.ExpenseCategory(category.Name));
+            var result = await _repository.Add(new DAL.Models.ExpenseCategory(category.Name)).CAF();
 
             if (result != default)
             {

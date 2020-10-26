@@ -31,7 +31,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public ExpenseCategory Add(ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> Add(ExpenseCategory expenseCategory)
         {
             var lastId = _stub.Max(e => e.Id);
             expenseCategory.Id = lastId + 1;

@@ -28,7 +28,7 @@ namespace Contador.DAL.Repositories
         /// </summary>
         /// <param name="expenseCategory">Expense category to add.</param>
         /// <returns>Added expense category</returns>
-        ExpenseCategory Add(ExpenseCategory expenseCategory);
+        Task<ExpenseCategory> Add(ExpenseCategory expenseCategory);
 
         /// <summary>
         /// Updates expense category of provided id.

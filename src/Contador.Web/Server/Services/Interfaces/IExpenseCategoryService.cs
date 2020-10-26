@@ -37,13 +37,13 @@ namespace Contador.Web.Server.Services
         /// <param name="id">Id of category to update.</param>
         /// <param name="category">Category info.</param>
         /// <returns>Updated category</returns>
-        Result<ExpenseCategory> Update(int id, ExpenseCategory category);
+        Task<Result<ExpenseCategory>> Update(int id, ExpenseCategory category);
 
         /// <summary>
         /// Removes expense category of provided id.
         /// </summary>
         /// <param name="id">Id of category to remove.</param>
         /// <returns><see cref="ResponseCode"/> of operation.</returns>
-        ResponseCode Remove(int id);
+        Task<ResponseCode> Remove(int id);
     }
 }
