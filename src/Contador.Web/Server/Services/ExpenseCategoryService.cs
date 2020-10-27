@@ -32,7 +32,7 @@ namespace Contador.Web.Server.Services
 
             if (result.Count == 0)
             {
-                _logger.LogWarning("Can not find any expense categories");
+                _logger.LogInformation("Can not find any expense categories");
 
                 return new Result<IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
             }
@@ -54,7 +54,7 @@ namespace Contador.Web.Server.Services
 
             if (result == default)
             {
-                _logger.LogWarning($"Can not find any expense category of the {id}.");
+                _logger.LogInformation($"Can not find any expense category of the {id}.");
                 return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
             }
 

@@ -39,7 +39,7 @@ namespace Contador.Web.Server.Services
 
             if (result.Count == 0)
             {
-                _logger.LogWarning("Expenses not found.");
+                _logger.LogInformation("Expenses not found.");
                 return new Result<IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
             }
 
@@ -60,7 +60,7 @@ namespace Contador.Web.Server.Services
 
             if (result == default)
             {
-                _logger.LogWarning($"Expesne of the {id} not found.");
+                _logger.LogInformation($"Expesne of the {id} not found.");
                 return new Result<Expense>(ResponseCode.NotFound, default);
             }
 
