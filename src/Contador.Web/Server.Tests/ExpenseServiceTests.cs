@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Core.Common;
@@ -57,12 +58,12 @@ namespace Server.Tests
                                         usersRepoMock.Object, loggerMock.Object);
 
             //act
-            var expenses = await expenseService.GetExpenses().CAF();
+            var result = await expenseService.GetExpenses().CAF();
 
             //assert
-            expenses.ResponseCode.Should().Equals(ResponseCode.Ok);
-            expenses.ReturnedObject.Count.Should().Equals(_returnedExpenses.Count);
-            expenses.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses);
+            result.ResponseCode.Should().Equals(ResponseCode.Ok);
+            result.ReturnedObject.Count.Should().Equals(_returnedExpenses.Count);
+            result.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses);
         }
 
         [Fact]
@@ -86,10 +87,37 @@ namespace Server.Tests
                                         usersRepoMock.Object, loggerMock.Object);
 
             //act
-            var expenses = await expenseService.GetExpenses().CAF();
+            var result = await expenseService.GetExpenses().CAF();
 
             //assert
-            expenses.ResponseCode.Should().Equals(ResponseCode.NotFound);
+            result.ResponseCode.Should().Equals(ResponseCode.NotFound);
+        }
+
+        [Fact]
+        public async void GetExpenseById_WhenExpenseExists_ReturnsOkAndExpense()
+        {
+            //arrange
+            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var categoriesRepoMock = new Mock<IExpenseCategoryService>();
+            var usersRepoMock = new Mock<IUserService>();
+            var loggerMock = new Mock<ILogger<ExpenseService>>();
+
+            expenseRepoMock.Setup(r => r.GetExpense(It.IsAny<int>()))
+                .Returns(Task.FromResult(_returnedExpenses[1]));
+
+            categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
+                .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
+
+            usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+
+            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
+                                        usersRepoMock.Object, loggerMock.Object);
+            //act
+            var result = await expenseService.GetExpense(0).CAF();
+
+            //assert
+            result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);
+            result.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses[1]);
         }
     }
 }
