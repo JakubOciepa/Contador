@@ -91,6 +91,7 @@ namespace Server.Tests
 
             //assert
             result.ResponseCode.Should().Equals(ResponseCode.NotFound);
+            result.ReturnedObject.Count.Should().Be(0);
         }
 
         [Fact]
@@ -118,6 +119,33 @@ namespace Server.Tests
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);
             result.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses[1]);
+        }
+
+        [Fact]
+        public async void GetExpenseById_WhenExpenseDoesNotExist_ReturnsNotFoundAndDefault()
+        {
+            //arrange
+            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var categoriesRepoMock = new Mock<IExpenseCategoryService>();
+            var usersRepoMock = new Mock<IUserService>();
+            var loggerMock = new Mock<ILogger<ExpenseService>>();
+
+            expenseRepoMock.Setup(r => r.GetExpense(It.IsAny<int>()))
+                .Returns(Task.FromResult(default(Contador.DAL.Models.Expense)));
+
+            categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
+                .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
+
+            usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+
+            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
+                                        usersRepoMock.Object, loggerMock.Object);
+            //act
+            var result = await expenseService.GetExpense(0).CAF();
+
+            //assert
+            result.ResponseCode.Should().BeEquivalentTo(ResponseCode.NotFound);
+            result.ReturnedObject.Should().BeEquivalentTo(default(Expense));
         }
     }
 }
