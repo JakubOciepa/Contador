@@ -30,7 +30,7 @@ namespace Server.Tests
             new Contador.DAL.Models.Expense("Słodycze",123,0,1),
         };
 
-        private static readonly List<Contador.Core.Models.Expense> _expextedExpenses = new List<Contador.Core.Models.Expense>
+        private static readonly List<Contador.Core.Models.Expense> _expectedExpenses = new List<Contador.Core.Models.Expense>
         {
             new Expense("Słodycze", 123 ,_expectedUser, _expectedCategory),
             new Expense("Słodycze", 123 ,_expectedUser, _expectedCategory),
@@ -63,7 +63,7 @@ namespace Server.Tests
             //assert
             result.ResponseCode.Should().Equals(ResponseCode.Ok);
             result.ReturnedObject.Count.Should().Equals(_returnedExpenses.Count);
-            result.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses);
+            result.ReturnedObject.Should().BeEquivalentTo(_expectedExpenses);
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace Server.Tests
 
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);
-            result.ReturnedObject.Should().BeEquivalentTo(_expextedExpenses[1]);
+            result.ReturnedObject.Should().BeEquivalentTo(_expectedExpenses[1]);
         }
 
         [Fact]
@@ -146,6 +146,68 @@ namespace Server.Tests
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.NotFound);
             result.ReturnedObject.Should().BeEquivalentTo(default(Expense));
+        }
+
+        [Fact]
+        public async void Update_WhenCannotUpdate_ReturnsErrorAndDefault()
+        {
+            //arrange
+            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var categoriesRepoMock = new Mock<IExpenseCategoryService>();
+            var usersRepoMock = new Mock<IUserService>();
+            var loggerMock = new Mock<ILogger<ExpenseService>>();
+
+            expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Contador.DAL.Models.Expense>()))
+                .Returns(Task.FromResult(default(Contador.DAL.Models.Expense)));
+
+            categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
+                .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
+
+            usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+
+            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
+                                        usersRepoMock.Object, loggerMock.Object);
+            //act
+            var result = await expenseService.Update(0,_expectedExpenses[0]).CAF();
+
+            //assert
+            result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Error);
+            result.ReturnedObject.Should().BeEquivalentTo(default(Expense));
+        }
+
+        [Fact]
+        public async void Update_WhenExpenseHasBeenUpdated_ReturnsOkAndDefault()
+        {
+            //arrange
+            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var categoriesRepoMock = new Mock<IExpenseCategoryService>();
+            var usersRepoMock = new Mock<IUserService>();
+            var loggerMock = new Mock<ILogger<ExpenseService>>();
+
+            var expectedDescription = "Here is a new description!!!";
+
+            var updatedExpense = _returnedExpenses[0];
+            updatedExpense.Description = expectedDescription;
+
+            var expectedExpenes = _expectedExpenses[0];
+            expectedExpenes.Description = expectedDescription;
+
+            expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Contador.DAL.Models.Expense>()))
+                .Returns(Task.FromResult(updatedExpense));
+
+            categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
+                .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
+
+            usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+
+            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
+                                        usersRepoMock.Object, loggerMock.Object);
+            //act
+            var result = await expenseService.Update(0, _expectedExpenses[0]).CAF();
+
+            //assert
+            result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);
+            result.ReturnedObject.Should().BeEquivalentTo(expectedExpenes);
         }
     }
 }

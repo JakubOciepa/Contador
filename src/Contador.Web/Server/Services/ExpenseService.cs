@@ -114,6 +114,7 @@ namespace Contador.Web.Server.Services
                 (ResponseCode)category.ResponseCode == ResponseCode.Ok ? category.ReturnedObject : default)
             {
                 Id = coreExpense.Id,
+                Description = coreExpense.Description,
             };
         }
     }
