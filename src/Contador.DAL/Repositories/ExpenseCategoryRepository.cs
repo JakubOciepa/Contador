@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Contador.DAL.DbContext;
 using Contador.DAL.Models;
 
 namespace Contador.DAL.Repositories
@@ -12,7 +11,6 @@ namespace Contador.DAL.Repositories
     /// </summary>
     public class ExpenseCategoryRepository : IExpenseCategoryRepository
     {
-        private readonly ContadorContext _db;
         private static readonly List<ExpenseCategory> _stub = new List<ExpenseCategory>
         {
             new ExpenseCategory("Słodycze")

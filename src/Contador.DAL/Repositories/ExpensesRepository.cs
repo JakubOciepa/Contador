@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Contador.DAL.DbContext;
 using Contador.DAL.Models;
 
 namespace Contador.DAL.Repositories
@@ -13,7 +12,6 @@ namespace Contador.DAL.Repositories
     /// </summary>
     public class ExpensesRepository : IExpensesRepository
     {
-        private readonly ContadorContext _db;
         private static readonly List<Expense> _stub = new List<Expense>
             {
                 new Expense("Słodkości", 123, 0,0){ Id = 0 },
