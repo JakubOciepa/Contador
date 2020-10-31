@@ -45,7 +45,7 @@ namespace Contador.DAL.Models
         /// <summary>
         /// Date when the expense has been edited last time.
         /// </summary>
-        public DateTime LastEditDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         /// <summary>
         /// Constructor of the expese.
@@ -57,7 +57,7 @@ namespace Contador.DAL.Models
             UserId = userId;
             CategoryId = categoryId;
             CreatedDate = DateTime.Now;
-            LastEditDate = DateTime.Now;
+            ModifiedDate = DateTime.Now;
         }
 
         /// <summary>

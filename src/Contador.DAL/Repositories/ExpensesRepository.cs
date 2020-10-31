@@ -65,7 +65,7 @@ namespace Contador.DAL.Repositories
             expenseToUpdate.CategoryId = info.CategoryId;
             expenseToUpdate.UserId = info.UserId;
             expenseToUpdate.Description = info.Description;
-            expenseToUpdate.LastEditDate = DateTime.Now;
+            expenseToUpdate.ModifiedDate = DateTime.Now;
 
             return expenseToUpdate;
         }
