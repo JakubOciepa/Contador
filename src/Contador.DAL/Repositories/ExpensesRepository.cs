@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.DAL.Models;
+
+using Dapper;
+
+using MySql.Data.MySqlClient;
 
 namespace Contador.DAL.Repositories
 {
@@ -37,6 +42,11 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<IList<Expense>> GetExpenses()
         {
+            using (var connection = new MySqlConnection("<connection string>"))
+            {
+                var expenses = connection.Query<Expense>("SELECT * FROM Expenses WHERE Name='Słodycze'");
+            }
+
             return _stub;
         }
 

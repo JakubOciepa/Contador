@@ -47,6 +47,11 @@ namespace Contador.DAL.Models
         /// </summary>
         public DateTime ModifiedDate { get; set; }
 
+        public Expense()
+        {
+
+        }
+
         /// <summary>
         /// Constructor of the expese.
         /// </summary>
