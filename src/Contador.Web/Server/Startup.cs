@@ -1,3 +1,5 @@
+using System.Data;
+
 using Contador.DAL.Repositories;
 using Contador.Web.Server.Services;
 
@@ -7,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+
+using MySql.Data.MySqlClient;
 
 namespace Contador.Web.Server
 {
@@ -23,6 +27,8 @@ namespace Contador.Web.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IDbConnection>(db 
+                => new  MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}database=Contador"));
             services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
