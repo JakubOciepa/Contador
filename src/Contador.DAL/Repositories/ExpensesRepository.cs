@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.DAL.Models;
 
 using Dapper;
-
-using MySql.Data.MySqlClient;
 
 namespace Contador.DAL.Repositories
 {
@@ -17,6 +15,8 @@ namespace Contador.DAL.Repositories
     /// </summary>
     public class ExpensesRepository : IExpensesRepository
     {
+        private readonly IDbConnection _dbConnection;
+
         private static readonly List<Expense> _stub = new List<Expense>
             {
                 new Expense("Słodkości", 123, 0,0){ Id = 0 },
@@ -28,9 +28,9 @@ namespace Contador.DAL.Repositories
         /// Creates instance of <see cref="ExpensesRepository"/> class.
         /// </summary>
         /// <param name="context">DbContext.</param>
-        public ExpensesRepository()
+        public ExpensesRepository(IDbConnection dbConnection)
         {
-            //_db = context;
+            _dbConnection = dbConnection;
         }
 
         ///<inheritdoc/>
@@ -42,12 +42,9 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<IList<Expense>> GetExpenses()
         {
-            using (var connection = new MySqlConnection("<connection string>"))
-            {
-                var expenses = connection.Query<Expense>("SELECT * FROM Expenses WHERE Name='Słodycze'");
-            }
+            var expenses = _dbConnection.Query<Expense>("SELECT * FROM Expenses");
 
-            return _stub;
+            return expenses.ToList();
         }
 
         /// <inheritdoc/>
