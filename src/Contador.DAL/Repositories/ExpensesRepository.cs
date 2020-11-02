@@ -27,7 +27,7 @@ namespace Contador.DAL.Repositories
         /// <summary>
         /// Creates instance of <see cref="ExpensesRepository"/> class.
         /// </summary>
-        /// <param name="context">DbContext.</param>
+        /// <param name="dbConnection">Connection to database.</param>
         public ExpensesRepository(IDbConnection dbConnection)
         {
             _dbConnection = dbConnection;
