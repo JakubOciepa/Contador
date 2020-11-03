@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Contador.Core.Utils.Extensions;
 using Contador.DAL.Models;
 
 using Dapper;
@@ -36,7 +37,10 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<Expense> GetExpense(int expenseId)
         {
-            return _stub.Find(e => e.Id == expenseId);
+            var expenses = await _dbConnection
+                .QueryAsync<Expense>($"SELECT * FROM Expenses WHERE Id = {expenseId}").CAF();
+
+            return expenses.First();
         }
 
         ///<inheritdoc/>
