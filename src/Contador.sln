@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core.Tests", "Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Server.Tests", "Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj", "{B4E2893E-2519-4B71-BFCB-A1FECA373796}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Contador.Web.Db", "Contador.Web\Contador.Web.Db\Contador.Web.Db.sqlproj", "{F9FB6992-6D37-49E3-B7E3-D20A85F14922}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Contador.Web.Db", "Contador.Web\Database\Contador.Web.Db.sqlproj", "{F9FB6992-6D37-49E3-B7E3-D20A85F14922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
