@@ -46,7 +46,7 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<IList<Expense>> GetExpenses()
         {
-            var expenses = _dbConnection.Query<Expense>("SELECT * FROM Expenses");
+            var expenses = await _dbConnection.QueryAsync<Expense>("SELECT * FROM Expenses").CAF();
 
             return expenses.ToList();
         }
