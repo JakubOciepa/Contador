@@ -37,10 +37,8 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<Expense> GetExpense(int expenseId)
         {
-            var expenses = await _dbConnection
-                .QueryAsync<Expense>($"SELECT * FROM Expense WHERE Id = {expenseId}").CAF();
-
-            return expenses.First();
+            return await _dbConnection
+                .QueryFirstOrDefaultAsync<Expense>($"SELECT * FROM Expense WHERE Id = {expenseId}").CAF();
         }
 
         ///<inheritdoc/>
