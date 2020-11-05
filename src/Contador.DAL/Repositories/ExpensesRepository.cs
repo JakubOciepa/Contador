@@ -37,8 +37,8 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<Expense> GetExpense(int expenseId)
         {
-            var procedure = "expense_GetById";
-            var expenses = await _dbConnection
+            const string procedure = "expense_GetById";
+            var expense = (await _dbConnection
                 .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(procedure,
                     (expense, category, user) =>
                     {
@@ -49,9 +49,18 @@ namespace Contador.DAL.Repositories
                     },
                     new { expenseId },
                     commandType: CommandType.StoredProcedure)
-                .CAF();
+                .CAF()).FirstOrDefault();
 
-            return expenses.FirstOrDefault();
+            if (expense is object)
+            {
+                return new Expense(expense.Name, expense.Value, expense.User, expense.Category)
+                {
+                    Id = expense.Id,
+                    Description = expense.Description,
+                };
+            }
+
+            return default;
         }
 
         ///<inheritdoc/>
