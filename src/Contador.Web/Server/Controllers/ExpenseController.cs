@@ -34,7 +34,7 @@ namespace Contador.Web.Server.Controllers
         /// </summary>
         /// <returns>IList of expenses.</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
+        [ProducesResponseType(typeof(IList<Expense>), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<Expense>>> GetExpenses()
         {
@@ -54,7 +54,7 @@ namespace Contador.Web.Server.Controllers
         /// <param name="id">Id of the requested expense.</param>
         /// <returns>Expense of requested id.</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ExpenseCategory), 200)]
+        [ProducesResponseType(typeof(Expense), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Expense>> GetExpense([FromRoute] int id)
         {
@@ -96,7 +96,7 @@ namespace Contador.Web.Server.Controllers
         /// <param name="expense">Expense info.</param>
         /// <returns>Http code.</returns>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(ExpenseCategory), 200)]
+        [ProducesResponseType(typeof(Expense), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
