@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Contador.Core.Utils.Extensions;
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
+using Contador.DAL.Models;
 
 using Dapper;
 
@@ -37,8 +37,21 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<Expense> GetExpense(int expenseId)
         {
-            return await _dbConnection
-                .QueryFirstOrDefaultAsync<Expense>($"SELECT * FROM Expense WHERE Id = {expenseId}").CAF();
+            var procedure = "expense_GetById";
+            var expenses = await _dbConnection
+                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(procedure,
+                    (expense, category, user) =>
+                    {
+                        expense.Category = category;
+                        expense.User = user;
+
+                        return expense;
+                    },
+                    new { expenseId },
+                    commandType: CommandType.StoredProcedure)
+                .CAF();
+
+            return expenses.FirstOrDefault();
         }
 
         ///<inheritdoc/>
