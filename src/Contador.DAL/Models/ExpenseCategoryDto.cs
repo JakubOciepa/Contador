@@ -1,27 +1,17 @@
-﻿namespace Contador.DAL.Models
+﻿using Contador.Core.Models;
+
+namespace Contador.DAL.Models
 {
     /// <summary>
     /// The category of the expenses.
     /// </summary>
-    public class ExpenseCategory
+    public class ExpenseCategoryDto : ExpenseCategory
     {
         /// <summary>
-        /// The id of this expense category.
+        /// Creates instance of <see cref="ExpenseCategoryDto"/> class.
         /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// The name of the expense category.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Creates instance of <see cref="ExpenseCategory"/> class.
-        /// </summary>
-        /// <param name="name">Name of the category.</param>
-        public ExpenseCategory(string name)
+        public ExpenseCategoryDto() : base(string.Empty)
         {
-            Name = name;
         }
     }
 }
