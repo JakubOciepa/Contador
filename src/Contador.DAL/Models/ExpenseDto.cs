@@ -1,41 +1,23 @@
 ﻿using System;
 
+using Contador.Core.Models;
+
 namespace Contador.DAL.Models
 {
     /// <summary>
     /// Expense info.
     /// </summary>
-    public class Expense
+    public class ExpenseDto : Expense
     {
-        /// <summary>
-        /// Id of the expense.
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// The name of the expense e.g. what has been bought.
-        /// </summary>
-        public string Name { get; set; }
-
         /// <summary>
         /// The id of the <see cref="Category"/> that the expense belongs.
         /// </summary>
         public int CategoryId { get; set; }
 
         /// <summary>
-        /// Id of the <see cref="User"/> which is the creator of this expense.
+        /// Id of the <see cref="UserDto"/> which is the creator of this expense.
         /// </summary>
         public int UserId { get; set; }
-
-        /// <summary>
-        /// Value of the expense.
-        /// </summary>
-        public decimal Value { get; set; }
-
-        /// <summary>
-        /// Specific description about the expense.
-        /// </summary>
-        public string Description { get; set; }
 
         /// <summary>
         /// Date when the expense has been created.
@@ -47,22 +29,11 @@ namespace Contador.DAL.Models
         /// </summary>
         public DateTime ModifiedDate { get; set; }
 
-        public Expense()
-        {
-
-        }
-
         /// <summary>
-        /// Constructor of the expese.
+        /// Initializes instance of the <see cref="ExpenseDto"/> class.
         /// </summary>
-        public Expense(string name, decimal value, int userId, int categoryId)
+        public ExpenseDto() : base(string.Empty, 0, null, null)
         {
-            Name = name;
-            Value = value;
-            UserId = userId;
-            CategoryId = categoryId;
-            CreatedDate = DateTime.Now;
-            ModifiedDate = DateTime.Now;
         }
 
         /// <summary>
