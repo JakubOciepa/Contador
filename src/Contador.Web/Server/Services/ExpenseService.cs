@@ -63,8 +63,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> Add(Expense expense)
         {
-            var result = await _expenseRepo.Add(new Expense(expense.Name, expense.Value, expense.User, expense.Category))
-                       .CAF();
+            var result = await _expenseRepo.Add(expense).CAF();
 
             if (result != default)
             {
@@ -78,8 +77,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> Update(int id, Expense expense)
         {
-            var result = await _expenseRepo.Update(id, new Expense(expense.Name, expense.Value, expense.User, expense.Category))
-                       .CAF();
+            var result = await _expenseRepo.Update(id, expense).CAF();
 
             if (result != default)
             {
