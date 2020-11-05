@@ -11,10 +11,10 @@ namespace Contador.DAL.Repositories
     public interface IExpensesRepository
     {
         /// <summary>
-        /// Gets <see cref="ExpenseDto"/> of provided id.
+        /// Gets <see cref="Expense"/> of provided id.
         /// </summary>
-        /// <param name="expenseId">Id of requested <see cref="ExpenseDto"/>.</param>
-        /// <returns><see cref="ExpenseDto"/> of provided Id.</returns>
+        /// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
+        /// <returns><see cref="Expense"/> of provided Id.</returns>
         Task<Expense> GetExpense(int expenseId);
 
         /// <summary>
@@ -24,14 +24,14 @@ namespace Contador.DAL.Repositories
         Task<IList<Expense>> GetExpenses();
 
         /// <summary>
-        /// Adds provided <see cref="ExpenseDto"/> to storage.
+        /// Adds provided <see cref="Expense"/> to storage.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Added expense or default</returns>
         Task<Expense> Add(Expense expense);
 
         /// <summary>
-        /// Updates <see cref="ExpenseDto"/> of provided id.
+        /// Updates <see cref="Expense"/> of provided id.
         /// </summary>
         /// <param name="id">Id of expense to update.</param>
         /// <param name="info">Expense info.</param>
@@ -39,7 +39,7 @@ namespace Contador.DAL.Repositories
         Task<Expense> Update(int id, Expense info);
 
         /// <summary>
-        /// Removes <see cref="ExpenseDto"/> of provided id from storage.
+        /// Removes <see cref="Expense"/> of provided id from storage.
         /// </summary>
         /// <param name="id">Id of expense to remove.</param>
         /// <returns>True if removed, false otherwise.</returns>
