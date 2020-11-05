@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Core.Common;
@@ -23,14 +22,14 @@ namespace Server.Tests
         private static readonly User _expectedUser = new User() { Email = "john@domain.com", Id = 0, Name = "John" };
         private static readonly ExpenseCategory _expectedCategory = new ExpenseCategory("Słodycze") { Id = 0 };
 
-        private static readonly IList<Contador.DAL.Models.Expense> _returnedExpenses = new List<Contador.DAL.Models.Expense>
+        private static readonly IList<Expense> _returnedExpenses = new List<Expense>
         {
-            new Contador.DAL.Models.Expense("Słodycze",123,0,1),
-            new Contador.DAL.Models.Expense("Słodycze",123,0,1),
-            new Contador.DAL.Models.Expense("Słodycze",123,0,1),
+            new Expense("Słodycze",123,_expectedUser,_expectedCategory),
+            new Expense("Słodycze",123,_expectedUser,_expectedCategory),
+            new Expense("Słodycze",123,_expectedUser,_expectedCategory),
         };
 
-        private static readonly List<Contador.Core.Models.Expense> _expectedExpenses = new List<Contador.Core.Models.Expense>
+        private static readonly List<Expense> _expectedExpenses = new List<Expense>
         {
             new Expense("Słodycze", 123 ,_expectedUser, _expectedCategory),
             new Expense("Słodycze", 123 ,_expectedUser, _expectedCategory),
@@ -54,8 +53,7 @@ namespace Server.Tests
 
             usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
 
-            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
-                                        usersRepoMock.Object, loggerMock.Object);
+            var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
             //act
             var result = await expenseService.GetExpenses().CAF();
@@ -76,15 +74,14 @@ namespace Server.Tests
             var loggerMock = new Mock<ILogger<ExpenseService>>();
 
             expenseRepoMock.Setup(r => r.GetExpenses())
-                .Returns(Task.FromResult(new List<Contador.DAL.Models.Expense>() as IList<Contador.DAL.Models.Expense>));
+                .Returns(Task.FromResult(new List<Expense>() as IList<Expense>));
 
             categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
                 .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
             usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
 
-            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
-                                        usersRepoMock.Object, loggerMock.Object);
+            var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
             //act
             var result = await expenseService.GetExpenses().CAF();
@@ -111,8 +108,7 @@ namespace Server.Tests
 
             usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
 
-            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
-                                        usersRepoMock.Object, loggerMock.Object);
+            var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
             var result = await expenseService.GetExpense(0).CAF();
 
@@ -131,15 +127,14 @@ namespace Server.Tests
             var loggerMock = new Mock<ILogger<ExpenseService>>();
 
             expenseRepoMock.Setup(r => r.GetExpense(It.IsAny<int>()))
-                .Returns(Task.FromResult(default(Contador.DAL.Models.Expense)));
+                .Returns(Task.FromResult(default(Expense)));
 
             categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
                 .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
             usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
 
-            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
-                                        usersRepoMock.Object, loggerMock.Object);
+            var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
             var result = await expenseService.GetExpense(0).CAF();
 
@@ -157,18 +152,17 @@ namespace Server.Tests
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();
 
-            expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Contador.DAL.Models.Expense>()))
-                .Returns(Task.FromResult(default(Contador.DAL.Models.Expense)));
+            expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Expense>()))
+                .Returns(Task.FromResult(default(Expense)));
 
             categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
                 .Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
             usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
 
-            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
-                                        usersRepoMock.Object, loggerMock.Object);
+            var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
-            var result = await expenseService.Update(0,_expectedExpenses[0]).CAF();
+            var result = await expenseService.Update(0, _expectedExpenses[0]).CAF();
 
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Error);
@@ -192,7 +186,7 @@ namespace Server.Tests
             var expectedExpenes = _expectedExpenses[0];
             expectedExpenes.Description = expectedDescription;
 
-            expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Contador.DAL.Models.Expense>()))
+            expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Expense>()))
                 .Returns(Task.FromResult(updatedExpense));
 
             categoriesRepoMock.Setup(c => c.GetCategoryById(It.IsAny<int>()))
@@ -200,8 +194,7 @@ namespace Server.Tests
 
             usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
 
-            var expenseService = new ExpenseService(expenseRepoMock.Object, categoriesRepoMock.Object,
-                                        usersRepoMock.Object, loggerMock.Object);
+            var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
             var result = await expenseService.Update(0, _expectedExpenses[0]).CAF();
 

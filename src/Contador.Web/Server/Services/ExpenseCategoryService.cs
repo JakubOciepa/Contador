@@ -64,7 +64,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> Add(ExpenseCategory category)
         {
-            var result = await _repository.Add(new DAL.Models.ExpenseCategory(category.Name)).CAF();
+            var result = await _repository.Add(category).CAF();
 
             if (result != default)
             {
@@ -79,7 +79,7 @@ namespace Contador.Web.Server.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> Update(int id, ExpenseCategory category)
         {
-            var result = await _repository.Update(id, new DAL.Models.ExpenseCategory(category.Name)).CAF();
+            var result = await _repository.Update(id, category).CAF();
 
             if (result != default)
             {

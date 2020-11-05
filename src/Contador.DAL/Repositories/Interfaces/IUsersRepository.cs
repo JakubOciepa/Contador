@@ -1,4 +1,4 @@
-﻿using Contador.DAL.Models;
+﻿using Contador.Core.Models;
 
 namespace Contador.DAL.Repositories
 {

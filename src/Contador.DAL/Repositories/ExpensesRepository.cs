@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Core.Utils.Extensions;
-using Contador.DAL.Models;
+using Contador.Core.Models;
 
 using Dapper;
 
@@ -20,9 +20,9 @@ namespace Contador.DAL.Repositories
 
         private static readonly List<Expense> _stub = new List<Expense>
             {
-                new Expense("Słodkości", 123, 0,0){ Id = 0 },
-                new Expense("Słodkości", 123, 0,0){ Id = 1 },
-                new Expense("Słodkości", 123, 0,0){ Id = 2 },
+                new Expense("Słodycze",0,null,null){ Id = 0 },
+                new Expense("Słodycze",0,null,null){ Id = 1 },
+                new Expense("Słodycze",0,null,null){ Id = 2 },
             };
 
         /// <summary>
@@ -71,10 +71,9 @@ namespace Contador.DAL.Repositories
 
             expenseToUpdate.Name = info.Name;
             expenseToUpdate.Value = info.Value;
-            expenseToUpdate.CategoryId = info.CategoryId;
-            expenseToUpdate.UserId = info.UserId;
+            expenseToUpdate.Category = info.Category;
+            expenseToUpdate.User = info.User;
             expenseToUpdate.Description = info.Description;
-            expenseToUpdate.ModifiedDate = DateTime.Now;
 
             return expenseToUpdate;
         }

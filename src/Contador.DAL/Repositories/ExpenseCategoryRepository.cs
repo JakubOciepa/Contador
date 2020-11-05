@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Contador.DAL.Models;
+using Contador.Core.Models;
 
 namespace Contador.DAL.Repositories
 {
