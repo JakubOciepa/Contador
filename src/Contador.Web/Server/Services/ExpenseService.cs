@@ -57,7 +57,7 @@ namespace Contador.Web.Server.Services
                 return new Result<Expense>(ResponseCode.NotFound, default);
             }
 
-            return new Result<Expense>(ResponseCode.Ok,result);
+            return new Result<Expense>(ResponseCode.Ok, result);
         }
 
         /// <inheritdoc/>

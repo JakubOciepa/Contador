@@ -27,8 +27,8 @@ namespace Contador.Web.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IDbConnection>(db 
-                => new  MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}database=Contador"));
+            services.AddTransient<IDbConnection>(db
+                => new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}database=Contador"));
             services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
