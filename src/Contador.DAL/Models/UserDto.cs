@@ -24,7 +24,6 @@ namespace Contador.DAL.Models
         /// </summary>
         public UserDto()
         {
-
         }
     }
 }
