@@ -66,7 +66,19 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<IList<Expense>> GetExpenses()
         {
-            var expenses = await _dbConnection.QueryAsync<ExpenseDto>("SELECT * FROM Expense").CAF();
+            const string procedure = "expense_GetAll";
+
+            var expenses = await _dbConnection
+                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(procedure,
+                    (expense, category, user) =>
+                    {
+                        expense.Category = category;
+                        expense.User = user;
+
+                        return expense;
+                    },
+                    commandType: CommandType.StoredProcedure)
+                .CAF();
 
             return expenses.Cast<Expense>().ToList();
         }
@@ -77,7 +89,7 @@ namespace Contador.DAL.Repositories
             const string procedure = "expense_Add";
 
             var param = new DynamicParameters();
-            param.Add("name_p",expense.Name);
+            param.Add("name_p", expense.Name);
             param.Add("value_p", expense.Value);
             param.Add("description_p", expense.Description);
             param.Add("categoryId_p", expense.Category.Id);
