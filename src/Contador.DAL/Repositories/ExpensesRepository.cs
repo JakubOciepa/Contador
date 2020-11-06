@@ -66,17 +66,29 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<IList<Expense>> GetExpenses()
         {
-            var expenses = await _dbConnection.QueryAsync<Expense>("SELECT * FROM Expense").CAF();
+            var expenses = await _dbConnection.QueryAsync<ExpenseDto>("SELECT * FROM Expense").CAF();
 
-            return expenses.ToList();
+            return expenses.Cast<Expense>().ToList();
         }
 
         /// <inheritdoc/>
         public async Task<Expense> Add(Expense expense)
         {
-            var lastId = _stub.Max(e => e.Id);
-            expense.Id = lastId + 1;
-            _stub.Add(expense);
+            //var lastId = _stub.Max(e => e.Id);
+            //expense.Id = lastId + 1;
+            //_stub.Add(expense);
+
+            const string procedure = "expense_Add";
+
+            var param = new DynamicParameters();
+            param.Add("name_p",expense.Name);
+            param.Add("value_p", expense.Value);
+            param.Add("description_p", expense.Description);
+            param.Add("categoryId_p", expense.Category.Id);
+            param.Add("userId_p", expense.User.Id);
+            param.Add("image_path_p", string.Empty);
+
+            await _dbConnection.ExecuteAsync(procedure, param, commandType: CommandType.StoredProcedure).CAF();
 
             return expense;
         }
