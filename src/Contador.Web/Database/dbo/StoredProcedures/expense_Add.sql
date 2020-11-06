@@ -1,11 +1,11 @@
-CREATE OR REPLACE PROCEDURE expense_Add (IN name_p VARCHAR(255),
+CREATE OR REPLACE PROCEDURE expense_Add (
+        IN name_p VARCHAR(255),
         IN value_p DECIMAL,
         IN description_p VARCHAR(255),
         IN categoryId_p INTEGER,
         IN userId_p INTEGER,
         IN image_path_p VARCHAR(4096)
-    )
-BEGIN
+    ) BEGIN
 INSERT INTO Expense (
         Name,
         CategoryId,
