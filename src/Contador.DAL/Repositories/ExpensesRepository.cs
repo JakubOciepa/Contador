@@ -102,22 +102,22 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Expense> Update(int id, Expense info)
+        public async Task<Expense> Update(int id, Expense expense)
         {
-            var expenseToUpdate = _stub.Find(e => e.Id == id);
+            const string procedure = "expense_Update";
 
-            if (expenseToUpdate == default)
-            {
-                return default;
-            }
+            var param = new DynamicParameters();
+            param.Add("id_p", expense.Id);
+            param.Add("name_p", expense.Name);
+            param.Add("value_p", expense.Value);
+            param.Add("description_p", expense.Description);
+            param.Add("categoryId_p", expense.Category.Id);
+            param.Add("userId_p", expense.User.Id);
+            param.Add("image_path_p", string.Empty);
 
-            expenseToUpdate.Name = info.Name;
-            expenseToUpdate.Value = info.Value;
-            expenseToUpdate.Category = info.Category;
-            expenseToUpdate.User = info.User;
-            expenseToUpdate.Description = info.Description;
+            await _dbConnection.ExecuteAsync(procedure, param, commandType: CommandType.StoredProcedure).CAF();
 
-            return expenseToUpdate;
+            return expense;
         }
 
         /// <inheritdoc/>
