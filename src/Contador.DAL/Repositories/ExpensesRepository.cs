@@ -74,10 +74,6 @@ namespace Contador.DAL.Repositories
         /// <inheritdoc/>
         public async Task<Expense> Add(Expense expense)
         {
-            //var lastId = _stub.Max(e => e.Id);
-            //expense.Id = lastId + 1;
-            //_stub.Add(expense);
-
             const string procedure = "expense_Add";
 
             var param = new DynamicParameters();
