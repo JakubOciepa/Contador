@@ -37,9 +37,11 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<Expense> GetExpense(int expenseId)
         {
-            const string procedure = "expense_GetById";
+            var parameter = new DynamicParameters();
+            parameter.Add(ExpenseDto.ParameterName.Id, expenseId);
+
             var expense = (await _dbConnection
-                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(procedure,
+                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetById,
                     (expense, category, user) =>
                     {
                         expense.Category = category;
@@ -47,7 +49,7 @@ namespace Contador.DAL.Repositories
 
                         return expense;
                     },
-                    new { expenseId },
+                    parameter,
                     commandType: CommandType.StoredProcedure)
                 .CAF()).FirstOrDefault();
 
@@ -66,10 +68,8 @@ namespace Contador.DAL.Repositories
         ///<inheritdoc/>
         public async Task<IList<Expense>> GetExpenses()
         {
-            const string procedure = "expense_GetAll";
-
             var expenses = await _dbConnection
-                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(procedure,
+                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetAll,
                     (expense, category, user) =>
                     {
                         expense.Category = category;
@@ -86,17 +86,15 @@ namespace Contador.DAL.Repositories
         /// <inheritdoc/>
         public async Task<Expense> Add(Expense expense)
         {
-            const string procedure = "expense_Add";
-
             var param = new DynamicParameters();
-            param.Add("name_p", expense.Name);
-            param.Add("value_p", expense.Value);
-            param.Add("description_p", expense.Description);
-            param.Add("categoryId_p", expense.Category.Id);
-            param.Add("userId_p", expense.User.Id);
-            param.Add("image_path_p", string.Empty);
+            param.Add(ExpenseDto.ParameterName.Name, expense.Name);
+            param.Add(ExpenseDto.ParameterName.Value, expense.Value);
+            param.Add(ExpenseDto.ParameterName.Description, expense.Description);
+            param.Add(ExpenseDto.ParameterName.CategoryId, expense.Category.Id);
+            param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
+            param.Add(ExpenseDto.ParameterName.ImagePath, string.Empty);
 
-            await _dbConnection.ExecuteAsync(procedure, param, commandType: CommandType.StoredProcedure).CAF();
+            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Add, param, commandType: CommandType.StoredProcedure).CAF();
 
             return expense;
         }
@@ -104,18 +102,16 @@ namespace Contador.DAL.Repositories
         /// <inheritdoc/>
         public async Task<Expense> Update(int id, Expense expense)
         {
-            const string procedure = "expense_Update";
-
             var param = new DynamicParameters();
-            param.Add("id_p", expense.Id);
-            param.Add("name_p", expense.Name);
-            param.Add("value_p", expense.Value);
-            param.Add("description_p", expense.Description);
-            param.Add("categoryId_p", expense.Category.Id);
-            param.Add("userId_p", expense.User.Id);
-            param.Add("image_path_p", string.Empty);
+            param.Add(ExpenseDto.ParameterName.Id, expense.Id);
+            param.Add(ExpenseDto.ParameterName.Name, expense.Name);
+            param.Add(ExpenseDto.ParameterName.Value, expense.Value);
+            param.Add(ExpenseDto.ParameterName.Description, expense.Description);
+            param.Add(ExpenseDto.ParameterName.CategoryId, expense.Category.Id);
+            param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
+            param.Add(ExpenseDto.ParameterName.ImagePath, string.Empty);
 
-            await _dbConnection.ExecuteAsync(procedure, param, commandType: CommandType.StoredProcedure).CAF();
+            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Update, param, commandType: CommandType.StoredProcedure).CAF();
 
             return expense;
         }

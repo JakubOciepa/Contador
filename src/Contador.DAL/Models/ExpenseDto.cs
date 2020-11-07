@@ -9,15 +9,23 @@ namespace Contador.DAL.Models
     /// </summary>
     public class ExpenseDto : Expense
     {
+        public static class ProcedureName
+        {
+            public static readonly string Add = "expense_Add";
+            public static readonly string GetAll = "expense_GetAll";
+            public static readonly string GetById = "expense_GetById";
+            public static readonly string Update = "expense_Update";
+        }
+
         public static class ParameterName
         {
-            public static readonly string Id = "ip_p";
-            public static readonly string Name = "name_p";
-            public static readonly string Value = "value_p";
-            public static readonly string Description = "description_p";
             public static readonly string CategoryId = "categoryId_p";
-            public static readonly string UserId = "userId_p";
+            public static readonly string Description = "description_p";
+            public static readonly string Id = "id_p";
             public static readonly string ImagePath = "image_path_p";
+            public static readonly string Name = "name_p";
+            public static readonly string UserId = "userId_p";
+            public static readonly string Value = "value_p";
         }
 
         /// <summary>
