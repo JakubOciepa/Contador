@@ -115,7 +115,7 @@ namespace Contador.DAL.Repositories
             var param = new DynamicParameters();
             param.Add(ExpenseDto.ParameterName.Id, id);
 
-            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete,param, commandType:CommandType.StoredProcedure).CAF();
+            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
 
             return !(await GetExpense(id).CAF() is object);
         }
