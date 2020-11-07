@@ -9,26 +9,6 @@ namespace Contador.DAL.Models
     /// </summary>
     public class ExpenseDto : Expense
     {
-        public static class ProcedureName
-        {
-            public static readonly string Add = "expense_Add";
-            public static readonly string Delete = "expense_Delete";
-            public static readonly string GetAll = "expense_GetAll";
-            public static readonly string GetById = "expense_GetById";
-            public static readonly string Update = "expense_Update";
-        }
-
-        public static class ParameterName
-        {
-            public static readonly string CategoryId = "categoryId_p";
-            public static readonly string Description = "description_p";
-            public static readonly string Id = "id_p";
-            public static readonly string ImagePath = "image_path_p";
-            public static readonly string Name = "name_p";
-            public static readonly string UserId = "userId_p";
-            public static readonly string Value = "value_p";
-        }
-
         /// <summary>
         /// The id of the <see cref="Category"/> that the expense belongs.
         /// </summary>
@@ -63,6 +43,78 @@ namespace Contador.DAL.Models
         public override string ToString()
         {
             return $"Expense: Id = {Id}, Name = {Name}, Value = {Value}";
+        }
+
+        /// <summary>
+        /// Contains names of parameters required by expense stored procedures.
+        /// </summary>
+        public static class ParameterName
+        {
+            /// <summary>
+            /// CategoryId parameter name.
+            /// </summary>
+            public static readonly string CategoryId = "categoryId_p";
+
+            /// <summary>
+            /// Description parameter name.
+            /// </summary>
+            public static readonly string Description = "description_p";
+
+            /// <summary>
+            /// If parameter name.
+            /// </summary>
+            public static readonly string Id = "id_p";
+
+            /// <summary>
+            /// ImagePath parameter name.
+            /// </summary>
+            public static readonly string ImagePath = "image_path_p";
+
+            /// <summary>
+            /// Name parameter name.
+            /// </summary>
+            public static readonly string Name = "name_p";
+
+            /// <summary>
+            /// UserId parameter name.
+            /// </summary>
+            public static readonly string UserId = "userId_p";
+
+            /// <summary>
+            /// Value parameter name.
+            /// </summary>
+            public static readonly string Value = "value_p";
+        }
+
+        /// <summary>
+        /// Contains names of expense stored procedures.
+        /// </summary>
+        public static class ProcedureName
+        {
+            /// <summary>
+            /// Name of the procedure which adds new expense into the database.
+            /// </summary>
+            public static readonly string Add = "expense_Add";
+
+            /// <summary>
+            /// Name of the procedure which removes expense from the database.
+            /// </summary>
+            public static readonly string Delete = "expense_Delete";
+
+            /// <summary>
+            /// Name of the procedure which gets all available expenses from the database.
+            /// </summary>
+            public static readonly string GetAll = "expense_GetAll";
+
+            /// <summary>
+            /// Name of the procedure which gets expense by id from the database.
+            /// </summary>
+            public static readonly string GetById = "expense_GetById";
+
+            /// <summary>
+            /// Name of the procedure which updates expense from the database.
+            /// </summary>
+            public static readonly string Update = "expense_Update";
         }
     }
 }
