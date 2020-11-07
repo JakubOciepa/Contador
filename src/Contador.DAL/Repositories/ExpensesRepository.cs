@@ -119,16 +119,12 @@ namespace Contador.DAL.Repositories
         /// <inheritdoc/>
         public async Task<bool> Remove(int id)
         {
-            var expenseToRemove = _stub.Find(e => e.Id == id);
+            var param = new DynamicParameters();
+            param.Add(ExpenseDto.ParameterName.Id, id);
 
-            if (expenseToRemove == default)
-            {
-                return true;
-            }
+            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete,param, commandType:CommandType.StoredProcedure).CAF();
 
-            _stub.Remove(expenseToRemove);
-
-            return !_stub.Contains(expenseToRemove);
+            return !(await GetExpense(id).CAF() is object);
         }
     }
 }
