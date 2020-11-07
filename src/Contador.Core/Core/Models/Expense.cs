@@ -41,7 +41,7 @@
         public string ImagePath { get; set; }
 
         /// <summary>
-        /// Creates instanse of <see cref="Expense"/> class.
+        /// Creates instance of <see cref="Expense"/> class.
         /// <param name="name">Name of the expense.</param>
         /// <param name="value">Value of the expense.</param>
         /// <param name="user">The owner of the expense.</param>
