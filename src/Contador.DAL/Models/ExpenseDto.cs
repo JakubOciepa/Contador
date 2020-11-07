@@ -9,6 +9,17 @@ namespace Contador.DAL.Models
     /// </summary>
     public class ExpenseDto : Expense
     {
+        public static class ParameterName
+        {
+            public static readonly string Id = "ip_p";
+            public static readonly string Name = "name_p";
+            public static readonly string Value = "value_p";
+            public static readonly string Description = "description_p";
+            public static readonly string CategoryId = "categoryId_p";
+            public static readonly string UserId = "userId_p";
+            public static readonly string ImagePath = "image_path_p";
+        }
+
         /// <summary>
         /// The id of the <see cref="Category"/> that the expense belongs.
         /// </summary>
