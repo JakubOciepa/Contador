@@ -12,6 +12,7 @@ namespace Contador.DAL.Models
         public static class ProcedureName
         {
             public static readonly string Add = "expense_Add";
+            public static readonly string Delete = "expense_Delete";
             public static readonly string GetAll = "expense_GetAll";
             public static readonly string GetById = "expense_GetById";
             public static readonly string Update = "expense_Update";
