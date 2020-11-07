@@ -92,7 +92,7 @@ namespace Contador.DAL.Repositories
             param.Add(ExpenseDto.ParameterName.Description, expense.Description);
             param.Add(ExpenseDto.ParameterName.CategoryId, expense.Category.Id);
             param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
-            param.Add(ExpenseDto.ParameterName.ImagePath, string.Empty);
+            param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
 
             await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Add, param, commandType: CommandType.StoredProcedure).CAF();
 
@@ -109,7 +109,7 @@ namespace Contador.DAL.Repositories
             param.Add(ExpenseDto.ParameterName.Description, expense.Description);
             param.Add(ExpenseDto.ParameterName.CategoryId, expense.Category.Id);
             param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
-            param.Add(ExpenseDto.ParameterName.ImagePath, string.Empty);
+            param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
 
             await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Update, param, commandType: CommandType.StoredProcedure).CAF();
 

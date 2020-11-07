@@ -21,7 +21,7 @@
         public ExpenseCategory Category { get; set; }
 
         /// <summary>
-        /// The <see cref="Contador.Core.Models.User"/> which is the creator of this expense.
+        /// The <see cref="Models.User"/> which is the creator of this expense.
         /// </summary>
         public User User { get; set; }
 
@@ -34,6 +34,11 @@
         /// Specific description about the expense.
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Path to the image of the expense receipt.
+        /// </summary>
+        public string ImagePath { get; set; }
 
         /// <summary>
         /// Creates instanse of <see cref="Expense"/> class.
