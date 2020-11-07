@@ -5,7 +5,7 @@ namespace Contador.DAL.Repositories
     /// <summary>
     /// Manages users in db.
     /// </summary>
-    public interface IUsersRepository
+    public interface IUserRepository
     {
         /// <summary>
         /// Gets user by provided id.

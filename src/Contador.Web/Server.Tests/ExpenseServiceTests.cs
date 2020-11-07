@@ -40,7 +40,7 @@ namespace Server.Tests
         public async void GetExpenses_WhenNoErrors_ReturnsCorrectListOfEpenses()
         {
             //arrange
-            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();
@@ -68,7 +68,7 @@ namespace Server.Tests
         public async void GetExpenses_WhenNoExpensesAvailable_ReturnsNotFound()
         {
             //arrange
-            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();
@@ -95,7 +95,7 @@ namespace Server.Tests
         public async void GetExpenseById_WhenExpenseExists_ReturnsOkAndExpense()
         {
             //arrange
-            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();
@@ -121,7 +121,7 @@ namespace Server.Tests
         public async void GetExpenseById_WhenExpenseDoesNotExist_ReturnsNotFoundAndDefault()
         {
             //arrange
-            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();
@@ -147,7 +147,7 @@ namespace Server.Tests
         public async void Update_WhenCannotUpdate_ReturnsErrorAndDefault()
         {
             //arrange
-            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();
@@ -173,7 +173,7 @@ namespace Server.Tests
         public async void Update_WhenExpenseHasBeenUpdated_ReturnsOkAndDefault()
         {
             //arrange
-            var expenseRepoMock = new Mock<IExpensesRepository>();
+            var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
             var loggerMock = new Mock<ILogger<ExpenseService>>();

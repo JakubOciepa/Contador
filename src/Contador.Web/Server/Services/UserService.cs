@@ -5,13 +5,13 @@ namespace Contador.Web.Server.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUsersRepository _repository;
+        private readonly IUserRepository _repository;
 
         /// <summary>
         /// Creates instance of <see cref="UserService"/> class.
         /// </summary>
         /// <param name="repository">Users repository.</param>
-        public UserService(IUsersRepository repository)
+        public UserService(IUserRepository repository)
         {
             _repository = repository;
         }

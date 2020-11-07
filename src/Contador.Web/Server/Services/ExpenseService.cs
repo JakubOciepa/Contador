@@ -12,14 +12,14 @@ namespace Contador.Web.Server.Services
 {
     public class ExpenseService : IExpenseService
     {
-        private readonly IExpensesRepository _expenseRepo;
+        private readonly IExpenseRepository _expenseRepo;
         private readonly ILogger<ExpenseService> _logger;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseService"/> class.
         /// </summary>
         /// <param name="expenses">Repository of expenses.</param>
-        public ExpenseService(IExpensesRepository expenses, ILogger<ExpenseService> logger)
+        public ExpenseService(IExpenseRepository expenses, ILogger<ExpenseService> logger)
         {
             _expenseRepo = expenses;
             _logger = logger;

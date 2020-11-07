@@ -8,7 +8,7 @@ namespace Contador.DAL.Repositories
     /// <summary>
     /// Manages expenses in db.
     /// </summary>
-    public interface IExpensesRepository
+    public interface IExpenseRepository
     {
         /// <summary>
         /// Gets <see cref="Expense"/> of provided id.

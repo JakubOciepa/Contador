@@ -29,9 +29,9 @@ namespace Contador.Web.Server
         {
             services.AddTransient<IDbConnection>(db
                 => new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}database=Contador"));
-            services.AddScoped<IExpensesRepository, ExpensesRepository>();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
             services.AddScoped<IExpenseService, ExpenseService>();

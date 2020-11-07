@@ -7,14 +7,14 @@ namespace Contador.DAL.Repositories
     /// <summary>
     /// Manages users in db.
     /// </summary>
-    public class UsersRepository : IUsersRepository
+    public class UserRepository : IUserRepository
     {
         private readonly List<User> _stub;
 
         /// <summary>
-        /// Creates new instance of <see cref="UsersRepository"/> class.
+        /// Creates new instance of <see cref="UserRepository"/> class.
         /// </summary>
-        public UsersRepository()
+        public UserRepository()
         {
             _stub = new List<User>
             {

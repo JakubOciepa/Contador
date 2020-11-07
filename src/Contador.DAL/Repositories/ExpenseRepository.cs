@@ -14,15 +14,15 @@ namespace Contador.DAL.Repositories
     /// <summary>
     /// Manages expenses in db.
     /// </summary>
-    public class ExpensesRepository : IExpensesRepository
+    public class ExpenseRepository : IExpenseRepository
     {
         private readonly IDbConnection _dbConnection;
 
         /// <summary>
-        /// Creates instance of <see cref="ExpensesRepository"/> class.
+        /// Creates instance of <see cref="ExpenseRepository"/> class.
         /// </summary>
         /// <param name="dbConnection">Connection to database.</param>
-        public ExpensesRepository(IDbConnection dbConnection)
+        public ExpenseRepository(IDbConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }
