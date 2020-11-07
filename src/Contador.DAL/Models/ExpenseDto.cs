@@ -61,7 +61,7 @@ namespace Contador.DAL.Models
             public static readonly string Description = "description_p";
 
             /// <summary>
-            /// If parameter name.
+            /// Id parameter name.
             /// </summary>
             public static readonly string Id = "id_p";
 
