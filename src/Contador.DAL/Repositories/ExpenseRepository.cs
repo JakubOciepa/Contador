@@ -104,9 +104,18 @@ namespace Contador.DAL.Repositories
             param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
             param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
 
-            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Update, param, commandType: CommandType.StoredProcedure).CAF();
+            var result = await _dbConnection
+                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.Update,
+                (expense, category, user) =>
+                {
+                    expense.Category = category;
+                    expense.User = user;
 
-            return expense;
+                    return expense;
+                },
+                param, commandType: CommandType.StoredProcedure).CAF();
+
+            return result.First().AsExpense();
         }
 
         /// <inheritdoc/>
