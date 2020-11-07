@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
@@ -48,28 +50,29 @@ namespace Contador.DAL.Repositories
         /// <inheritdoc/>
         public async Task<IList<ExpenseCategory>> GetCategories()
         {
-            return _stub;
+            return (await _dbConnection.QueryAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.GetAll,
+                commandType: CommandType.StoredProcedure).CAF()).ToList();
         }
 
         ///<inheritdoc/>
         public async Task<ExpenseCategory> GetCategoryById(int categoryId)
         {
-            return _stub.Find(c => c.Id == categoryId);
+            var parameter = new DynamicParameters();
+            parameter.Add(ExpenseCategoryDto.ParameterName.Id, categoryId);
+
+            return await _dbConnection.QueryFirstOrDefaultAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.GetById,
+                parameter, commandType: CommandType.StoredProcedure).CAF();
         }
 
         /// <inheritdoc/>
         public async Task<bool> Remove(int id)
         {
-            var categoryToRemove = _stub.Find(e => e.Id == id);
+            var parameter = new DynamicParameters();
+            parameter.Add(ExpenseCategoryDto.ParameterName.Id, id);
+            await _dbConnection.ExecuteAsync(ExpenseCategoryDto.ProcedureName.Delete, parameter,
+                commandType: CommandType.StoredProcedure).CAF();
 
-            if (categoryToRemove == default)
-            {
-                return true;
-            }
-
-            _stub.Remove(categoryToRemove);
-
-            return !_stub.Contains(categoryToRemove);
+            return !(await GetCategoryById(id).CAF() is object);
         }
 
         /// <inheritdoc/>
