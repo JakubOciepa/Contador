@@ -41,16 +41,16 @@ namespace Contador.DAL.Repositories
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseCategoryDto.ParameterName.Name, expenseCategory.Name);
 
-            return await _dbConnection.QuerySingleAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.Add,
+            return (await _dbConnection.QuerySingleAsync<ExpenseCategoryDto>(ExpenseCategoryDto.ProcedureName.Add,
                 parameter, commandType: CommandType.StoredProcedure)
-                .CAF();
+                .CAF()).AsExpenseCategory();
         }
 
         /// <inheritdoc/>
         public async Task<IList<ExpenseCategory>> GetCategories()
         {
-            return (await _dbConnection.QueryAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.GetAll,
-                commandType: CommandType.StoredProcedure).CAF()).ToList();
+            return (await _dbConnection.QueryAsync<ExpenseCategoryDto>(ExpenseCategoryDto.ProcedureName.GetAll,
+                commandType: CommandType.StoredProcedure).CAF()).Cast<ExpenseCategory>().ToList();
         }
 
         ///<inheritdoc/>
@@ -59,7 +59,7 @@ namespace Contador.DAL.Repositories
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseCategoryDto.ParameterName.Id, categoryId);
 
-            return await _dbConnection.QueryFirstOrDefaultAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.GetById,
+            return await _dbConnection.QueryFirstOrDefaultAsync<ExpenseCategoryDto>(ExpenseCategoryDto.ProcedureName.GetById,
                 parameter, commandType: CommandType.StoredProcedure).CAF();
         }
 
@@ -81,8 +81,8 @@ namespace Contador.DAL.Repositories
             parameter.Add(ExpenseCategoryDto.ParameterName.Id, id);
             parameter.Add(ExpenseCategoryDto.ParameterName.Name, expenseCategory.Name);
 
-            return await _dbConnection.QuerySingleAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.Update,
-                parameter, commandType: CommandType.StoredProcedure).CAF();
+            return (await _dbConnection.QuerySingleAsync<ExpenseCategoryDto>(ExpenseCategoryDto.ProcedureName.Update,
+                parameter, commandType: CommandType.StoredProcedure).CAF()).AsExpenseCategory();
         }
     }
 }

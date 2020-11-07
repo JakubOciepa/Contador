@@ -27,6 +27,15 @@ namespace Contador.DAL.Models
         }
 
         /// <summary>
+        /// Provides the same values but packet in the <see cref="ExpenseCategory"/> object.
+        /// </summary>
+        /// <returns>Instance of <see cref="ExpenseCategory"/>.</returns>
+        public ExpenseCategory AsExpenseCategory()
+        {
+            return new ExpenseCategory(Name) { Id = this.Id };
+        }
+
+        /// <summary>
         /// Contains names of parameters required by expense category stored procedures.
         /// </summary>
         public static class ParameterName

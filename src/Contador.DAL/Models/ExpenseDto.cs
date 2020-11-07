@@ -45,9 +45,18 @@ namespace Contador.DAL.Models
             return $"Expense: Id = {Id}, Name = {Name}, Value = {Value}";
         }
 
+        /// <summary>
+        /// Provides the same values but packet in the <see cref="Expense"/> object.
+        /// </summary>
+        /// <returns>Instance of <see cref="Expense"/>.</returns>
         public Expense AsExpense()
         {
-            return new Expense(Name, Value, User, Category) { Id = this.Id };
+            return new Expense(Name, Value, User, Category) 
+            { 
+                Id = this.Id, 
+                Description = Description, 
+                ImagePath = ImagePath 
+            };
         }
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace Contador.DAL.Repositories
                     commandType: CommandType.StoredProcedure)
                 .CAF()).FirstOrDefault();
 
-            return expense.AsExpense();
+            return expense?.AsExpense();
         }
 
         ///<inheritdoc/>
