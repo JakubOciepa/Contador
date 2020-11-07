@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
@@ -78,16 +77,12 @@ namespace Contador.DAL.Repositories
         /// <inheritdoc/>
         public async Task<ExpenseCategory> Update(int id, ExpenseCategory expenseCategory)
         {
-            var categoryToUpdate = _stub.Find(e => e.Id == id);
+            var parameter = new DynamicParameters();
+            parameter.Add(ExpenseCategoryDto.ParameterName.Id, id);
+            parameter.Add(ExpenseCategoryDto.ParameterName.Name, expenseCategory.Name);
 
-            if (categoryToUpdate == default)
-            {
-                return default;
-            }
-
-            categoryToUpdate.Name = expenseCategory.Name;
-
-            return categoryToUpdate;
+            return await _dbConnection.QuerySingleAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.Update,
+                parameter, commandType: CommandType.StoredProcedure).CAF();
         }
     }
 }

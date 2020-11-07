@@ -5,4 +5,7 @@ CREATE OR REPLACE PROCEDURE expenseCategory_Update (
 UPDATE Expense
 SET Name = name_p
 WHERE Id = id_p;
+SELECT *
+FROM ExpenseCategory
+WHERE Id = id_p;
 END;
