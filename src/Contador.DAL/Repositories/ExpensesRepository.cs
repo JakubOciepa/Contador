@@ -18,13 +18,6 @@ namespace Contador.DAL.Repositories
     {
         private readonly IDbConnection _dbConnection;
 
-        private static readonly List<Expense> _stub = new List<Expense>
-            {
-                new Expense("Słodycze",0,null,null){ Id = 0 },
-                new Expense("Słodycze",0,null,null){ Id = 1 },
-                new Expense("Słodycze",0,null,null){ Id = 2 },
-            };
-
         /// <summary>
         /// Creates instance of <see cref="ExpensesRepository"/> class.
         /// </summary>
