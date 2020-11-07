@@ -26,4 +26,12 @@ VALUES (
         description_p,
         image_path_p
     );
+SELECT *
+FROM Expense ex
+    LEFT JOIN ExpenseCategory ec ON ec.Id = ex.CategoryId
+    LEFT JOIN User us ON us.Id = ex.UserId
+WHERE ex.Id = (
+        SELECT MAX(Id)
+        From Expense
+    );
 END;

@@ -45,6 +45,11 @@ namespace Contador.DAL.Models
             return $"Expense: Id = {Id}, Name = {Name}, Value = {Value}";
         }
 
+        public Expense AsExpense()
+        {
+            return new Expense(Name, Value, User, Category) { Id = this.Id };
+        }
+
         /// <summary>
         /// Contains names of parameters required by expense stored procedures.
         /// </summary>

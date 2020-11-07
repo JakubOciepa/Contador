@@ -46,16 +46,7 @@ namespace Contador.DAL.Repositories
                     commandType: CommandType.StoredProcedure)
                 .CAF()).FirstOrDefault();
 
-            if (expense is object)
-            {
-                return new Expense(expense.Name, expense.Value, expense.User, expense.Category)
-                {
-                    Id = expense.Id,
-                    Description = expense.Description,
-                };
-            }
-
-            return default;
+            return expense.AsExpense();
         }
 
         ///<inheritdoc/>
@@ -87,9 +78,18 @@ namespace Contador.DAL.Repositories
             param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
             param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
 
-            await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Add, param, commandType: CommandType.StoredProcedure).CAF();
+            var result = await _dbConnection
+                .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.Add,
+                (expense, category, user) =>
+                {
+                    expense.Category = category;
+                    expense.User = user;
 
-            return expense;
+                    return expense;
+                },
+                param, commandType: CommandType.StoredProcedure).CAF();
+
+            return result.FirstOrDefault()?.AsExpense();
         }
 
         /// <inheritdoc/>
