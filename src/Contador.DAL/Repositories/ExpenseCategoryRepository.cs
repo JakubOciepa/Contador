@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
+using Contador.DAL.Models;
+
+using Dapper;
 
 namespace Contador.DAL.Repositories
 {
@@ -11,6 +15,8 @@ namespace Contador.DAL.Repositories
     /// </summary>
     public class ExpenseCategoryRepository : IExpenseCategoryRepository
     {
+        private readonly IDbConnection _dbConnection;
+
         private static readonly List<ExpenseCategory> _stub = new List<ExpenseCategory>
         {
             new ExpenseCategory("Słodycze")
@@ -22,20 +28,21 @@ namespace Contador.DAL.Repositories
         /// <summary>
         /// Creates instance of <see cref="ExpenseCategoryRepository"/> class.
         /// </summary>
-        /// <param name="context">DbContext.</param>
-        public ExpenseCategoryRepository()
+        /// <param name="connection">DbContext.</param>
+        public ExpenseCategoryRepository(IDbConnection connection)
         {
-            //_db = context;
+            _dbConnection = connection;
         }
 
         /// <inheritdoc/>
         public async Task<ExpenseCategory> Add(ExpenseCategory expenseCategory)
         {
-            var lastId = _stub.Max(e => e.Id);
-            expenseCategory.Id = lastId + 1;
-            _stub.Add(expenseCategory);
+            var parameter = new DynamicParameters();
+            parameter.Add(ExpenseCategoryDto.ParameterName.Name, expenseCategory.Name);
 
-            return expenseCategory;
+            return await _dbConnection.QuerySingleAsync<ExpenseCategory>(ExpenseCategoryDto.ProcedureName.Add,
+                parameter, commandType: CommandType.StoredProcedure)
+                .CAF();
         }
 
         /// <inheritdoc/>
