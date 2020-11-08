@@ -21,8 +21,8 @@ jobs:
       run: dotnet restore ./src/Contador.sln
     - name: Build Core
       run: dotnet build --configuration Debug --no-restore ./src/Contador.Core/Core/Contador.Core.csproj
-    - name: Build DAL
-      run: dotnet build --configuration Debug --no-restore ./src/Contador.DAL/Contador.DAL.csproj
+    - name: Build DAL.MySQL
+      run: dotnet build --configuration Debug --no-restore ./src/Contador.DAL/MySQL/Contador.DAL.MySQL.csproj
     - name: Build Contador
       run: dotnet build --configuration Debug --no-restore ./src/Contador/Contador/Contador.csproj
     - name: Build WEB
