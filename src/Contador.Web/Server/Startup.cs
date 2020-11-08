@@ -1,9 +1,9 @@
 using System.Data;
 
 using Contador.Abstractions;
-using Contador.Services;
 using Contador.DAL.Abstractions;
 using Contador.DAL.Repositories;
+using Contador.Services;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -51,11 +51,11 @@ namespace Contador.DAL.Models
         /// <returns>Instance of <see cref="Expense"/>.</returns>
         public Expense AsExpense()
         {
-            return new Expense(Name, Value, User, Category) 
-            { 
-                Id = this.Id, 
-                Description = Description, 
-                ImagePath = ImagePath 
+            return new Expense(Name, Value, User, Category)
+            {
+                Id = this.Id,
+                Description = Description,
+                ImagePath = ImagePath
             };
         }
 
