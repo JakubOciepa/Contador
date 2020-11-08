@@ -20,13 +20,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Server", "Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Client", "Contador.Web\Client\Contador.Web.Client.csproj", "{661F2DCB-8121-4EA9-92C7-457078BB685B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core.Tests", "Contador.Core\Core.Tests\Contador.Core.Tests.csproj", "{AF0CF47D-138C-4348-9D44-D285D124725C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core.Tests", "Contador.Core\Tests\Contador.Core.Tests.csproj", "{AF0CF47D-138C-4348-9D44-D285D124725C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Web.Server.Tests", "Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj", "{B4E2893E-2519-4B71-BFCB-A1FECA373796}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Contador.Web.Db", "Contador.Web\Database\Contador.Web.Db.sqlproj", "{F9FB6992-6D37-49E3-B7E3-D20A85F14922}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core.Abstractions", "Contador.Core\Core.Abstractions\Contador.Core.Abstractions.csproj", "{F5169683-71C0-41E4-94D4-A5501C63BD62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador.Core.Abstractions", "Contador.Core\Abstractions\Contador.Core.Abstractions.csproj", "{F5169683-71C0-41E4-94D4-A5501C63BD62}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contador", "Contador\Contador\Contador.csproj", "{5435F825-634D-404E-BD11-8F471722FFB3}"
 EndProject
