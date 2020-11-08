@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Contador.Core.Models;
 
-namespace Contador.DAL.Repositories
+namespace Contador.DAL.Abstractions
 {
     /// <summary>
     /// Manages expense categories in storage.

@@ -1,5 +1,6 @@
 using System.Data;
 
+using Contador.DAL.Abstractions;
 using Contador.DAL.Repositories;
 using Contador.Web.Server.Services;
 

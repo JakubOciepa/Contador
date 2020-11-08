@@ -1,6 +1,6 @@
 ﻿using Contador.Core.Models;
 
-namespace Contador.DAL.Repositories
+namespace Contador.DAL.Abstractions
 {
     /// <summary>
     /// Manages users in db.

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Contador.Core.Models;
+using Contador.DAL.Abstractions;
 
 namespace Contador.DAL.Repositories
 {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
+using Contador.DAL.Abstractions;
 using Contador.DAL.Models;
 
 using Dapper;

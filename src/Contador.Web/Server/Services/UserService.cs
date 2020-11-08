@@ -1,5 +1,5 @@
 ﻿using Contador.Core.Models;
-using Contador.DAL.Repositories;
+using Contador.DAL.Abstractions;
 
 namespace Contador.Web.Server.Services
 {

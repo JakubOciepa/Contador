@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
-using Contador.DAL.Repositories;
+using Contador.DAL.Abstractions;
 
 using Microsoft.Extensions.Logging;
 
