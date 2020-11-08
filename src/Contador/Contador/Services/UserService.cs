@@ -1,7 +1,8 @@
-﻿using Contador.Core.Models;
+﻿using Contador.Abstractions;
+using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 
-namespace Contador.Web.Server.Services
+namespace Contador.Services
 {
     public class UserService : IUserService
     {

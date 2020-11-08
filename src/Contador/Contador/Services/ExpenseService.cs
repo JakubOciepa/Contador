@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
@@ -8,7 +9,7 @@ using Contador.DAL.Abstractions;
 
 using Microsoft.Extensions.Logging;
 
-namespace Contador.Web.Server.Services
+namespace Contador.Services
 {
     public class ExpenseService : IExpenseService
     {

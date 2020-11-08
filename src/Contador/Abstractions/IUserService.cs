@@ -1,6 +1,6 @@
 ﻿using Contador.Core.Models;
 
-namespace Contador.Web.Server.Services
+namespace Contador.Abstractions
 {
     /// <summary>
     /// Users manager.
