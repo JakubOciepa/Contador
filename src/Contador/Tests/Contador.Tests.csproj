@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <IsTestProject>true</IsTestProject>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -23,7 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Server\Contador.Web.Server.csproj" />
+    <ProjectReference Include="..\..\Contador\Abstractions\Contador.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Contador\Contador\Contador.csproj" />
+    <ProjectReference Include="..\..\Contador.Core\Core\Contador.Core.csproj" />
+    <ProjectReference Include="..\..\Contador.DAL\Abstractions\Contador.DAL.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

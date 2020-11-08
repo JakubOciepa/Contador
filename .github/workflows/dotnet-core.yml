@@ -23,7 +23,9 @@ jobs:
       run: dotnet build --configuration Debug --no-restore ./src/Contador.Core/Core/Contador.Core.csproj
     - name: Build DAL
       run: dotnet build --configuration Debug --no-restore ./src/Contador.DAL/Contador.DAL.csproj
+    - name: Build Contador
+      run: dotnet build --configuration Debug --no-restore ./src/Contador/Contador/Contador.csproj
     - name: Build WEB
       run: dotnet build --configuration Debug --no-restore ./src/Contador.Web/Server/Contador.Web.Server.csproj
     - name: Test
-      run: dotnet test --no-restore --verbosity normal ./src/Contador.Web/Server.Tests/Contador.Web.Server.Tests.csproj
+      run: dotnet test --no-restore --verbosity normal ./src/Contador/Tests/Contador.Tests.csproj
