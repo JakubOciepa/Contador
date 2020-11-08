@@ -19,14 +19,6 @@ namespace Contador.DAL.Repositories
     {
         private readonly IDbConnection _dbConnection;
 
-        private static readonly List<ExpenseCategory> _stub = new List<ExpenseCategory>
-        {
-            new ExpenseCategory("Słodycze")
-            {
-                Id = 0,
-            },
-        };
-
         /// <summary>
         /// Creates instance of <see cref="ExpenseCategoryRepository"/> class.
         /// </summary>

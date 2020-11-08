@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Contador.Services
 {
+    /// <inheritdoc/>
     public class ExpenseCategoryService : IExpenseCategoryService
     {
         private readonly IExpenseCategoryRepository _repository;

@@ -72,7 +72,7 @@ namespace Contador.Web.Server.Controllers
         /// Adds new expense.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
-        /// <returns>Http code.</returns>
+        /// <returns>HTTP code.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,7 +86,7 @@ namespace Contador.Web.Server.Controllers
                     new { id = result.ReturnedObject.Id }, result.ReturnedObject);
             }
 
-            return BadRequest("Error occured while saving expense.");
+            return BadRequest("Error occurred while saving expense.");
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Contador.Web.Server.Controllers
         /// </summary>
         /// <param name="id">Id of expense to update.</param>
         /// <param name="expense">Expense info.</param>
-        /// <returns>Http code.</returns>
+        /// <returns>HTTP code.</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Expense), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -114,14 +114,14 @@ namespace Contador.Web.Server.Controllers
                 return Ok(result.ReturnedObject);
             }
 
-            return BadRequest("Error occured while updating expense.");
+            return BadRequest("Error occurred while updating expense.");
         }
 
         /// <summary>
         /// Removes expense of provided id.
         /// </summary>
         /// <param name="id">Id of expense to remove.</param>
-        /// <returns>Http code.</returns>
+        /// <returns>HTTP code.</returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -141,7 +141,7 @@ namespace Contador.Web.Server.Controllers
                 return Ok();
             }
 
-            return BadRequest("Error occured while removing expense.");
+            return BadRequest("Error occurred while removing expense.");
         }
     }
 }

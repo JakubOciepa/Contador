@@ -73,7 +73,7 @@ namespace Contador.Web.Server.Controllers
         /// Adds new expense category.
         /// </summary>
         /// <param name="category">Expense category to add.</param>
-        /// <returns>Http code.</returns>
+        /// <returns>HTTP code.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -93,7 +93,7 @@ namespace Contador.Web.Server.Controllers
                     new { id = result.ReturnedObject.Id }, result.ReturnedObject);
             }
 
-            return BadRequest("Error occured while saving expense category.");
+            return BadRequest("Error occurred while saving expense category.");
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Contador.Web.Server.Controllers
         /// </summary>
         /// <param name="id">Id of expense category to update.</param>
         /// <param name="category">Expense category info.</param>
-        /// <returns>Http code.</returns>
+        /// <returns>HTTP code.</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ExpenseCategory), 200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -121,14 +121,14 @@ namespace Contador.Web.Server.Controllers
                 return Ok(result.ReturnedObject);
             }
 
-            return BadRequest("Error occured while updating expense category.");
+            return BadRequest("Error occurred while updating expense category.");
         }
 
         /// <summary>
         /// Removes expense category of provided id.
         /// </summary>
         /// <param name="id">Id of expense category to remove.</param>
-        /// <returns>Http code.</returns>
+        /// <returns>HTTP code.</returns>
         /// [HttpGet("{id}")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -149,7 +149,7 @@ namespace Contador.Web.Server.Controllers
                 return Ok();
             }
 
-            return BadRequest("Error occured while removing expense category.");
+            return BadRequest("Error occurred while removing expense category.");
         }
     }
 }

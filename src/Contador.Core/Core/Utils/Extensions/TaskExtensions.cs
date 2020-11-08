@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Contador.Core.Utils.Extensions
 {
+    /// <summary>
+    /// Extension methods for <see cref="ConfiguredTaskAwaitable{TResult}"/> class.
+    /// </summary>
     public static class TaskExtensions
     {
         /// <summary>

@@ -15,6 +15,10 @@
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Creates instance of the <see cref="ExpenseCategory"/> class.
+        /// </summary>
+        /// <param name="name"></param>
         public ExpenseCategory(string name)
         {
             Name = name;

@@ -4,6 +4,7 @@ using Contador.DAL.Abstractions;
 
 namespace Contador.Services
 {
+    /// <inheritdoc/>
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;

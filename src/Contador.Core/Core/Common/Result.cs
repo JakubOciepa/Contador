@@ -1,7 +1,7 @@
 ﻿namespace Contador.Core.Common
 {
     /// <summary>
-    /// Result that contains returned object and proper response code which indicates if execution were ok.
+    /// Result that contains returned object and proper response code which indicates if execution were OK.
     /// </summary>
     /// <typeparam name="TResult">Returned object type.</typeparam>
     public class Result<TResult>

@@ -14,13 +14,13 @@ namespace Contador.Abstractions
         /// <summary>
         /// Gets all available expenses.
         /// </summary>
-        /// <returns>Result wich proper response code and list of expenses.</returns>
+        /// <returns>Result which proper response code and list of expenses.</returns>
         Task<Result<IList<Expense>>> GetExpenses();
 
         /// <summary>
         /// Gets <see cref="Expense"/> of provided id.
         /// </summary>
-        /// <param name="id">Id of requested Epxense.</param>
+        /// <param name="id">Id of requested Expense.</param>
         /// <returns><see cref="Expense"/> of provided id.</returns>
         Task<Result<Expense>> GetExpense(int id);
 

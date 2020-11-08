@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Contador.Services
 {
+    /// <inheritdoc/>
     public class ExpenseService : IExpenseService
     {
         private readonly IExpenseRepository _expenseRepo;
@@ -54,7 +55,7 @@ namespace Contador.Services
 
             if (result == default)
             {
-                _logger.LogInformation($"Expesne of the {id} not found.");
+                _logger.LogInformation($"Expense of the {id} not found.");
                 return new Result<Expense>(ResponseCode.NotFound, default);
             }
 
