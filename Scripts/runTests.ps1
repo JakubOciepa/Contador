@@ -1,1 +1,1 @@
-dotnet test ".\src\Contador.Web\Server.Tests\Contador.Web.Server.Tests.csproj" --collect:"XPlat Code Coverage"
+dotnet test ".\src\Contador\Tests\Contador.Tests.csproj" --collect:"XPlat Code Coverage"

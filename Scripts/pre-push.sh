@@ -1,5 +1,5 @@
 #!/bin/sh
 
 dotnet restore src/Contador.sln
-dotnet build src/Contador.Web/Server.Tests/Contador.Web.Server.Tests.csproj
-dotnet test src/Contador.Web/Server.Tests/Contador.Web.Server.Tests.csproj
+dotnet build src/Contador/Tests/Contador.Tests.csproj
+dotnet test src/Contador/Tests/Contador.Tests.csproj
