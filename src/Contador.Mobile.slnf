@@ -2,9 +2,12 @@
   "solution": {
     "path": "Contador.sln",
     "projects": [
-      "Contador.Core\\Contador.Core.csproj",
+      "Contador.Core\\Abstractions\\Contador.Core.Abstractions.csproj",
+      "Contador.Core\\Core\\Contador.Core.csproj",
       "Contador.Mobile\\Contador.Mobile.Android\\Contador.Mobile.Android.csproj",
-      "Contador.Mobile\\Contador.Mobile\\Contador.Mobile.csproj"
+      "Contador.Mobile\\Contador.Mobile\\Contador.Mobile.csproj",
+      "Contador\\Abstractions\\Contador.Abstractions.csproj",
+      "Contador\\Contador\\Contador.csproj"
     ]
   }
 }
