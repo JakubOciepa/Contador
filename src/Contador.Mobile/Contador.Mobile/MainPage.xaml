@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contador.Mobile.MainPage">
 
-    <StackLayout>
-
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Button Text="Click me my love" Clicked="Button_Clicked"></Button>
     </StackLayout>
 </ContentPage>

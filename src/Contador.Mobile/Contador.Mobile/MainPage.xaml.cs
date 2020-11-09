@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Net.Http;
+
+using Xamarin.Forms;
 
 namespace Contador.Mobile
 {
@@ -7,6 +9,14 @@ namespace Contador.Mobile
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private async void Button_Clicked(object sender, System.EventArgs e)
+        {
+            var client = new HttpClient();
+
+            var resutl = await client.GetAsync(@"http://192.168.1.31:5000/api/expense");
+
         }
     }
 }
