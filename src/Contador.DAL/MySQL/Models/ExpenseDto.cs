@@ -20,11 +20,6 @@ namespace Contador.DAL.Models
         public int UserId { get; set; }
 
         /// <summary>
-        /// Date when the expense has been created.
-        /// </summary>
-        public DateTime CreatedDate { get; }
-
-        /// <summary>
         /// Date when the expense has been edited last time.
         /// </summary>
         public DateTime ModifiedDate { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace Contador.Core.Models
+﻿using System;
+
+namespace Contador.Core.Models
 {
     /// <summary>
     /// Expense info.
@@ -39,6 +41,11 @@
         /// Path to the image of the expense receipt.
         /// </summary>
         public string ImagePath { get; set; }
+
+        /// <summary>
+        /// <see cref="DateTime"/> when the expense has been created.
+        /// </summary>
+        public DateTime CreateDate { get; set; }
 
         /// <summary>
         /// Creates instance of <see cref="Expense"/> class.
