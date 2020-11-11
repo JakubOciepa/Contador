@@ -3,6 +3,10 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 
+using Microsoft.Extensions.DependencyInjection;
+
+using Serilog;
+
 namespace Contador.Mobile.Droid
 {
     [Activity(Label = "Contador.Mobile", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
@@ -17,6 +21,7 @@ namespace Contador.Mobile.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            RegisterDependencies();
             LoadApplication(new App());
         }
 
@@ -25,6 +30,18 @@ namespace Contador.Mobile.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private void RegisterDependencies()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.AndroidLog()
+                .CreateLogger();
+
+            var services = new ServiceCollection();
+            services.AddLogging(loggingBuilder =>
+                loggingBuilder.AddSerilog(dispose: true));
         }
     }
 }

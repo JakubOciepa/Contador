@@ -20,8 +20,6 @@ namespace Contador.Mobile
         {
             var restService = new RestService();
             var expense = await restService.GetExpenseById(1);
-
-            //print expense on screen.
         }
     }
 }
