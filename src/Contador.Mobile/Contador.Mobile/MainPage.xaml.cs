@@ -1,4 +1,9 @@
-﻿using System.Net.Http;
+﻿using System.Drawing.Printing;
+using System.Net.Http;
+
+using Contador.Services;
+
+using Microsoft.Extensions.Logging;
 
 using Xamarin.Forms;
 
@@ -13,10 +18,10 @@ namespace Contador.Mobile
 
         private async void Button_Clicked(object sender, System.EventArgs e)
         {
-            var client = new HttpClient();
+            var restService = new RestService();
+            var expense = await restService.GetExpenseById(1);
 
-            var resutl = await client.GetAsync(@"http://192.168.1.31:5000/api/expense");
-
+            //print expense on screen.
         }
     }
 }

@@ -17,14 +17,13 @@ namespace Contador.Services
     public class RestService : IRestService
     {
 
-        private const string REST_ADDR = "http://192.168.1.31:5000/api";
-        private const string EXPENSE_ADDR = "/expense";
+        private const string REST_ADDR = "http://192.168.1.31:5000/api/";
+        private const string EXPENSE_ADDR = "expense";
 
         private readonly ILogger _logger;
 
-        public RestService(ILogger logger)
+        public RestService()
         {
-            _logger = logger;
         }
 
         /// <inheritdoc/>
@@ -32,7 +31,7 @@ namespace Contador.Services
         {
             using var client = new HttpClient();
 
-            var result = await client.GetAsync($"{REST_ADDR}{EXPENSE_ADDR}").CAF();
+            var result = await client.GetAsync($"{REST_ADDR}{EXPENSE_ADDR}/{id}").CAF();
             if(result.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 //TODO: get correct status code from HttpStatusCode.
@@ -48,7 +47,7 @@ namespace Contador.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"Can not convert JSON into Expense.\n {ex.StackTrace}.");
+                _logger?.LogWarning($"Can not convert JSON into Expense.\n {ex.StackTrace}.");
                 return default;
             }
         }
