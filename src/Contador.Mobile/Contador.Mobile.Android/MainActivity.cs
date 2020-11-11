@@ -21,7 +21,6 @@ namespace Contador.Mobile.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            RegisterDependencies();
             LoadApplication(new App());
         }
 
@@ -30,18 +29,6 @@ namespace Contador.Mobile.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
-        private void RegisterDependencies()
-        {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.AndroidLog()
-                .CreateLogger();
-
-            var services = new ServiceCollection();
-            services.AddLogging(loggingBuilder =>
-                loggingBuilder.AddSerilog(dispose: true));
         }
     }
 }
