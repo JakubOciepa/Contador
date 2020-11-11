@@ -16,7 +16,6 @@ namespace Contador.Services
     /// <inheritdoc/>
     public class RestService : IRestService
     {
-
         private const string REST_ADDR = "http://192.168.1.31:5000/api/";
         private const string EXPENSE_ADDR = "expense";
 
@@ -32,7 +31,7 @@ namespace Contador.Services
             using var client = new HttpClient();
 
             var result = await client.GetAsync($"{REST_ADDR}{EXPENSE_ADDR}/{id}").CAF();
-            if(result.StatusCode != System.Net.HttpStatusCode.OK)
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 //TODO: get correct status code from HttpStatusCode.
 

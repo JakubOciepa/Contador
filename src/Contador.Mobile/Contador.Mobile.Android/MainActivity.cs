@@ -3,10 +3,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 
-using Microsoft.Extensions.DependencyInjection;
-
-using Serilog;
-
 namespace Contador.Mobile.Droid
 {
     [Activity(Label = "Contador.Mobile", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]

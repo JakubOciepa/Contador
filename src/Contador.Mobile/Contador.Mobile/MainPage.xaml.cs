@@ -1,9 +1,4 @@
-﻿using System.Drawing.Printing;
-using System.Net.Http;
-
-using Contador.Services;
-
-using Microsoft.Extensions.Logging;
+﻿using Contador.Services;
 
 using Xamarin.Forms;
 
