@@ -4,6 +4,7 @@ using Contador.Abstractions;
 using Contador.DAL.Abstractions;
 using Contador.DAL.Repositories;
 using Contador.Services;
+using Contador.Web.Server.Services;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace Contador.Web.Server
         {
             services.AddTransient<IDbConnection>(db
                 => new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}database=Contador"));
+            services.AddSingleton<ILog, Log>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
