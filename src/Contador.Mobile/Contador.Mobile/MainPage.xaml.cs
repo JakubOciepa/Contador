@@ -1,4 +1,5 @@
-﻿using Contador.Services;
+﻿using Contador.Abstractions;
+using Contador.Services;
 
 using Xamarin.Forms;
 
@@ -13,7 +14,8 @@ namespace Contador.Mobile
 
         private async void Button_Clicked(object sender, System.EventArgs e)
         {
-            var restService = new RestService();
+            var logger = DependencyService.Get<ILog>();
+            var restService = new RestService(logger);
             var expense = await restService.GetExpenseById(1);
         }
     }

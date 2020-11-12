@@ -19,8 +19,9 @@ namespace Contador.Services
 
         private readonly ILog _logger;
 
-        public RestService()
+        public RestService(ILog logger)
         {
+            _logger = logger;
         }
 
         /// <inheritdoc/>
@@ -32,7 +33,6 @@ namespace Contador.Services
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 //TODO: get correct status code from HttpStatusCode.
-
                 return new Result<Expense>(ResponseCode.Error, default);
             }
 
