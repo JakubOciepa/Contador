@@ -11,8 +11,8 @@ namespace Contador.Abstractions
         /// <summary>
         /// Writes message of specific type into target output.
         /// </summary>
-        /// <param name="code">Log level of the message.</param>
+        /// <param name="level">Log level of the message.</param>
         /// <param name="message">Message to write out.</param>
-        public void Write(LogLevel code, string message);
+        public void Write(LogLevel level, string message);
     }
 }
