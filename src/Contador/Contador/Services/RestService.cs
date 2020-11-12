@@ -7,8 +7,6 @@ using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 
-using Microsoft.Extensions.Logging;
-
 using Newtonsoft.Json;
 
 namespace Contador.Services
@@ -19,7 +17,7 @@ namespace Contador.Services
         private const string REST_ADDR = "http://192.168.1.31:5000/api/";
         private const string EXPENSE_ADDR = "expense";
 
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
         public RestService()
         {
@@ -46,7 +44,7 @@ namespace Contador.Services
             }
             catch (Exception ex)
             {
-                _logger?.LogWarning($"Can not convert JSON into Expense.\n {ex.StackTrace}.");
+                _logger?.Write(Core.Common.LogLevel.Warning, $"Can not convert JSON into Expense.\n {ex.StackTrace}.");
                 return default;
             }
         }

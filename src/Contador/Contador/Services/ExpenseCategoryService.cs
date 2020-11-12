@@ -7,21 +7,19 @@ using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
 
-using Microsoft.Extensions.Logging;
-
 namespace Contador.Services
 {
     /// <inheritdoc/>
     public class ExpenseCategoryService : IExpenseCategoryService
     {
         private readonly IExpenseCategoryRepository _repository;
-        private readonly ILogger<ExpenseCategoryService> _logger;
+        private readonly ILog _logger;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseCategoryService"/> class.
         /// </summary>
         /// <param name="repository">Expense category repository.</param>
-        public ExpenseCategoryService(IExpenseCategoryRepository repository, ILogger<ExpenseCategoryService> logger)
+        public ExpenseCategoryService(IExpenseCategoryRepository repository, ILog logger)
         {
             _repository = repository;
             _logger = logger;
@@ -34,7 +32,7 @@ namespace Contador.Services
 
             if (result.Count == 0)
             {
-                _logger.LogInformation("Can not find any expense categories");
+                _logger.Write(Core.Common.LogLevel.Error, "Can not find any expense categories");
 
                 return new Result<IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
             }
@@ -56,7 +54,7 @@ namespace Contador.Services
 
             if (result == default)
             {
-                _logger.LogInformation($"Can not find any expense category of the {id}.");
+                _logger.Write(Core.Common.LogLevel.Error, $"Can not find any expense category of the {id}.");
                 return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
             }
 
@@ -70,7 +68,7 @@ namespace Contador.Services
 
             if (result != default)
             {
-                _logger.LogWarning("Can not add expense category.");
+                _logger.Write(Core.Common.LogLevel.Warning, "Can not add expense category.");
                 return new Result<ExpenseCategory>(ResponseCode.Ok,
                     new ExpenseCategory(result.Name) { Id = result.Id });
             }
@@ -85,7 +83,7 @@ namespace Contador.Services
 
             if (result != default)
             {
-                _logger.LogWarning($"Can not update expense category of the {id}.");
+                _logger.Write(Core.Common.LogLevel.Warning, $"Can not update expense category of the {id}.");
                 return new Result<ExpenseCategory>(ResponseCode.Ok,
                     new ExpenseCategory(result.Name) { Id = result.Id });
             }

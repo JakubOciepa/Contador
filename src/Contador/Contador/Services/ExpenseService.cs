@@ -7,21 +7,19 @@ using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
 
-using Microsoft.Extensions.Logging;
-
 namespace Contador.Services
 {
     /// <inheritdoc/>
     public class ExpenseService : IExpenseService
     {
         private readonly IExpenseRepository _expenseRepo;
-        private readonly ILogger<ExpenseService> _logger;
+        private readonly ILog _logger;
 
         /// <summary>
         /// Creates instance of <see cref="ExpenseService"/> class.
         /// </summary>
         /// <param name="expenses">Repository of expenses.</param>
-        public ExpenseService(IExpenseRepository expenses, ILogger<ExpenseService> logger)
+        public ExpenseService(IExpenseRepository expenses, ILog logger)
         {
             _expenseRepo = expenses;
             _logger = logger;
@@ -34,7 +32,7 @@ namespace Contador.Services
 
             if (result.Count == 0)
             {
-                _logger.LogInformation("Expenses not found.");
+                _logger.Write(Core.Common.LogLevel.Warning, "Expenses not found.");
                 return new Result<IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
             }
 
@@ -55,7 +53,7 @@ namespace Contador.Services
 
             if (result == default)
             {
-                _logger.LogInformation($"Expense of the {id} not found.");
+                _logger.Write(Core.Common.LogLevel.Warning, $"Expense of the {id} not found.");
                 return new Result<Expense>(ResponseCode.NotFound, default);
             }
 
@@ -72,7 +70,7 @@ namespace Contador.Services
                 return new Result<Expense>(ResponseCode.Ok, result);
             }
 
-            _logger.LogWarning("Cannot add the expense.");
+            _logger.Write(Core.Common.LogLevel.Warning, "Cannot add the expense.");
             return new Result<Expense>(ResponseCode.Error, default);
         }
 
@@ -83,7 +81,7 @@ namespace Contador.Services
 
             if (result != default)
             {
-                _logger.LogWarning($"Cannot update the expense of the {id}.");
+                _logger.Write(Core.Common.LogLevel.Warning, $"Cannot update the expense of the {id}.");
                 return new Result<Expense>(ResponseCode.Ok, result);
             }
 

@@ -44,7 +44,7 @@ namespace Server.Tests
             var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
-            var loggerMock = new Mock<ILogger<ExpenseService>>();
+            var loggerMock = new Mock<ILog>();
 
             expenseRepoMock.Setup(r => r.GetExpenses())
                 .Returns(Task.FromResult(_returnedExpenses));
@@ -72,7 +72,7 @@ namespace Server.Tests
             var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
-            var loggerMock = new Mock<ILogger<ExpenseService>>();
+            var loggerMock = new Mock<ILog>();
 
             expenseRepoMock.Setup(r => r.GetExpenses())
                 .Returns(Task.FromResult(new List<Expense>() as IList<Expense>));
@@ -99,7 +99,7 @@ namespace Server.Tests
             var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
-            var loggerMock = new Mock<ILogger<ExpenseService>>();
+            var loggerMock = new Mock<ILog>();
 
             expenseRepoMock.Setup(r => r.GetExpense(It.IsAny<int>()))
                 .Returns(Task.FromResult(_returnedExpenses[1]));
@@ -125,7 +125,7 @@ namespace Server.Tests
             var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
-            var loggerMock = new Mock<ILogger<ExpenseService>>();
+            var loggerMock = new Mock<ILog>();
 
             expenseRepoMock.Setup(r => r.GetExpense(It.IsAny<int>()))
                 .Returns(Task.FromResult(default(Expense)));
@@ -151,7 +151,7 @@ namespace Server.Tests
             var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
-            var loggerMock = new Mock<ILogger<ExpenseService>>();
+            var loggerMock = new Mock<ILog>();
 
             expenseRepoMock.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Expense>()))
                 .Returns(Task.FromResult(default(Expense)));
@@ -177,7 +177,7 @@ namespace Server.Tests
             var expenseRepoMock = new Mock<IExpenseRepository>();
             var categoriesRepoMock = new Mock<IExpenseCategoryService>();
             var usersRepoMock = new Mock<IUserService>();
-            var loggerMock = new Mock<ILogger<ExpenseService>>();
+            var loggerMock = new Mock<ILog>();
 
             var expectedDescription = "Here is a new description!!!";
 
