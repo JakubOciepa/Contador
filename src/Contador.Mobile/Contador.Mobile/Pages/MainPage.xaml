@@ -1,9 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contador.Mobile.Pages.MainPage">
+             xmlns:theme="clr-namespace:Contador.Mobile.Styles"
+             x:Class="Contador.Mobile.Pages.MainPage"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit">
 
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-
-    </StackLayout>
+    <Grid>
+        <Label Text="{x:Static theme:IconFonts.Home}" 
+               FontFamily="FontAwesome" 
+               TextColor="Black" 
+               FontSize="30" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center"/>
+    </Grid>
 </ContentPage>
