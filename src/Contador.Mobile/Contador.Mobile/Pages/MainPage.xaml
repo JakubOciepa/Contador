@@ -63,14 +63,21 @@
         <Grid BackgroundColor="LightGray">
             <toolkit:TabView 
                 TabStripPlacement="Bottom"
-                TabStripBackgroundColor="White"
                 TabStripHeight="70"
                 TabIndicatorHeight="0"
                 IsSwipeEnabled="False"
                 IsClippedToBounds="False"
                 IsTabTransitionEnabled="False"
                 TabContentBackgroundColor="#7F7F7F">
-
+                <toolkit:TabView.TabStripBackgroundView>
+                    <sharpnado:Shadows Shades="{sharpnado:SingleShade 
+                        Offset='0, -10', 
+                        BlurRadius=60, 
+                        Opacity=0.1,
+                        Color=Black}">
+                        <Grid BackgroundColor="White"></Grid>
+                    </sharpnado:Shadows>
+                </toolkit:TabView.TabStripBackgroundView>
                 <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
@@ -84,10 +91,11 @@
                             Glyph="{x:Static styles:IconFonts.Home}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="LightGray">
+                    <Grid BackgroundColor="#f6f8f8">
                         <Label HorizontalOptions="Center" 
                                VerticalOptions="Center"
-                            Text="Home page"/>
+                               Text="Home page"
+                               TextColor="Black"/>
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -105,10 +113,11 @@
                             Glyph="{x:Static styles:IconFonts.Dollar}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="LightGray">
+                    <Grid BackgroundColor="#f6f8f8">
                         <Label Text="Expenses"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center"
+                               TextColor="Black"/>
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -125,10 +134,11 @@
                             Glyph="{x:Static styles:IconFonts.Plus}"
                             Color="White" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="LightGray">
+                    <Grid BackgroundColor="#f6f8f8">
                         <Label Text="Add Expense"
                                VerticalOptions="Center"
-                               HorizontalOptions="Center"/>
+                               HorizontalOptions="Center"
+                               TextColor="Black"/>
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -145,10 +155,11 @@
                             Glyph="{x:Static styles:IconFonts.Chart}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="LightGray">
+                    <Grid BackgroundColor="#f6f8f8">
                         <Label Text="Budget"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center"
+                               TextColor="Black"/>
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -165,10 +176,11 @@
                             Glyph="{x:Static styles:IconFonts.User}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="LightGray">
+                    <Grid BackgroundColor="#f6f8f8">
                         <Label Text="User settings"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center"
+                               TextColor="Black"/>
                     </Grid>
                 </toolkit:TabViewItem>
 
