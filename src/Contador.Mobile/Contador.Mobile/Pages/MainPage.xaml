@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contador.Mobile.Pages.MainPage"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit">
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:styles="clr-namespace:Contador.Mobile.Styles">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -17,25 +18,85 @@
                 TabStripBackgroundColor="White"
                 TabStripHeight="60"
                 TabIndicatorHeight="0"
-                TabContentBackgroundColor="Black">
-                <toolkit:TabViewItem
-                    Text="Tab 1">
-                    <Grid BackgroundColor="Gray">
-                        <Label
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Text="TabContent1" />
+                TabContentBackgroundColor="Black"
+                IsSwipeEnabled="False">
+
+                <toolkit:TabViewItem>
+                    <toolkit:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Home}"
+                            Color="Black" />
+                    </toolkit:TabViewItem.Icon>
+                    <Grid BackgroundColor="LightGray">
+                        <Label HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                            Text="Home page"/>
                     </Grid>
                 </toolkit:TabViewItem>
-                <toolkit:TabViewItem
-                    Text="Tab 2">
-                    <Grid>
-                        <Label    
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Text="TabContent2" />
+
+
+                <toolkit:TabViewItem>
+                    <toolkit:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Dollar}"
+                            Color="Black" />
+                    </toolkit:TabViewItem.Icon>
+                    <Grid BackgroundColor="LightGray">
+                        <Label Text="Expenses"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
                     </Grid>
                 </toolkit:TabViewItem>
+
+                <toolkit:TabViewItem>
+                    <toolkit:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Plus}"
+                            Color="Black" />
+                    </toolkit:TabViewItem.Icon>
+                    <Grid BackgroundColor="LightGray">
+                        <Label Text="Add Expense"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Grid>
+                </toolkit:TabViewItem>
+
+                <toolkit:TabViewItem>
+                    <toolkit:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Chart}"
+                            Color="Black" />
+                    </toolkit:TabViewItem.Icon>
+                    <Grid BackgroundColor="LightGray">
+                        <Label Text="Budget"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </toolkit:TabViewItem>
+
+                <toolkit:TabViewItem>
+                    <toolkit:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.User}"
+                            Color="Black" />
+                    </toolkit:TabViewItem.Icon>
+                    <Grid BackgroundColor="LightGray">
+                        <Label Text="User settings"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </toolkit:TabViewItem>
+
             </toolkit:TabView>
         </Grid>
     </ContentPage.Content>
