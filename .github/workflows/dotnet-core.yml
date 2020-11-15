@@ -17,15 +17,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: "5.0.100-rc.2.20479.15"
-    - name: Install dependencies
-      run: dotnet restore ./src/Contador.sln
     - name: Build Core
-      run: dotnet build --configuration Debug --no-restore ./src/Contador.Core/Core/Contador.Core.csproj
+      run: dotnet build --configuration Debug ./src/Contador.Core/Core/Contador.Core.csproj
     - name: Build DAL.MySQL
-      run: dotnet build --configuration Debug --no-restore ./src/Contador.DAL/MySQL/Contador.DAL.MySQL.csproj
+      run: dotnet build --configuration Debug ./src/Contador.DAL/MySQL/Contador.DAL.MySQL.csproj
     - name: Build Contador
-      run: dotnet build --configuration Debug --no-restore ./src/Contador/Contador/Contador.csproj
+      run: dotnet build --configuration Debug ./src/Contador/Contador/Contador.csproj
     - name: Build WEB
-      run: dotnet build --configuration Debug --no-restore ./src/Contador.Web/Server/Contador.Web.Server.csproj
+      run: dotnet build --configuration Debug ./src/Contador.Web/Server/Contador.Web.Server.csproj
     - name: Test
       run: dotnet test --no-restore --verbosity normal ./src/Contador/Tests/Contador.Tests.csproj
