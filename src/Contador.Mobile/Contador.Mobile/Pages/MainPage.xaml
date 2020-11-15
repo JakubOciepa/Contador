@@ -1,16 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:theme="clr-namespace:Contador.Mobile.Styles"
+             xmlns:local="clr-namespace:Contador.Mobile.Pages"
              x:Class="Contador.Mobile.Pages.MainPage"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit">
 
-    <Grid>
-        <Label Text="{x:Static theme:IconFonts.Home}" 
-               FontFamily="FontAwesome" 
-               TextColor="Black" 
-               FontSize="30" 
-               HorizontalOptions="Center" 
-               VerticalOptions="Center"/>
-    </Grid>
+    <!--<ContentPage.Resources>
+        <ResourceDictionary>
+
+            <ControlTemplate
+		        x:Key="TabItemTemplate">
+                <Grid
+			        RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        x:Name="TabIcon"
+				        Grid.Row="0"
+				        VerticalOptions="Center"
+				        HorizontalOptions="Center"
+				        WidthRequest="24"
+				        HeightRequest="24"
+                        Margin="6"
+				        Source="{TemplateBinding CurrentIcon}" />
+                    <Label
+                        x:Name="TabText"
+				        Grid.Row="1"
+				        HorizontalOptions="Center"
+				        FontSize="{TemplateBinding FontSize}"
+				        Text="{TemplateBinding Text}"
+				        TextColor="{TemplateBinding CurrentTextColor}"
+                        Margin="0, 6"/>
+                </Grid>
+            </ControlTemplate>
+
+            <Style
+		        x:Key="TabItemStyle"
+		        TargetType="xct:TabViewItem">
+                <Setter
+			        Property="ControlTemplate"
+			        Value="{StaticResource TabItemTemplate}" />
+                <Setter
+			        Property="FontSize"
+			        Value="12" />
+                <Setter
+			        Property="TextColor"
+			        Value="White" />
+                <Setter
+			        Property="TextColorSelected"
+			        Value="Yellow" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>-->
+    
+    <ContentPage.Content>
+        <Grid>
+            <toolkit:TabView 
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="Blue"
+                TabStripHeight="60"
+                TabIndicatorColor="Yellow"
+                TabContentBackgroundColor="Yellow">
+                <toolkit:TabViewItem
+                    Text="Tab 1">
+                    <Grid 
+                        BackgroundColor="Gray">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent1" />
+                    </Grid>
+                </toolkit:TabViewItem>
+                <toolkit:TabViewItem
+                    Text="Tab 2">
+                    <Grid>
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent2" />
+                    </Grid>
+                </toolkit:TabViewItem>
+            </toolkit:TabView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>
