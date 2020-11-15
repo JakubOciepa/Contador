@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>1.0.0-preview1089</Version>
     </PackageReference>
