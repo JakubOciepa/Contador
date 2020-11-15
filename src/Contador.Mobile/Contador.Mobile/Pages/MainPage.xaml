@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contador.Mobile.Pages.MainPage"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:styles="clr-namespace:Contador.Mobile.Styles">
+             xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+             xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -19,6 +20,39 @@
                         WidthRequest="24"
                         HeightRequest="24"
                         Source="{TemplateBinding CurrentIcon}" />
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="AddTabIconItemTemplate">
+                <Grid>
+                    <sharpnado:Shadows
+                        Margin="0, 0, 0, 36"
+                        CornerRadius="36"
+                        Shades="{sharpnado:SingleShade Offset='0, 10',
+                        BlurRadius=35,
+                        Opacity=0.5,
+                        Color='#33c3d9'}">
+                        <ImageButton x:Name="AddBtn"
+                            InputTransparent="True"
+                            Source="{TemplateBinding CurrentIcon}"
+                            Padding="21"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            BackgroundColor="#00dce4"
+                            HeightRequest="72"
+                            WidthRequest="72">
+                            <ImageButton.CornerRadius>
+                                <OnPlatform x:TypeArguments="x:Int32">
+                                    <On
+                                        Platform="iOS, UWP"
+                                        Value="36" />
+                                    <On
+                                        Platform="Android"
+                                        Value="60" />
+                                </OnPlatform>
+                            </ImageButton.CornerRadius>
+                        </ImageButton>
+                    </sharpnado:Shadows>
                 </Grid>
             </ControlTemplate>
 
@@ -78,18 +112,18 @@
                     </Grid>
                 </toolkit:TabViewItem>
 
-                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
+                <toolkit:TabViewItem ControlTemplate="{StaticResource AddTabIconItemTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.Plus}"
-                            Color="Gray" />
+                            Color="White" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
                         <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.Plus}"
-                            Color="Black" />
+                            Color="White" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="LightGray">
                         <Label Text="Add Expense"
