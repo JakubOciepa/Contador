@@ -8,6 +8,20 @@
     <ContentPage.Resources>
         <ResourceDictionary>
 
+            <ControlTemplate
+                x:Key="TabItemIconTemplate">
+                <Grid>
+                    <Image
+                        x:Name="TabIcon"
+                        Grid.Row="0"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Source="{TemplateBinding CurrentIcon}" />
+                </Grid>
+            </ControlTemplate>
+
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -16,19 +30,26 @@
             <toolkit:TabView 
                 TabStripPlacement="Bottom"
                 TabStripBackgroundColor="White"
-                TabStripHeight="60"
+                TabStripHeight="70"
                 TabIndicatorHeight="0"
-                TabContentBackgroundColor="Black"
-                IsSwipeEnabled="False">
+                IsSwipeEnabled="False"
+                IsClippedToBounds="False"
+                IsTabTransitionEnabled="False"
+                TabContentBackgroundColor="#7F7F7F">
 
-                <toolkit:TabViewItem>
+                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Home}"
+                            Color="Gray" />
+                    </toolkit:TabViewItem.Icon>
+                    <toolkit:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.Home}"
                             Color="Black" />
-                    </toolkit:TabViewItem.Icon>
+                    </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="LightGray">
                         <Label HorizontalOptions="Center" 
                                VerticalOptions="Center"
@@ -37,14 +58,19 @@
                 </toolkit:TabViewItem>
 
 
-                <toolkit:TabViewItem>
+                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Dollar}"
+                            Color="Gray" />
+                    </toolkit:TabViewItem.Icon>
+                    <toolkit:TabViewItem.IconSelected>
+                    <FontImageSource
+                            FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.Dollar}"
                             Color="Black" />
-                    </toolkit:TabViewItem.Icon>
+                    </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="LightGray">
                         <Label Text="Expenses"
                                HorizontalOptions="Center"
@@ -52,14 +78,19 @@
                     </Grid>
                 </toolkit:TabViewItem>
 
-                <toolkit:TabViewItem>
+                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Plus}"
+                            Color="Gray" />
+                    </toolkit:TabViewItem.Icon>
+                    <toolkit:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.Plus}"
                             Color="Black" />
-                    </toolkit:TabViewItem.Icon>
+                    </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="LightGray">
                         <Label Text="Add Expense"
                                VerticalOptions="Center"
@@ -67,14 +98,19 @@
                     </Grid>
                 </toolkit:TabViewItem>
 
-                <toolkit:TabViewItem>
+                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.Chart}"
+                            Color="Gray" />
+                    </toolkit:TabViewItem.Icon>
+                    <toolkit:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.Chart}"
                             Color="Black" />
-                    </toolkit:TabViewItem.Icon>
+                    </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="LightGray">
                         <Label Text="Budget"
                                HorizontalOptions="Center"
@@ -82,14 +118,19 @@
                     </Grid>
                 </toolkit:TabViewItem>
 
-                <toolkit:TabViewItem>
+                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Size="Large"
+                            Glyph="{x:Static styles:IconFonts.User}"
+                            Color="Gray" />
+                    </toolkit:TabViewItem.Icon>
+                    <toolkit:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
                             Glyph="{x:Static styles:IconFonts.User}"
                             Color="Black" />
-                    </toolkit:TabViewItem.Icon>
+                    </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="LightGray">
                         <Label Text="User settings"
                                HorizontalOptions="Center"
