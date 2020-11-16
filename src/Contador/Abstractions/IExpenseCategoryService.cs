@@ -16,20 +16,20 @@ namespace Contador.Abstractions
         /// </summary>
         /// <param name="id">Id of requested expense category</param>
         /// <returns>Correct ExpenseCategory or default</returns>
-        Task<Result<ExpenseCategory>> GetCategoryById(int id);
+        Task<Result<ExpenseCategory>> GetCategoryByIdAsync(int id);
 
         /// <summary>
         /// Gets all available expense categories.
         /// </summary>
         /// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-        Task<Result<IList<ExpenseCategory>>> GetCategories();
+        Task<Result<IList<ExpenseCategory>>> GetCategoriesAsync();
 
         /// <summary>
         /// Adds expense category.
         /// </summary>
         /// <param name="category">Expense category to add.</param>
         /// <returns><see cref="ResponseCode"/> for operation and added category.</returns>
-        Task<Result<ExpenseCategory>> Add(ExpenseCategory category);
+        Task<Result<ExpenseCategory>> AddExpenseAsync(ExpenseCategory category);
 
         /// <summary>
         /// Updates expense category of provided id.
@@ -37,13 +37,13 @@ namespace Contador.Abstractions
         /// <param name="id">Id of category to update.</param>
         /// <param name="category">Category info.</param>
         /// <returns>Updated category</returns>
-        Task<Result<ExpenseCategory>> Update(int id, ExpenseCategory category);
+        Task<Result<ExpenseCategory>> UpdateExpenseAsync(int id, ExpenseCategory category);
 
         /// <summary>
         /// Removes expense category of provided id.
         /// </summary>
         /// <param name="id">Id of category to remove.</param>
         /// <returns><see cref="ResponseCode"/> of operation.</returns>
-        Task<ResponseCode> Remove(int id);
+        Task<ResponseCode> RemoveExpenseAsync(int id);
     }
 }

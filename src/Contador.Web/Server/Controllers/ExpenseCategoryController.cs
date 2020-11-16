@@ -39,7 +39,7 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
         {
-            var result = await _expenseCategoryService.GetCategories().CAF();
+            var result = await _expenseCategoryService.GetCategoriesAsync().CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -59,7 +59,7 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
         {
-            var result = await _expenseCategoryService.GetCategoryById(id).CAF();
+            var result = await _expenseCategoryService.GetCategoryByIdAsync(id).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
             {
@@ -79,13 +79,13 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult> AddExpenseCategory([FromBody] ExpenseCategory category)
         {
-            if ((await _expenseCategoryService.GetCategories().CAF())
+            if ((await _expenseCategoryService.GetCategoriesAsync().CAF())
                 .ReturnedObject.Any(x => x.Name == category.Name))
             {
                 return Conflict(category);
             }
 
-            var result = await _expenseCategoryService.Add(category);
+            var result = await _expenseCategoryService.AddExpenseAsync(category).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
@@ -108,13 +108,13 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] ExpenseCategory category)
         {
-            if ((await _expenseCategoryService.GetCategories().CAF())
+            if ((await _expenseCategoryService.GetCategoriesAsync().CAF())
                 .ReturnedObject.All(x => x.Name != category.Name))
             {
                 return NotFound(category);
             }
 
-            var result = await _expenseCategoryService.Update(id, category).CAF();
+            var result = await _expenseCategoryService.UpdateExpenseAsync(id, category).CAF();
 
             if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
             {
@@ -136,13 +136,13 @@ namespace Contador.Web.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> RemoveExpense([FromRoute] int id)
         {
-            if ((await _expenseCategoryService.GetCategories().CAF())
+            if ((await _expenseCategoryService.GetCategoriesAsync().CAF())
                 .ReturnedObject.All(x => x.Id != id))
             {
                 return NotFound(id);
             }
 
-            var result = await _expenseCategoryService.Remove(id).CAF();
+            var result = await _expenseCategoryService.RemoveExpenseAsync(id).CAF();
 
             if (result == ResponseCode.Ok)
             {
