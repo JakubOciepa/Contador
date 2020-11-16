@@ -28,7 +28,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<IList<Expense>>> GetExpensesAsync()
         {
-            var result = await _expenseRepo.GetExpenses().CAF();
+            var result = await _expenseRepo.GetExpensesAsync().CAF();
 
             if (result.Count == 0)
             {
@@ -49,7 +49,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> GetExpenseAsync(int id)
         {
-            var result = await _expenseRepo.GetExpense(id).CAF();
+            var result = await _expenseRepo.GetExpenseAsync(id).CAF();
 
             if (result == default)
             {
@@ -63,7 +63,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> AddAsync(Expense expense)
         {
-            var result = await _expenseRepo.Add(expense).CAF();
+            var result = await _expenseRepo.AddExpenseAsync(expense).CAF();
 
             if (result != default)
             {
@@ -77,7 +77,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<Expense>> UpdateAsync(int id, Expense expense)
         {
-            var result = await _expenseRepo.Update(id, expense).CAF();
+            var result = await _expenseRepo.UpdateExpenseAsync(id, expense).CAF();
 
             if (result != default)
             {
@@ -91,7 +91,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<ResponseCode> RemoveAsync(int id)
         {
-            var result = await _expenseRepo.Remove(id).CAF();
+            var result = await _expenseRepo.RemoveExpenseAsync(id).CAF();
 
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }

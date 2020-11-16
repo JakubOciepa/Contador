@@ -29,7 +29,7 @@ namespace Contador.DAL.Repositories
         }
 
         ///<inheritdoc/>
-        public async Task<Expense> GetExpense(int expenseId)
+        public async Task<Expense> GetExpenseAsync(int expenseId)
         {
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseDto.ParameterName.Id, expenseId);
@@ -51,7 +51,7 @@ namespace Contador.DAL.Repositories
         }
 
         ///<inheritdoc/>
-        public async Task<IList<Expense>> GetExpenses()
+        public async Task<IList<Expense>> GetExpensesAsync()
         {
             var expenses = await _dbConnection
                 .QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetAll,
@@ -69,7 +69,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Expense> Add(Expense expense)
+        public async Task<Expense> AddExpenseAsync(Expense expense)
         {
             var param = new DynamicParameters();
             param.Add(ExpenseDto.ParameterName.Name, expense.Name);
@@ -94,7 +94,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Expense> Update(int id, Expense expense)
+        public async Task<Expense> UpdateExpenseAsync(int id, Expense expense)
         {
             var param = new DynamicParameters();
             param.Add(ExpenseDto.ParameterName.Id, expense.Id);
@@ -120,14 +120,14 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<bool> Remove(int id)
+        public async Task<bool> RemoveExpenseAsync(int id)
         {
             var param = new DynamicParameters();
             param.Add(ExpenseDto.ParameterName.Id, id);
 
             await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
 
-            return !(await GetExpense(id).CAF() is object);
+            return !(await GetExpenseAsync(id).CAF() is object);
         }
     }
 }
