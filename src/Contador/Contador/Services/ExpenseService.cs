@@ -26,7 +26,7 @@ namespace Contador.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Result<IList<Expense>>> GetExpenses()
+        public async Task<Result<IList<Expense>>> GetExpensesAsync()
         {
             var result = await _expenseRepo.GetExpenses().CAF();
 
@@ -47,7 +47,7 @@ namespace Contador.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Result<Expense>> GetExpense(int id)
+        public async Task<Result<Expense>> GetExpenseAsync(int id)
         {
             var result = await _expenseRepo.GetExpense(id).CAF();
 
@@ -61,7 +61,7 @@ namespace Contador.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Result<Expense>> Add(Expense expense)
+        public async Task<Result<Expense>> AddAsync(Expense expense)
         {
             var result = await _expenseRepo.Add(expense).CAF();
 
@@ -75,7 +75,7 @@ namespace Contador.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Result<Expense>> Update(int id, Expense expense)
+        public async Task<Result<Expense>> UpdateAsync(int id, Expense expense)
         {
             var result = await _expenseRepo.Update(id, expense).CAF();
 
@@ -89,7 +89,7 @@ namespace Contador.Services
         }
 
         /// <inheritdoc/>
-        public async Task<ResponseCode> Remove(int id)
+        public async Task<ResponseCode> RemoveAsync(int id)
         {
             var result = await _expenseRepo.Remove(id).CAF();
 

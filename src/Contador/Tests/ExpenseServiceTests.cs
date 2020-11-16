@@ -57,7 +57,7 @@ namespace Server.Tests
             var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
             //act
-            var result = await expenseService.GetExpenses().CAF();
+            var result = await expenseService.GetExpensesAsync().CAF();
 
             //assert
             result.ResponseCode.Should().Equals(ResponseCode.Ok);
@@ -85,7 +85,7 @@ namespace Server.Tests
             var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
             //act
-            var result = await expenseService.GetExpenses().CAF();
+            var result = await expenseService.GetExpensesAsync().CAF();
 
             //assert
             result.ResponseCode.Should().Equals(ResponseCode.NotFound);
@@ -111,7 +111,7 @@ namespace Server.Tests
 
             var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
-            var result = await expenseService.GetExpense(0).CAF();
+            var result = await expenseService.GetExpenseAsync(0).CAF();
 
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);
@@ -137,7 +137,7 @@ namespace Server.Tests
 
             var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
-            var result = await expenseService.GetExpense(0).CAF();
+            var result = await expenseService.GetExpenseAsync(0).CAF();
 
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.NotFound);
@@ -163,7 +163,7 @@ namespace Server.Tests
 
             var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
-            var result = await expenseService.Update(0, _expectedExpenses[0]).CAF();
+            var result = await expenseService.UpdateAsync(0, _expectedExpenses[0]).CAF();
 
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Error);
@@ -197,7 +197,7 @@ namespace Server.Tests
 
             var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
             //act
-            var result = await expenseService.Update(0, _expectedExpenses[0]).CAF();
+            var result = await expenseService.UpdateAsync(0, _expectedExpenses[0]).CAF();
 
             //assert
             result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);

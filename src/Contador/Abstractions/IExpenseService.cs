@@ -15,21 +15,21 @@ namespace Contador.Abstractions
         /// Gets all available expenses.
         /// </summary>
         /// <returns>Result which proper response code and list of expenses.</returns>
-        Task<Result<IList<Expense>>> GetExpenses();
+        Task<Result<IList<Expense>>> GetExpensesAsync();
 
         /// <summary>
         /// Gets <see cref="Expense"/> of provided id.
         /// </summary>
         /// <param name="id">Id of requested Expense.</param>
         /// <returns><see cref="Expense"/> of provided id.</returns>
-        Task<Result<Expense>> GetExpense(int id);
+        Task<Result<Expense>> GetExpenseAsync(int id);
 
         /// <summary>
         /// Adds provided <see cref="Expense"/> into storage.
         /// </summary>
         /// <param name="expense">Expense to add.</param>
         /// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
-        Task<Result<Expense>> Add(Expense expense);
+        Task<Result<Expense>> AddAsync(Expense expense);
 
         /// <summary>
         /// Updates <see cref="Expense"/> of provided id.
@@ -37,13 +37,13 @@ namespace Contador.Abstractions
         /// <param name="id">Id of expense to update.</param>
         /// <param name="expense">Expense info.</param>
         /// <returns>Correct <see cref="ResponseCode"/> for operation and updated expense.</returns>
-        Task<Result<Expense>> Update(int id, Expense expense);
+        Task<Result<Expense>> UpdateAsync(int id, Expense expense);
 
         /// <summary>
         /// Removes <see cref="Expense"/> of provided id.
         /// </summary>
         /// <param name="id">Id of expense to remove.</param>
         /// <returns>Correct <see cref="ResponseCode"/> for operation</returns>
-        Task<ResponseCode> Remove(int id);
+        Task<ResponseCode> RemoveAsync(int id);
     }
 }
