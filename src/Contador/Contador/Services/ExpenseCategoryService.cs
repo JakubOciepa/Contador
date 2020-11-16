@@ -28,7 +28,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<IList<ExpenseCategory>>> GetCategoriesAsync()
         {
-            var result = await _repository.GetCategories().CAF();
+            var result = await _repository.GetCategoriesAsync().CAF();
 
             if (result.Count == 0)
             {
@@ -50,7 +50,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> GetCategoryByIdAsync(int id)
         {
-            var result = await _repository.GetCategoryById(id).CAF();
+            var result = await _repository.GetCategoryByIdAsync(id).CAF();
 
             if (result == default)
             {
@@ -64,7 +64,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> AddExpenseAsync(ExpenseCategory category)
         {
-            var result = await _repository.Add(category).CAF();
+            var result = await _repository.AddCategoryAsync(category).CAF();
 
             if (result != default)
             {
@@ -79,7 +79,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<Result<ExpenseCategory>> UpdateExpenseAsync(int id, ExpenseCategory category)
         {
-            var result = await _repository.Update(id, category).CAF();
+            var result = await _repository.UpdateCategoryAsync(id, category).CAF();
 
             if (result != default)
             {
@@ -94,7 +94,7 @@ namespace Contador.Services
         /// <inheritdoc/>
         public async Task<ResponseCode> RemoveExpenseAsync(int id)
         {
-            var result = await _repository.Remove(id).CAF();
+            var result = await _repository.RemoveCategoryAsync(id).CAF();
 
             return result ? ResponseCode.Ok : ResponseCode.Error;
         }

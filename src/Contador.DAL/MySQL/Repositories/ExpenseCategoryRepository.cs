@@ -29,7 +29,7 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<ExpenseCategory> Add(ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
         {
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseCategoryDto.ParameterName.Name, expenseCategory.Name);
@@ -40,14 +40,14 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<IList<ExpenseCategory>> GetCategories()
+        public async Task<IList<ExpenseCategory>> GetCategoriesAsync()
         {
             return (await _dbConnection.QueryAsync<ExpenseCategoryDto>(ExpenseCategoryDto.ProcedureName.GetAll,
                 commandType: CommandType.StoredProcedure).CAF()).Cast<ExpenseCategory>().ToList();
         }
 
         ///<inheritdoc/>
-        public async Task<ExpenseCategory> GetCategoryById(int categoryId)
+        public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
         {
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseCategoryDto.ParameterName.Id, categoryId);
@@ -57,18 +57,18 @@ namespace Contador.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<bool> Remove(int id)
+        public async Task<bool> RemoveCategoryAsync(int id)
         {
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseCategoryDto.ParameterName.Id, id);
             await _dbConnection.ExecuteAsync(ExpenseCategoryDto.ProcedureName.Delete, parameter,
                 commandType: CommandType.StoredProcedure).CAF();
 
-            return !(await GetCategoryById(id).CAF() is object);
+            return !(await GetCategoryByIdAsync(id).CAF() is object);
         }
 
         /// <inheritdoc/>
-        public async Task<ExpenseCategory> Update(int id, ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
         {
             var parameter = new DynamicParameters();
             parameter.Add(ExpenseCategoryDto.ParameterName.Id, id);
