@@ -25,7 +25,7 @@ namespace Contador.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Result<Expense>> GetExpenseById(int id)
+        public async Task<Result<Expense>> GetExpenseByIdAsync(int id)
         {
             using var client = new HttpClient();
 

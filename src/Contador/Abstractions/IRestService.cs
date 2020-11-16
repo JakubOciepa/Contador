@@ -15,6 +15,6 @@ namespace Contador.Abstractions
         /// </summary>
         /// <param name="id">Id of desired expense.</param>
         /// <returns>Expense of provided id or <see cref="default"/>.</returns>
-        Task<Result<Expense>> GetExpenseById(int id);
+        Task<Result<Expense>> GetExpenseByIdAsync(int id);
     }
 }
