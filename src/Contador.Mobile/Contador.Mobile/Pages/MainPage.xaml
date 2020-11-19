@@ -92,10 +92,30 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        <Label HorizontalOptions="Center" 
-                               VerticalOptions="Center"
-                               Text="Home page"
-                               TextColor="Black"/>
+                        <sharpnado:Shadows Shades="{sharpnado:SingleShade 
+                                   Offset='3, 10', 
+                                   BlurRadius=60, 
+                                   Opacity=0.1,
+                                   Color=Black}" 
+                                   BackgroundColor="White">
+                            <Grid HorizontalOptions="Center" VerticalOptions="Center" 
+                                  WidthRequest="350" HeightRequest="70" 
+                                  Padding="0">
+                                <BoxView CornerRadius="15"
+                                         BackgroundColor="White"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <toolkit:Expander></toolkit:Expander>
+                                    
+                                    
+                                </Grid>
+                            </Grid>
+                        </sharpnado:Shadows>
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -108,16 +128,13 @@
                             Color="Gray" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
-                    <FontImageSource
+                        <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        <Label Text="Expenses"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               TextColor="Black"/>
+
                     </Grid>
                 </toolkit:TabViewItem>
 
