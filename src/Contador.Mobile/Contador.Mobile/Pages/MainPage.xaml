@@ -82,13 +82,13 @@
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Home}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
                             Color="Gray" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Home}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
@@ -104,13 +104,13 @@
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Dollar}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
                             Color="Gray" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
                     <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Dollar}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
@@ -125,13 +125,13 @@
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Plus}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Plus}"
                             Color="White" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Plus}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Plus}"
                             Color="White" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
@@ -146,13 +146,13 @@
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Chart}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Chart}"
                             Color="Gray" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.Chart}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Chart}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
@@ -167,13 +167,13 @@
                     <toolkit:TabViewItem.Icon>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.User}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.User}"
                             Color="Gray" />
                     </toolkit:TabViewItem.Icon>
                     <toolkit:TabViewItem.IconSelected>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon.Solid.User}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.User}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
