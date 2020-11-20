@@ -99,16 +99,14 @@
                                    Color=Black}" 
                                    BackgroundColor="White">
                             <SwipeView HorizontalOptions="Center" VerticalOptions="Center" 
-                                          WidthRequest="350" HeightRequest="70">
+                                       WidthRequest="350" HeightRequest="70" Threshold="80">
                                 <SwipeView.RightItems>
-                                    <SwipeItem Text="Delete"
-                                               BackgroundColor="Red">
-                                        <SwipeItem.IconImageSource>
-                                            <FontImageSource
-                                                FontFamily="FontAwesome"
-                                                Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"/>
-                                        </SwipeItem.IconImageSource>
-                                    </SwipeItem>
+                                    <SwipeItemView>
+                                        <Grid WidthRequest="100">
+                                            <BoxView CornerRadius="0, 15,0,15"
+                                                     Color="Red"/>
+                                        </Grid>
+                                    </SwipeItemView>
 
                                 </SwipeView.RightItems>
                                 <SwipeView.Content>
