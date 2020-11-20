@@ -98,23 +98,34 @@
                                    Opacity=0.1,
                                    Color=Black}" 
                                    BackgroundColor="White">
-                            <Grid HorizontalOptions="Center" VerticalOptions="Center" 
-                                  WidthRequest="350" HeightRequest="70" 
-                                  Padding="0">
-                                <BoxView CornerRadius="15"
-                                         BackgroundColor="White"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
+                            <SwipeView HorizontalOptions="Center" VerticalOptions="Center" 
+                                          WidthRequest="350" HeightRequest="70">
+                                <SwipeView.RightItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red">
+                                        <SwipeItem.IconImageSource>
+                                            <FontImageSource
+                                                FontFamily="FontAwesome"
+                                                Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"/>
+                                        </SwipeItem.IconImageSource>
+                                    </SwipeItem>
 
-                                    <toolkit:Expander></toolkit:Expander>
-                                    
-                                    
-                                </Grid>
-                            </Grid>
+                                </SwipeView.RightItems>
+                                <SwipeView.Content>
+                                    <Grid Padding="0">
+                                        <BoxView CornerRadius="15"
+                                         BackgroundColor="White"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="Test"  Grid.Column="1" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Grid>
+                                </SwipeView.Content>
+                            </SwipeView>
                         </sharpnado:Shadows>
                     </Grid>
                 </toolkit:TabViewItem>
