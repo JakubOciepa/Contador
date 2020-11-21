@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,14 +7,6 @@ namespace Contador.Mobile.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExpenseControl : ContentView
     {
-        private readonly WeakEventManager _tappedEventManager = new WeakEventManager();
-
-        public event EventHandler Tapped
-        {
-            add => _tappedEventManager.AddEventHandler(value);
-            remove => _tappedEventManager.AddEventHandler(value);
-        }
-
         public static readonly BindableProperty TitleProperty
             = BindableProperty.Create(nameof(Title), typeof(string), typeof(ExpenseControl));
 
