@@ -38,7 +38,7 @@ namespace Contador.Mobile.Controls
             = BindableProperty.Create(nameof(ReceiptImage), typeof(Image), typeof(ExpenseControl));
 
         public static readonly BindableProperty UserNameProperty
-            = BindableProperty.Create(nameof(UserName), typeof(string), typeof(ExpenseControl), "Dupa");
+            = BindableProperty.Create(nameof(UserName), typeof(string), typeof(ExpenseControl));
 
         public static readonly BindableProperty CornerRadiusProperty
             = BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(ExpenseControl));
