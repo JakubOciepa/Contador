@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contador.Mobile.Controls.ExpenseControl">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
+             x:Class="Contador.Mobile.Controls.ExpenseControl"
+             x:Name="Page">
+    <ContentView.Content>
+        <Grid HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}"
+              WidthRequest="{Binding Source={x:Reference Page}, Path=WidthRequest}">
+            <BoxView BackgroundColor="Red"
+                     CornerRadius="{Binding CornerRadius, Source={x:Reference Page}}"/>
+            <Label Text="{Binding UserName, Source={x:Reference Page}}" TextColor="White"/>
+        </Grid>
+    </ContentView.Content>
 </ContentView>

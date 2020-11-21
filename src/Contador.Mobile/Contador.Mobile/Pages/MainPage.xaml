@@ -93,7 +93,12 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        <controls:ExpenseControl/>
+                        <controls:ExpenseControl HeightRequest="70" 
+                                                 WidthRequest="350" 
+                                                 CornerRadius="30" 
+                                                 HorizontalOptions="Center" 
+                                                 VerticalOptions="Center"
+                                                 UserName="Test"/>
                     </Grid>
                 </toolkit:TabViewItem>
 
