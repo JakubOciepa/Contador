@@ -92,6 +92,25 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
+                        
+                    </Grid>
+                </toolkit:TabViewItem>
+
+
+                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
+                    <toolkit:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
+                            Color="Gray" />
+                    </toolkit:TabViewItem.Icon>
+                    <toolkit:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
+                            Color="Black" />
+                    </toolkit:TabViewItem.IconSelected>
+                    <Grid BackgroundColor="#f6f8f8">
                         <sharpnado:Shadows Shades="{sharpnado:SingleShade 
                                    Offset='3, 10', 
                                    BlurRadius=60, 
@@ -124,31 +143,13 @@
                                         <BoxView CornerRadius="15"
                                          BackgroundColor="White"/>
                                         <Grid ColumnDefinitions="*, 2*, 2*">
-                                            <Label Text="Test" Grid.Column="1" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="Test" Grid.Column="1" TextColor="Black" 
+                                                   HorizontalOptions="Center" VerticalOptions="Center"/>
                                         </Grid>
                                     </Grid>
                                 </SwipeView.Content>
                             </SwipeView>
                         </sharpnado:Shadows>
-                    </Grid>
-                </toolkit:TabViewItem>
-
-
-                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
-                    <toolkit:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
-                            Color="Gray" />
-                    </toolkit:TabViewItem.Icon>
-                    <toolkit:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
-                            Color="Black" />
-                    </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8">
-
                     </Grid>
                 </toolkit:TabViewItem>
 
