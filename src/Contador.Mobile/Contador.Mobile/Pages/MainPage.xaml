@@ -4,7 +4,8 @@
              x:Class="Contador.Mobile.Pages.MainPage"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
-             xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
+             xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+             xmlns:controls="clr-namespace:Contador.Mobile.Controls">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -92,7 +93,7 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        
+                        <controls:ExpenseControl/>
                     </Grid>
                 </toolkit:TabViewItem>
 
