@@ -9,7 +9,6 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-
             <ControlTemplate
                 x:Key="TabItemIconTemplate">
                 <Grid>
@@ -92,13 +91,31 @@
                             Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8">
+                    <Grid BackgroundColor="#f6f8f8" Padding="0">
                         <controls:ExpenseControl HeightRequest="70" 
-                                                 WidthRequest="350" 
-                                                 CornerRadius="30" 
+                                                 WidthRequest="380"
+                                                 CornerRadius="15" 
                                                  HorizontalOptions="Center" 
                                                  VerticalOptions="Center"
-                                                 UserName="Test"/>
+                                                 UserName="Test">
+                            <controls:ExpenseControl.CategoryView>
+                                <Grid>
+                                    <BoxView HeightRequest="40" 
+                                             WidthRequest="40" 
+                                             CornerRadius="20" 
+                                             BackgroundColor="#460716ff"/>
+                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource 
+                                                FontFamily="FontAwesome"
+                                                Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
+                                                Color="White"
+                                                Size="20"/>
+                                        </Image.Source>
+                                    </Image>
+                                </Grid>
+                            </controls:ExpenseControl.CategoryView>
+                        </controls:ExpenseControl>
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -113,7 +130,7 @@
                     <toolkit:TabViewItem.IconSelected>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
+                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
