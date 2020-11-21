@@ -23,7 +23,7 @@ namespace Contador.Mobile.Controls
             = BindableProperty.Create(nameof(Description), typeof(string), typeof(ExpenseControl));
 
         public static readonly BindableProperty DateProperty
-            = BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(ExpenseControl));
+            = BindableProperty.Create(nameof(Date), typeof(string), typeof(ExpenseControl));
 
         public static readonly BindableProperty ValueProperty
             = BindableProperty.Create(nameof(Value), typeof(decimal), typeof(ExpenseControl));
@@ -55,9 +55,9 @@ namespace Contador.Mobile.Controls
             set => SetValue(DescriptionProperty, value);
         }
 
-        public DateTime Date
+        public string Date
         {
-            get => (DateTime)GetValue(DateProperty);
+            get => (string)GetValue(DateProperty);
             set => SetValue(DateProperty, value);
         }
 

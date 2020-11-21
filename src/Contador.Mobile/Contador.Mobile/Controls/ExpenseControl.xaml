@@ -44,7 +44,10 @@
                                              HorizontalOptions="Center"
                                              VerticalOptions="Center"/>
                             </Grid>
-                            <Grid Grid.Column="1" BackgroundColor="Green"/>
+                            <Grid Grid.Column="1" RowDefinitions="*,*" Padding="0,5">
+                                <Label Text="{Binding Title, Source={x:Reference Page}}"/>
+                                <Label Text="{Binding Date, Source={x:Reference Page}}"/>
+                            </Grid>
                             <Grid Grid.Column="2" BackgroundColor="Blue"/>
                         </Grid>
                     </Grid>
