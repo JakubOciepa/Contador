@@ -16,6 +16,10 @@
                            WidthRequest="{Binding Source={x:Reference Page}, Path=WidthRequest}" 
                            HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}" 
                            Threshold="35" Padding="0, 10">
+                <SwipeView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                        NumberOfTapsRequired="2" />
+                </SwipeView.GestureRecognizers>
                 <SwipeView.RightItems>
                     <SwipeItemView>
                         <Grid WidthRequest="50">

@@ -92,5 +92,10 @@ namespace Contador.Mobile.Controls
         {
             InitializeComponent();
         }
+
+        private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
