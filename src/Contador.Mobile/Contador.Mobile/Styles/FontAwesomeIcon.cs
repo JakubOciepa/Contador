@@ -55,6 +55,7 @@
             public const string Chart = "\uf080";
             public const string Plus = "\uf067";
             public const string User = "\uf007";
+            public const string Trash = "\uf1f8";
         }
     }
 }

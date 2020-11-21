@@ -99,12 +99,22 @@
                                    Color=Black}" 
                                    BackgroundColor="White">
                             <SwipeView HorizontalOptions="Center" VerticalOptions="Center" 
-                                       WidthRequest="350" HeightRequest="70" Threshold="80">
+                                       WidthRequest="350" HeightRequest="70" Threshold="35">
                                 <SwipeView.RightItems>
                                     <SwipeItemView>
-                                        <Grid WidthRequest="100">
+                                        <Grid WidthRequest="50">
                                             <BoxView CornerRadius="0, 15,0,15"
                                                      Color="Red"/>
+                                            <Image HorizontalOptions="End"
+                                                   VerticalOptions="Center"
+                                                   Margin="10,0">
+                                                <Image.Source>
+                                                    <FontImageSource FontFamily="FontAwesome"
+                                                                     Glyph="{x:Static styles:FontAwesomeIcon+Solid.Trash}"
+                                                                     Color="White"
+                                                                     Size="18"/>
+                                                </Image.Source>
+                                            </Image>
                                         </Grid>
                                     </SwipeItemView>
 
