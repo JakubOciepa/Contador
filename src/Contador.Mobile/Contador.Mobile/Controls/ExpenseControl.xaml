@@ -39,16 +39,30 @@
                         <BoxView CornerRadius="15"
                                      BackgroundColor="White"/>
                         <Grid ColumnDefinitions="*, 2*, 2*" ColumnSpacing="0">
-                            <Grid Grid.Column="0">
-                                <ContentView Content="{Binding CategoryView, Source={x:Reference Page}}"
-                                             HorizontalOptions="Center"
-                                             VerticalOptions="Center"/>
-                            </Grid>
-                            <Grid Grid.Column="1" RowDefinitions="*,*" Padding="0,5">
-                                <Label Text="{Binding Title, Source={x:Reference Page}}"/>
-                                <Label Text="{Binding Date, Source={x:Reference Page}}"/>
-                            </Grid>
-                            <Grid Grid.Column="2" BackgroundColor="Blue"/>
+                            <ContentView Grid.Column="0" Content="{Binding CategoryView, Source={x:Reference Page}}"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center"/>
+                            <StackLayout Grid.Column="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
+                                <Label Text="{Binding Title, Source={x:Reference Page}}"
+                                       VerticalOptions="End" FontAttributes="Bold" FontSize="16" Padding="0"
+                                       TextColor="Black"/>
+                                <Label Text="{Binding Date, Source={x:Reference Page}}"
+                                       VerticalOptions="Start" Padding="0" FontSize="12"/>
+                            </StackLayout>
+
+                            <Label Grid.Column="2" 
+                                   HorizontalOptions="Center" VerticalOptions="Center" 
+                                   TextColor="#d21e4a"
+                                   FontSize="21"
+                                   FontAttributes="Bold">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Value, Source={x:Reference Page}}"/>
+                                        <Span Text=" zł"/>
+                                    </FormattedString> 
+                                </Label.FormattedText>
+                            </Label>
+
                         </Grid>
                     </Grid>
                 </SwipeView.Content>

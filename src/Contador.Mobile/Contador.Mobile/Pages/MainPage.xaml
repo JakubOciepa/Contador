@@ -99,7 +99,8 @@
                                                  VerticalOptions="Center"
                                                  UserName="Test"
                                                  Title="Żarcie"
-                                                 Date="20 maj 2020">
+                                                 Date="20 maj 2020"
+                                                 Value="33.33">
                             <controls:ExpenseControl.CategoryView>
                                 <Grid>
                                     <BoxView HeightRequest="40" 
