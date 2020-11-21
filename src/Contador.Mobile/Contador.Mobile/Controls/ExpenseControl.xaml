@@ -4,6 +4,7 @@
              x:Class="Contador.Mobile.Controls.ExpenseControl"
              xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              x:Name="Page">
     <ContentView.Content>
         <sharpnado:Shadows Shades="{sharpnado:SingleShade 
@@ -14,7 +15,7 @@
             <SwipeView HorizontalOptions="Center" VerticalOptions="Center" 
                            WidthRequest="{Binding Source={x:Reference Page}, Path=WidthRequest}" 
                            HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}" 
-                           Threshold="35">
+                           Threshold="35" Padding="0, 10">
                 <SwipeView.RightItems>
                     <SwipeItemView>
                         <Grid WidthRequest="50">
@@ -35,9 +36,9 @@
 
                 </SwipeView.RightItems>
                 <SwipeView.Content>
-                    <Grid Padding="0">
+                    <Grid>
                         <BoxView CornerRadius="15"
-                                     BackgroundColor="White"/>
+                                 BackgroundColor="White"/>
                         <Grid ColumnDefinitions="*, 2*, 2*" ColumnSpacing="0">
                             <ContentView Grid.Column="0" Content="{Binding CategoryView, Source={x:Reference Page}}"
                                          HorizontalOptions="Center"
@@ -59,10 +60,9 @@
                                     <FormattedString>
                                         <Span Text="{Binding Value, Source={x:Reference Page}}"/>
                                         <Span Text=" zł"/>
-                                    </FormattedString> 
+                                    </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-
                         </Grid>
                     </Grid>
                 </SwipeView.Content>
