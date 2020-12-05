@@ -1,5 +1,4 @@
-﻿
-using Contador.Core.Common;
+﻿using Contador.Core.Common;
 
 namespace Contador.Abstractions
 {

@@ -1,5 +1,4 @@
-﻿
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Contador.Mobile.Controls
@@ -95,7 +94,6 @@ namespace Contador.Mobile.Controls
 
         private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
         {
-
         }
     }
 }

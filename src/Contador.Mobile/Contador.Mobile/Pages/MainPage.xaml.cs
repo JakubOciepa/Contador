@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Contador.Mobile.Pages
 {

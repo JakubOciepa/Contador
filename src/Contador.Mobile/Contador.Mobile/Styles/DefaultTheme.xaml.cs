@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 
 [assembly: ExportFont("fa-solid-900.ttf", Alias = "FontAwesome")]
+
 namespace Contador.Mobile.Styles
 {
     public partial class DefaultTheme : ResourceDictionary

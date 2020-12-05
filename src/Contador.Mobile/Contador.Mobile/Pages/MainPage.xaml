@@ -55,13 +55,12 @@
                     </sharpnado:Shadows>
                 </Grid>
             </ControlTemplate>
-
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <Grid BackgroundColor="LightGray">
-            <toolkit:TabView 
+            <toolkit:TabView
                 TabStripPlacement="Bottom"
                 TabStripHeight="70"
                 TabIndicatorHeight="0"
@@ -70,9 +69,9 @@
                 IsTabTransitionEnabled="False"
                 TabContentBackgroundColor="#7F7F7F">
                 <toolkit:TabView.TabStripBackgroundView>
-                    <sharpnado:Shadows Shades="{sharpnado:SingleShade 
-                        Offset='0, -10', 
-                        BlurRadius=60, 
+                    <sharpnado:Shadows Shades="{sharpnado:SingleShade
+                        Offset='0, -10',
+                        BlurRadius=60,
                         Opacity=0.1,
                         Color=Black}">
                         <Grid BackgroundColor="White"></Grid>
@@ -93,8 +92,8 @@
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8" Padding="0">
                         <controls:ExpenseControl WidthRequest="380"
-                                                 CornerRadius="15" 
-                                                 HorizontalOptions="Center" 
+                                                 CornerRadius="15"
+                                                 HorizontalOptions="Center"
                                                  VerticalOptions="Center"
                                                  UserName="Test"
                                                  Title="Żarcie"
@@ -102,17 +101,17 @@
                                                  Value="33.33">
                             <controls:ExpenseControl.CategoryView>
                                 <Grid>
-                                    <BoxView HeightRequest="40" 
-                                             WidthRequest="40" 
-                                             CornerRadius="20" 
-                                             BackgroundColor="#460716ff"/>
+                                    <BoxView HeightRequest="40"
+                                             WidthRequest="40"
+                                             CornerRadius="20"
+                                             BackgroundColor="#460716ff" />
                                     <Image HorizontalOptions="Center" VerticalOptions="Center">
                                         <Image.Source>
-                                            <FontImageSource 
+                                            <FontImageSource
                                                 FontFamily="FontAwesome"
                                                 Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
                                                 Color="White"
-                                                Size="20"/>
+                                                Size="20" />
                                         </Image.Source>
                                     </Image>
                                 </Grid>
@@ -120,7 +119,6 @@
                         </controls:ExpenseControl>
                     </Grid>
                 </toolkit:TabViewItem>
-
 
                 <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
                     <toolkit:TabViewItem.Icon>
@@ -136,19 +134,19 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        <sharpnado:Shadows Shades="{sharpnado:SingleShade 
-                                   Offset='3, 10', 
-                                   BlurRadius=60, 
+                        <sharpnado:Shadows Shades="{sharpnado:SingleShade
+                                   Offset='3, 10',
+                                   BlurRadius=60,
                                    Opacity=0.1,
-                                   Color=Black}" 
+                                   Color=Black}"
                                    BackgroundColor="White">
-                            <SwipeView HorizontalOptions="Center" VerticalOptions="Center" 
+                            <SwipeView HorizontalOptions="Center" VerticalOptions="Center"
                                        WidthRequest="350" HeightRequest="70" Threshold="35">
                                 <SwipeView.RightItems>
                                     <SwipeItemView>
                                         <Grid WidthRequest="50">
                                             <BoxView CornerRadius="0, 15,0,15"
-                                                     Color="Red"/>
+                                                     Color="Red" />
                                             <Image HorizontalOptions="End"
                                                    VerticalOptions="Center"
                                                    Margin="10,0">
@@ -156,20 +154,19 @@
                                                     <FontImageSource FontFamily="FontAwesome"
                                                                      Glyph="{x:Static styles:FontAwesomeIcon+Solid.Trash}"
                                                                      Color="White"
-                                                                     Size="18"/>
+                                                                     Size="18" />
                                                 </Image.Source>
                                             </Image>
                                         </Grid>
                                     </SwipeItemView>
-
                                 </SwipeView.RightItems>
                                 <SwipeView.Content>
                                     <Grid Padding="0">
                                         <BoxView CornerRadius="15"
-                                         BackgroundColor="White"/>
+                                         BackgroundColor="White" />
                                         <Grid ColumnDefinitions="*, 2*, 2*">
-                                            <Label Text="Test" Grid.Column="1" TextColor="Black" 
-                                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="Test" Grid.Column="1" TextColor="Black"
+                                                   HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Grid>
                                     </Grid>
                                 </SwipeView.Content>
@@ -195,7 +192,7 @@
                         <Label Text="Add Expense"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"
-                               TextColor="Black"/>
+                               TextColor="Black" />
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -216,7 +213,7 @@
                         <Label Text="Budget"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
-                               TextColor="Black"/>
+                               TextColor="Black" />
                     </Grid>
                 </toolkit:TabViewItem>
 
@@ -237,10 +234,9 @@
                         <Label Text="User settings"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
-                               TextColor="Black"/>
+                               TextColor="Black" />
                     </Grid>
                 </toolkit:TabViewItem>
-
             </toolkit:TabView>
         </Grid>
     </ContentPage.Content>
