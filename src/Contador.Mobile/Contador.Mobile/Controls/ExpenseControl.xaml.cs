@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Contador.Core.Models;
+
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Contador.Mobile.Controls
@@ -6,85 +8,13 @@ namespace Contador.Mobile.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExpenseControl : ContentView
     {
-        public static readonly BindableProperty TitleProperty
-            = BindableProperty.Create(nameof(Title), typeof(string), typeof(ExpenseControl));
+        public static readonly BindableProperty ExpenseProperty
+            = BindableProperty.Create(nameof(Expense), typeof(Expense), typeof(ExpenseControl));
 
-        public static readonly BindableProperty DescriptionProperty
-            = BindableProperty.Create(nameof(Description), typeof(string), typeof(ExpenseControl));
-
-        public static readonly BindableProperty DateProperty
-            = BindableProperty.Create(nameof(Date), typeof(string), typeof(ExpenseControl));
-
-        public static readonly BindableProperty ValueProperty
-            = BindableProperty.Create(nameof(Value), typeof(decimal), typeof(ExpenseControl));
-
-        public static readonly BindableProperty CategoryViewProperty
-            = BindableProperty.Create(nameof(CategoryView), typeof(View), typeof(ExpenseControl));
-
-        public static readonly BindableProperty UserViewProperty
-            = BindableProperty.Create(nameof(UserView), typeof(View), typeof(ExpenseControl));
-
-        public static readonly BindableProperty ReceiptImageProperty
-            = BindableProperty.Create(nameof(ReceiptImage), typeof(Image), typeof(ExpenseControl));
-
-        public static readonly BindableProperty UserNameProperty
-            = BindableProperty.Create(nameof(UserName), typeof(string), typeof(ExpenseControl));
-
-        public static readonly BindableProperty CornerRadiusProperty
-            = BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(ExpenseControl));
-
-        public string Title
+        public Expense Expense
         {
-            get => (string)GetValue(TitleProperty);
-            set => SetValue(TitleProperty, value);
-        }
-
-        public string Description
-        {
-            get => (string)GetValue(DescriptionProperty);
-            set => SetValue(DescriptionProperty, value);
-        }
-
-        public string Date
-        {
-            get => (string)GetValue(DateProperty);
-            set => SetValue(DateProperty, value);
-        }
-
-        public decimal Value
-        {
-            get => (decimal)GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
-        }
-
-        public View CategoryView
-        {
-            get => (View)GetValue(CategoryViewProperty);
-            set => SetValue(CategoryViewProperty, value);
-        }
-
-        public View UserView
-        {
-            get => (View)GetValue(UserViewProperty);
-            set => SetValue(UserViewProperty, value);
-        }
-
-        public Image ReceiptImage
-        {
-            get => (Image)GetValue(ReceiptImageProperty);
-            set => SetValue(ReceiptImageProperty, value);
-        }
-
-        public string UserName
-        {
-            get => (string)GetValue(UserNameProperty);
-            set => SetValue(UserNameProperty, value);
-        }
-
-        public CornerRadius CornerRadius
-        {
-            get => (CornerRadius)GetValue(CornerRadiusProperty);
-            set => SetValue(CornerRadiusProperty, value);
+            get => (Expense)GetValue(ExpenseProperty);
+            set => SetValue(ExpenseProperty, value);
         }
 
         public ExpenseControl()
