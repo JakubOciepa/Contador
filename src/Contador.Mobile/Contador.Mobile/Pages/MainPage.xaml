@@ -114,44 +114,19 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        <sharpnado:Shadows Shades="{sharpnado:SingleShade
-                                   Offset='3, 10',
-                                   BlurRadius=60,
-                                   Opacity=0.1,
-                                   Color=Black}"
-                                   BackgroundColor="White">
-                            <SwipeView HorizontalOptions="Center" VerticalOptions="Center"
-                                       WidthRequest="350" HeightRequest="70" Threshold="35">
-                                <SwipeView.RightItems>
-                                    <SwipeItemView>
-                                        <Grid WidthRequest="50">
-                                            <BoxView CornerRadius="0, 15,0,15"
-                                                     Color="Red" />
-                                            <Image HorizontalOptions="End"
-                                                   VerticalOptions="Center"
-                                                   Margin="10,0">
-                                                <Image.Source>
-                                                    <FontImageSource FontFamily="FontAwesome"
-                                                                     Glyph="{x:Static styles:FontAwesomeIcon+Solid.Trash}"
-                                                                     Color="White"
-                                                                     Size="18" />
-                                                </Image.Source>
-                                            </Image>
-                                        </Grid>
-                                    </SwipeItemView>
-                                </SwipeView.RightItems>
-                                <SwipeView.Content>
-                                    <Grid Padding="0">
-                                        <BoxView CornerRadius="15"
-                                         BackgroundColor="White" />
-                                        <Grid ColumnDefinitions="*, 2*, 2*">
-                                            <Label Text="Test" Grid.Column="1" TextColor="Black"
+                        
+                            <Grid x:Name="MyGrid" Padding="0" HorizontalOptions="Center" VerticalOptions="Center"
+                                       WidthRequest="350" HeightRequest="70">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Grid.GestureRecognizers>
+                                <BoxView CornerRadius="15"
+                                         BackgroundColor="ForestGreen" />
+                                <Grid ColumnDefinitions="*, 2*, 2*">
+                                    <Label Text="Text" Grid.Column="1" TextColor="Black"
                                                    HorizontalOptions="Center" VerticalOptions="Center" />
-                                        </Grid>
-                                    </Grid>
-                                </SwipeView.Content>
-                            </SwipeView>
-                        </sharpnado:Shadows>
+                                </Grid>
+                            </Grid>
                     </Grid>
                 </toolkit:TabViewItem>
 

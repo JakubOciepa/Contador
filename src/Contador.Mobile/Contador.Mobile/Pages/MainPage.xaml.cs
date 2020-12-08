@@ -19,5 +19,12 @@ namespace Contador.Mobile.Pages
         {
             InitializeComponent();
         }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            var animation = new Animation();
+            animation.WithConcurrent((g) => MyGrid.HeightRequest = g, 70, 150, Easing.SpringOut);
+            animation.Commit(Page, "ResizeAnimation", length: 3000);
+        }
     }
 }

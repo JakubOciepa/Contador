@@ -4,7 +4,6 @@
              x:Class="Contador.Mobile.Controls.ExpenseControl"
              xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              x:Name="Page">
     <ContentView.Content>
         <sharpnado:Shadows Shades="{sharpnado:SingleShade
@@ -15,7 +14,7 @@
             <SwipeView HorizontalOptions="Center" VerticalOptions="Center"
                        WidthRequest="{Binding Source={x:Reference Page}, Path=WidthRequest}"
                        HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}"
-                       Threshold="35">
+                       Threshold="35" x:Name="Swipe">
                 <SwipeView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
                                           NumberOfTapsRequired="2" />

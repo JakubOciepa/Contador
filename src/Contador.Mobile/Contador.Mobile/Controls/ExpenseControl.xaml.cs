@@ -12,6 +12,7 @@ namespace Contador.Mobile.Controls
     {
         private const int ANIMATION_LENGTH = 900;
         private bool _isCollapsed = true;
+        private double _pageHeight;
 
         public static readonly BindableProperty ExpenseProperty
             = BindableProperty.Create(nameof(Expense), typeof(Expense), typeof(ExpenseControl));
@@ -25,12 +26,15 @@ namespace Contador.Mobile.Controls
         public ExpenseControl()
         {
             InitializeComponent();
-
+            _pageHeight = Page.Height;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
         {
             await SwitchAvatarImage().ConfigureAwait(true);
+
+            await Swipe.RotateXTo(360, ANIMATION_LENGTH, Easing.Linear);
+            Swipe.RotationX = 0;
         }
 
         private async Task SwitchAvatarImage()
