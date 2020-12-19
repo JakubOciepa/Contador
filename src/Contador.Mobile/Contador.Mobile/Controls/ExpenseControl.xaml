@@ -43,12 +43,13 @@
                         <BoxView CornerRadius="15"
                                  BackgroundColor="White"/>
                         <Grid ColumnDefinitions="*, 2*, 2*" ColumnSpacing="0" Padding="0" Margin="0">
-                            <AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
+                            <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
                                 <Grid x:Name="AvatarImage" HorizontalOptions="Center" VerticalOptions="Center" >
-                                    <BoxView HeightRequest="40"
-                                         WidthRequest="40"
-                                         CornerRadius="20"
-                                         BackgroundColor="#FF0000"/>
+                                    <BoxView HeightRequest="60"
+                                             WidthRequest="60"
+                                             CornerRadius="30"
+                                             BackgroundColor="#FF0000"
+                                             HorizontalOptions="Center" VerticalOptions="Center"/>
                                     <Image HorizontalOptions="Center" VerticalOptions="Center">
                                         <Image.Source>
                                             <FontImageSource FontFamily="FontAwesome"
@@ -62,7 +63,8 @@
                                     <BoxView HeightRequest="40"
                                          WidthRequest="40"
                                          CornerRadius="20"
-                                         BackgroundColor="#0716ff" />
+                                         BackgroundColor="#0716ff" 
+                                             HorizontalOptions="Center" VerticalOptions="Center"/>
                                     <Image HorizontalOptions="Center" VerticalOptions="Center">
                                         <Image.Source>
                                             <FontImageSource FontFamily="FontAwesome"
@@ -72,7 +74,7 @@
                                         </Image.Source>
                                     </Image>
                                 </Grid>
-                            </AbsoluteLayout>
+                            </Grid>
                             <StackLayout Grid.Column="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
                                 <Label Text="{Binding Expense.Name, Source={x:Reference Control}}"
                                        VerticalOptions="End" FontAttributes="Bold" FontSize="16" Padding="0"

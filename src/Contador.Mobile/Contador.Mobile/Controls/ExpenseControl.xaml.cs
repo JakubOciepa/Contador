@@ -25,15 +25,26 @@ namespace Contador.Mobile.Controls
         public ExpenseControl()
         {
             InitializeComponent();
+            AvatarImage.IsVisible = false;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
         {
             CancelAnimations();
 
-            await ToggleContent().ConfigureAwait(true);
+            if (_isCollapsed)
+            {
+                await ToggleContent().ConfigureAwait(true);
 
-            await SwitchAvatarImage().ConfigureAwait(true);
+                await SwitchAvatarImage().ConfigureAwait(true);
+            }
+            else
+            {
+                await SwitchAvatarImage().ConfigureAwait(true);
+
+                await ToggleContent().ConfigureAwait(true);
+            }
+
             Shadow.RotationX = 0;
             _isCollapsed = !_isCollapsed;
         }
@@ -52,7 +63,7 @@ namespace Contador.Mobile.Controls
 
             await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear).ConfigureAwait(true);
 
-            Swipe.HeightRequest = _isCollapsed ? _pageHeight * 1.5 : _pageHeight;
+            Swipe.HeightRequest = _isCollapsed ? _pageHeight * 2 : _pageHeight;
 
             await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear).ConfigureAwait(true);
         }
