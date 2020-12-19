@@ -31,10 +31,21 @@ namespace Contador.Mobile.Controls
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
         {
-            await SwitchAvatarImage().ConfigureAwait(true);
+            await ToggleContent().ConfigureAwait(true);
 
-            await Swipe.RotateXTo(360, ANIMATION_LENGTH, Easing.Linear);
-            Swipe.RotationX = 0;
+            await SwitchAvatarImage().ConfigureAwait(true);
+            Shadow.RotationX = 0;
+            _isCollapsed = !_isCollapsed;
+        }
+
+        private async Task ToggleContent()
+        {
+            await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear).ConfigureAwait(true);
+
+            Swipe.HeightRequest = _isCollapsed ? 150 : 70;
+
+            await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear).ConfigureAwait(true);
+
         }
 
         private async Task SwitchAvatarImage()
@@ -53,7 +64,6 @@ namespace Contador.Mobile.Controls
                     .ConfigureAwait(true);
 
                 AvatarImage.RotationY = 0;
-                _isCollapsed = false;
             }
             else
             {
@@ -69,7 +79,6 @@ namespace Contador.Mobile.Controls
                     .ConfigureAwait(true);
 
                 CategoryImage.RotationY = 0;
-                _isCollapsed = true;
             }
         }
     }

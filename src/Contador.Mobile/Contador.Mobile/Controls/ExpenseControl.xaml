@@ -10,93 +10,93 @@
                                    Offset='3, 10',
                                    BlurRadius=60,
                                    Opacity=0.1,
-                                   Color=Black}">
-            <SwipeView HorizontalOptions="Center" VerticalOptions="Center"
-                       WidthRequest="{Binding Source={x:Reference Page}, Path=WidthRequest}"
-                       HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}"
+                                   Color=Black}"
+                           x:Name="Shadow">
+                <!--Swipe Toggled control-->
+                <SwipeView HorizontalOptions="Fill" VerticalOptions="Center"
                        Threshold="35" x:Name="Swipe">
-                <SwipeView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                    <SwipeView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
                                           NumberOfTapsRequired="2" />
-                </SwipeView.GestureRecognizers>
-                <SwipeView.RightItems>
-                    <SwipeItemView>
-                        <Grid WidthRequest="50">
-                            <BoxView CornerRadius="0, 15,0,15"
+                    </SwipeView.GestureRecognizers>
+                    <SwipeView.RightItems>
+                        <SwipeItemView>
+                            <Grid WidthRequest="50">
+                                <BoxView CornerRadius="0, 15,0,15"
                                      Color="Red" />
-                            <Image HorizontalOptions="End"
+                                <Image HorizontalOptions="End"
                                    VerticalOptions="Center"
                                    Margin="10,0">
-                                <Image.Source>
-                                    <FontImageSource FontFamily="FontAwesome"
+                                    <Image.Source>
+                                        <FontImageSource FontFamily="FontAwesome"
                                                      Glyph="{x:Static styles:FontAwesomeIcon+Solid.Trash}"
                                                      Color="White"
                                                      Size="18" />
-                                </Image.Source>
-                            </Image>
-                        </Grid>
-                    </SwipeItemView>
-                </SwipeView.RightItems>
-                <SwipeView.Content>
-                    <Grid Padding="0" Margin="0">
-                        <BoxView CornerRadius="15"
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                        </SwipeItemView>
+                    </SwipeView.RightItems>
+                    <SwipeView.Content>
+                        <Grid Padding="0" Margin="0">
+                            <BoxView CornerRadius="15"
                                  BackgroundColor="White"/>
-                        <Grid ColumnDefinitions="*, 2*, 2*" ColumnSpacing="0" Padding="0" Margin="0">
-                            <AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
-                                <Grid x:Name="AvatarImage" HorizontalOptions="Center" VerticalOptions="Center" >
-                                    <BoxView HeightRequest="40"
+                            <Grid ColumnDefinitions="*, 2*, 2*" ColumnSpacing="0" Padding="0" Margin="0">
+                                <AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
+                                    <Grid x:Name="AvatarImage" HorizontalOptions="Center" VerticalOptions="Center" >
+                                        <BoxView HeightRequest="40"
                                          WidthRequest="40"
                                          CornerRadius="20"
                                          BackgroundColor="#FF0000"/>
-                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="FontAwesome"
+                                        <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="FontAwesome"
                                                          Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
                                                          Color="White"
                                                          Size="20" />
-                                        </Image.Source>
-                                    </Image>
-                                </Grid>
-                                <Grid x:Name="CategoryImage" HorizontalOptions="Center" VerticalOptions="Center" >
-                                    <BoxView HeightRequest="40"
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                    <Grid x:Name="CategoryImage" HorizontalOptions="Center" VerticalOptions="Center" >
+                                        <BoxView HeightRequest="40"
                                          WidthRequest="40"
                                          CornerRadius="20"
                                          BackgroundColor="#0716ff" />
-                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="FontAwesome"
+                                        <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="FontAwesome"
                                                          Glyph="{x:Static styles:FontAwesomeIcon+Solid.Atom}"
                                                          Color="White"
                                                          Size="20" />
-                                        </Image.Source>
-                                    </Image>
-                                </Grid>
-                            </AbsoluteLayout>
-                            <StackLayout Grid.Column="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
-                                <Label Text="{Binding Expense.Name, Source={x:Reference Page}}"
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                </AbsoluteLayout>
+                                <StackLayout Grid.Column="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
+                                    <Label Text="{Binding Expense.Name, Source={x:Reference Page}}"
                                        VerticalOptions="End" FontAttributes="Bold" FontSize="16" Padding="0"
                                        TextColor="Black" />
-                                <Label Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy HH.mm}', 
+                                    <Label Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy HH.mm}', 
                                                       Source={x:Reference Page}}"
                                        VerticalOptions="Start" Padding="0" FontSize="12" />
-                            </StackLayout>
+                                </StackLayout>
 
-                            <Label Grid.Column="2"
+                                <Label Grid.Column="2"
                                    HorizontalOptions="Center" VerticalOptions="Center"
                                    TextColor="#d21e4a"
                                    FontSize="21"
                                    FontAttributes="Bold">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding Expense.Value, Source={x:Reference Page}}" />
-                                        <Span Text=" zł" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Expense.Value, Source={x:Reference Page}}" />
+                                            <Span Text=" zł" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </SwipeView.Content>
-            </SwipeView>
+                    </SwipeView.Content>
+                </SwipeView>
         </sharpnado:Shadows>
     </ContentView.Content>
 </ContentView>

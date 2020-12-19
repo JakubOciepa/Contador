@@ -92,9 +92,9 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8" Padding="0">
-                        <controls:ExpenseControl WidthRequest="380"
-                                                 HorizontalOptions="Center"
+                        <controls:ExpenseControl HorizontalOptions="Fill"
                                                  VerticalOptions="Center"
+                                                 Padding="10, 0"
                                                  Expense="{Binding Expense, Source={x:Reference Page}}">
                         </controls:ExpenseControl>
                     </Grid>
