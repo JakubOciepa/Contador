@@ -11,7 +11,7 @@ namespace Contador.Mobile.Controls
     public partial class ExpenseControl : ContentView
     {
         private const int ANIMATION_LENGTH = 900;
-        private bool _isCollapsed = true;
+        private bool _toggled = true;
         private double _pageHeight;
         public static readonly BindableProperty ExpenseProperty
             = BindableProperty.Create(nameof(Expense), typeof(Expense), typeof(ExpenseControl));
@@ -32,7 +32,7 @@ namespace Contador.Mobile.Controls
         {
             CancelAnimations();
 
-            if (_isCollapsed)
+            if (_toggled)
             {
                 await ToggleContent().ConfigureAwait(true);
 
@@ -46,7 +46,7 @@ namespace Contador.Mobile.Controls
             }
 
             Shadow.RotationX = 0;
-            _isCollapsed = !_isCollapsed;
+            _toggled = !_toggled;
         }
 
         private void CancelAnimations()
@@ -58,19 +58,19 @@ namespace Contador.Mobile.Controls
 
         private async Task ToggleContent()
         {
-            if (_isCollapsed)
+            if (_toggled)
                 _pageHeight = Control.Height;
 
             await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear).ConfigureAwait(true);
 
-            Swipe.HeightRequest = _isCollapsed ? _pageHeight * 2 : _pageHeight;
+            Swipe.HeightRequest = _toggled ? _pageHeight * 2 : _pageHeight;
 
             await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear).ConfigureAwait(true);
         }
 
         private async Task SwitchAvatarImage()
         {
-            if (_isCollapsed)
+            if (_toggled)
             {
                 AvatarImage.RotationY = -270;
 
