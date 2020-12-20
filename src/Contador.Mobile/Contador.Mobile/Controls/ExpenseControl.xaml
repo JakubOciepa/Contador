@@ -43,26 +43,61 @@
                         <BoxView CornerRadius="15"
                                  BackgroundColor="White"/>
                         <Grid ColumnDefinitions="*, 2*, 2*" 
-                              RowDefinitions="5, *, 5" 
+                              RowDefinitions="Auto, *, Auto" 
                               ColumnSpacing="0" 
-                              Padding="0" 
+                              Padding="2, 5" 
                               Margin="0">
-                            <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10" Grid.Row="1">
-                                <Grid x:Name="AvatarImage" HorizontalOptions="Center" VerticalOptions="Center" >
-                                    <BoxView HeightRequest="50"
-                                             WidthRequest="50"
-                                             CornerRadius="25"
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="0,-20" x:Name="TopBar">
+                                <Label HorizontalOptions="Start"
+                                       Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy}', 
+                                                      Source={x:Reference Control}}" 
+                                       FontSize="11"
+                                       Margin="10,0"
+                                       TextColor="Gray"/>
+                                <Label Text="Oszczędności" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Green" FontSize="10"/>
+                                <Label Text="Edytuj" HorizontalOptions="End" Margin="10,0" FontSize="11" 
+                                       FontAttributes="Bold"
+                                       TextColor="Gray"/>
+                            </Grid>
+                            <Grid VerticalOptions="Center" HorizontalOptions="Center" 
+                                  Grid.Row="1">
+                                <StackLayout Orientation="Vertical"
+                                             VerticalOptions="Center" 
+                                             HorizontalOptions="Center"
+                                             Spacing="0"
+                                             x:Name="AvatarImage">
+                                    <Grid  
+                                          Margin="0" Padding="0">
+                                        <BoxView HeightRequest="46"
+                                             WidthRequest="46"
+                                             CornerRadius="23"
                                              BackgroundColor="#FF0000"
-                                             HorizontalOptions="Center" VerticalOptions="Center"/>
-                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="FontAwesome"
+                                             HorizontalOptions="Center" VerticalOptions="Center"
+                                             Margin="0"/>
+                                        <Image HorizontalOptions="Center" VerticalOptions="Center" Margin="0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="FontAwesome"
                                                          Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
                                                          Color="White"
-                                                         Size="30" />
-                                        </Image.Source>
-                                    </Image>
-                                </Grid>
+                                                         Size="27" />
+                                            </Image.Source>
+                                        </Image>
+
+                                    </Grid>
+                                    <Label Text="Pysia"
+                                           HorizontalOptions="Center" 
+                                           VerticalOptions="Center"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           Margin="0, 2" 
+                                           Padding="0"
+                                           TextColor="Gray"/>
+                                </StackLayout>
                                 <Grid x:Name="CategoryImage" HorizontalOptions="Center" VerticalOptions="Center" >
                                     <BoxView HeightRequest="40"
                                          WidthRequest="40"
@@ -79,15 +114,22 @@
                                     </Image>
                                 </Grid>
                             </Grid>
-                            <StackLayout Grid.Column="1" Grid.Row="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
+                            <StackLayout Grid.Column="1" 
+                                         Grid.Row="1" 
+                                         Padding="0,5" 
+                                         VerticalOptions="Center" 
+                                         HorizontalOptions="Start" 
+                                         Spacing="0"
+                                         x:Name="Description">
                                 <Label Text="{Binding Expense.Name, Source={x:Reference Control}}"
                                        VerticalOptions="End" FontAttributes="Bold" FontSize="16" Padding="0"
                                        TextColor="Black" />
-                                <Label Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy HH.mm}', 
+                                <Label Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy}', 
                                                       Source={x:Reference Control}}"
                                        VerticalOptions="Start" 
                                        Padding="0" 
                                        FontSize="12" 
+                                       TextColor="Gray"
                                        x:Name="ToggledDate"/>
                                 <Label Text="Description"
                                        VerticalOptions="Start" 

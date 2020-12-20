@@ -29,6 +29,7 @@ namespace Contador.Mobile.Controls
             DescriptionText.IsVisible = false;
             AvatarImage.IsVisible = false;
             UntoggledValue.IsVisible = false;
+            TopBar.IsVisible = false;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
@@ -66,10 +67,13 @@ namespace Contador.Mobile.Controls
 
             await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear).ConfigureAwait(true);
 
-            Swipe.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.5;
+            Swipe.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.8;
 
             UntoggledValue.IsVisible = !_toggling;
             DescriptionText.IsVisible = !_toggling;
+            TopBar.IsVisible = !_toggling;
+            Description.Margin = !_toggling ? new Thickness(8, 0) : new Thickness(0);
+            TopBar.Margin = !_toggling ? new Thickness(0) : new Thickness(0, -20);
             ToggledValue.IsVisible = _toggling;
             ToggledDate.IsVisible = _toggling;
 
