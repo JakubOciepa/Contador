@@ -26,6 +26,7 @@ namespace Contador.Mobile.Controls
         public ExpenseControl()
         {
             InitializeComponent();
+
             DescriptionText.IsVisible = false;
             AvatarImage.IsVisible = false;
             UntoggledValue.IsVisible = false;
@@ -66,18 +67,23 @@ namespace Contador.Mobile.Controls
             if (!_toggling)
                 _pageHeight = Control.Height;
 
-            await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear).ConfigureAwait(true);
+            await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear)
+                .ConfigureAwait(true);
 
             Swipe.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.8;
 
-            UntoggledValue.IsVisible = !_toggling;
+            Description.Margin = !_toggling
+                ? new Thickness(8, 0)
+                : new Thickness(0);
+
             DescriptionText.IsVisible = !_toggling;
-            TopBar.IsVisible = !_toggling;
-            Description.Margin = !_toggling ? new Thickness(8, 0) : new Thickness(0);
+            UntoggledValue.IsVisible = !_toggling;
             ToggledValue.IsVisible = _toggling;
             ToggledDate.IsVisible = _toggling;
+            TopBar.IsVisible = !_toggling;
 
-            await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear).ConfigureAwait(true);
+            await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear)
+                .ConfigureAwait(true);
         }
 
         private async Task ToggleCategory()
@@ -92,7 +98,8 @@ namespace Contador.Mobile.Controls
                 AvatarImage.IsVisible = false;
                 CategoryImage.IsVisible = true;
 
-                await CategoryName.TranslateTo(0, -50, 300, Easing.SpringIn);
+                await CategoryName.TranslateTo(0, -50, 300, Easing.SpringIn)
+                    .ConfigureAwait(true);
 
                 await CategoryImage.RotateYTo(-360, ANIMATION_LENGTH / 3, Easing.SpringOut)
                     .ConfigureAwait(true);
@@ -109,7 +116,8 @@ namespace Contador.Mobile.Controls
                 CategoryImage.IsVisible = false;
                 AvatarImage.IsVisible = true;
 
-                await CategoryName.TranslateTo(0, 0, 300, Easing.SpringIn);
+                await CategoryName.TranslateTo(0, 0, 300, Easing.SpringIn)
+                    .ConfigureAwait(true);
 
                 await AvatarImage.RotateYTo(-360, ANIMATION_LENGTH / 3, Easing.SpringOut)
                     .ConfigureAwait(true);
