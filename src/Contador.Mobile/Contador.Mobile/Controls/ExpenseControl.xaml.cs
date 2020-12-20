@@ -11,8 +11,9 @@ namespace Contador.Mobile.Controls
     public partial class ExpenseControl : ContentView
     {
         private const int ANIMATION_LENGTH = 900;
-        private bool _toggled = true;
+        private bool _toggling = true;
         private double _pageHeight;
+
         public static readonly BindableProperty ExpenseProperty
             = BindableProperty.Create(nameof(Expense), typeof(Expense), typeof(ExpenseControl));
 
@@ -25,28 +26,30 @@ namespace Contador.Mobile.Controls
         public ExpenseControl()
         {
             InitializeComponent();
+            DescriptionText.IsVisible = false;
             AvatarImage.IsVisible = false;
+            UntoggledValue.IsVisible = false;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
         {
             CancelAnimations();
+            _toggling = !_toggling;
 
-            if (_toggled)
+            if (_toggling)
             {
-                await ToggleContent().ConfigureAwait(true);
-
                 await SwitchAvatarImage().ConfigureAwait(true);
+
+                await ToggleContent().ConfigureAwait(true);
             }
             else
             {
-                await SwitchAvatarImage().ConfigureAwait(true);
-
                 await ToggleContent().ConfigureAwait(true);
+
+                await SwitchAvatarImage().ConfigureAwait(true);
             }
 
             Shadow.RotationX = 0;
-            _toggled = !_toggled;
         }
 
         private void CancelAnimations()
@@ -58,47 +61,52 @@ namespace Contador.Mobile.Controls
 
         private async Task ToggleContent()
         {
-            if (_toggled)
+            if (!_toggling)
                 _pageHeight = Control.Height;
 
             await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear).ConfigureAwait(true);
 
-            Swipe.HeightRequest = _toggled ? _pageHeight * 2 : _pageHeight;
+            Swipe.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.5;
+
+            UntoggledValue.IsVisible = !_toggling;
+            DescriptionText.IsVisible = !_toggling;
+            ToggledValue.IsVisible = _toggling;
+            ToggledDate.IsVisible = _toggling;
 
             await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear).ConfigureAwait(true);
         }
 
         private async Task SwitchAvatarImage()
         {
-            if (_toggled)
-            {
-                AvatarImage.RotationY = -270;
-
-                await CategoryImage.RotateYTo(-90, ANIMATION_LENGTH, Easing.SpringIn)
-                    .ConfigureAwait(true);
-
-                CategoryImage.IsVisible = false;
-                AvatarImage.IsVisible = true;
-
-                await AvatarImage.RotateYTo(-360, ANIMATION_LENGTH, Easing.SpringOut)
-                    .ConfigureAwait(true);
-
-                AvatarImage.RotationY = 0;
-            }
-            else
+            if (_toggling)
             {
                 CategoryImage.RotationY = -270;
 
-                await AvatarImage.RotateYTo(-90, ANIMATION_LENGTH, Easing.SpringIn)
+                await AvatarImage.RotateYTo(-90, ANIMATION_LENGTH / 3, Easing.SpringIn)
                     .ConfigureAwait(true);
 
                 AvatarImage.IsVisible = false;
                 CategoryImage.IsVisible = true;
 
-                await CategoryImage.RotateYTo(-360, ANIMATION_LENGTH, Easing.SpringOut)
+                await CategoryImage.RotateYTo(-360, ANIMATION_LENGTH / 3, Easing.SpringOut)
                     .ConfigureAwait(true);
 
                 CategoryImage.RotationY = 0;
+            }
+            else
+            {
+                AvatarImage.RotationY = -270;
+
+                await CategoryImage.RotateYTo(-90, ANIMATION_LENGTH / 3, Easing.SpringIn)
+                    .ConfigureAwait(true);
+
+                CategoryImage.IsVisible = false;
+                AvatarImage.IsVisible = true;
+
+                await AvatarImage.RotateYTo(-360, ANIMATION_LENGTH / 3, Easing.SpringOut)
+                    .ConfigureAwait(true);
+
+                AvatarImage.RotationY = 0;
             }
         }
     }

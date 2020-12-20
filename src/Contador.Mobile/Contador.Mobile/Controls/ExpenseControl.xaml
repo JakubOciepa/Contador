@@ -42,12 +42,16 @@
                     <Grid Padding="0" Margin="0">
                         <BoxView CornerRadius="15"
                                  BackgroundColor="White"/>
-                        <Grid ColumnDefinitions="*, 2*, 2*" ColumnSpacing="0" Padding="0" Margin="0">
-                            <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10">
+                        <Grid ColumnDefinitions="*, 2*, 2*" 
+                              RowDefinitions="5, *, 5" 
+                              ColumnSpacing="0" 
+                              Padding="0" 
+                              Margin="0">
+                            <Grid VerticalOptions="Center" HorizontalOptions="Center" Margin="10" Grid.Row="1">
                                 <Grid x:Name="AvatarImage" HorizontalOptions="Center" VerticalOptions="Center" >
-                                    <BoxView HeightRequest="60"
-                                             WidthRequest="60"
-                                             CornerRadius="30"
+                                    <BoxView HeightRequest="50"
+                                             WidthRequest="50"
+                                             CornerRadius="25"
                                              BackgroundColor="#FF0000"
                                              HorizontalOptions="Center" VerticalOptions="Center"/>
                                     <Image HorizontalOptions="Center" VerticalOptions="Center">
@@ -55,7 +59,7 @@
                                             <FontImageSource FontFamily="FontAwesome"
                                                          Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
                                                          Color="White"
-                                                         Size="20" />
+                                                         Size="30" />
                                         </Image.Source>
                                     </Image>
                                 </Grid>
@@ -75,27 +79,52 @@
                                     </Image>
                                 </Grid>
                             </Grid>
-                            <StackLayout Grid.Column="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
+                            <StackLayout Grid.Column="1" Grid.Row="1" Padding="0,5" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0">
                                 <Label Text="{Binding Expense.Name, Source={x:Reference Control}}"
                                        VerticalOptions="End" FontAttributes="Bold" FontSize="16" Padding="0"
                                        TextColor="Black" />
                                 <Label Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy HH.mm}', 
                                                       Source={x:Reference Control}}"
-                                       VerticalOptions="Start" Padding="0" FontSize="12" />
+                                       VerticalOptions="Start" 
+                                       Padding="0" 
+                                       FontSize="12" 
+                                       x:Name="ToggledDate"/>
+                                <Label Text="Description"
+                                       VerticalOptions="Start" 
+                                       Padding="0" 
+                                       FontSize="10" 
+                                       TextColor="DarkSlateGray"
+                                       x:Name="DescriptionText"/>
+                                <Label VerticalOptions="Start" 
+                                       Padding="0" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" 
+                                       TextColor="Green"
+                                       x:Name="UntoggledValue">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Expense.Value, Source={x:Reference Control}}" />
+                                            <Span Text=" zł" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                             </StackLayout>
 
-                            <Label Grid.Column="2"
-                                   HorizontalOptions="Center" VerticalOptions="Center"
-                                   TextColor="#d21e4a"
-                                   FontSize="21"
-                                   FontAttributes="Bold">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding Expense.Value, Source={x:Reference Control}}" />
-                                        <Span Text=" zł" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
+                            <Grid Grid.Column="2" Grid.Row="1">
+                                <Label HorizontalOptions="Center" 
+                                       VerticalOptions="Center"
+                                       TextColor="#d21e4a"
+                                       FontSize="21"
+                                       FontAttributes="Bold"
+                                       x:Name="ToggledValue">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Expense.Value, Source={x:Reference Control}}" />
+                                            <Span Text=" zł" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </SwipeView.Content>
