@@ -30,6 +30,7 @@ namespace Contador.Mobile.Controls
             AvatarImage.IsVisible = false;
             UntoggledValue.IsVisible = false;
             TopBar.IsVisible = false;
+            CategoryName.TranslationY = -50;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
@@ -39,7 +40,7 @@ namespace Contador.Mobile.Controls
 
             if (_toggling)
             {
-                await SwitchAvatarImage().ConfigureAwait(true);
+                await ToggleCategory().ConfigureAwait(true);
 
                 await ToggleContent().ConfigureAwait(true);
             }
@@ -47,7 +48,7 @@ namespace Contador.Mobile.Controls
             {
                 await ToggleContent().ConfigureAwait(true);
 
-                await SwitchAvatarImage().ConfigureAwait(true);
+                await ToggleCategory().ConfigureAwait(true);
             }
 
             Shadow.RotationX = 0;
@@ -73,14 +74,13 @@ namespace Contador.Mobile.Controls
             DescriptionText.IsVisible = !_toggling;
             TopBar.IsVisible = !_toggling;
             Description.Margin = !_toggling ? new Thickness(8, 0) : new Thickness(0);
-            TopBar.Margin = !_toggling ? new Thickness(0) : new Thickness(0, -20);
             ToggledValue.IsVisible = _toggling;
             ToggledDate.IsVisible = _toggling;
 
             await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear).ConfigureAwait(true);
         }
 
-        private async Task SwitchAvatarImage()
+        private async Task ToggleCategory()
         {
             if (_toggling)
             {
@@ -91,6 +91,8 @@ namespace Contador.Mobile.Controls
 
                 AvatarImage.IsVisible = false;
                 CategoryImage.IsVisible = true;
+
+                await CategoryName.TranslateTo(0, -50, 300, Easing.SpringIn);
 
                 await CategoryImage.RotateYTo(-360, ANIMATION_LENGTH / 3, Easing.SpringOut)
                     .ConfigureAwait(true);
@@ -106,6 +108,8 @@ namespace Contador.Mobile.Controls
 
                 CategoryImage.IsVisible = false;
                 AvatarImage.IsVisible = true;
+
+                await CategoryName.TranslateTo(0, 0, 300, Easing.SpringIn);
 
                 await AvatarImage.RotateYTo(-360, ANIMATION_LENGTH / 3, Easing.SpringOut)
                     .ConfigureAwait(true);

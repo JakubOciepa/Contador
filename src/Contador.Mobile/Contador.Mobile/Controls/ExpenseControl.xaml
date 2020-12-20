@@ -52,14 +52,19 @@
                                     <RowDefinition Height="20"/>
                                 </Grid.RowDefinitions>
                             </Grid>
-                            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Fill" Margin="0,-20" x:Name="TopBar">
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Fill" x:Name="TopBar">
                                 <Label HorizontalOptions="Start"
                                        Text="{Binding Expense.CreateDate, StringFormat='{0:dd.MM.yyyy}', 
                                                       Source={x:Reference Control}}" 
                                        FontSize="11"
                                        Margin="10,0"
                                        TextColor="Gray"/>
-                                <Label Text="Oszczędności" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Green" FontSize="10"/>
+                                <Label Text="Oszczędności" 
+                                       HorizontalOptions="Center" 
+                                       FontAttributes="Bold" 
+                                       TextColor="Green" 
+                                       FontSize="10"
+                                       x:Name="CategoryName"/>
                                 <Label Text="Edytuj" HorizontalOptions="End" Margin="10,0" FontSize="11" 
                                        FontAttributes="Bold"
                                        TextColor="Gray"/>
