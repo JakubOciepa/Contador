@@ -60,8 +60,7 @@
                                        Margin="10,0"
                                        TextColor="Gray" />
                                 <Label x:Name="CategoryName"
-                                       Text="{Binding Expense.Category.Name,
-                                                      Source={x:Reference Control}}"
+                                       Text="{Binding Expense.Category.Name}"
                                        HorizontalOptions="Center"
                                        FontAttributes="Bold"
                                        TextColor="Green"
@@ -96,14 +95,8 @@
                                                  Margin="0" />
                                         <Image HorizontalOptions="Center"
                                                VerticalOptions="Center"
-                                               Margin="0">
-                                            <Image.Source>
-                                                <FontImageSource FontFamily="FontAwesome"
-                                                                 Glyph="{x:Static styles:FontAwesomeIcon+Solid.Angry}"
-                                                                 Color="White"
-                                                                 Size="27" />
-                                            </Image.Source>
-                                        </Image>
+                                               Margin="0"
+                                               Source="{Binding UserGlyph}"/>
                                     </Grid>
                                     <Label Text="{Binding Expense.User.Name}"
                                            HorizontalOptions="Center"
@@ -124,14 +117,8 @@
                                              HorizontalOptions="Center"
                                              VerticalOptions="Center" />
                                     <Image HorizontalOptions="Center"
-                                           VerticalOptions="Center">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="FontAwesome"
-                                                             Glyph="{x:Static styles:FontAwesomeIcon+Solid.Atom}"
-                                                             Color="White"
-                                                             Size="20" />
-                                        </Image.Source>
-                                    </Image>
+                                           VerticalOptions="Center"
+                                           Source="{Binding CategoryGlyph}"/>
                                 </Grid>
                             </Grid>
                             <StackLayout x:Name="Description"
@@ -165,7 +152,7 @@
                                        Padding="0"
                                        FontSize="18"
                                        FontAttributes="Bold"
-                                       TextColor="Green">
+                                       TextColor="{Binding ExpenseColor}">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding Expense.Value}" />
@@ -180,7 +167,7 @@
                                 <Label x:Name="ToggledValue"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
-                                       TextColor="#d21e4a"
+                                       TextColor="{Binding ExpenseColor}"
                                        FontSize="21"
                                        FontAttributes="Bold">
                                     <Label.FormattedText>
