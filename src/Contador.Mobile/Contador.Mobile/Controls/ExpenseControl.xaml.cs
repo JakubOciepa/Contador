@@ -14,15 +14,6 @@ namespace Contador.Mobile.Controls
         private bool _toggling = true;
         private double _pageHeight;
 
-        public static readonly BindableProperty ExpenseProperty
-            = BindableProperty.Create(nameof(Expense), typeof(Expense), typeof(ExpenseControl));
-
-        public Expense Expense
-        {
-            get => (Expense)GetValue(ExpenseProperty);
-            set => SetValue(ExpenseProperty, value);
-        }
-
         public ExpenseControl()
         {
             InitializeComponent();

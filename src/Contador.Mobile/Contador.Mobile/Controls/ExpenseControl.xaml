@@ -55,8 +55,7 @@
                                   HorizontalOptions="Fill">
                                 <Label HorizontalOptions="Start"
                                        Text="{Binding Expense.CreateDate,
-                                                      StringFormat='{0:dd.MM.yyyy}',
-                                                      Source={x:Reference Control}}"
+                                                      StringFormat='{0:dd.MM.yyyy}'}"
                                        FontSize="11"
                                        Margin="10,0"
                                        TextColor="Gray" />
@@ -106,8 +105,7 @@
                                             </Image.Source>
                                         </Image>
                                     </Grid>
-                                    <Label Text="{Binding Expense.User.Name,
-                                                          Source={x:Reference Control}}"
+                                    <Label Text="{Binding Expense.User.Name}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
                                            FontSize="10"
@@ -143,8 +141,7 @@
                                          VerticalOptions="Center"
                                          HorizontalOptions="Start"
                                          Spacing="0">
-                                <Label Text="{Binding Expense.Name,
-                                                      Source={x:Reference Control}}"
+                                <Label Text="{Binding Expense.Name}"
                                        VerticalOptions="End"
                                        FontAttributes="Bold"
                                        FontSize="16"
@@ -152,15 +149,13 @@
                                        TextColor="Black" />
                                 <Label x:Name="ToggledDate"
                                        Text="{Binding Expense.CreateDate,
-                                                      StringFormat='{0:dd.MM.yyyy}',
-                                                      Source={x:Reference Control}}"
+                                                      StringFormat='{0:dd.MM.yyyy}'}"
                                        VerticalOptions="Start"
                                        Padding="0"
                                        FontSize="12"
                                        TextColor="Gray" />
                                 <Label x:Name="DescriptionText"
-                                       Text="{Binding Expense.Description,
-                                                      Source={x:Reference Control}}"
+                                       Text="{Binding Expense.Description}"
                                        VerticalOptions="Start"
                                        Padding="0"
                                        FontSize="10"
@@ -173,8 +168,7 @@
                                        TextColor="Green">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Expense.Value,
-                                                                 Source={x:Reference Control}}" />
+                                            <Span Text="{Binding Expense.Value}" />
                                             <Span Text=" zł" />
                                         </FormattedString>
                                     </Label.FormattedText>
@@ -191,8 +185,7 @@
                                        FontAttributes="Bold">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Expense.Value,
-                                                                 Source={x:Reference Control}}" />
+                                            <Span Text="{Binding Expense.Value}" />
                                             <Span Text=" zł" />
                                         </FormattedString>
                                     </Label.FormattedText>

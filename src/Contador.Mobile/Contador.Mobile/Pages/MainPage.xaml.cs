@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Contador.Core.Models;
+using Contador.Mobile.ViewModels;
 
 using Xamarin.Forms;
 
@@ -15,6 +16,8 @@ namespace Contador.Mobile.Pages
             CreateDate = DateTime.Today,
             Description = "Description",
         };
+
+        public ExpenseControlViewModel ControlViewModel => new ExpenseControlViewModel(Expense);
 
         public MainPage()
         {

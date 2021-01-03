@@ -95,7 +95,7 @@
                         <controls:ExpenseControl HorizontalOptions="Fill"
                                                  VerticalOptions="Center"
                                                  Padding="10, 0"
-                                                 Expense="{Binding Expense, Source={x:Reference Page}}">
+                                                 BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
                         </controls:ExpenseControl>
                     </Grid>
                 </toolkit:TabViewItem>
