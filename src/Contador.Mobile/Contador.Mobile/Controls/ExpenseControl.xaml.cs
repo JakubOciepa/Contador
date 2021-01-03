@@ -55,6 +55,11 @@ namespace Contador.Mobile.Controls
             Shadow.RotationX = 0;
         }
 
+        private void Edit_Tapped(object sender, System.EventArgs e)
+        {
+
+        }
+
         private void CancelAnimations()
         {
             Shadow.CancelAnimations();
