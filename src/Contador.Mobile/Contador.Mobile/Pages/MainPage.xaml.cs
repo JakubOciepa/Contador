@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 using Contador.Core.Models;
 
@@ -10,9 +8,12 @@ namespace Contador.Mobile.Pages
 {
     public partial class MainPage : ContentPage
     {
-        public Expense Expense => new Expense("Cuksy", 12.11m, null, null) 
+        public Expense Expense => new Expense("Cuksy", 12.11m,
+            new User() { Name = "Pysia" },
+            new ExpenseCategory("Słodycze"))
         {
             CreateDate = DateTime.Today,
+            Description = "Description",
         };
 
         public MainPage()

@@ -61,7 +61,8 @@
                                        Margin="10,0"
                                        TextColor="Gray" />
                                 <Label x:Name="CategoryName"
-                                       Text="Oszczędności"
+                                       Text="{Binding Expense.Category.Name,
+                                                      Source={x:Reference Control}}"
                                        HorizontalOptions="Center"
                                        FontAttributes="Bold"
                                        TextColor="Green"
@@ -101,7 +102,8 @@
                                             </Image.Source>
                                         </Image>
                                     </Grid>
-                                    <Label Text="Pysia"
+                                    <Label Text="{Binding Expense.User.Name,
+                                                          Source={x:Reference Control}}"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
                                            FontSize="10"
@@ -153,7 +155,8 @@
                                        FontSize="12"
                                        TextColor="Gray" />
                                 <Label x:Name="DescriptionText"
-                                       Text="Description"
+                                       Text="{Binding Expense.Description,
+                                                      Source={x:Reference Control}}"
                                        VerticalOptions="Start"
                                        Padding="0"
                                        FontSize="10"
