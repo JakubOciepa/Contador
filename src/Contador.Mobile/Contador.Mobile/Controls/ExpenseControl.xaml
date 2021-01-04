@@ -4,6 +4,7 @@
              x:Class="Contador.Mobile.Controls.ExpenseControl"
              xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+             
              x:Name="Control">
     <ContentView.Content>
         <sharpnado:Shadows x:Name="Shadow"
@@ -72,7 +73,7 @@
                                        FontAttributes="Bold"
                                        TextColor="Gray">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="Edit_Tapped"/>
+                                        <TapGestureRecognizer Command="{Binding EditCommand}"/>
                                     </Label.GestureRecognizers>
                                 </Label>
                             </Grid>

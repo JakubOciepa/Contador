@@ -19,7 +19,9 @@ namespace Contador.Mobile.ViewModels
         //Same as above
         public FontImageSource UserGlyph { get; private set; }
 
-        public Color ExpenseColor { get; } = Color.Red;
+        public Color ExpenseColor { get; set; } = Color.Red;
+
+        public Command EditCommand { get; set; }
 
         public ExpenseControlViewModel(Expense expense)
         {
@@ -33,7 +35,8 @@ namespace Contador.Mobile.ViewModels
         private void InitializeProperties()
         {
             CategoryGlyph = _categoryAvatarService.GetByCategoryName(Expense.Category.Name);
-            UserGlyph = _categoryAvatarService.GetByCategoryName(Expense.User.Name);
+            UserGlyph = _userAvatarService.GetByUserName(Expense.User.Name);
+            EditCommand = new Command(async _ => await Application.Current.MainPage.DisplayAlert("Tap triggered", "Edit button tapped!", "OK"));
         }
     }
 }
