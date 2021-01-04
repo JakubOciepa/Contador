@@ -7,6 +7,9 @@ using Xamarin.Forms.Xaml;
 
 namespace Contador.Mobile.Controls
 {
+    /// <summary>
+    /// Control which displays info about expense.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExpenseControl : ContentView
     {
@@ -14,6 +17,9 @@ namespace Contador.Mobile.Controls
         private bool _toggling = true;
         private double _pageHeight;
 
+        /// <summary>
+        /// Initializes instance of the <see cref="ExpenseControl"/> class.
+        /// </summary>
         public ExpenseControl()
         {
             InitializeComponent();
@@ -44,11 +50,6 @@ namespace Contador.Mobile.Controls
             }
 
             Shadow.RotationX = 0;
-        }
-
-        private void Edit_Tapped(object sender, System.EventArgs e)
-        {
-
         }
 
         private void CancelAnimations()

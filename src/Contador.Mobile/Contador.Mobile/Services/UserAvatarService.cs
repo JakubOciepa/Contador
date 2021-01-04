@@ -5,9 +5,17 @@ using Xamarin.Forms;
 
 namespace Contador.Mobile.Services
 {
+    /// <summary>
+    /// Provides methods to get image for user avatar.
+    /// </summary>
     public class UserAvatarService
     {
-        public FontImageSource GetByUserName(string UserName)
+        /// <summary>
+        /// Gets user avatar image by the user name.
+        /// </summary>
+        /// <param name="userName">User name for searching avatar image.</param>
+        /// <returns>Avatar image.</returns>
+        public ImageSource GetByUserName(string userName)
         {
             return new FontImageSource()
             {
