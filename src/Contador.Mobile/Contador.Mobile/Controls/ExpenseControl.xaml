@@ -4,7 +4,6 @@
              x:Class="Contador.Mobile.Controls.ExpenseControl"
              xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
-             
              x:Name="Control">
     <ContentView.Content>
         <sharpnado:Shadows x:Name="Shadow"
@@ -32,7 +31,7 @@
                                 <Image.Source>
                                     <FontImageSource FontFamily="FontAwesome"
                                                      Glyph="{x:Static styles:FontAwesomeIcon+Solid.Trash}"
-                                                     Color="White"
+                                                     Color="{x:StaticResource DefaultBackground}"
                                                      Size="18" />
                                 </Image.Source>
                             </Image>
@@ -43,7 +42,7 @@
                     <Grid Padding="0"
                           Margin="0">
                         <BoxView CornerRadius="15"
-                                 BackgroundColor="White" />
+                                 BackgroundColor="{x:StaticResource DefaultBackground}" />
                         <Grid ColumnDefinitions="*, 2*, 2*"
                               RowDefinitions="Auto, *, Auto"
                               ColumnSpacing="0"
@@ -59,7 +58,7 @@
                                                       StringFormat='{0:dd.MM.yyyy}'}"
                                        FontSize="11"
                                        Margin="10,0"
-                                       TextColor="Gray" />
+                                       TextColor="{StaticResource SecondaryExpenseTextColor}" />
                                 <Label x:Name="CategoryName"
                                        Text="{Binding Expense.Category.Name}"
                                        HorizontalOptions="Center"
@@ -71,7 +70,7 @@
                                        Margin="10,0"
                                        FontSize="11"
                                        FontAttributes="Bold"
-                                       TextColor="Gray">
+                                       TextColor="{StaticResource SecondaryExpenseTextColor}">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding EditCommand}"/>
                                     </Label.GestureRecognizers>
@@ -106,7 +105,7 @@
                                            FontAttributes="Bold"
                                            Margin="0, 2"
                                            Padding="0"
-                                           TextColor="Gray" />
+                                           TextColor="{StaticResource SecondaryExpenseTextColor}" />
                                 </StackLayout>
                                 <Grid x:Name="CategoryImage"
                                       HorizontalOptions="Center"
@@ -134,20 +133,20 @@
                                        FontAttributes="Bold"
                                        FontSize="16"
                                        Padding="0"
-                                       TextColor="Black" />
+                                       TextColor="{StaticResource MainExpenseTextColor}" />
                                 <Label x:Name="ToggledDate"
                                        Text="{Binding Expense.CreateDate,
                                                       StringFormat='{0:dd.MM.yyyy}'}"
                                        VerticalOptions="Start"
                                        Padding="0"
                                        FontSize="12"
-                                       TextColor="Gray" />
+                                       TextColor="{StaticResource SecondaryExpenseTextColor}" />
                                 <Label x:Name="DescriptionText"
                                        Text="{Binding Expense.Description}"
                                        VerticalOptions="Start"
                                        Padding="0"
                                        FontSize="10"
-                                       TextColor="DarkSlateGray" />
+                                       TextColor="{StaticResource DescriptionExpenseTextColor}" />
                                 <Label x:Name="UntoggledValue"
                                        VerticalOptions="Start"
                                        Padding="0"
