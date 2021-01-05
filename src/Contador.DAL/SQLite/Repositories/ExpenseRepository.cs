@@ -17,6 +17,7 @@ namespace Contador.DAL.SQLite.Repositories
         public ExpenseRepository(string dbPath)
         {
             _dbConnection = new SQLiteAsyncConnection(dbPath);
+
             _dbConnection.CreateTableAsync<ExpenseDto>().Wait();
         }
 
