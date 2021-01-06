@@ -9,3 +9,4 @@ _I'll add links later, sorry..._
 - InheritDoc
 - Dapper
 - Serilog
+- TinyIoC

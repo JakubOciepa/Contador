@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using Xamarin.Forms;
 
 namespace Contador.Mobile
@@ -9,7 +8,7 @@ namespace Contador.Mobile
         public App()
         {
             InitializeComponent();
-            
+
             MainPage = new Pages.MainPage();
         }
 
