@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Contador.Core.Models;
 
@@ -10,13 +6,33 @@ using SQLite;
 
 namespace Contador.DAL.SQLite.Models
 {
-    public class ExpenseDto : Expense
+    public class ExpenseDto
     {
-        [PrimaryKey, AutoIncrement]
         /// <summary>
         /// Id of this expense.
         /// </summary>
-        public new int Id { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// The name of the expense e.g. what has been bought.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Value of the expense.
+        /// </summary>
+        public decimal Value { get; set; }
+
+        /// <summary>
+        /// Specific description about the expense.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Path to the image of the expense receipt.
+        /// </summary>
+        public string ImagePath { get; set; }
 
         /// <summary>
         /// The id of the <see cref="Category"/> that the expense belongs.
@@ -29,6 +45,11 @@ namespace Contador.DAL.SQLite.Models
         public int UserId { get; set; }
 
         /// <summary>
+        /// <see cref="DateTime"/> when the expense has been created.
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
         /// Date when the expense has been edited last time.
         /// </summary>
         public DateTime ModifiedDate { get; set; }
@@ -36,7 +57,7 @@ namespace Contador.DAL.SQLite.Models
         /// <summary>
         /// Initializes instance of the <see cref="ExpenseDto"/> class.
         /// </summary>
-        public ExpenseDto() : base(string.Empty, 0, null, null)
+        public ExpenseDto()
         {
         }
 
@@ -47,20 +68,6 @@ namespace Contador.DAL.SQLite.Models
         public override string ToString()
         {
             return $"Expense: Id = {Id}, Name = {Name}, Value = {Value}";
-        }
-
-        /// <summary>
-        /// Provides the same values but packet in the <see cref="Expense"/> object.
-        /// </summary>
-        /// <returns>Instance of <see cref="Expense"/>.</returns>
-        public Expense AsExpense()
-        {
-            return new Expense(Name, Value, User, Category)
-            {
-                Id = this.Id,
-                Description = Description,
-                ImagePath = ImagePath
-            };
         }
     }
 }

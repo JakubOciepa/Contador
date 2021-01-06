@@ -1,4 +1,9 @@
 ﻿
+using Contador.DAL.Abstractions;
+using Contador.DAL.SQLite.Repositories;
+
+using TinyIoC;
+
 using Xamarin.Forms;
 
 namespace Contador.Mobile
@@ -8,6 +13,8 @@ namespace Contador.Mobile
         public App()
         {
             InitializeComponent();
+
+            RegisterServices(TinyIoCContainer.Current);
 
             MainPage = new Pages.MainPage();
         }
@@ -22,6 +29,15 @@ namespace Contador.Mobile
 
         protected override void OnResume()
         {
+        }
+
+        private void RegisterServices(TinyIoCContainer container)
+        {
+            var expenseRepo = new ExpenseRepository(string.Empty);
+
+            container.Register<IExpenseRepository>((_,__) => new ExpenseRepository(string.Empty));
+
+            container.BuildUp(this);
         }
     }
 }

@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Contador.Core\Core\Contador.Core.csproj" />
+    <ProjectReference Include="..\..\Contador.DAL\SQLite\Contador.DAL.SQLite.csproj" />
     <ProjectReference Include="..\..\Contador\Contador\Contador.csproj" />
   </ItemGroup>
 
