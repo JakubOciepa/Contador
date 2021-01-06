@@ -1,5 +1,4 @@
-﻿
-using Contador.Abstractions;
+﻿using Contador.Abstractions;
 
 using Microsoft.Extensions.Logging;
 
@@ -27,12 +26,15 @@ namespace Contador.Web.Server.Services
                 case Core.Common.LogLevel.Info:
                     _logger.LogInformation(message);
                     break;
+
                 case Core.Common.LogLevel.Warning:
                     _logger.LogWarning(message);
                     break;
+
                 case Core.Common.LogLevel.Error:
                     _logger.LogError(message);
                     break;
+
                 case Core.Common.LogLevel.Fatal:
                     _logger.LogCritical(message);
                     break;

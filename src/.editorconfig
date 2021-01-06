@@ -6,11 +6,11 @@
 # All files
 [*]
 indent_style = space
+insert_final_newline = true
 
 # Code files
 [*.{cs}]
 indent_size = 4
-insert_final_newline = true
 charset = utf-8-bom
 tab_width = 4
 

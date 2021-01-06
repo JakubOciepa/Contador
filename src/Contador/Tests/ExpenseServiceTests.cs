@@ -10,8 +10,6 @@ using Contador.Services;
 
 using FluentAssertions;
 
-using Microsoft.Extensions.Logging;
-
 using Moq;
 
 using Xunit;
