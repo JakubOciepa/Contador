@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contador.Mobile.Controls.ExpenseControl"
-             xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+             xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+             x:Class="Contador.Mobile.Controls.ExpenseControl"
              x:Name="Control">
     <ContentView.Content>
         <sharpnado:Shadows x:Name="Shadow"
@@ -72,7 +72,7 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource SecondaryExpenseTextColor}">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding EditCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding EditCommand}" />
                                     </Label.GestureRecognizers>
                                 </Label>
                             </Grid>
@@ -96,7 +96,7 @@
                                         <Image HorizontalOptions="Center"
                                                VerticalOptions="Center"
                                                Margin="0"
-                                               Source="{Binding UserGlyph}"/>
+                                               Source="{Binding UserGlyph}" />
                                     </Grid>
                                     <Label Text="{Binding Expense.User.Name}"
                                            HorizontalOptions="Center"
@@ -118,7 +118,7 @@
                                              VerticalOptions="Center" />
                                     <Image HorizontalOptions="Center"
                                            VerticalOptions="Center"
-                                           Source="{Binding CategoryGlyph}"/>
+                                           Source="{Binding CategoryGlyph}" />
                                 </Grid>
                             </Grid>
                             <StackLayout x:Name="Description"

@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Contador.Core.Models;
-
 using SQLite;
 
 namespace Contador.DAL.SQLite.Models

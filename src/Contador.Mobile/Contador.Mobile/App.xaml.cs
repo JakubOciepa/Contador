@@ -1,6 +1,10 @@
 ﻿
+using System;
+
+using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 using Contador.DAL.SQLite.Repositories;
+using Contador.Mobile.DAL;
 
 using TinyIoC;
 
@@ -13,6 +17,8 @@ namespace Contador.Mobile
         public App()
         {
             InitializeComponent();
+
+            _ = new DbConnection();
 
             RegisterServices(TinyIoCContainer.Current);
 
@@ -33,11 +39,21 @@ namespace Contador.Mobile
 
         private void RegisterServices(TinyIoCContainer container)
         {
-            var expenseRepo = new ExpenseRepository(string.Empty);
-
-            container.Register<IExpenseRepository>((_,__) => new ExpenseRepository(string.Empty));
+            container.Register<IExpenseRepository>((_, __) => new ExpenseRepository(DbConnection.Database));
 
             container.BuildUp(this);
+
+            var expenseRepo = container.Resolve<IExpenseRepository>();
+
+            var expense = new Expense("Cuksy", 12.11m,
+            new User() { Name = "Pysia" },
+            new ExpenseCategory("Słodycze"))
+            {
+                CreateDate = DateTime.Today,
+                Description = "Description",
+            };
+
+            expenseRepo.AddExpenseAsync(expense);
         }
     }
 }

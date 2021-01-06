@@ -8,5 +8,4 @@
     <Color x:Key="MainExpenseTextColor">#000000</Color>
     <Color x:Key="SecondaryExpenseTextColor">#838383</Color>
     <Color x:Key="DescriptionExpenseTextColor">#433e3e</Color>
-
 </ResourceDictionary>

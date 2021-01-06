@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
 using Contador.DAL.SQLite.Models;
 
@@ -14,16 +15,35 @@ namespace Contador.DAL.SQLite.Repositories
     {
         private readonly SQLiteAsyncConnection _dbConnection;
 
-        public ExpenseRepository(string dbPath)
+        public ExpenseRepository(SQLiteAsyncConnection connection)
         {
-            _dbConnection = new SQLiteAsyncConnection(dbPath);
-
-            //_dbConnection.CreateTableAsync<ExpenseDto>().Wait();
+            _dbConnection = connection;
         }
 
-        public Task<Expense> AddExpenseAsync(Expense expense)
+        public async Task<Expense> AddExpenseAsync(Expense expense)
         {
-            throw new NotImplementedException();
+            var expenseToSave = new ExpenseDto()
+            {
+                Name = expense.Name,
+                Value = expense.Value,
+                Description = expense.Description,
+                ImagePath = expense.ImagePath,
+                CreateDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                CategoryId = expense.Category.Id,
+                UserId = expense.User.Id
+            };
+
+            if (await _dbConnection.InsertAsync(expenseToSave).CAF() != 0)
+            {
+                var saved = await _dbConnection.Table<ExpenseDto>()
+                    .FirstOrDefaultAsync(item => item.Name == expenseToSave.Name && item.CreateDate == expenseToSave.CreateDate)
+                    .CAF();
+
+                return await Task.FromResult<Expense>(new Expense(saved.Name, saved.Value, null, null));
+            }
+
+            return null;
         }
 
         public Task<Expense> GetExpenseAsync(int expenseId)

@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 
-using Contador.Core.Models;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

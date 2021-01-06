@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contador.Mobile.Pages.MainPage"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:controls="clr-namespace:Contador.Mobile.Controls"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
              xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-             xmlns:controls="clr-namespace:Contador.Mobile.Controls"
+             x:Class="Contador.Mobile.Pages.MainPage"
              x:Name="Page">
 
     <ContentPage.Resources>
@@ -114,19 +114,19 @@
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
                     <Grid BackgroundColor="#f6f8f8">
-                        
-                            <Grid x:Name="MyGrid" Padding="0" HorizontalOptions="Center" VerticalOptions="Center"
+
+                        <Grid x:Name="MyGrid" Padding="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        WidthRequest="350" HeightRequest="70">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Grid.GestureRecognizers>
-                                <BoxView CornerRadius="15"
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </Grid.GestureRecognizers>
+                            <BoxView CornerRadius="15"
                                          BackgroundColor="ForestGreen" />
-                                <Grid ColumnDefinitions="*, 2*, 2*">
-                                    <Label Text="Text" Grid.Column="1" TextColor="Black"
+                            <Grid ColumnDefinitions="*, 2*, 2*">
+                                <Label Text="Text" Grid.Column="1" TextColor="Black"
                                                    HorizontalOptions="Center" VerticalOptions="Center" />
-                                </Grid>
                             </Grid>
+                        </Grid>
                     </Grid>
                 </toolkit:TabViewItem>
 

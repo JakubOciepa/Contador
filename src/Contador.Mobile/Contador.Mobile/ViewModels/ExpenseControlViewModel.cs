@@ -1,5 +1,4 @@
-﻿
-using Contador.Core.Models;
+﻿using Contador.Core.Models;
 using Contador.Mobile.Services;
 
 using Xamarin.Forms;

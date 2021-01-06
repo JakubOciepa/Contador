@@ -1,5 +1,4 @@
-﻿
-using Contador.Mobile.Styles;
+﻿using Contador.Mobile.Styles;
 
 using Xamarin.Forms;
 
