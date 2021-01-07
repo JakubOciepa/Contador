@@ -5,6 +5,7 @@
       "Contador.Core\\Abstractions\\Contador.Core.Abstractions.csproj",
       "Contador.Core\\Core\\Contador.Core.csproj",
       "Contador.DAL\\Abstractions\\Contador.DAL.Abstractions.csproj",
+      "Contador.DAL\\SQLite\\Contador.DAL.SQLite.csproj",
       "Contador.Mobile\\Contador.Mobile.Android\\Contador.Mobile.Android.csproj",
       "Contador.Mobile\\Contador.Mobile\\Contador.Mobile.csproj",
       "Contador\\Abstractions\\Contador.Abstractions.csproj",
