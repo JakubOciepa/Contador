@@ -37,18 +37,34 @@ namespace Contador.DAL.SQLite.Repositories
             if (await _dbConnection.InsertAsync(expenseToSave).CAF() != 0)
             {
                 var saved = await _dbConnection.Table<ExpenseDto>()
-                    .FirstOrDefaultAsync(item => item.Name == expenseToSave.Name && item.CreateDate == expenseToSave.CreateDate)
+                    .FirstAsync(item => item.Name == expenseToSave.Name && item.CreateDate == expenseToSave.CreateDate)
                     .CAF();
 
-                return await Task.FromResult<Expense>(new Expense(saved.Name, saved.Value, null, null));
+                return await Task.FromResult<Expense>(new Expense(saved.Name, saved.Value, null, null)).CAF();
             }
 
             return null;
         }
 
-        public Task<Expense> GetExpenseAsync(int expenseId)
+        public async Task<Expense> GetExpenseAsync(int expenseId)
         {
-            throw new NotImplementedException();
+            var result = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
+
+            if (result is object)
+            {
+                var user = new User()
+                {
+                    Name = "Kuba",
+                    Id = 1,
+                    Email = string.Empty,
+                };
+
+                var category = new ExpenseCategory("Słodycze") { Id = 0, };
+
+                return await Task.FromResult(new Expense(result.Name, result.Value, user, category)).CAF();
+            }
+
+            return null;
         }
 
         public Task<IList<Expense>> GetExpensesAsync()

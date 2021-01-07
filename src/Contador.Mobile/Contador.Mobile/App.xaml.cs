@@ -42,6 +42,11 @@ namespace Contador.Mobile
 
             container.BuildUp(this);
 
+            MockSomeExpenses(container);
+        }
+
+        private void MockSomeExpenses(TinyIoCContainer container)
+        {
             var expenseRepo = container.Resolve<IExpenseRepository>();
 
             var expense = new Expense("Cuksy", 12.11m,
