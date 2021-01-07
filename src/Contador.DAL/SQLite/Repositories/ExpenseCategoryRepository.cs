@@ -4,10 +4,19 @@ using System.Threading.Tasks;
 using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 
+using SQLite;
+
 namespace Contador.DAL.SQLite.Repositories
 {
     public class ExpenseCategoryRepository : IExpenseCategoryRepository
     {
+        private readonly SQLiteAsyncConnection _connection;
+
+        public ExpenseCategoryRepository(SQLiteAsyncConnection connection)
+        {
+            _connection = connection;
+        }
+
         public Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
         {
             throw new System.NotImplementedException();

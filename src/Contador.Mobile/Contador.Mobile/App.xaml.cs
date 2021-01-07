@@ -4,6 +4,9 @@ using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 using Contador.DAL.SQLite.Repositories;
 using Contador.Mobile.DAL;
+using Contador.Mobile.ViewModels;
+
+using SQLite;
 
 using TinyIoC;
 
@@ -38,11 +41,16 @@ namespace Contador.Mobile
 
         private void RegisterServices(TinyIoCContainer container)
         {
-            container.Register<IExpenseRepository>((_, __) => new ExpenseRepository(DbConnection.Database));
+            container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
 
+            container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+            container.Register<IExpenseRepository, ExpenseRepository>();
+
+            container.Register<ExpensesListPageViewModel>();
+            var model = container.Resolve<ExpensesListPageViewModel>();
             container.BuildUp(this);
 
-            MockSomeExpenses(container);
+            //MockSomeExpenses(container);
         }
 
         private void MockSomeExpenses(TinyIoCContainer container)

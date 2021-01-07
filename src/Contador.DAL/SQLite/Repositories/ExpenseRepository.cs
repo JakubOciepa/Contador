@@ -14,10 +14,12 @@ namespace Contador.DAL.SQLite.Repositories
     public class ExpenseRepository : IExpenseRepository
     {
         private readonly SQLiteAsyncConnection _dbConnection;
+        private readonly IExpenseCategoryRepository _expenseCategoryRepository;
 
-        public ExpenseRepository(SQLiteAsyncConnection connection)
+        public ExpenseRepository(SQLiteAsyncConnection connection, IExpenseCategoryRepository expenseCategoryRepository)
         {
             _dbConnection = connection;
+            _expenseCategoryRepository = expenseCategoryRepository;
         }
 
         public async Task<Expense> AddExpenseAsync(Expense expense)
