@@ -1,13 +1,16 @@
-﻿using System;
+﻿
+using System;
 
 using Contador.Core.Models;
 using Contador.Mobile.ViewModels;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Contador.Mobile.Pages
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ExpensesListPage : ContentView
     {
         public Expense Expense => new Expense("Cuksy", 12.11m,
             new User() { Name = "Pysia" },
@@ -19,7 +22,7 @@ namespace Contador.Mobile.Pages
 
         public ExpenseControlViewModel ControlViewModel => new ExpenseControlViewModel(Expense);
 
-        public MainPage()
+        public ExpensesListPage()
         {
             InitializeComponent();
         }

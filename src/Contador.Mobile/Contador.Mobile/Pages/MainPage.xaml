@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              xmlns:controls="clr-namespace:Contador.Mobile.Controls"
+             xmlns:pages="clr-namespace:Contador.Mobile.Pages"
              xmlns:styles="clr-namespace:Contador.Mobile.Styles"
              xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
              x:Class="Contador.Mobile.Pages.MainPage"
@@ -113,21 +114,7 @@
                             Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
                             Color="Black" />
                     </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8">
-
-                        <Grid x:Name="MyGrid" Padding="0" HorizontalOptions="Center" VerticalOptions="Center"
-                                       WidthRequest="350" HeightRequest="70">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                            </Grid.GestureRecognizers>
-                            <BoxView CornerRadius="15"
-                                         BackgroundColor="ForestGreen" />
-                            <Grid ColumnDefinitions="*, 2*, 2*">
-                                <Label Text="Text" Grid.Column="1" TextColor="Black"
-                                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                        <pages:ExpensesListPage/>
                 </toolkit:TabViewItem>
 
                 <toolkit:TabViewItem ControlTemplate="{StaticResource AddTabIconItemTemplate}">
