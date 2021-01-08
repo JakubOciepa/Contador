@@ -19,6 +19,14 @@ namespace Contador.DAL.SQLite.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// Parameterless constructor for ORM.
+        /// </summary>
+        public ExpenseCategoryDto()
+        {
+
+        }
+
+        /// <summary>
         /// Creates instance of the <see cref="ExpenseCategory"/> class.
         /// </summary>
         /// <param name="name"></param>

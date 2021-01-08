@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
+using Contador.DAL.SQLite.Models;
 
 using SQLite;
 
@@ -17,9 +19,19 @@ namespace Contador.DAL.SQLite.Repositories
             _connection = connection;
         }
 
-        public Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
         {
-            throw new System.NotImplementedException();
+            var categoryToSave = new ExpenseCategoryDto(expenseCategory.Name);
+
+            if (await _connection.InsertAsync(categoryToSave).CAF() != 0)
+            {
+                var savedCategory = await _connection.Table<ExpenseCategoryDto>()
+                    .FirstAsync(category => category.Name == categoryToSave.Name).CAF();
+
+                return await Task.FromResult(new ExpenseCategory(savedCategory.Name) { Id = savedCategory.Id }).CAF();
+            }
+
+            return null;
         }
 
         public Task<IList<ExpenseCategory>> GetCategoriesAsync()

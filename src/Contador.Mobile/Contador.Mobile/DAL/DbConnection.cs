@@ -12,6 +12,7 @@ namespace Contador.Mobile.DAL
 {
     public class DbConnection
     {
+        ////data/user/0/com.companyname.contador.mobile/files/.local/share/Test.db3
         private static readonly Lazy<SQLiteAsyncConnection> _lazyInitializer = new Lazy<SQLiteAsyncConnection>(
             () => new SQLiteAsyncConnection(Config.Db.Path, Config.Db.Flags));
 
@@ -20,6 +21,7 @@ namespace Contador.Mobile.DAL
         private readonly List<Type> types = new List<Type>()
         {
             typeof(ExpenseDto),
+            typeof(ExpenseCategoryDto)
         };
 
         public static SQLiteAsyncConnection Database => _lazyInitializer.Value;
