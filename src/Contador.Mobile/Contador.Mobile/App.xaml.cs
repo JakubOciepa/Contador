@@ -54,7 +54,7 @@ namespace Contador.Mobile
             MockSomeExpenses(container);
         }
 
-        private void MockSomeExpenses(TinyIoCContainer container)
+        private async void MockSomeExpenses(TinyIoCContainer container)
         {
             var expenseRepo = container.Resolve<IExpenseRepository>();
 
@@ -66,12 +66,15 @@ namespace Contador.Mobile
                 Description = "Description",
             };
 
-            expenseRepo.AddExpenseAsync(expense);
+            //await expenseRepo.AddExpenseAsync(expense);
 
             var category = new ExpenseCategory("Słodycze");
             var expenseCategoryRepository = container.Resolve<IExpenseCategoryRepository>();
 
-            expenseCategoryRepository.AddCategoryAsync(category);
+            //await expenseCategoryRepository.AddCategoryAsync(category);
+
+            var categories = await expenseCategoryRepository.GetCategoriesAsync();
+            var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
         }
     }
 }
