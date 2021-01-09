@@ -8,6 +8,5 @@ namespace Contador.Mobile.ViewModels
         {
             var repo = expenserepo;
         }
-
     }
 }

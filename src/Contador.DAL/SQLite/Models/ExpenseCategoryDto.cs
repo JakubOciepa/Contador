@@ -23,7 +23,6 @@ namespace Contador.DAL.SQLite.Models
         /// </summary>
         public ExpenseCategoryDto()
         {
-
         }
 
         /// <summary>

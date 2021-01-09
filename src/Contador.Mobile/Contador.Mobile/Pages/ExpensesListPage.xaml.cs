@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 using Contador.Core.Models;
 using Contador.Mobile.ViewModels;
