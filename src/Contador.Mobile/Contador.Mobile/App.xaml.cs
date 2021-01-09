@@ -76,6 +76,7 @@ namespace Contador.Mobile
             var categories = await expenseCategoryRepository.GetCategoriesAsync();
             var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
             await expenseRepo.UpdateExpenseAsync(1, expense);
+            await expenseRepo.RemoveExpenseAsync(10);
         }
     }
 }
