@@ -58,7 +58,7 @@ namespace Contador.Mobile
         {
             var expenseRepo = container.Resolve<IExpenseRepository>();
 
-            var expense = new Expense("Cuksy", 12.11m,
+            var expense = new Expense("Czekoladki", 12.11m,
             new User() { Name = "Pysia" },
             new ExpenseCategory("Słodycze"))
             {
@@ -75,6 +75,7 @@ namespace Contador.Mobile
 
             var categories = await expenseCategoryRepository.GetCategoriesAsync();
             var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
+            await expenseRepo.UpdateExpenseAsync(1, expense);
         }
     }
 }

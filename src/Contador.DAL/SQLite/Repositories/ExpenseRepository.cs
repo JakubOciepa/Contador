@@ -79,9 +79,21 @@ namespace Contador.DAL.SQLite.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Expense> UpdateExpenseAsync(int id, Expense info)
+        public async Task<Expense> UpdateExpenseAsync(int id, Expense info)
         {
-            throw new NotImplementedException();
+            var expenseToUpdate = await _dbConnection.Table<ExpenseDto>().FirstAsync(expense => expense.Id == id).CAF();
+
+            expenseToUpdate.Name = info.Name;
+            expenseToUpdate.Value = info.Value;
+            expenseToUpdate.Description = info.Description;
+            expenseToUpdate.ImagePath = info.ImagePath;
+            expenseToUpdate.UserId = info.User.Id;
+            expenseToUpdate.CategoryId = info.Category.Id;
+            expenseToUpdate.ModifiedDate = DateTime.Now;
+
+            var result = await _dbConnection.UpdateAllAsync(new List<ExpenseDto>() { expenseToUpdate }).CAF();
+
+            return await Task.FromResult(info).CAF();
         }
     }
 }
