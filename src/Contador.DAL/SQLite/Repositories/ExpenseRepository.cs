@@ -50,9 +50,9 @@ namespace Contador.DAL.SQLite.Repositories
 
         public async Task<Expense> GetExpenseAsync(int expenseId)
         {
-            var result = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
+            var expense = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
 
-            if (result is object)
+            if (expense is object)
             {
                 var user = new User()
                 {
@@ -63,15 +63,28 @@ namespace Contador.DAL.SQLite.Repositories
 
                 var category = new ExpenseCategory("Słodycze") { Id = 0, };
 
-                return await Task.FromResult(new Expense(result.Name, result.Value, user, category)).CAF();
+                return await Task.FromResult(new Expense(expense.Name, expense.Value, user, category)).CAF();
             }
 
             return null;
         }
 
-        public Task<IList<Expense>> GetExpensesAsync()
+        public async Task<IList<Expense>> GetExpensesAsync()
         {
-            throw new NotImplementedException();
+            var expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
+
+            var user = new User()
+            {
+                Name = "Kuba",
+                Id = 1,
+                Email = string.Empty,
+            };
+
+            var category = new ExpenseCategory("Słodycze") { Id = 0, };
+
+            return await Task.FromResult(expenses
+                             .ConvertAll(expense => new Expense(expense.Name, expense.Value, user, category)))
+                             .CAF();
         }
 
         public Task<bool> RemoveExpenseAsync(int id)
