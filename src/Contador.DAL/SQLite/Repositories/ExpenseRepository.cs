@@ -87,9 +87,11 @@ namespace Contador.DAL.SQLite.Repositories
                              .CAF();
         }
 
-        public Task<bool> RemoveExpenseAsync(int id)
+        public async Task<bool> RemoveExpenseAsync(int id)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(await _dbConnection.Table<ExpenseDto>()
+                                                             .DeleteAsync(expense => expense.Id == id).CAF() == 1)
+                             .CAF();
         }
 
         public async Task<Expense> UpdateExpenseAsync(int id, Expense info)
