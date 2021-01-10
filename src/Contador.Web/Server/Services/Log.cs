@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Contador.Web.Server.Services
 {
-    /// <inheritdoc/>
-    public class Log : ILog
+	/// <inheritdoc/>
+	public class Log : ILog
     {
         private readonly ILogger<Program> _logger;
 
