@@ -15,6 +15,15 @@ namespace Contador.Mobile.Controls
         private bool _toggling = true;
         private double _pageHeight;
 
+        public static readonly BindableProperty CustomHeightProperty
+            = BindableProperty.Create(nameof(CustomHeight), typeof(double), typeof(ExpenseControl));
+
+        public double CustomHeight
+        {
+            get => (double)GetValue(CustomHeightProperty);
+            set => SetValue(CustomHeightProperty, value);
+        }
+
         /// <summary>
         /// Initializes instance of the <see cref="ExpenseControl"/> class.
         /// </summary>
@@ -27,6 +36,8 @@ namespace Contador.Mobile.Controls
             UntoggledValue.IsVisible = false;
             TopBar.IsVisible = false;
             CategoryName.TranslationY = -50;
+            Control.HeightRequest = 70;
+            CustomHeight = 70;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
@@ -65,6 +76,17 @@ namespace Contador.Mobile.Controls
             await Shadow.RotateXTo(90, ANIMATION_LENGTH / 5, Easing.Linear)
                 .ConfigureAwait(true);
 
+            await Task.Delay(100).ConfigureAwait(true);
+
+            var animation = new Animation(height => Control.HeightRequest = height,
+                           _toggling ? _pageHeight * 1.8 : _pageHeight,
+                           _toggling ? _pageHeight : _pageHeight * 1.8,
+                           Easing.Linear);
+            animation.Commit(Control, "Resize", length: 250);
+
+            if (!_toggling)
+                await Task.Delay(300).ConfigureAwait(true);
+
             Swipe.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.8;
 
             Description.Margin = !_toggling
@@ -77,7 +99,7 @@ namespace Contador.Mobile.Controls
             ToggledDate.IsVisible = _toggling;
             TopBar.IsVisible = !_toggling;
 
-            await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.80), Easing.Linear)
+            await Shadow.RotateXTo(0, (uint)(ANIMATION_LENGTH * 0.8), Easing.Linear)
                 .ConfigureAwait(true);
         }
 

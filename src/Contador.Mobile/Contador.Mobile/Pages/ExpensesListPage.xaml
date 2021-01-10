@@ -8,14 +8,14 @@
         <Grid BackgroundColor="#f6f8f8" Padding="0">
             <StackLayout Orientation="Vertical">
                 <controls:ExpenseControl HorizontalOptions="Fill"
-                                                 VerticalOptions="Center"
-                                                 Padding="10, 0"
-                                                 BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
+                                         VerticalOptions="Center"
+                                         Padding="10, 0"
+                                         BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
                 </controls:ExpenseControl>
                 <controls:ExpenseControl HorizontalOptions="Fill"
-                                                 VerticalOptions="Center"
-                                                 Padding="10, 0"
-                                                 BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
+                                         VerticalOptions="Center"
+                                         Padding="10, 0"
+                                         BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
                 </controls:ExpenseControl>
             </StackLayout>
         </Grid>
