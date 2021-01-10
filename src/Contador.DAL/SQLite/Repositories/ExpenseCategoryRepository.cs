@@ -12,11 +12,11 @@ namespace Contador.DAL.SQLite.Repositories
 {
     public class ExpenseCategoryRepository : IExpenseCategoryRepository
     {
-        private readonly SQLiteAsyncConnection _connection;
+        private readonly SQLiteAsyncConnection _dbConnection;
 
         public ExpenseCategoryRepository(SQLiteAsyncConnection connection)
         {
-            _connection = connection;
+            _dbConnection = connection;
         }
 
         public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
@@ -26,9 +26,9 @@ namespace Contador.DAL.SQLite.Repositories
 
             var categoryToSave = new ExpenseCategoryDto(expenseCategory.Name);
 
-            if (await _connection.InsertAsync(categoryToSave).CAF() != 0)
+            if (await _dbConnection.InsertAsync(categoryToSave).CAF() != 0)
             {
-                var savedCategory = await _connection.Table<ExpenseCategoryDto>()
+                var savedCategory = await _dbConnection.Table<ExpenseCategoryDto>()
                     .FirstAsync(category => category.Name == categoryToSave.Name).CAF();
 
                 return await Task.FromResult(new ExpenseCategory(savedCategory.Name) { Id = savedCategory.Id }).CAF();
@@ -39,7 +39,7 @@ namespace Contador.DAL.SQLite.Repositories
 
         public async Task<IList<ExpenseCategory>> GetCategoriesAsync()
         {
-            var categories = await _connection.Table<ExpenseCategoryDto>().ToListAsync().CAF();
+            var categories = await _dbConnection.Table<ExpenseCategoryDto>().ToListAsync().CAF();
 
             return await Task.FromResult(categories
                              .ConvertAll(category => new ExpenseCategory(category.Name) { Id = category.Id }))
@@ -48,7 +48,7 @@ namespace Contador.DAL.SQLite.Repositories
 
         public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
         {
-            var category = await _connection.Table<ExpenseCategoryDto>()
+            var category = await _dbConnection.Table<ExpenseCategoryDto>()
                                             .FirstOrDefaultAsync(category => category.Id == categoryId)
                                             .CAF();
 
@@ -60,19 +60,28 @@ namespace Contador.DAL.SQLite.Repositories
             return null;
         }
 
-        public Task<bool> RemoveCategoryAsync(int id)
+        public async Task<bool> RemoveCategoryAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await Task.FromResult(await _dbConnection.Table<ExpenseCategoryDto>()
+                                                             .DeleteAsync(expense => expense.Id == id)
+                                                             .CAF() == 1)
+                             .CAF();
         }
 
-        public Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
+        public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
         {
-            throw new System.NotImplementedException();
+            var categoryToUpdate = await _dbConnection.Table<ExpenseCategoryDto>().FirstAsync(expense => expense.Id == id).CAF();
+
+            categoryToUpdate.Name = expenseCategory.Name;
+
+            var result = await _dbConnection.UpdateAllAsync(new List<ExpenseCategoryDto>() { categoryToUpdate }).CAF();
+
+            return await Task.FromResult(expenseCategory).CAF();
         }
 
         private async Task<ExpenseCategoryDto> GetCategoryByName(string name)
         {
-            return await _connection.Table<ExpenseCategoryDto>()
+            return await _dbConnection.Table<ExpenseCategoryDto>()
                                     .FirstOrDefaultAsync(category => category.Name == name)
                                     .CAF();
         }

@@ -75,8 +75,11 @@ namespace Contador.Mobile
 
             var categories = await expenseCategoryRepository.GetCategoriesAsync();
             var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
+            category.Name = "Słodkości";
             await expenseRepo.UpdateExpenseAsync(1, expense);
             await expenseRepo.RemoveExpenseAsync(10);
+            await expenseCategoryRepository.RemoveCategoryAsync(1);
+            await expenseCategoryRepository.UpdateCategoryAsync(2, category);
         }
     }
 }
