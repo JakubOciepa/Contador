@@ -61,7 +61,7 @@ namespace Contador.DAL.SQLite.Repositories
                     Email = string.Empty,
                 };
 
-                var category = new ExpenseCategory("Słodycze") { Id = 0, };
+                ExpenseCategory category = await _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).CAF();
 
                 return await Task.FromResult(new Expense(expense.Name, expense.Value, user, category)).CAF();
             }
@@ -80,10 +80,8 @@ namespace Contador.DAL.SQLite.Repositories
                 Email = string.Empty,
             };
 
-            var category = new ExpenseCategory("Słodycze") { Id = 0, };
-
-            return await Task.FromResult(expenses
-                             .ConvertAll(expense => new Expense(expense.Name, expense.Value, user, category)))
+            return await Task.FromResult(expenses.ConvertAll(expense => new Expense(expense.Name, expense.Value, user,
+                                            _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)))
                              .CAF();
         }
 
