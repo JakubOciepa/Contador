@@ -42,7 +42,7 @@ namespace Contador.DAL.SQLite.Repositories
                     .FirstAsync(item => item.Name == expenseToSave.Name && item.CreateDate == expenseToSave.CreateDate)
                     .CAF();
 
-                return await Task.FromResult<Expense>(new Expense(saved.Name, saved.Value, null, null)).CAF();
+                return await Task.FromResult(new Expense(saved.Name, saved.Value, null, null)).CAF();
             }
 
             return null;
