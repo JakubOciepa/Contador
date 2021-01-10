@@ -1,23 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Contador.Mobile.Controls"
-             x:Class="Contador.Mobile.Pages.ExpensesListPage"
-             x:Name="Page">
-    <ContentView.Content>
-        <Grid BackgroundColor="#f6f8f8" Padding="0">
-            <StackLayout Orientation="Vertical">
-                <controls:ExpenseControl HorizontalOptions="Fill"
-                                         VerticalOptions="Center"
-                                         Padding="10, 0"
-                                         BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
-                </controls:ExpenseControl>
-                <controls:ExpenseControl HorizontalOptions="Fill"
-                                         VerticalOptions="Center"
-                                         Padding="10, 0"
-                                         BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
-                </controls:ExpenseControl>
-            </StackLayout>
-        </Grid>
-    </ContentView.Content>
+<ContentView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:controls="clr-namespace:Contador.Mobile.Controls"
+	x:Class="Contador.Mobile.Pages.ExpensesListPage"
+	x:Name="Page">
+	<ContentView.Content>
+		<Grid
+			BackgroundColor="#f6f8f8" 
+			Padding="0">
+			<StackLayout 
+				Orientation="Vertical">
+				<controls:ExpenseControl
+					HorizontalOptions="Fill"
+					VerticalOptions="Center"
+					Padding="10, 0"
+					BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
+				</controls:ExpenseControl>
+				<controls:ExpenseControl
+					HorizontalOptions="Fill"
+					VerticalOptions="Center"
+					Padding="10, 0"
+					BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
+				</controls:ExpenseControl>
+			</StackLayout>
+		</Grid>
+	</ContentView.Content>
 </ContentView>

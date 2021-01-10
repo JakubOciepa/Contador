@@ -2,11 +2,11 @@
 
 namespace Contador.Mobile.ViewModels
 {
-    public class ExpensesListPageViewModel : ViewModelBase
-    {
-        public ExpensesListPageViewModel(IExpenseRepository expenserepo)
-        {
-            var repo = expenserepo;
-        }
-    }
+	public class ExpensesListPageViewModel : ViewModelBase
+	{
+		public ExpensesListPageViewModel(IExpenseRepository expenserepo)
+		{
+			var repo = expenserepo;
+		}
+	}
 }

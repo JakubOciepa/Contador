@@ -14,72 +14,72 @@ using Xamarin.Forms;
 
 namespace Contador.Mobile
 {
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+	public partial class App : Application
+	{
+		public App()
+		{
+			InitializeComponent();
 
-            _ = new DbConnection();
+			_ = new DbConnection();
 
-            RegisterServices(TinyIoCContainer.Current);
+			RegisterServices(TinyIoCContainer.Current);
 
-            MainPage = new Pages.MainPage();
-        }
+			MainPage = new Pages.MainPage();
+		}
 
-        protected override void OnStart()
-        {
-        }
+		protected override void OnStart()
+		{
+		}
 
-        protected override void OnSleep()
-        {
-        }
+		protected override void OnSleep()
+		{
+		}
 
-        protected override void OnResume()
-        {
-        }
+		protected override void OnResume()
+		{
+		}
 
-        private void RegisterServices(TinyIoCContainer container)
-        {
-            container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
+		private void RegisterServices(TinyIoCContainer container)
+		{
+			container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
 
-            container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
-            container.Register<IExpenseRepository, ExpenseRepository>();
-            container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+			container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+			container.Register<IExpenseRepository, ExpenseRepository>();
+			container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 
-            container.Register<ExpensesListPageViewModel>();
-            var model = container.Resolve<ExpensesListPageViewModel>();
-            container.BuildUp(this);
+			container.Register<ExpensesListPageViewModel>();
+			var model = container.Resolve<ExpensesListPageViewModel>();
+			container.BuildUp(this);
 
-            MockSomeExpenses(container);
-        }
+			MockSomeExpenses(container);
+		}
 
-        private async void MockSomeExpenses(TinyIoCContainer container)
-        {
-            var expenseRepo = container.Resolve<IExpenseRepository>();
+		private async void MockSomeExpenses(TinyIoCContainer container)
+		{
+			var expenseRepo = container.Resolve<IExpenseRepository>();
 
-            var expense = new Expense("Czekoladki", 12.11m,
-            new User() { Name = "Pysia" },
-            new ExpenseCategory("Słodycze"))
-            {
-                CreateDate = DateTime.Today,
-                Description = "Description",
-            };
+			var expense = new Expense("Czekoladki", 12.11m,
+			new User() { Name = "Pysia" },
+			new ExpenseCategory("Słodycze"))
+			{
+				CreateDate = DateTime.Today,
+				Description = "Description",
+			};
 
-            //await expenseRepo.AddExpenseAsync(expense);
+			//await expenseRepo.AddExpenseAsync(expense);
 
-            var category = new ExpenseCategory("Słodycze");
-            var expenseCategoryRepository = container.Resolve<IExpenseCategoryRepository>();
+			var category = new ExpenseCategory("Słodycze");
+			var expenseCategoryRepository = container.Resolve<IExpenseCategoryRepository>();
 
-            //await expenseCategoryRepository.AddCategoryAsync(category);
+			//await expenseCategoryRepository.AddCategoryAsync(category);
 
-            var categories = await expenseCategoryRepository.GetCategoriesAsync();
-            var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
-            category.Name = "Słodkości";
-            await expenseRepo.UpdateExpenseAsync(1, expense);
-            await expenseRepo.RemoveExpenseAsync(10);
-            await expenseCategoryRepository.RemoveCategoryAsync(1);
-            await expenseCategoryRepository.UpdateCategoryAsync(2, category);
-        }
-    }
+			var categories = await expenseCategoryRepository.GetCategoriesAsync();
+			var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
+			category.Name = "Słodkości";
+			await expenseRepo.UpdateExpenseAsync(1, expense);
+			await expenseRepo.RemoveExpenseAsync(10);
+			await expenseCategoryRepository.RemoveCategoryAsync(1);
+			await expenseCategoryRepository.UpdateCategoryAsync(2, category);
+		}
+	}
 }

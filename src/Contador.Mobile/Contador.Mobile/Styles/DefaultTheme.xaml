@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contador.Mobile.Styles.DefaultTheme">
+<ResourceDictionary
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Contador.Mobile.Styles.DefaultTheme">
 
-    <!--COLORS-->
-    <Color x:Key="DefaultBackground">#FFFFFF</Color>
-    <Color x:Key="MainExpenseTextColor">#000000</Color>
-    <Color x:Key="SecondaryExpenseTextColor">#838383</Color>
-    <Color x:Key="DescriptionExpenseTextColor">#433e3e</Color>
+	<!--COLORS-->
+	<Color x:Key="DefaultBackground">#FFFFFF</Color>
+	<Color x:Key="MainExpenseTextColor">#000000</Color>
+	<Color x:Key="SecondaryExpenseTextColor">#838383</Color>
+	<Color x:Key="DescriptionExpenseTextColor">#433e3e</Color>
 </ResourceDictionary>

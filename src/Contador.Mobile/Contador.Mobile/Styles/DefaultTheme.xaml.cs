@@ -4,11 +4,11 @@
 
 namespace Contador.Mobile.Styles
 {
-    public partial class DefaultTheme : ResourceDictionary
-    {
-        public DefaultTheme()
-        {
-            InitializeComponent();
-        }
-    }
+	public partial class DefaultTheme : ResourceDictionary
+	{
+		public DefaultTheme()
+		{
+			InitializeComponent();
+		}
+	}
 }

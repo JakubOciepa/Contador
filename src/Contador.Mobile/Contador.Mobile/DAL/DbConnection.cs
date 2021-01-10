@@ -10,48 +10,48 @@ using SQLite;
 
 namespace Contador.Mobile.DAL
 {
-    public class DbConnection
-    {
-        ////data/user/0/com.companyname.contador.mobile/files/.local/share/Test.db3
-        private static readonly Lazy<SQLiteAsyncConnection> _lazyInitializer = new Lazy<SQLiteAsyncConnection>(
-            () => new SQLiteAsyncConnection(Config.Db.Path, Config.Db.Flags));
+	public class DbConnection
+	{
+		////data/user/0/com.companyname.contador.mobile/files/.local/share/Test.db3
+		private static readonly Lazy<SQLiteAsyncConnection> _lazyInitializer = new Lazy<SQLiteAsyncConnection>(
+			() => new SQLiteAsyncConnection(Config.Db.Path, Config.Db.Flags));
 
-        private static bool _initialized = false;
+		private static bool _initialized = false;
 
-        private readonly List<Type> types = new List<Type>()
-        {
-            typeof(ExpenseDto),
-            typeof(ExpenseCategoryDto)
-        };
+		private readonly List<Type> types = new List<Type>()
+		{
+			typeof(ExpenseDto),
+			typeof(ExpenseCategoryDto)
+		};
 
-        public static SQLiteAsyncConnection Database => _lazyInitializer.Value;
+		public static SQLiteAsyncConnection Database => _lazyInitializer.Value;
 
-        public DbConnection()
-        {
-            InitializeAsync().ConfigureAwait(false);
-        }
+		public DbConnection()
+		{
+			InitializeAsync().ConfigureAwait(false);
+		}
 
-        private async Task InitializeAsync()
-        {
-            if (!_initialized)
-            {
-                try
-                {
-                    foreach (var type in types)
-                    {
-                        if (!Database.TableMappings.Any(m => m.MappedType.Name == type.Name))
-                        {
-                            await Database.CreateTablesAsync(CreateFlags.None, type).ConfigureAwait(false);
-                        }
-                    }
+		private async Task InitializeAsync()
+		{
+			if (!_initialized)
+			{
+				try
+				{
+					foreach (var type in types)
+					{
+						if (!Database.TableMappings.Any(m => m.MappedType.Name == type.Name))
+						{
+							await Database.CreateTablesAsync(CreateFlags.None, type).ConfigureAwait(false);
+						}
+					}
 
-                    _initialized = true;
-                }
-                catch
-                {
-                    _initialized = false;
-                }
-            }
-        }
-    }
+					_initialized = true;
+				}
+				catch
+				{
+					_initialized = false;
+				}
+			}
+		}
+	}
 }
