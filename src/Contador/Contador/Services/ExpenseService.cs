@@ -83,10 +83,10 @@ namespace Contador.Services
 			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, $"Cannot update the expense of the {id}.");
-				return new Result<Expense>(ResponseCode.Ok, result);
+				return new Result<Expense>(ResponseCode.Error, null);
 			}
 
-			return new Result<Expense>(ResponseCode.Error, null);
+			return new Result<Expense>(ResponseCode.Ok, result);
 		}
 
 		/// <inheritdoc/>
