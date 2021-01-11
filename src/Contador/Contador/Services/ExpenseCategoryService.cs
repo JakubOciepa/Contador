@@ -52,7 +52,7 @@ namespace Contador.Services
 		{
 			var result = await _repository.GetCategoryByIdAsync(id).CAF();
 
-			if (result == default)
+			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Error, $"Can not find any expense category of the {id}.");
 				return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
@@ -66,7 +66,7 @@ namespace Contador.Services
 		{
 			var result = await _repository.AddCategoryAsync(category).CAF();
 
-			if (result != default)
+			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, "Can not add expense category.");
 				return new Result<ExpenseCategory>(ResponseCode.Ok,
@@ -81,7 +81,7 @@ namespace Contador.Services
 		{
 			var result = await _repository.UpdateCategoryAsync(id, category).CAF();
 
-			if (result != default)
+			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, $"Can not update expense category of the {id}.");
 				return new Result<ExpenseCategory>(ResponseCode.Ok,

@@ -41,9 +41,14 @@ namespace Contador.DAL.SQLite.Repositories
 		{
 			var categories = await _dbConnection.Table<ExpenseCategoryDto>().ToListAsync().CAF();
 
-			return await Task.FromResult(categories
-							 .ConvertAll(category => new ExpenseCategory(category.Name) { Id = category.Id }))
-							 .CAF();
+			if (categories is object)
+			{
+				return await Task.FromResult(categories
+								 .ConvertAll(category => new ExpenseCategory(category.Name) { Id = category.Id }))
+								 .CAF();
+			}
+
+			return null;
 		}
 
 		public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
@@ -63,20 +68,25 @@ namespace Contador.DAL.SQLite.Repositories
 		public async Task<bool> RemoveCategoryAsync(int id)
 		{
 			return await Task.FromResult(await _dbConnection.Table<ExpenseCategoryDto>()
-															 .DeleteAsync(expense => expense.Id == id)
+															 .DeleteAsync(category => category.Id == id)
 															 .CAF() == 1)
 							 .CAF();
 		}
 
 		public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
 		{
-			var categoryToUpdate = await _dbConnection.Table<ExpenseCategoryDto>().FirstAsync(expense => expense.Id == id).CAF();
+			var categoryToUpdate = await _dbConnection.Table<ExpenseCategoryDto>().FirstAsync(category => category.Id == id).CAF();
 
-			categoryToUpdate.Name = expenseCategory.Name;
+			if (categoryToUpdate is object)
+			{
+				categoryToUpdate.Name = expenseCategory.Name;
 
-			var result = await _dbConnection.UpdateAllAsync(new List<ExpenseCategoryDto>() { categoryToUpdate }).CAF();
+				var result = await _dbConnection.UpdateAllAsync(new List<ExpenseCategoryDto>() { categoryToUpdate }).CAF();
 
-			return await Task.FromResult(expenseCategory).CAF();
+				return result is 1 ? await Task.FromResult(expenseCategory).CAF() : null;
+			}
+
+			return null;
 		}
 
 		private async Task<ExpenseCategoryDto> GetCategoryByName(string name)
