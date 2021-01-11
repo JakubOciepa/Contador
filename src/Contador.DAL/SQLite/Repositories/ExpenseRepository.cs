@@ -11,17 +11,26 @@ using SQLite;
 
 namespace Contador.DAL.SQLite.Repositories
 {
+	/// <summary>
+	/// Manages expenses in db.
+	/// </summary>
 	public class ExpenseRepository : IExpenseRepository
 	{
 		private readonly SQLiteAsyncConnection _dbConnection;
 		private readonly IExpenseCategoryRepository _expenseCategoryRepository;
 
+		/// <summary>
+		/// Creates instance of the <see cref="ExpenseRepository"/> class.
+		/// </summary>
+		/// <param name="connection"><see cref="SQLiteAsyncConnection"/> connection.</param>
+		/// <param name="expenseCategoryRepository"><see cref="IExpenseCategoryRepository"/> Expense category repository.</param>
 		public ExpenseRepository(SQLiteAsyncConnection connection, IExpenseCategoryRepository expenseCategoryRepository)
 		{
 			_dbConnection = connection;
 			_expenseCategoryRepository = expenseCategoryRepository;
 		}
 
+		///<inheritdoc/>
 		public async Task<Expense> AddExpenseAsync(Expense expense)
 		{
 			var expenseToSave = new ExpenseDto()
@@ -48,6 +57,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		public async Task<Expense> GetExpenseAsync(int expenseId)
 		{
 			var expense = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
@@ -69,6 +79,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		public async Task<IList<Expense>> GetExpensesAsync()
 		{
 			var expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
@@ -90,6 +101,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		public async Task<bool> RemoveExpenseAsync(int id)
 		{
 			return await Task.FromResult(await _dbConnection.Table<ExpenseDto>()
@@ -97,6 +109,7 @@ namespace Contador.DAL.SQLite.Repositories
 							 .CAF();
 		}
 
+		///<inheritdoc/>
 		public async Task<Expense> UpdateExpenseAsync(int id, Expense info)
 		{
 			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>().FirstAsync(expense => expense.Id == id).CAF();

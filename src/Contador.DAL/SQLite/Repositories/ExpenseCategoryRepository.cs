@@ -10,15 +10,23 @@ using SQLite;
 
 namespace Contador.DAL.SQLite.Repositories
 {
+	/// <summary>
+	/// Manages expense categories in db.
+	/// </summary>
 	public class ExpenseCategoryRepository : IExpenseCategoryRepository
 	{
 		private readonly SQLiteAsyncConnection _dbConnection;
 
+		/// <summary>
+		/// Creates instance of the <see cref="ExpenseCategoryRepository"/> class.
+		/// </summary>
+		/// <param name="connection"><see cref="SQLiteAsyncConnection"/> connection.</param>
 		public ExpenseCategoryRepository(SQLiteAsyncConnection connection)
 		{
 			_dbConnection = connection;
 		}
 
+		///<inheritdoc/>
 		public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
 		{
 			if (await GetCategoryByName(expenseCategory.Name).CAF() is object)
@@ -37,6 +45,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		public async Task<IList<ExpenseCategory>> GetCategoriesAsync()
 		{
 			var categories = await _dbConnection.Table<ExpenseCategoryDto>().ToListAsync().CAF();
@@ -51,6 +60,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
 		{
 			var category = await _dbConnection.Table<ExpenseCategoryDto>()
@@ -65,6 +75,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		public async Task<bool> RemoveCategoryAsync(int id)
 		{
 			return await Task.FromResult(await _dbConnection.Table<ExpenseCategoryDto>()
@@ -73,6 +84,7 @@ namespace Contador.DAL.SQLite.Repositories
 							 .CAF();
 		}
 
+		///<inheritdoc/>
 		public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
 		{
 			var categoryToUpdate = await _dbConnection.Table<ExpenseCategoryDto>().FirstAsync(category => category.Id == id).CAF();
@@ -89,6 +101,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
+		///<inheritdoc/>
 		private async Task<ExpenseCategoryDto> GetCategoryByName(string name)
 		{
 			return await _dbConnection.Table<ExpenseCategoryDto>()
