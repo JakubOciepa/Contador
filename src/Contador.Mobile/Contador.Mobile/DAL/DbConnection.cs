@@ -10,6 +10,9 @@ using SQLite;
 
 namespace Contador.Mobile.DAL
 {
+	/// <summary>
+	/// Database connection class.
+	/// </summary>
 	public class DbConnection
 	{
 		////data/user/0/com.companyname.contador.mobile/files/.local/share/Test.db3
@@ -18,14 +21,23 @@ namespace Contador.Mobile.DAL
 
 		private static bool _initialized = false;
 
+		/// <summary>
+		/// Add here db types so tables will be created on start!
+		/// </summary>
 		private readonly List<Type> types = new List<Type>()
 		{
 			typeof(ExpenseDto),
 			typeof(ExpenseCategoryDto)
 		};
 
+		/// <summary>
+		/// <see cref="SQLiteAsyncConnection"/> connection.
+		/// </summary>
 		public static SQLiteAsyncConnection Database => _lazyInitializer.Value;
 
+		/// <summary>
+		/// Creates instance of the <see cref="DbConnection"/> class.
+		/// </summary>
 		public DbConnection()
 		{
 			InitializeAsync().ConfigureAwait(false);

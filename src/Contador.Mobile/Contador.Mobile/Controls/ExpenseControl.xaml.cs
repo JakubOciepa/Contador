@@ -18,6 +18,9 @@ namespace Contador.Mobile.Controls
 		public static readonly BindableProperty CustomHeightProperty
 			= BindableProperty.Create(nameof(CustomHeight), typeof(double), typeof(ExpenseControl));
 
+		/// <summary>
+		/// Height of the content of the expense control.
+		/// </summary>
 		public double CustomHeight
 		{
 			get => (double)GetValue(CustomHeightProperty);
