@@ -73,16 +73,21 @@ namespace Contador.DAL.SQLite.Repositories
 		{
 			var expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
 
-			var user = new User()
+			if (expenses is object)
 			{
-				Name = "Kuba",
-				Id = 1,
-				Email = string.Empty,
-			};
+				var user = new User()
+				{
+					Name = "Kuba",
+					Id = 1,
+					Email = string.Empty,
+				};
 
-			return await Task.FromResult(expenses.ConvertAll(expense => new Expense(expense.Name, expense.Value, user,
-											_expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)))
-							 .CAF();
+				return await Task.FromResult(expenses?.ConvertAll(expense => new Expense(expense.Name, expense.Value, user,
+												_expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)))
+								 .CAF();
+			}
+
+			return null;
 		}
 
 		public async Task<bool> RemoveExpenseAsync(int id)
@@ -96,17 +101,22 @@ namespace Contador.DAL.SQLite.Repositories
 		{
 			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>().FirstAsync(expense => expense.Id == id).CAF();
 
-			expenseToUpdate.Name = info.Name;
-			expenseToUpdate.Value = info.Value;
-			expenseToUpdate.Description = info.Description;
-			expenseToUpdate.ImagePath = info.ImagePath;
-			expenseToUpdate.UserId = info.User.Id;
-			expenseToUpdate.CategoryId = info.Category.Id;
-			expenseToUpdate.ModifiedDate = DateTime.Now;
+			if (expenseToUpdate is object)
+			{
+				expenseToUpdate.Name = info.Name;
+				expenseToUpdate.Value = info.Value;
+				expenseToUpdate.Description = info.Description;
+				expenseToUpdate.ImagePath = info.ImagePath;
+				expenseToUpdate.UserId = info.User.Id;
+				expenseToUpdate.CategoryId = info.Category.Id;
+				expenseToUpdate.ModifiedDate = DateTime.Now;
 
-			var result = await _dbConnection.UpdateAllAsync(new List<ExpenseDto>() { expenseToUpdate }).CAF();
+				var result = await _dbConnection.UpdateAllAsync(new List<ExpenseDto>() { expenseToUpdate }).CAF();
 
-			return await Task.FromResult(info).CAF();
+				return result is 1 ? await Task.FromResult(info).CAF() : null;
+			}
+
+			return null;
 		}
 	}
 }

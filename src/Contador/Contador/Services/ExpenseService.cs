@@ -30,7 +30,7 @@ namespace Contador.Services
 		{
 			var result = await _expenseRepo.GetExpensesAsync().CAF();
 
-			if (result.Count == 0)
+			if (result?.Count is 0)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, "Expenses not found.");
 				return new Result<IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
@@ -51,10 +51,10 @@ namespace Contador.Services
 		{
 			var result = await _expenseRepo.GetExpenseAsync(id).CAF();
 
-			if (result == default)
+			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, $"Expense of the {id} not found.");
-				return new Result<Expense>(ResponseCode.NotFound, default);
+				return new Result<Expense>(ResponseCode.NotFound, null);
 			}
 
 			return new Result<Expense>(ResponseCode.Ok, result);
@@ -65,13 +65,14 @@ namespace Contador.Services
 		{
 			var result = await _expenseRepo.AddExpenseAsync(expense).CAF();
 
-			if (result != default)
+			if (result is null)
 			{
-				return new Result<Expense>(ResponseCode.Ok, result);
+				_logger.Write(Core.Common.LogLevel.Warning, "Cannot add the expense.");
+				return new Result<Expense>(ResponseCode.Error, null);
 			}
 
-			_logger.Write(Core.Common.LogLevel.Warning, "Cannot add the expense.");
-			return new Result<Expense>(ResponseCode.Error, default);
+			return new Result<Expense>(ResponseCode.Ok, result);
+
 		}
 
 		/// <inheritdoc/>
@@ -79,13 +80,13 @@ namespace Contador.Services
 		{
 			var result = await _expenseRepo.UpdateExpenseAsync(id, expense).CAF();
 
-			if (result != default)
+			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, $"Cannot update the expense of the {id}.");
 				return new Result<Expense>(ResponseCode.Ok, result);
 			}
 
-			return new Result<Expense>(ResponseCode.Error, default);
+			return new Result<Expense>(ResponseCode.Error, null);
 		}
 
 		/// <inheritdoc/>
