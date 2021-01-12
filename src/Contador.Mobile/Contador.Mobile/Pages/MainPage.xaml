@@ -1,185 +1,192 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:controls="clr-namespace:Contador.Mobile.Controls"
-             xmlns:pages="clr-namespace:Contador.Mobile.Pages"
-             xmlns:styles="clr-namespace:Contador.Mobile.Styles"
-             xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-             x:Class="Contador.Mobile.Pages.MainPage"
-             x:Name="Page">
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+	xmlns:controls="clr-namespace:Contador.Mobile.Controls"
+	xmlns:pages="clr-namespace:Contador.Mobile.Pages"
+	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+	x:Class="Contador.Mobile.Pages.MainPage"
+	x:Name="Page">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <ControlTemplate
-                x:Key="TabItemIconTemplate">
-                <Grid>
-                    <Image
-                        x:Name="TabIcon"
-                        Grid.Row="0"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        WidthRequest="24"
-                        HeightRequest="24"
-                        Source="{TemplateBinding CurrentIcon}" />
-                </Grid>
-            </ControlTemplate>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<ControlTemplate
+				x:Key="TabItemIconTemplate">
+				<Grid>
+					<Image
+						x:Name="TabIcon"
+						Grid.Row="0"
+						VerticalOptions="Center"
+						HorizontalOptions="Center"
+						WidthRequest="24"
+						HeightRequest="24"
+						Source="{TemplateBinding CurrentIcon}" />
+				</Grid>
+			</ControlTemplate>
 
-            <ControlTemplate x:Key="AddTabIconItemTemplate">
-                <Grid>
-                    <sharpnado:Shadows
-                        Margin="0, 0, 0, 36"
-                        CornerRadius="36"
-                        Shades="{sharpnado:SingleShade Offset='0, 10',
-                        BlurRadius=35,
-                        Opacity=0.5,
-                        Color='#33c3d9'}">
-                        <ImageButton x:Name="AddBtn"
-                            InputTransparent="True"
-                            Source="{TemplateBinding CurrentIcon}"
-                            Padding="21"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Start"
-                            BackgroundColor="#00dce4"
-                            HeightRequest="72"
-                            WidthRequest="72">
-                            <ImageButton.CornerRadius>
-                                <OnPlatform x:TypeArguments="x:Int32">
-                                    <On
-                                        Platform="iOS, UWP"
-                                        Value="36" />
-                                    <On
-                                        Platform="Android"
-                                        Value="60" />
-                                </OnPlatform>
-                            </ImageButton.CornerRadius>
-                        </ImageButton>
-                    </sharpnado:Shadows>
-                </Grid>
-            </ControlTemplate>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+			<ControlTemplate x:Key="AddTabIconItemTemplate">
+				<Grid>
+					<sharpnado:Shadows
+						Margin="0, 0, 0, 36"
+						CornerRadius="36"
+						Shades="{sharpnado:SingleShade Offset='0, 10',
+						BlurRadius=35,
+						Opacity=0.5,
+						Color='#33c3d9'}">
+						<ImageButton 
+							x:Name="AddBtn"
+							InputTransparent="True"
+							Source="{TemplateBinding CurrentIcon}"
+							Padding="21"
+							HorizontalOptions="Center"
+							VerticalOptions="Start"
+							BackgroundColor="#00dce4"
+							HeightRequest="72"
+							WidthRequest="72">
+							<ImageButton.CornerRadius>
+								<OnPlatform x:TypeArguments="x:Int32">
+									<On
+										Platform="iOS, UWP"
+										Value="36" />
+									<On
+										Platform="Android"
+										Value="60" />
+								</OnPlatform>
+							</ImageButton.CornerRadius>
+						</ImageButton>
+					</sharpnado:Shadows>
+				</Grid>
+			</ControlTemplate>
+		</ResourceDictionary>
+	</ContentPage.Resources>
 
-    <ContentPage.Content>
-        <Grid BackgroundColor="LightGray">
-            <toolkit:TabView
-                TabStripPlacement="Bottom"
-                TabStripHeight="70"
-                TabIndicatorHeight="0"
-                IsSwipeEnabled="False"
-                IsClippedToBounds="False"
-                IsTabTransitionEnabled="False"
-                TabContentBackgroundColor="#7F7F7F">
-                <toolkit:TabView.TabStripBackgroundView>
-                    <sharpnado:Shadows Shades="{sharpnado:SingleShade
-                        Offset='0, -10',
-                        BlurRadius=60,
-                        Opacity=0.1,
-                        Color=Black}">
-                        <Grid BackgroundColor="White"></Grid>
-                    </sharpnado:Shadows>
-                </toolkit:TabView.TabStripBackgroundView>
-                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
-                    <toolkit:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
-                            Color="Gray" />
-                    </toolkit:TabViewItem.Icon>
-                    <toolkit:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
-                            Color="Black" />
-                    </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8" Padding="0">
-                        <controls:ExpenseControl HorizontalOptions="Fill"
-                                                 VerticalOptions="Center"
-                                                 Padding="10, 0"
-                                                 BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
-                        </controls:ExpenseControl>
-                    </Grid>
-                </toolkit:TabViewItem>
+	<ContentPage.Content>
+		<Grid BackgroundColor="LightGray">
+			<toolkit:TabView
+				TabStripPlacement="Bottom"
+				TabStripHeight="70"
+				TabIndicatorHeight="0"
+				IsSwipeEnabled="False"
+				IsClippedToBounds="False"
+				IsTabTransitionEnabled="False"
+				TabContentBackgroundColor="#7F7F7F">
+				<toolkit:TabView.TabStripBackgroundView>
+					<sharpnado:Shadows 
+						Shades="{sharpnado:SingleShade
+						Offset='0, -10',
+						BlurRadius=60,
+						Opacity=0.1,
+						Color=Black}">
+						<Grid BackgroundColor="White"></Grid>
+					</sharpnado:Shadows>
+				</toolkit:TabView.TabStripBackgroundView>
+				<toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
+					<toolkit:TabViewItem.Icon>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
+							Color="Gray" />
+					</toolkit:TabViewItem.Icon>
+					<toolkit:TabViewItem.IconSelected>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Home}"
+							Color="Black" />
+					</toolkit:TabViewItem.IconSelected>
+					<Grid BackgroundColor="#f6f8f8" Padding="0">
+						<controls:ExpenseControl
+							HorizontalOptions="Fill"
+							VerticalOptions="Center"
+							Padding="10, 0"
+							BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
+						</controls:ExpenseControl>
+					</Grid>
+				</toolkit:TabViewItem>
 
-                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
-                    <toolkit:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
-                            Color="Gray" />
-                    </toolkit:TabViewItem.Icon>
-                    <toolkit:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
-                            Color="Black" />
-                    </toolkit:TabViewItem.IconSelected>
-                    <pages:ExpensesListPage />
-                </toolkit:TabViewItem>
+				<toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
+					<toolkit:TabViewItem.Icon>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
+							Color="Gray" />
+					</toolkit:TabViewItem.Icon>
+					<toolkit:TabViewItem.IconSelected>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
+							Color="Black" />
+					</toolkit:TabViewItem.IconSelected>
+					<pages:ExpensesListPage />
+				</toolkit:TabViewItem>
 
-                <toolkit:TabViewItem ControlTemplate="{StaticResource AddTabIconItemTemplate}">
-                    <toolkit:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Plus}"
-                            Color="White" />
-                    </toolkit:TabViewItem.Icon>
-                    <toolkit:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Plus}"
-                            Color="White" />
-                    </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8">
-                        <Label Text="Add Expense"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               TextColor="Black" />
-                    </Grid>
-                </toolkit:TabViewItem>
+				<toolkit:TabViewItem ControlTemplate="{StaticResource AddTabIconItemTemplate}">
+					<toolkit:TabViewItem.Icon>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Plus}"
+							Color="White" />
+					</toolkit:TabViewItem.Icon>
+					<toolkit:TabViewItem.IconSelected>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Plus}"
+							Color="White" />
+					</toolkit:TabViewItem.IconSelected>
+					<Grid BackgroundColor="#f6f8f8">
+						<Label
+							Text="Add Expense"
+							VerticalOptions="Center"
+							HorizontalOptions="Center"
+							TextColor="Black" />
+					</Grid>
+				</toolkit:TabViewItem>
 
-                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
-                    <toolkit:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Chart}"
-                            Color="Gray" />
-                    </toolkit:TabViewItem.Icon>
-                    <toolkit:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.Chart}"
-                            Color="Black" />
-                    </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8">
-                        <Label Text="Budget"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               TextColor="Black" />
-                    </Grid>
-                </toolkit:TabViewItem>
+				<toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
+					<toolkit:TabViewItem.Icon>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Chart}"
+							Color="Gray" />
+					</toolkit:TabViewItem.Icon>
+					<toolkit:TabViewItem.IconSelected>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Chart}"
+							Color="Black" />
+					</toolkit:TabViewItem.IconSelected>
+					<Grid BackgroundColor="#f6f8f8">
+						<Label
+							Text="Budget"
+							HorizontalOptions="Center"
+							VerticalOptions="Center"
+							TextColor="Black" />
+					</Grid>
+				</toolkit:TabViewItem>
 
-                <toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
-                    <toolkit:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.User}"
-                            Color="Gray" />
-                    </toolkit:TabViewItem.Icon>
-                    <toolkit:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static styles:FontAwesomeIcon+Solid.User}"
-                            Color="Black" />
-                    </toolkit:TabViewItem.IconSelected>
-                    <Grid BackgroundColor="#f6f8f8">
-                        <Label Text="User settings"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               TextColor="Black" />
-                    </Grid>
-                </toolkit:TabViewItem>
-            </toolkit:TabView>
-        </Grid>
-    </ContentPage.Content>
+				<toolkit:TabViewItem ControlTemplate="{StaticResource TabItemIconTemplate}">
+					<toolkit:TabViewItem.Icon>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.User}"
+							Color="Gray" />
+					</toolkit:TabViewItem.Icon>
+					<toolkit:TabViewItem.IconSelected>
+						<FontImageSource
+							FontFamily="FontAwesome"
+							Glyph="{x:Static styles:FontAwesomeIcon+Solid.User}"
+							Color="Black" />
+					</toolkit:TabViewItem.IconSelected>
+					<Grid BackgroundColor="#f6f8f8">
+						<Label
+							Text="User settings"
+							HorizontalOptions="Center"
+							VerticalOptions="Center"
+							TextColor="Black" />
+					</Grid>
+				</toolkit:TabViewItem>
+			</toolkit:TabView>
+		</Grid>
+	</ContentPage.Content>
 </ContentPage>
