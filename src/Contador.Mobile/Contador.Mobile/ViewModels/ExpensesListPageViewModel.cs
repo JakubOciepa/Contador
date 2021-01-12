@@ -1,4 +1,5 @@
-﻿using Contador.DAL.Abstractions;
+﻿using Contador.Abstractions;
+using Contador.DAL.Abstractions;
 
 namespace Contador.Mobile.ViewModels
 {
@@ -11,7 +12,7 @@ namespace Contador.Mobile.ViewModels
 		/// Creates instance of the <see cref="ExpenseControlViewModel"/> class.
 		/// </summary>
 		/// <param name="expenserepo"><see cref="IExpenseRepository"/> expense repository.</param>
-		public ExpensesListPageViewModel(IExpenseRepository expenserepo)
+		public ExpensesListPageViewModel(IExpenseService expenserepo)
 		{
 			var repo = expenserepo;
 		}

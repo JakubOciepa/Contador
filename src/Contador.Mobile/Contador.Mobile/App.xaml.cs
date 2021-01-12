@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 
+using Contador.Abstractions;
 using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 using Contador.DAL.SQLite.Repositories;
 using Contador.Mobile.DAL;
 using Contador.Mobile.ViewModels;
+using Contador.Services;
 
 using SQLite;
 
@@ -39,35 +42,32 @@ namespace Contador.Mobile
 		{
 		}
 
-		private void RegisterServices(TinyIoCContainer container)
+		private async void RegisterServices(TinyIoCContainer container)
 		{
 			container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
 
+			//repositories
 			container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 			container.Register<IExpenseRepository, ExpenseRepository>();
 			container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 
+			//services
+			container.Register<IExpenseService, ExpenseService>();
+
+			//viewmodels
 			container.Register<ExpensesListPageViewModel>();
-			var model = container.Resolve<ExpensesListPageViewModel>();
 			container.BuildUp(this);
 
-			MockSomeExpenses(container);
+
+			//await MockSomeExpenses(container);
+
+			var model = container.Resolve<ExpensesListPageViewModel>();
+			var service = container.Resolve<ExpenseService>();
+			var expenses = service.GetExpensesAsync().Result;
 		}
 
-		private async void MockSomeExpenses(TinyIoCContainer container)
+		private async Task MockSomeExpenses(TinyIoCContainer container)
 		{
-			var expenseRepo = container.Resolve<IExpenseRepository>();
-
-			var expense = new Expense("Czekoladki", 12.11m,
-			new User() { Name = "Pysia" },
-			new ExpenseCategory("Słodycze"))
-			{
-				CreateDate = DateTime.Today,
-				Description = "Description",
-			};
-
-			//await expenseRepo.AddExpenseAsync(expense);
-
 			var category = new ExpenseCategory("Słodycze");
 			var expenseCategoryRepository = container.Resolve<IExpenseCategoryRepository>();
 
@@ -75,11 +75,26 @@ namespace Contador.Mobile
 
 			var categories = await expenseCategoryRepository.GetCategoriesAsync();
 			var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
+
 			category.Name = "Słodkości";
-			await expenseRepo.UpdateExpenseAsync(1, expense);
-			await expenseRepo.RemoveExpenseAsync(10);
-			await expenseCategoryRepository.RemoveCategoryAsync(1);
-			await expenseCategoryRepository.UpdateCategoryAsync(2, category);
+			var expenseRepo = container.Resolve<IExpenseRepository>();
+
+			var expense = new Expense("Czekoladki", 12.11m,
+			new User() { Id = 1, Name = "Pysia" },
+			new ExpenseCategory("Słodycze"))
+			{
+				Id = 1,
+				CreateDate = DateTime.Today,
+				Description = "Description",
+			};
+
+			expense.Category.Id = 1;
+			//await expenseRepo.AddExpenseAsync(expense);
+
+			//await expenseRepo.UpdateExpenseAsync(1, expense);
+			//await expenseRepo.RemoveExpenseAsync(10);
+			//await expenseCategoryRepository.RemoveCategoryAsync(1);
+			//await expenseCategoryRepository.UpdateCategoryAsync(2, category);
 		}
 	}
 }
