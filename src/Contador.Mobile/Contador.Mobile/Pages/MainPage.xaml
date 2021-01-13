@@ -118,7 +118,7 @@
 							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
 							Color="Black" />
 					</toolkit:TabViewItem.IconSelected>
-					<pages:ExpensesListPage />
+					<pages:ExpensesListPage BindingContext="{Binding ExpensesListVM, Source={x:Reference Page}}"/>
 				</toolkit:TabViewItem>
 
 				<toolkit:TabViewItem ControlTemplate="{StaticResource AddTabIconItemTemplate}">

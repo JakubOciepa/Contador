@@ -24,10 +24,12 @@ namespace Contador.Mobile
 			InitializeComponent();
 
 			_ = new DbConnection();
+			var container = TinyIoCContainer.Current;
+			RegisterServices(container);
 
-			RegisterServices(TinyIoCContainer.Current);
+			var mainVM = container.Resolve<MainViewModel>();
 
-			MainPage = new Pages.MainPage();
+			MainPage = new Pages.MainPage() { BindingContext = mainVM };
 		}
 
 		protected override void OnStart()
@@ -56,8 +58,9 @@ namespace Contador.Mobile
 
 			//viewmodels
 			container.Register<ExpensesListPageViewModel>();
-			container.BuildUp(this);
+			container.Register<MainViewModel>();
 
+			container.BuildUp(this);
 
 			//await MockSomeExpenses(container);
 

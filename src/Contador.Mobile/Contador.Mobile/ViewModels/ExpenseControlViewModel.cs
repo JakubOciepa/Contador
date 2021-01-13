@@ -13,27 +13,48 @@ namespace Contador.Mobile.ViewModels
 		private readonly CategoryAvatarService _categoryAvatarService;
 		private readonly UserAvatarService _userAvatarService;
 
+		private Expense _expense;
+		private FontImageSource _categoryGlyph;
+		private ImageSource _userGlyph;
+		private Color _expenseColor;
+
 		/// <summary>
 		/// Gets Expense to display.
 		/// </summary>
-		public Expense Expense { get; }
+		public Expense Expense
+		{
+			get => _expense;
+			private set => SetField(ref _expense, value);
+		}
 
 		/// <summary>
 		/// Gets the category glyph.
 		/// </summary>
 		//this should be taken from some service by the category name?
-		public FontImageSource CategoryGlyph { get; private set; }
+		public FontImageSource CategoryGlyph
+		{
+			get => _categoryGlyph;
+			private set => SetField(ref _categoryGlyph, value);
+		}
 
 		/// <summary>
 		/// Gets the user avatar glyph. This will be replaced when avatar will might be an image.
 		/// </summary>
 		//Same as above
-		public ImageSource UserGlyph { get; private set; }
+		public ImageSource UserGlyph
+		{
+			get => _userGlyph;
+			private set => SetField(ref _userGlyph, value);
+		}
 
 		/// <summary>
 		/// Text color of the expense.
 		/// </summary>
-		public Color ExpenseColor { get; set; } = Color.Red;
+		public Color ExpenseColor 
+		{
+			get => _expenseColor;
+			set => SetField(ref _expenseColor, value);
+		} 
 
 		/// <summary>
 		/// Command which will invoke on edit tap.
@@ -49,6 +70,7 @@ namespace Contador.Mobile.ViewModels
 			Expense = expense;
 			_categoryAvatarService = new CategoryAvatarService();
 			_userAvatarService = new UserAvatarService();
+			ExpenseColor = Color.Red;
 
 			InitializeProperties();
 		}
