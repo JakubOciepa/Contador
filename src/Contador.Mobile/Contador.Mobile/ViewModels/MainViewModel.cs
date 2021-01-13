@@ -2,13 +2,8 @@
 {
 	public class MainViewModel : ViewModelBase
 	{
-		public readonly ExpensesListPageViewModel _expensesListPageVM;
-
-		public ExpensesListPageViewModel ExpensesListVM => _expensesListPageVM;
-
-		public MainViewModel(ExpensesListPageViewModel listPageViewModel)
+		public MainViewModel()
 		{
-			_expensesListPageVM = listPageViewModel;
 		}
 	}
 }
