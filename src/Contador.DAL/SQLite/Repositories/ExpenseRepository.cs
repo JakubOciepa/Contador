@@ -60,7 +60,11 @@ namespace Contador.DAL.SQLite.Repositories
 
 				var category = await _expenseCategoryRepository.GetCategoryByIdAsync(saved.CategoryId);
 
-				return await Task.FromResult(new Expense(saved.Name, saved.Value, user, category)).CAF();
+				return await Task.FromResult(new Expense(saved.Name, saved.Value, user, category)
+				{
+					CreateDate = saved.CreateDate,
+					Description = saved.Description
+				}).CAF();
 			}
 
 			return null;
@@ -82,7 +86,12 @@ namespace Contador.DAL.SQLite.Repositories
 
 				ExpenseCategory category = await _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).CAF();
 
-				return await Task.FromResult(new Expense(expense.Name, expense.Value, user, category)).CAF();
+				return await Task.FromResult(new Expense(expense.Name, expense.Value, user, category)
+				{
+					Description = expense.Description,
+					CreateDate = expense.CreateDate,
+				}
+				).CAF();
 			}
 
 			return null;
@@ -102,9 +111,13 @@ namespace Contador.DAL.SQLite.Repositories
 					Email = string.Empty,
 				};
 
-				return await Task.FromResult(expenses?.ConvertAll(expense => new Expense(expense.Name, expense.Value, user,
-												_expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)))
-								 .CAF();
+				return await Task.FromResult(expenses?.ConvertAll
+					(expense => new Expense(expense.Name, expense.Value, user, _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)
+					{
+						Description = expense.Description,
+						CreateDate = expense.CreateDate,
+					})
+					).CAF();
 			}
 
 			return null;
