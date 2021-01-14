@@ -23,7 +23,7 @@ namespace Contador.Mobile
 		{
 			InitializeComponent();
 
-			//_ = new DbConnection();
+			_ = new DbConnection();
 			var container = TinyIoCContainer.Current;
 			RegisterServices(container);
 
@@ -44,7 +44,7 @@ namespace Contador.Mobile
 		{
 		}
 
-		private void RegisterServices(TinyIoCContainer container)
+		private async void RegisterServices(TinyIoCContainer container)
 		{
 			container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
 
@@ -61,6 +61,8 @@ namespace Contador.Mobile
 			container.Register<MainViewModel>();
 
 			container.BuildUp(this);
+
+			//await MockSomeExpenses(container);
 		}
 
 		private async Task MockSomeExpenses(TinyIoCContainer container)
@@ -68,7 +70,7 @@ namespace Contador.Mobile
 			var category = new ExpenseCategory("Słodycze");
 			var expenseCategoryRepository = container.Resolve<IExpenseCategoryRepository>();
 
-			//await expenseCategoryRepository.AddCategoryAsync(category);
+			await expenseCategoryRepository.AddCategoryAsync(category);
 
 			var categories = await expenseCategoryRepository.GetCategoriesAsync();
 			var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
@@ -86,7 +88,9 @@ namespace Contador.Mobile
 			};
 
 			expense.Category.Id = 1;
-			//await expenseRepo.AddExpenseAsync(expense);
+			await expenseRepo.AddExpenseAsync(expense);
+			await expenseRepo.AddExpenseAsync(expense);
+			await expenseRepo.AddExpenseAsync(expense);
 
 			//await expenseRepo.UpdateExpenseAsync(1, expense);
 			//await expenseRepo.RemoveExpenseAsync(10);

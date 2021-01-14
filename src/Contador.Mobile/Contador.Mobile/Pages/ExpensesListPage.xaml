@@ -19,11 +19,11 @@
 			<StackLayout BindableLayout.ItemsSource="{Binding Expenses, Mode=TwoWay}">
 				<BindableLayout.ItemTemplate>
 					<DataTemplate>
-						<controls:ExpenseControl
+						<controls:ExpenseControl 
 							BindingContext="{Binding .}"
-							Padding="10 ,0"
+							HorizontalOptions="Fill"
 							VerticalOptions="Center"
-							HorizontalOptions="Fill"/>
+							Padding="10, 0"/>
 					</DataTemplate>
 				</BindableLayout.ItemTemplate>
 			</StackLayout>

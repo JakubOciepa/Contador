@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 
 using Contador.Abstractions;
+using Contador.Core.Common;
 using Contador.Core.Models;
 
 using MvvmHelpers;
@@ -32,26 +33,15 @@ namespace Contador.Mobile.ViewModels
 
 		private void LoadExpenses()
 		{
-			Expenses.Add(new ExpenseControlViewModel(new Expense("Cuksy", 12.11m,
-			new User() { Name = "Pysia" },
-			new ExpenseCategory("Słodycze"))
+			var expenses = _expenseService.GetExpensesAsync().Result;
+
+			if (expenses is object && (ResponseCode)expenses.ResponseCode == ResponseCode.Ok)
 			{
-				CreateDate = DateTime.Today,
-				Description = "Description",
-			}));
-
-			OnPropertyChanged(nameof(Expenses));
-
-			//var collection = new ObservableCollection<ExpenseControlViewModel>();
-			//var expenses = _expenseService.GetExpensesAsync().Result;
-
-			//if (expenses is object && (ResponseCode)expenses.ResponseCode == ResponseCode.Ok)
-			//{
-			//	foreach (var expense in expenses.ReturnedObject)
-			//	{
-			//		collection.Add(new ExpenseControlViewModel(expense));
-			//	}
-			//}
+				foreach (var expense in expenses.ReturnedObject)
+				{
+					Expenses.Add(new ExpenseControlViewModel(expense));
+				}
+			}
 		}
 	}
 }

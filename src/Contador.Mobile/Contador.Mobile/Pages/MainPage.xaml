@@ -118,7 +118,9 @@
 							Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
 							Color="Black" />
 					</toolkit:TabViewItem.IconSelected>
-					<pages:ExpensesListPage />
+					<Grid>
+						<pages:ExpensesListPage />
+					</Grid>
 				</toolkit:TabViewItem>
 
 				<toolkit:TabViewItem ControlTemplate="{StaticResource AddTabIconItemTemplate}">
