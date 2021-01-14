@@ -23,7 +23,7 @@ namespace Contador.Mobile
 		{
 			InitializeComponent();
 
-			_ = new DbConnection();
+			//_ = new DbConnection();
 			var container = TinyIoCContainer.Current;
 			RegisterServices(container);
 
@@ -44,7 +44,7 @@ namespace Contador.Mobile
 		{
 		}
 
-		private async void RegisterServices(TinyIoCContainer container)
+		private void RegisterServices(TinyIoCContainer container)
 		{
 			container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
 
@@ -61,12 +61,6 @@ namespace Contador.Mobile
 			container.Register<MainViewModel>();
 
 			container.BuildUp(this);
-
-			//await MockSomeExpenses(container);
-
-			var model = container.Resolve<ExpensesListPageViewModel>();
-			var service = container.Resolve<ExpenseService>();
-			var expenses = service.GetExpensesAsync().Result;
 		}
 
 		private async Task MockSomeExpenses(TinyIoCContainer container)

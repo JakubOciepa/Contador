@@ -1,6 +1,8 @@
-﻿namespace Contador.Mobile.ViewModels
+﻿using MvvmHelpers;
+
+namespace Contador.Mobile.ViewModels
 {
-	public class MainViewModel : ViewModelBase
+	public class MainViewModel : BaseViewModel
 	{
 		public MainViewModel()
 		{

@@ -1,6 +1,8 @@
 ﻿using Contador.Core.Models;
 using Contador.Mobile.Services;
 
+using MvvmHelpers;
+
 using Xamarin.Forms;
 
 namespace Contador.Mobile.ViewModels
@@ -8,7 +10,7 @@ namespace Contador.Mobile.ViewModels
 	/// <summary>
 	/// View model for <see cref="Contador.Mobile.Controls.ExpenseControl"/> class.
 	/// </summary>
-	public class ExpenseControlViewModel : ViewModelBase
+	public class ExpenseControlViewModel : BaseViewModel
 	{
 		private readonly CategoryAvatarService _categoryAvatarService;
 		private readonly UserAvatarService _userAvatarService;
@@ -24,7 +26,7 @@ namespace Contador.Mobile.ViewModels
 		public Expense Expense
 		{
 			get => _expense;
-			private set => SetField(ref _expense, value);
+			private set => SetProperty(ref _expense, value);
 		}
 
 		/// <summary>
@@ -34,7 +36,7 @@ namespace Contador.Mobile.ViewModels
 		public FontImageSource CategoryGlyph
 		{
 			get => _categoryGlyph;
-			private set => SetField(ref _categoryGlyph, value);
+			private set => SetProperty(ref _categoryGlyph, value);
 		}
 
 		/// <summary>
@@ -44,16 +46,16 @@ namespace Contador.Mobile.ViewModels
 		public ImageSource UserGlyph
 		{
 			get => _userGlyph;
-			private set => SetField(ref _userGlyph, value);
+			private set => SetProperty(ref _userGlyph, value);
 		}
 
 		/// <summary>
 		/// Text color of the expense.
 		/// </summary>
-		public Color ExpenseColor 
+		public Color ExpenseColor
 		{
 			get => _expenseColor;
-			set => SetField(ref _expenseColor, value);
+			set => SetProperty(ref _expenseColor, value);
 		} 
 
 		/// <summary>

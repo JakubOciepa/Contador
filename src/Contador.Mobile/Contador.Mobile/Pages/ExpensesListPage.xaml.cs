@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-
-using Contador.Core.Models;
-using Contador.Mobile.ViewModels;
-
+﻿
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

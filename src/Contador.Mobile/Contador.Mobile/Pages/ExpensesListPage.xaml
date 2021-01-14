@@ -15,8 +15,8 @@
 		<Grid
 			BackgroundColor="#f6f8f8" 
 			Padding="0">
-			<StackLayout BindableLayout.ItemsSource="{Binding Expenses}"
-						>
+
+			<StackLayout BindableLayout.ItemsSource="{Binding Expenses, Mode=TwoWay}">
 				<BindableLayout.ItemTemplate>
 					<DataTemplate>
 						<controls:ExpenseControl
