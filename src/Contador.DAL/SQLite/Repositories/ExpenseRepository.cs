@@ -63,7 +63,8 @@ namespace Contador.DAL.SQLite.Repositories
 				return await Task.FromResult(new Expense(saved.Name, saved.Value, user, category)
 				{
 					CreateDate = saved.CreateDate,
-					Description = saved.Description
+					Description = saved.Description,
+					ImagePath = expense.ImagePath,
 				}).CAF();
 			}
 
@@ -90,6 +91,7 @@ namespace Contador.DAL.SQLite.Repositories
 				{
 					Description = expense.Description,
 					CreateDate = expense.CreateDate,
+					ImagePath = expense.ImagePath,
 				}
 				).CAF();
 			}
@@ -116,6 +118,7 @@ namespace Contador.DAL.SQLite.Repositories
 					{
 						Description = expense.Description,
 						CreateDate = expense.CreateDate,
+						ImagePath = expense.ImagePath,
 					})
 					).CAF();
 			}
