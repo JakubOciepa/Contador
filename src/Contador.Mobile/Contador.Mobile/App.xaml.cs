@@ -23,7 +23,7 @@ namespace Contador.Mobile
 		{
 			InitializeComponent();
 
-			_ = new DbConnection();
+			//_ = new DbConnection();
 			var container = TinyIoCContainer.Current;
 			RegisterServices(container);
 

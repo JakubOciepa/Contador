@@ -137,11 +137,7 @@
 							Color="White" />
 					</toolkit:TabViewItem.IconSelected>
 					<Grid BackgroundColor="#f6f8f8">
-						<Label
-							Text="Add Expense"
-							VerticalOptions="Center"
-							HorizontalOptions="Center"
-							TextColor="Black" />
+						<pages:AddingPage/>
 					</Grid>
 				</toolkit:TabViewItem>
 
