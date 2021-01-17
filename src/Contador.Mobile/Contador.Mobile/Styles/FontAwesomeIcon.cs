@@ -56,6 +56,7 @@
 			public const string Plus = "\uf067";
 			public const string User = "\uf007";
 			public const string Trash = "\uf1f8";
+			public const string Save = "\uf0c7";
 		}
 	}
 }

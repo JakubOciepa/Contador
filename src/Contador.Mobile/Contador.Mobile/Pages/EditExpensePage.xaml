@@ -1,12 +1,106 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contador.Mobile.Pages.EditExpensePage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+	x:Class="Contador.Mobile.Pages.EditExpensePage"
+	NavigationPage.HasNavigationBar="False">
+	<ContentPage.Content>
+		<Grid RowDefinitions="*,Auto">
+		<StackLayout
+			Orientation="Vertical"
+			Padding="10"
+			BackgroundColor="White">
+			<Label
+				Text="Dodaj wydatek"
+				FontAttributes="Bold"
+				FontSize="21"
+				Margin="0,10,0,20"
+				TextColor="Black"
+				HorizontalOptions="Center"/>
+			<Grid 
+				ColumnDefinitions="Auto,*">
+				<Label
+					Text="Nazwa:"
+					FontSize="18"
+					VerticalOptions="Center"/>
+				<Entry 
+					Grid.Column="1" 
+					Placeholder="Na co znowu wydałeś!?"
+					IsSpellCheckEnabled="False"/>
+			</Grid>
+			<Grid 
+				ColumnDefinitions="Auto,*">
+				<Label
+					Text="Koszt:"
+					FontSize="18"
+					VerticalOptions="Center"/>
+				<Entry 
+					Grid.Column="1" 
+					Placeholder="Zwariowałeś!?"
+					IsSpellCheckEnabled="False"/>
+			</Grid>
+			<Grid 
+				ColumnDefinitions="Auto,*,Auto">
+				<Label
+					Text="Kategoria:"
+					FontSize="18"
+					VerticalOptions="Center"/>
+				<Picker
+					Grid.Column="1">
+					<Picker.Items>
+						<x:String>Słodycze</x:String>
+						<x:String>Kosmetyki</x:String>
+					</Picker.Items>
+				</Picker>
+				<Button 
+					Grid.Column="2"
+					CornerRadius="25"
+					BackgroundColor="White"
+					WidthRequest="50"
+					FontFamily="FontAwesome"
+					Text="{x:Static styles:FontAwesomeIcon+Solid.Plus}"/>
+			</Grid>
+			<Grid
+				ColumnDefinitions="Auto,*,Auto">
+				<Label
+					Text="Data:"
+					FontSize="18"
+					VerticalOptions="Center"/>
+				<DatePicker Grid.Column="1" Format="dd.MM.yyyy"/>
+			</Grid>
+			<StackLayout 
+				Orientation="Vertical">
+				<Label
+					Text="Opis:"
+					FontSize="18"
+					VerticalOptions="Center"/>
+				<Editor 
+					Grid.Column="1" 
+					Margin="10,0"
+					BackgroundColor="LightGray"
+					HeightRequest="100"
+					Placeholder="Tłumacz się, po co Ci to."
+					IsSpellCheckEnabled="False"/>
+			</StackLayout>
+				<Button Text="Zdjęcie paragonu"/>
+		</StackLayout>
+			<Grid
+				Grid.Row="1">
+			<Button 
+				HeightRequest="70"
+				WidthRequest="70"
+				CornerRadius="35"
+				HorizontalOptions="Center"
+				VerticalOptions="Center"
+				Text="{x:Static styles:FontAwesomeIcon+Solid.Save}"
+				FontFamily="FontAwesome"
+				FontSize="30"
+				Margin="25"
+				BackgroundColor="Blue"
+				TextColor="White">
+			</Button>
+		</Grid>
+			</Grid>
+	</ContentPage.Content>
 </ContentPage>
