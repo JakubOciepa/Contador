@@ -1,54 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-			 
+<ContentView 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
-             x:Class="Contador.Mobile.Pages.AddingPage">
+	x:Class="Contador.Mobile.Pages.AddingPage">
 	<ContentView.Content>
-		<ScrollView Padding="0,0,0,50">
-		<FlexLayout Direction="Row"
-					Wrap="Wrap"
-					JustifyContent="Center"
-					AlignContent="Center">
-				<Grid Margin="25,15" HeightRequest="160" WidthRequest="120">
+		<ScrollView 
+			Padding="0,0,0,50">
+			<FlexLayout 
+			Direction="Row"
+			Wrap="Wrap"
+			JustifyContent="Center"
+			AlignContent="Center">
+				<Grid 
+					Margin="25,15"
+					HeightRequest="160"
+					WidthRequest="120">
 					<sharpnado:Shadows
 					Shades="{sharpnado:SingleShade
 						Offset='3, 3',
 						BlurRadius=60,
 						Opacity=0.2,
 						Color=IndianRed}">
-						<Frame BackgroundColor="White" CornerRadius="20" HasShadow="False" >
-							<StackLayout Orientation="Vertical" VerticalOptions="Center">
+						<Frame
+							BackgroundColor="White" 
+							CornerRadius="20" 
+							HasShadow="False" >
+							<StackLayout 
+								Orientation="Vertical" 
+								VerticalOptions="Center">
 								<Image Opacity="0.6">
 									<Image.Source>
 										<FontImageSource
 											FontFamily="FontAwesome"
 											Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
 											Color="Red" 
-											Size="42"/>	
+											Size="42"/>
 									</Image.Source>
 								</Image>
-								<Label Text="Wydatki" 
-									   HorizontalOptions="Center"
-									   FontSize="15"
-									   FontAttributes="Bold"
-									   TextColor="Red"
-									   Opacity="0.8"/>
+								<Label
+									Text="Wydatki"
+									HorizontalOptions="Center"
+									FontSize="15"
+									FontAttributes="Bold"
+									TextColor="Red"
+									Opacity="0.8"/>
 							</StackLayout>
 						</Frame>
 					</sharpnado:Shadows>
 				</Grid>
-				<Grid Margin="25,15" HeightRequest="160" WidthRequest="120">
+				<Grid 
+					Margin="25,15"
+					HeightRequest="160"
+					WidthRequest="120">
 					<sharpnado:Shadows
 					Shades="{sharpnado:SingleShade
 						Offset='3, 3',
 						BlurRadius=60,
 						Opacity=0.2,
 						Color=Blue}">
-						<Frame BackgroundColor="White" CornerRadius="20" HasShadow="False" >
-							<StackLayout Orientation="Vertical" VerticalOptions="Center">
-								<Image Opacity="0.6">
+						<Frame 
+							BackgroundColor="White"
+							CornerRadius="20"
+							HasShadow="False" >
+							<StackLayout
+								Orientation="Vertical"
+								VerticalOptions="Center">
+								<Image 
+									Opacity="0.6">
 									<Image.Source>
 										<FontImageSource
 											FontFamily="FontAwesome"
@@ -57,12 +77,13 @@
 											Size="42"/>
 									</Image.Source>
 								</Image>
-								<Label Text="Przychody" 
-									   HorizontalOptions="Center"
-									   FontSize="15"
-									   FontAttributes="Bold"
-									   TextColor="Blue"
-									   Opacity="0.8"/>
+								<Label 
+									Text="Przychody" 
+									HorizontalOptions="Center"
+									FontSize="15"
+									FontAttributes="Bold"
+									TextColor="Blue"
+									Opacity="0.8"/>
 							</StackLayout>
 						</Frame>
 					</sharpnado:Shadows>
