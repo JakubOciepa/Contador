@@ -4,7 +4,13 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
+	xmlns:viewmodels="clr-namespace:Contador.Mobile.ViewModels"
 	x:Class="Contador.Mobile.Pages.AddingPage">
+
+	<ContentView.BindingContext>
+		<viewmodels:AddingPageViewModel/>
+	</ContentView.BindingContext>
+	
 	<ContentView.Content>
 		<ScrollView 
 			Padding="0,0,0,50">
@@ -27,6 +33,10 @@
 							BackgroundColor="White" 
 							CornerRadius="20" 
 							HasShadow="False" >
+							<Frame.GestureRecognizers>
+								<TapGestureRecognizer 
+									Command="{Binding AddExpenseCommand}"/>
+							</Frame.GestureRecognizers>
 							<StackLayout 
 								Orientation="Vertical" 
 								VerticalOptions="Center">
