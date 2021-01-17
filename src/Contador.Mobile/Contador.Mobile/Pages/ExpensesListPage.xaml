@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView
+<ScrollView
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:controls="clr-namespace:Contador.Mobile.Controls"
@@ -7,16 +7,17 @@
 	x:Class="Contador.Mobile.Pages.ExpensesListPage"
 	x:Name="Page">
 
-	<ContentView.BindingContext>
+	<ScrollView.BindingContext>
 		<viewmodels:ExpensesListPageViewModel/>
-	</ContentView.BindingContext>
+	</ScrollView.BindingContext>
 
-	<ContentView.Content>
+	<ScrollView.Content>
 		<Grid
 			BackgroundColor="#f6f8f8" 
 			Padding="0">
 
-			<StackLayout BindableLayout.ItemsSource="{Binding Expenses, Mode=TwoWay}">
+			<StackLayout BindableLayout.ItemsSource="{Binding Expenses, Mode=TwoWay}"
+						 Padding="0,0,0,70">
 				<BindableLayout.ItemTemplate>
 					<DataTemplate>
 						<controls:ExpenseControl 
@@ -29,5 +30,5 @@
 			</StackLayout>
 
 		</Grid>
-	</ContentView.Content>
-</ContentView>
+	</ScrollView.Content>
+</ScrollView>

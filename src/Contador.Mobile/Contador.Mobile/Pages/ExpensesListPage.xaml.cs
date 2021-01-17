@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace Contador.Mobile.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ExpensesListPage : ContentView
+	public partial class ExpensesListPage : ScrollView
 	{
 		public ExpensesListPage()
 		{

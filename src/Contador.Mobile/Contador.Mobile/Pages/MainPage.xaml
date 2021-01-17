@@ -61,7 +61,18 @@
 			</ControlTemplate>
 		</ResourceDictionary>
 	</ContentPage.Resources>
-
+	<NavigationPage.TitleView>
+		<Grid>
+			<Label 
+				Text="Contador"
+				HorizontalOptions="Center" 
+				VerticalOptions="Center" 
+				FontAttributes="Bold"
+				FontSize="15"
+				TextColor="Black"
+				TextTransform="Uppercase"/>
+		</Grid>
+	</NavigationPage.TitleView>
 	<ContentPage.Content>
 		<Grid BackgroundColor="LightGray">
 			<toolkit:TabView

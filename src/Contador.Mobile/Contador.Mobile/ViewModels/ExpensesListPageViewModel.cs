@@ -28,7 +28,7 @@ namespace Contador.Mobile.ViewModels
 
 			Expenses = new ObservableCollection<ExpenseControlViewModel>();
 
-			//LoadExpenses();
+			LoadExpenses();
 		}
 
 		private void LoadExpenses()
