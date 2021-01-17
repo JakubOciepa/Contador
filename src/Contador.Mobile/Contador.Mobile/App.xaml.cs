@@ -9,6 +9,8 @@ using Contador.Mobile.DAL;
 using Contador.Mobile.ViewModels;
 using Contador.Services;
 
+using Plugin.SharedTransitions;
+
 using SQLite;
 
 using TinyIoC;
@@ -23,13 +25,16 @@ namespace Contador.Mobile
 		{
 			InitializeComponent();
 
-			//_ = new DbConnection();
+			_ = new DbConnection();
 			var container = TinyIoCContainer.Current;
 			RegisterServices(container);
 
 			var mainVM = container.Resolve<MainViewModel>();
 
-			MainPage = new Pages.MainPage() { BindingContext = mainVM };
+			MainPage = new SharedTransitionNavigationPage(new Pages.MainPage() { BindingContext = mainVM })
+			{
+				BarBackgroundColor = Color.Transparent
+			};
 		}
 
 		protected override void OnStart()

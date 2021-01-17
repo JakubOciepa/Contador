@@ -10,3 +10,4 @@ _I'll add links later, sorry..._
 - Dapper
 - Serilog
 - TinyIoC
+- Xamarin.Plugin.SharedTransitions
