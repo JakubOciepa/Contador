@@ -24,7 +24,7 @@
 				Shades="{sharpnado:SingleShade Offset='3, 10',
 				BlurRadius=35,
 				Opacity=0.5,
-				Color='LightGrey'}">
+				Color='LightGray'}">
 				<Grid
 					RowDefinitions="*, Auto"
 					BackgroundColor="White"
