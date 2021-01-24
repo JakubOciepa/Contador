@@ -31,56 +31,57 @@
 					Margin="10, 0, 10, 20">
 
 					<Grid
-					RowDefinitions="*, Auto"
-					Margin="10,5">
+						RowDefinitions="*, Auto"
+						Margin="10,5">
 
 						<StackLayout
-						Orientation="Vertical"
-						Margin="0,5,0,10"
-						BackgroundColor="White"
-						Spacing="15"
-						Grid.Row="0">
+							Orientation="Vertical"
+							Margin="0,5,0,10"
+							BackgroundColor="White"
+							Spacing="15"
+							Grid.Row="0">
 
-							<Label Text="Informacje"
-								   HorizontalOptions="Center"
-								   FontAttributes="Bold"
-								   FontSize="15"
-								   TextColor="Black"/>
-							<StackLayout Orientation="Vertical"
-							Spacing="0">
-								<Label
-								Text="Nazwa:"
-								FontSize="15"
+							<Label
+								Text="Informacje"
+								HorizontalOptions="Center"
 								FontAttributes="Bold"
-								VerticalOptions="Center" 
+								FontSize="15"
+								TextColor="Black"/>
+							<StackLayout
+								Orientation="Vertical"
+								Spacing="0">
+								<Label
+									Text="Nazwa:"
+									FontSize="15"
+									FontAttributes="Bold"
+									VerticalOptions="Center" 
 									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
 								<Entry
-								Grid.Column="1"
-								FontSize="18"
-								Placeholder="Na co znowu wydałeś!?"
+									Grid.Column="1"
+									FontSize="18"
+									Placeholder="Na co znowu wydałeś!?"
 									PlaceholderColor="LightGray"
-								IsSpellCheckEnabled="False"
+									IsSpellCheckEnabled="False"
 									TextColor="Black"/>
 							</StackLayout>
 
 							<Grid
-							ColumnDefinitions="*,Auto">
+								ColumnDefinitions="*,Auto">
 								<StackLayout 
-							Spacing="0">
-
+									Spacing="0">
 									<Label
-								Text="Koszt:"
-								FontSize="15"
-								FontAttributes="Bold"
-								VerticalOptions="Center"
+										Text="Koszt:"
+										FontSize="15"
+										FontAttributes="Bold"
+										VerticalOptions="Center"
 										TextColor="{StaticResource SecondaryExpenseTextColor}" />
 									<Entry
-								Grid.Column="1"
-								FontSize="18"
-								Placeholder="Zwariowałeś!?"
+										Grid.Column="1"
+										FontSize="18"
+										Placeholder="Zwariowałeś!?"
 										TextColor="Black"
 										PlaceholderColor="LightGray"
-								IsSpellCheckEnabled="False" />
+										IsSpellCheckEnabled="False" />
 								</StackLayout>
 								<StackLayout 
 									Grid.Column="1"
@@ -97,25 +98,24 @@
 										Grid.Column="3"
 										Format="dd.MM.yyyy"
 										TextColor="Black"
-								FontSize="18"
-										/>
+										FontSize="18"/>
 								</StackLayout>
 							</Grid>
-							<StackLayout 
-							Spacing="0">
+							<StackLayout
+								Spacing="0">
 
 								<Label
-								Text="Kategoria:"
-								FontSize="15"
-								FontAttributes="Bold"
-								VerticalOptions="Center"
+									Text="Kategoria:"
+									FontSize="15"
+									FontAttributes="Bold"
+									VerticalOptions="Center"
 									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
 								<Grid
-							ColumnDefinitions="*,Auto">
+									ColumnDefinitions="*,Auto">
 									<Picker
-								FontSize="18"
-								Grid.Column="0"
-								SelectedIndex="1"
+										FontSize="18"
+										Grid.Column="0"
+										SelectedIndex="1"
 										TextColor="Black">
 										<Picker.Items>
 											<x:String>Brak</x:String>
@@ -129,48 +129,48 @@
 										TextColor="#00dce4"
 										Text="Dodaj kategorię"
 										FontSize="12"/>
-
 								</Grid>
 							</StackLayout>
 
-							<Label Text="Dodatkowe informacje"
-								   HorizontalOptions="Center"
-								   FontAttributes="Bold"
-								   TextColor="Black"
-								   Margin="0,20,0,0"/>
-
-							<StackLayout
-							Spacing="0"
-							Orientation="Vertical">
-								<Label
-								Text="Opis:"
-								FontSize="15"
+							<Label
+								Text="Dodatkowe informacje"
+								HorizontalOptions="Center"
 								FontAttributes="Bold"
-								VerticalOptions="Center"
+								TextColor="Black"
+								Margin="0,20,0,0"/>
+							<StackLayout
+								Spacing="0"
+								Orientation="Vertical">
+								<Label
+									Text="Opis:"
+									FontSize="15"
+									FontAttributes="Bold"
+									VerticalOptions="Center"
 									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
 								<Editor
-								Grid.Column="1"
-								FontSize="15"
+									Grid.Column="1"
+									FontSize="15"
 									PlaceholderColor="LightGray"
 									TextColor="Black"
-								Placeholder="Tłumacz się, po co Ci to."
-								IsSpellCheckEnabled="False" />
+									Placeholder="Tłumacz się, po co Ci to."
+									IsSpellCheckEnabled="False" />
 							</StackLayout>
 							<StackLayout
-							Spacing="0">
+								Spacing="0">
 								<Label
-								Text="Paragon:"
-								FontSize="15"
-								FontAttributes="Bold" 
+									Text="Paragon:"
+									FontSize="15"
+									FontAttributes="Bold" 
 									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
-								<Button Text="Dodaj zdjęcie"
-										HorizontalOptions="Start"
-										BackgroundColor="White"
-										TextColor="#00dce4"/>
+								<Button
+									Text="Dodaj zdjęcie"
+									HorizontalOptions="Start"
+									BackgroundColor="White"
+									TextColor="#00dce4"/>
 							</StackLayout>
 						</StackLayout>
 						<Grid
-						Grid.Row="1">
+							Grid.Row="1">
 							<Button
 								HorizontalOptions="End"
 								VerticalOptions="Center"
