@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
@@ -14,6 +15,10 @@ namespace Contador.Services
 	{
 		private readonly IExpenseRepository _expenseRepo;
 		private readonly ILog _logger;
+
+		public event EventHandler<Expense> ExpenseAdded;
+		public event EventHandler<Expense> ExpenseUpdated;
+		public event EventHandler<int> ExpenseRemoved;
 
 		/// <summary>
 		/// Creates instance of <see cref="ExpenseService"/> class.
@@ -71,6 +76,8 @@ namespace Contador.Services
 				return new Result<Expense>(ResponseCode.Error, null);
 			}
 
+			ExpenseAdded?.Invoke(this, result);
+
 			return new Result<Expense>(ResponseCode.Ok, result);
 
 		}
@@ -86,6 +93,8 @@ namespace Contador.Services
 				return new Result<Expense>(ResponseCode.Error, null);
 			}
 
+			ExpenseUpdated?.Invoke(this, result);
+
 			return new Result<Expense>(ResponseCode.Ok, result);
 		}
 
@@ -93,6 +102,8 @@ namespace Contador.Services
 		public async Task<ResponseCode> RemoveAsync(int id)
 		{
 			var result = await _expenseRepo.RemoveExpenseAsync(id).CAF();
+
+			ExpenseRemoved?.Invoke(this, id);
 
 			return result ? ResponseCode.Ok : ResponseCode.Error;
 		}
