@@ -77,6 +77,12 @@ namespace Contador.Mobile.ViewModels
 			InitializeProperties();
 		}
 
+		public void UpdateExpense(Expense expense)
+		{
+			Expense = expense;
+		}
+
+
 		private void InitializeProperties()
 		{
 			CategoryGlyph = _categoryAvatarService.GetByCategoryName(Expense.Category.Name);
