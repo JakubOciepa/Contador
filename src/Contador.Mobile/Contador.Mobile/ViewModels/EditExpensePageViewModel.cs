@@ -7,6 +7,8 @@ using MvvmHelpers;
 
 using TinyIoC;
 
+using Xamarin.Forms;
+
 namespace Contador.Mobile.ViewModels
 {
 	public class EditExpensePageViewModel : BaseViewModel
@@ -20,6 +22,7 @@ namespace Contador.Mobile.ViewModels
 		private ExpenseCategory _category;
 		private string _description;
 		private string _receiptImagePath;
+		private Xamarin.Forms.Command _saveChangesCommand;
 
 		public string Name
 		{
@@ -57,10 +60,19 @@ namespace Contador.Mobile.ViewModels
 			set => SetProperty(ref _receiptImagePath, value);
 		}
 
+		public Xamarin.Forms.Command SaveChangesCommand
+		{
+			get => _saveChangesCommand;
+			set => SetProperty(ref _saveChangesCommand, value);
+		}
+
 		public EditExpensePageViewModel(Expense expense = default)
 		{
 			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseService>();
 			_expense = expense;
+			SaveChangesCommand = new Xamarin.Forms.Command(async ()
+				=> await Application.Current.MainPage.DisplayAlert("Title", "Save clicked", "OK"));
+
 			SetupProperties();
 		}
 

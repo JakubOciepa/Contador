@@ -183,7 +183,8 @@
 								Text="Zapisz"
 								FontSize="18"
 								BackgroundColor="White"
-								TextColor="#da3b01">
+								TextColor="#da3b01"
+								Command="{Binding SaveChangesCommand}">
 							</Button>
 						</Grid>
 					</Grid>
