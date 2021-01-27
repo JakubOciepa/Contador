@@ -14,7 +14,8 @@ namespace Contador.Mobile.ViewModels
 		public AddingPageViewModel()
 		{
 			AddExpenseCommand = new Command(
-				async () => await Application.Current.MainPage.Navigation.PushAsync(new EditExpensePage()));
+				async () => await Application.Current.MainPage.Navigation
+					.PushAsync(new EditExpensePage() { BindingContext = new EditExpensePageViewModel() }));
 		}
 
 	}

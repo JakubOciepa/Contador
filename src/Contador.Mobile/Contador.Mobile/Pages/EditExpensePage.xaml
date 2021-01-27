@@ -7,10 +7,7 @@
 	xmlns:viewmodels="clr-namespace:Contador.Mobile.ViewModels"
 	x:Class="Contador.Mobile.Pages.EditExpensePage"
 	NavigationPage.HasNavigationBar="False">
-	<ContentPage.BindingContext>
-		<viewmodels:EditExpensePageViewModel/>
-	</ContentPage.BindingContext>
-	
+
 	<ContentPage.Content>
 		<Grid
 			RowDefinitions="Auto,*"
@@ -51,7 +48,7 @@
 								HorizontalOptions="Center"
 								FontAttributes="Bold"
 								FontSize="15"
-								TextColor="Black"/>
+								TextColor="Black" />
 							<StackLayout
 								Orientation="Vertical"
 								Spacing="0">
@@ -59,20 +56,21 @@
 									Text="Nazwa:"
 									FontSize="15"
 									FontAttributes="Bold"
-									VerticalOptions="Center" 
-									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+									VerticalOptions="Center"
+									TextColor="{StaticResource SecondaryExpenseTextColor}" />
 								<Entry
 									Grid.Column="1"
 									FontSize="18"
 									Placeholder="Na co znowu wydałeś!?"
 									PlaceholderColor="LightGray"
 									IsSpellCheckEnabled="False"
-									TextColor="Black"/>
+									TextColor="Black"
+									Text="{Binding Name}" />
 							</StackLayout>
 
 							<Grid
 								ColumnDefinitions="*,Auto">
-								<StackLayout 
+								<StackLayout
 									Spacing="0">
 									<Label
 										Text="Koszt:"
@@ -86,9 +84,10 @@
 										Placeholder="Zwariowałeś!?"
 										TextColor="Black"
 										PlaceholderColor="LightGray"
-										IsSpellCheckEnabled="False" />
+										IsSpellCheckEnabled="False"
+										Text="{Binding Value}" />
 								</StackLayout>
-								<StackLayout 
+								<StackLayout
 									Grid.Column="1"
 									Spacing="0">
 
@@ -97,13 +96,14 @@
 										Text="Data:"
 										FontSize="15"
 										FontAttributes="Bold"
-										VerticalOptions="Center" 
-										TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+										VerticalOptions="Center"
+										TextColor="{StaticResource SecondaryExpenseTextColor}" />
 									<DatePicker
 										Grid.Column="3"
 										Format="dd.MM.yyyy"
 										TextColor="Black"
-										FontSize="18"/>
+										FontSize="18"
+										Date="{Binding CreatedDate}" />
 								</StackLayout>
 							</Grid>
 							<StackLayout
@@ -114,13 +114,13 @@
 									FontSize="15"
 									FontAttributes="Bold"
 									VerticalOptions="Center"
-									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+									TextColor="{StaticResource SecondaryExpenseTextColor}" />
 								<Grid
 									ColumnDefinitions="*,Auto">
 									<Picker
 										FontSize="18"
 										Grid.Column="0"
-										SelectedIndex="1"
+										SelectedItem="{Binding Category}"
 										TextColor="Black">
 										<Picker.Items>
 											<x:String>Brak</x:String>
@@ -133,7 +133,7 @@
 										BackgroundColor="White"
 										TextColor="#da3b01"
 										Text="Dodaj kategorię"
-										FontSize="12"/>
+										FontSize="12" />
 								</Grid>
 							</StackLayout>
 
@@ -142,7 +142,7 @@
 								HorizontalOptions="Center"
 								FontAttributes="Bold"
 								TextColor="Black"
-								Margin="0,20,0,0"/>
+								Margin="0,20,0,0" />
 							<StackLayout
 								Spacing="0"
 								Orientation="Vertical">
@@ -151,27 +151,28 @@
 									FontSize="15"
 									FontAttributes="Bold"
 									VerticalOptions="Center"
-									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+									TextColor="{StaticResource SecondaryExpenseTextColor}" />
 								<Editor
 									Grid.Column="1"
 									FontSize="15"
 									PlaceholderColor="LightGray"
 									TextColor="Black"
 									Placeholder="Tłumacz się, po co Ci to."
-									IsSpellCheckEnabled="False" />
+									IsSpellCheckEnabled="False"
+									Text="{Binding Description}" />
 							</StackLayout>
 							<StackLayout
 								Spacing="0">
 								<Label
 									Text="Paragon:"
 									FontSize="15"
-									FontAttributes="Bold" 
-									TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+									FontAttributes="Bold"
+									TextColor="{StaticResource SecondaryExpenseTextColor}" />
 								<Button
 									Text="Dodaj zdjęcie"
 									HorizontalOptions="Start"
 									BackgroundColor="White"
-									TextColor="#da3b01"/>
+									TextColor="#da3b01" />
 							</StackLayout>
 						</StackLayout>
 						<Grid
