@@ -14,13 +14,13 @@
 	<ContentPage.Content>
 		<Grid
 			RowDefinitions="Auto,*"
-			BackgroundColor="#a6eaec">
+			BackgroundColor="White">
 			<Label
 				Text="Dodaj wydatek"
 				FontAttributes="Bold"
 				FontSize="24"
 				Margin="0,10,0,5"
-				TextColor="White"
+				TextColor="#da3b01"
 				HorizontalOptions="Center" />
 			<sharpnado:Shadows
 				Grid.Row="1"
@@ -131,7 +131,7 @@
 									<Button
 										Grid.Column="1"
 										BackgroundColor="White"
-										TextColor="#00dce4"
+										TextColor="#da3b01"
 										Text="Dodaj kategorię"
 										FontSize="12"/>
 								</Grid>
@@ -171,7 +171,7 @@
 									Text="Dodaj zdjęcie"
 									HorizontalOptions="Start"
 									BackgroundColor="White"
-									TextColor="#00dce4"/>
+									TextColor="#da3b01"/>
 							</StackLayout>
 						</StackLayout>
 						<Grid
@@ -182,7 +182,7 @@
 								Text="Zapisz"
 								FontSize="18"
 								BackgroundColor="White"
-								TextColor="#00dce4">
+								TextColor="#da3b01">
 							</Button>
 						</Grid>
 					</Grid>
