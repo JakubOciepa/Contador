@@ -120,13 +120,9 @@
 									<Picker
 										FontSize="18"
 										Grid.Column="0"
-										SelectedItem="{Binding Category}"
-										TextColor="Black">
-										<Picker.Items>
-											<x:String>Brak</x:String>
-											<x:String>Słodycze</x:String>
-											<x:String>Kosmetyki</x:String>
-										</Picker.Items>
+										SelectedIndex="1"
+										TextColor="Black"
+										ItemsSource="{Binding CategoryNames}">
 									</Picker>
 									<Button
 										Grid.Column="1"

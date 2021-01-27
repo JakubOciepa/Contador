@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 using Contador.Abstractions;
+using Contador.Core.Common;
 using Contador.Core.Models;
 
 using MvvmHelpers;
@@ -14,6 +18,7 @@ namespace Contador.Mobile.ViewModels
 	public class EditExpensePageViewModel : BaseViewModel
 	{
 		private readonly IExpenseService _expenseService;
+		private readonly IExpenseCategoryService _categoryService;
 		private Expense _expense;
 
 		private string _name;
@@ -22,7 +27,11 @@ namespace Contador.Mobile.ViewModels
 		private ExpenseCategory _category;
 		private string _description;
 		private string _receiptImagePath;
-		private Xamarin.Forms.Command _saveChangesCommand;
+		private Command _saveChangesCommand;
+
+		private IList<ExpenseCategory> _categories;
+
+		public ObservableCollection<string> CategoryNames { get; }
 
 		public string Name
 		{
@@ -60,7 +69,7 @@ namespace Contador.Mobile.ViewModels
 			set => SetProperty(ref _receiptImagePath, value);
 		}
 
-		public Xamarin.Forms.Command SaveChangesCommand
+		public Command SaveChangesCommand
 		{
 			get => _saveChangesCommand;
 			set => SetProperty(ref _saveChangesCommand, value);
@@ -69,14 +78,38 @@ namespace Contador.Mobile.ViewModels
 		public EditExpensePageViewModel(Expense expense = default)
 		{
 			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseService>();
+			_categoryService = TinyIoCContainer.Current.Resolve<IExpenseCategoryService>();
 			_expense = expense;
-			SaveChangesCommand = new Xamarin.Forms.Command(async ()
+
+			CategoryNames = new ObservableCollection<string>();
+
+			SaveChangesCommand = new Command(async ()
 				=> await Application.Current.MainPage.DisplayAlert("Title", "Save clicked", "OK"));
 
 			SetupProperties();
 		}
 
-		private void SetupProperties()
+		private async void SetupProperties()
+		{
+			SetupExpense();
+			await SetupCategories();
+		}
+
+		private async Task SetupCategories()
+		{
+			var result = await _categoryService.GetCategoriesAsync();
+			if (result.ResponseCode is ResponseCode.Ok)
+			{
+				_categories = result.ReturnedObject;
+			}
+
+			foreach (var category in _categories)
+			{
+				CategoryNames.Add(category.Name);
+			}
+		}
+
+		private void SetupExpense()
 		{
 			if (_expense is object)
 			{
