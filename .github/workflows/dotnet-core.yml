@@ -19,8 +19,6 @@ jobs:
         dotnet-version: "5.0.100-rc.2.20479.15"
     - name: Build Core
       run: dotnet build --configuration Debug ./src/Contador.Core/Core/Contador.Core.csproj
-    - name: Build DAL.MySQL
-      run: dotnet build --configuration Debug ./src/Contador.DAL/MySQL/Contador.DAL.MySQL.csproj
     - name: Build Contador
       run: dotnet build --configuration Debug ./src/Contador/Contador/Contador.csproj
     - name: Build WEB
