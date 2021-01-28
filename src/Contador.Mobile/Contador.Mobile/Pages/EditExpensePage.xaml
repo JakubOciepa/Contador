@@ -122,7 +122,9 @@
 										Grid.Column="0"
 										SelectedIndex="1"
 										TextColor="Black"
-										ItemsSource="{Binding CategoryNames}">
+										SelectedItem="{Binding Category}"
+										ItemsSource="{Binding Categories}"
+										ItemDisplayBinding="{Binding Name}">
 									</Picker>
 									<Button
 										Grid.Column="1"

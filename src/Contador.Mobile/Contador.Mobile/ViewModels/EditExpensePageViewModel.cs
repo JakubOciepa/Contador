@@ -31,7 +31,7 @@ namespace Contador.Mobile.ViewModels
 
 		private IList<ExpenseCategory> _categories;
 
-		public ObservableCollection<string> CategoryNames { get; }
+		public ObservableCollection<ExpenseCategory> Categories { get; }
 
 		public string Name
 		{
@@ -81,12 +81,52 @@ namespace Contador.Mobile.ViewModels
 			_categoryService = TinyIoCContainer.Current.Resolve<IExpenseCategoryService>();
 			_expense = expense;
 
-			CategoryNames = new ObservableCollection<string>();
+			Categories = new ObservableCollection<ExpenseCategory>();
 
-			SaveChangesCommand = new Command(async ()
-				=> await Application.Current.MainPage.DisplayAlert("Title", "Save clicked", "OK"));
+			SaveChangesCommand = new Command(SaveOrUpdate);
 
 			SetupProperties();
+		}
+
+		private void SaveOrUpdate()
+		{
+			if (_expense is object)
+			{
+				UpdateExpense();
+			}
+			else
+			{
+				AddNewExpense();
+			}
+		}
+
+		private async void UpdateExpense()
+		{
+			_expense.Name = Name;
+			_expense.Value = Value;
+			_expense.Category = Category;
+			_expense.Description = Description;
+			_expense.ImagePath = ReceiptImagePath;
+
+			await _expenseService.UpdateAsync(_expense.Id, _expense);
+		}
+
+		private async void AddNewExpense()
+		{
+			var user = new User()
+			{
+				Name = "Kuba",
+				Id = 1,
+			};
+
+			_expense = new Expense(Name, Value, user, Category)
+			{
+				CreateDate = CreatedDate,
+				Description = Description,
+				ImagePath = ReceiptImagePath,
+			};
+
+			await _expenseService.AddAsync(_expense);
 		}
 
 		private async void SetupProperties()
@@ -105,7 +145,7 @@ namespace Contador.Mobile.ViewModels
 
 			foreach (var category in _categories)
 			{
-				CategoryNames.Add(category.Name);
+				Categories.Add(category);
 			}
 		}
 
