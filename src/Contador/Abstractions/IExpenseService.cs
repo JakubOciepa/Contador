@@ -13,7 +13,9 @@ namespace Contador.Abstractions
 	public interface IExpenseService
 	{
 		event EventHandler<Expense> ExpenseAdded;
+
 		event EventHandler<Expense> ExpenseUpdated;
+
 		event EventHandler<int> ExpenseRemoved;
 
 		/// <summary>

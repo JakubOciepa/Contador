@@ -17,7 +17,9 @@ namespace Contador.Services
 		private readonly ILog _logger;
 
 		public event EventHandler<Expense> ExpenseAdded;
+
 		public event EventHandler<Expense> ExpenseUpdated;
+
 		public event EventHandler<int> ExpenseRemoved;
 
 		/// <summary>
@@ -79,7 +81,6 @@ namespace Contador.Services
 			ExpenseAdded?.Invoke(this, result);
 
 			return new Result<Expense>(ResponseCode.Ok, result);
-
 		}
 
 		/// <inheritdoc/>
