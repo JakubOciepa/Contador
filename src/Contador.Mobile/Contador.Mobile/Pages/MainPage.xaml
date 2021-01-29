@@ -36,7 +36,7 @@
 						BlurRadius=35,
 						Opacity=0.5,
 						Color='#33c3d9'}">
-						<ImageButton 
+						<ImageButton
 							x:Name="AddBtn"
 							InputTransparent="True"
 							Source="{TemplateBinding CurrentIcon}"
@@ -73,7 +73,7 @@
 				IsTabTransitionEnabled="False"
 				TabContentBackgroundColor="#7F7F7F">
 				<toolkit:TabView.TabStripBackgroundView>
-					<sharpnado:Shadows 
+					<sharpnado:Shadows
 						Shades="{sharpnado:SingleShade
 						Offset='0, -10',
 						BlurRadius=60,
@@ -137,7 +137,7 @@
 							Color="White" />
 					</toolkit:TabViewItem.IconSelected>
 					<Grid BackgroundColor="#f6f8f8">
-						<pages:AddingPage/>
+						<pages:AddingPage />
 					</Grid>
 				</toolkit:TabViewItem>
 

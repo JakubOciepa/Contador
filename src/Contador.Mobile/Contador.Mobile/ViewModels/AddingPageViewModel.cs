@@ -1,5 +1,4 @@
-﻿
-using Contador.Mobile.Pages;
+﻿using Contador.Mobile.Pages;
 
 using MvvmHelpers;
 
@@ -17,6 +16,5 @@ namespace Contador.Mobile.ViewModels
 				async () => await Application.Current.MainPage.Navigation
 					.PushAsync(new EditExpensePage() { BindingContext = new EditExpensePageViewModel() }));
 		}
-
 	}
 }

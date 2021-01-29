@@ -3,8 +3,6 @@ using Contador.Core.Common;
 
 using Serilog;
 
-using Xamarin.Forms;
-
 //[assembly: Dependency(typeof(Contador.Mobile.Droid.Services.Log))]
 namespace Contador.Mobile.Droid.Services
 {

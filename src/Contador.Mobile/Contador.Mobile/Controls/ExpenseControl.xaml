@@ -29,7 +29,7 @@
 					<SwipeItemView>
 						<Grid
 							WidthRequest="50">
-							<BoxView 
+							<BoxView
 								CornerRadius="0, 15,0,15"
 								Color="Red" />
 							<Image

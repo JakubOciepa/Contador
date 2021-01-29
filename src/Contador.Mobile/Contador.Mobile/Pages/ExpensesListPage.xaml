@@ -8,27 +8,26 @@
 	x:Name="Page">
 
 	<ScrollView.BindingContext>
-		<viewmodels:ExpensesListPageViewModel/>
+		<viewmodels:ExpensesListPageViewModel />
 	</ScrollView.BindingContext>
 
 	<ScrollView.Content>
 		<Grid
-			BackgroundColor="#f6f8f8" 
+			BackgroundColor="#f6f8f8"
 			Padding="0">
 
 			<StackLayout BindableLayout.ItemsSource="{Binding Expenses, Mode=TwoWay}"
 						 Padding="0,0,0,70">
 				<BindableLayout.ItemTemplate>
 					<DataTemplate>
-						<controls:ExpenseControl 
+						<controls:ExpenseControl
 							BindingContext="{Binding .}"
 							HorizontalOptions="Fill"
 							VerticalOptions="Center"
-							Padding="10, 0"/>
+							Padding="10, 0" />
 					</DataTemplate>
 				</BindableLayout.ItemTemplate>
 			</StackLayout>
-
 		</Grid>
 	</ScrollView.Content>
 </ScrollView>

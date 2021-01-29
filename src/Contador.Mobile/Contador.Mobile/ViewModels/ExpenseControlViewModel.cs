@@ -56,7 +56,7 @@ namespace Contador.Mobile.ViewModels
 		{
 			get => _expenseColor;
 			set => SetProperty(ref _expenseColor, value);
-		} 
+		}
 
 		/// <summary>
 		/// Command which will invoke on edit tap.
@@ -81,7 +81,6 @@ namespace Contador.Mobile.ViewModels
 		{
 			Expense = expense;
 		}
-
 
 		private void InitializeProperties()
 		{

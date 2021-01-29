@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentView 
+<ContentView
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
 	xmlns:viewmodels="clr-namespace:Contador.Mobile.ViewModels"
+	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	x:Class="Contador.Mobile.Pages.AddingPage">
 
 	<ContentView.BindingContext>
-		<viewmodels:AddingPageViewModel/>
+		<viewmodels:AddingPageViewModel />
 	</ContentView.BindingContext>
-	
+
 	<ContentView.Content>
-		<ScrollView 
+		<ScrollView
 			Padding="0,0,0,50">
-			<FlexLayout 
+			<FlexLayout
 			Direction="Row"
 			Wrap="Wrap"
 			JustifyContent="Center"
 			AlignContent="Center">
-				<Grid 
+				<Grid
 					Margin="25,15"
 					HeightRequest="160"
 					WidthRequest="120">
@@ -30,23 +30,23 @@
 						Opacity=0.2,
 						Color=IndianRed}">
 						<Frame
-							BackgroundColor="White" 
-							CornerRadius="20" 
-							HasShadow="False" >
+							BackgroundColor="White"
+							CornerRadius="20"
+							HasShadow="False">
 							<Frame.GestureRecognizers>
-								<TapGestureRecognizer 
-									Command="{Binding AddExpenseCommand}"/>
+								<TapGestureRecognizer
+									Command="{Binding AddExpenseCommand}" />
 							</Frame.GestureRecognizers>
-							<StackLayout 
-								Orientation="Vertical" 
+							<StackLayout
+								Orientation="Vertical"
 								VerticalOptions="Center">
 								<Image Opacity="0.6">
 									<Image.Source>
 										<FontImageSource
 											FontFamily="FontAwesome"
 											Glyph="{x:Static styles:FontAwesomeIcon+Solid.Dollar}"
-											Color="Red" 
-											Size="42"/>
+											Color="Red"
+											Size="42" />
 									</Image.Source>
 								</Image>
 								<Label
@@ -55,12 +55,12 @@
 									FontSize="15"
 									FontAttributes="Bold"
 									TextColor="Red"
-									Opacity="0.8"/>
+									Opacity="0.8" />
 							</StackLayout>
 						</Frame>
 					</sharpnado:Shadows>
 				</Grid>
-				<Grid 
+				<Grid
 					Margin="25,15"
 					HeightRequest="160"
 					WidthRequest="120">
@@ -70,30 +70,30 @@
 						BlurRadius=60,
 						Opacity=0.2,
 						Color=Blue}">
-						<Frame 
+						<Frame
 							BackgroundColor="White"
 							CornerRadius="20"
-							HasShadow="False" >
+							HasShadow="False">
 							<StackLayout
 								Orientation="Vertical"
 								VerticalOptions="Center">
-								<Image 
+								<Image
 									Opacity="0.6">
 									<Image.Source>
 										<FontImageSource
 											FontFamily="FontAwesome"
 											Glyph="{x:Static styles:FontAwesomeIcon+Solid.ArrowDown}"
-											Color="Blue" 
-											Size="42"/>
+											Color="Blue"
+											Size="42" />
 									</Image.Source>
 								</Image>
-								<Label 
-									Text="Przychody" 
+								<Label
+									Text="Przychody"
 									HorizontalOptions="Center"
 									FontSize="15"
 									FontAttributes="Bold"
 									TextColor="Blue"
-									Opacity="0.8"/>
+									Opacity="0.8" />
 							</StackLayout>
 						</Frame>
 					</sharpnado:Shadows>
