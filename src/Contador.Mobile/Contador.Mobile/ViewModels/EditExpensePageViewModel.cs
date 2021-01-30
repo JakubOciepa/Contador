@@ -77,7 +77,7 @@ namespace Contador.Mobile.ViewModels
 
 		public EditExpensePageViewModel(Expense expense = default)
 		{
-			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseService>();
+			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseManager>();
 			_categoryService = TinyIoCContainer.Current.Resolve<IExpenseCategoryService>();
 			_expense = expense;
 

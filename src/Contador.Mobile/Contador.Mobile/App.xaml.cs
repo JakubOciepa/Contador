@@ -59,7 +59,7 @@ namespace Contador.Mobile
 			container.Register<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 
 			//services
-			container.Register<IExpenseService, ExpenseService>().AsSingleton();
+			container.Register<IExpenseManager, ExpenseService>().AsSingleton();
 			container.Register<IExpenseCategoryService, ExpenseCategoryService>();
 
 			//viewmodels
