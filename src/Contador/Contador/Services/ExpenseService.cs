@@ -11,7 +11,7 @@ using Contador.DAL.Abstractions;
 namespace Contador.Services
 {
 	/// <inheritdoc/>
-	public class ExpenseService : IExpenseService
+	public class ExpenseService : IExpenseService, IExpenseNotifier
 	{
 		private readonly IExpenseRepository _expenseRepo;
 		private readonly ILog _logger;
