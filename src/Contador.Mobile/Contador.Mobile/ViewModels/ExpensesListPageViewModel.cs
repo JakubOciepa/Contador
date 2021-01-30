@@ -17,6 +17,7 @@ namespace Contador.Mobile.ViewModels
 	public class ExpensesListPageViewModel : BaseViewModel, IDisposable
 	{
 		private readonly IExpenseService _expenseService;
+		private readonly IExpenseNotifier _expenseNotifier;
 		public ObservableCollection<ExpenseControlViewModel> Expenses { get; }
 
 		/// <summary>
@@ -25,11 +26,15 @@ namespace Contador.Mobile.ViewModels
 		public ExpensesListPageViewModel()
 		{
 			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseService>();
+			_expenseNotifier = _expenseService as IExpenseNotifier;
 			Expenses = new ObservableCollection<ExpenseControlViewModel>();
 
-			_expenseService.ExpenseAdded += ExpenseAdded;
-			_expenseService.ExpenseUpdated += ExpenseUpdated;
-			_expenseService.ExpenseRemoved += ExpenseRemoved;
+			if (_expenseNotifier is object)
+			{
+				_expenseNotifier.ExpenseAdded += ExpenseAdded;
+				_expenseNotifier.ExpenseUpdated += ExpenseUpdated;
+				_expenseNotifier.ExpenseRemoved += ExpenseRemoved;
+			}
 
 			LoadExpenses();
 		}
@@ -66,9 +71,12 @@ namespace Contador.Mobile.ViewModels
 
 		public void Dispose()
 		{
-			_expenseService.ExpenseAdded -= ExpenseAdded;
-			_expenseService.ExpenseUpdated -= ExpenseUpdated;
-			_expenseService.ExpenseRemoved -= ExpenseRemoved;
+			if (_expenseNotifier is object)
+			{
+				_expenseNotifier.ExpenseAdded -= ExpenseAdded;
+				_expenseNotifier.ExpenseUpdated -= ExpenseUpdated;
+				_expenseNotifier.ExpenseRemoved -= ExpenseRemoved;
+			}
 		}
 	}
 }
