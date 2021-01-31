@@ -98,6 +98,8 @@ namespace Contador.Mobile.ViewModels
 			{
 				AddNewExpense();
 			}
+
+			Application.Current.MainPage.Navigation.PopAsync();
 		}
 
 		private async void UpdateExpense()
