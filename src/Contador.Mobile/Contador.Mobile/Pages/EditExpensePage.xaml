@@ -120,7 +120,7 @@
 										Grid.Column="0"
 										SelectedIndex="1"
 										TextColor="Black"
-										SelectedItem="{Binding Category}"
+										SelectedItem="{Binding Category, Mode=TwoWay}"
 										ItemsSource="{Binding Categories}"
 										ItemDisplayBinding="{Binding Name}">
 									</Picker>

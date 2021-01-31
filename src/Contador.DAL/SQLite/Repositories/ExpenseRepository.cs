@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
@@ -89,6 +90,7 @@ namespace Contador.DAL.SQLite.Repositories
 
 				return await Task.FromResult(new Expense(expense.Name, expense.Value, user, category)
 				{
+					Id = expense.Id,
 					Description = expense.Description,
 					CreateDate = expense.CreateDate,
 					ImagePath = expense.ImagePath,
@@ -116,6 +118,7 @@ namespace Contador.DAL.SQLite.Repositories
 				return await Task.FromResult(expenses?.ConvertAll
 					(expense => new Expense(expense.Name, expense.Value, user, _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)
 					{
+						Id = expense.Id,
 						Description = expense.Description,
 						CreateDate = expense.CreateDate,
 						ImagePath = expense.ImagePath,
@@ -137,7 +140,9 @@ namespace Contador.DAL.SQLite.Repositories
 		///<inheritdoc/>
 		public async Task<Expense> UpdateExpenseAsync(int id, Expense info)
 		{
-			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>().FirstAsync(expense => expense.Id == id).CAF();
+			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>()
+													.FirstOrDefaultAsync(expense => expense.Id == id)
+													.ConfigureAwait(true);
 
 			if (expenseToUpdate is object)
 			{
@@ -149,7 +154,8 @@ namespace Contador.DAL.SQLite.Repositories
 				expenseToUpdate.CategoryId = info.Category.Id;
 				expenseToUpdate.ModifiedDate = DateTime.Now;
 
-				var result = await _dbConnection.UpdateAllAsync(new List<ExpenseDto>() { expenseToUpdate }).CAF();
+				var result = await _dbConnection.UpdateAllAsync(new List<ExpenseDto>() { expenseToUpdate })
+					.ConfigureAwait(true);
 
 				return result is 1 ? await Task.FromResult(info).CAF() : null;
 			}

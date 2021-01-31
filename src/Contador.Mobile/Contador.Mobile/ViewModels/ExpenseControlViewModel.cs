@@ -1,4 +1,5 @@
 ﻿using Contador.Core.Models;
+using Contador.Mobile.Pages;
 using Contador.Mobile.Services;
 
 using MvvmHelpers;
@@ -88,8 +89,8 @@ namespace Contador.Mobile.ViewModels
 			UserGlyph = _userAvatarService.GetByUserName(Expense.User.Name);
 
 			EditCommand = new Command(async _
-				=> await Application.Current.MainPage.DisplayAlert("Tap triggered", "Edit button tapped!", "OK")
-													  .ConfigureAwait(true));
+				=> await Application.Current.MainPage.Navigation
+					.PushAsync(new EditExpensePage() { BindingContext = new EditExpensePageViewModel(Expense) }));
 		}
 	}
 }

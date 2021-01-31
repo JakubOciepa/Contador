@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Core.Utils.Extensions;
 
 using MvvmHelpers;
 
@@ -88,21 +90,21 @@ namespace Contador.Mobile.ViewModels
 			SetupProperties();
 		}
 
-		private void SaveOrUpdate()
+		private async void SaveOrUpdate()
 		{
 			if (_expense is object)
 			{
-				UpdateExpense();
+				await UpdateExpense();
 			}
 			else
 			{
 				AddNewExpense();
 			}
 
-			Application.Current.MainPage.Navigation.PopAsync();
+			await Application.Current.MainPage.Navigation.PopAsync();
 		}
 
-		private async void UpdateExpense()
+		private async Task UpdateExpense()
 		{
 			_expense.Name = Name;
 			_expense.Value = Value;
@@ -110,7 +112,7 @@ namespace Contador.Mobile.ViewModels
 			_expense.Description = Description;
 			_expense.ImagePath = ReceiptImagePath;
 
-			await _expenseService.UpdateAsync(_expense.Id, _expense);
+			await _expenseService.UpdateAsync(_expense.Id, _expense).ConfigureAwait(true);
 		}
 
 		private async void AddNewExpense()
@@ -128,13 +130,13 @@ namespace Contador.Mobile.ViewModels
 				ImagePath = ReceiptImagePath,
 			};
 
-			await _expenseService.AddAsync(_expense);
+			await _expenseService.AddAsync(_expense).ConfigureAwait(true);
 		}
 
 		private async void SetupProperties()
 		{
+			await SetupCategories().ConfigureAwait(true);
 			SetupExpense();
-			await SetupCategories();
 		}
 
 		private async Task SetupCategories()
@@ -158,7 +160,7 @@ namespace Contador.Mobile.ViewModels
 				Name = _expense.Name;
 				Value = _expense.Value;
 				CreatedDate = _expense.CreateDate;
-				Category = _expense.Category;
+				Category = _categories.FirstOrDefault(cat => cat.Id == _expense.Category.Id);
 				Description = _expense.Description;
 				ReceiptImagePath = _expense.ImagePath;
 			}
