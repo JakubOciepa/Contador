@@ -27,7 +27,7 @@ namespace Contador.Mobile.ViewModels
 		public Expense Expense
 		{
 			get => _expense;
-			private set => SetProperty(ref _expense, value);
+			set => SetProperty(ref _expense, value);
 		}
 
 		/// <summary>
@@ -81,6 +81,7 @@ namespace Contador.Mobile.ViewModels
 		public void UpdateExpense(Expense expense)
 		{
 			Expense = expense;
+			OnPropertyChanged(nameof(Expense));
 		}
 
 		private void InitializeProperties()

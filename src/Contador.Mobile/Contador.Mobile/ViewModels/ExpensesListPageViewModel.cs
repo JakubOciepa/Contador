@@ -47,6 +47,8 @@ namespace Contador.Mobile.ViewModels
 		{
 			var updatedExpense = Expenses.FirstOrDefault(ex => ex.Expense.Id == expense.Id);
 			updatedExpense.UpdateExpense(expense);
+
+			OnPropertyChanged(nameof(Expenses));
 		}
 
 		private void ExpenseRemoved(object sender, int expenseId)
