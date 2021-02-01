@@ -94,17 +94,18 @@ namespace Contador.Mobile.ViewModels
 		{
 			if (_expense is object)
 			{
-				await UpdateExpense();
+				UpdateExpense();
 			}
 			else
 			{
 				AddNewExpense();
 			}
 
-			await Application.Current.MainPage.Navigation.PopAsync();
+			await Application.Current.MainPage.Navigation.PopAsync()
+				.ConfigureAwait(true);
 		}
 
-		private async Task UpdateExpense()
+		private void UpdateExpense()
 		{
 			_expense.Name = Name;
 			_expense.Value = Value;
@@ -112,10 +113,10 @@ namespace Contador.Mobile.ViewModels
 			_expense.Description = Description;
 			_expense.ImagePath = ReceiptImagePath;
 
-			await _expenseService.UpdateAsync(_expense.Id, _expense).ConfigureAwait(true);
+			_expenseService.UpdateAsync(_expense.Id, _expense);
 		}
 
-		private async void AddNewExpense()
+		private void AddNewExpense()
 		{
 			var user = new User()
 			{
@@ -130,18 +131,18 @@ namespace Contador.Mobile.ViewModels
 				ImagePath = ReceiptImagePath,
 			};
 
-			await _expenseService.AddAsync(_expense).ConfigureAwait(true);
+			_expenseService.AddAsync(_expense);
 		}
 
 		private async void SetupProperties()
 		{
-			await SetupCategories().ConfigureAwait(true);
+			await SetupCategories();
 			SetupExpense();
 		}
 
 		private async Task SetupCategories()
 		{
-			var result = await _categoryService.GetCategoriesAsync();
+			var result = await _categoryService.GetCategoriesAsync().ConfigureAwait(true);
 			if (result.ResponseCode is ResponseCode.Ok)
 			{
 				_categories = result.ReturnedObject;
