@@ -34,10 +34,10 @@
 						<StackLayout>
 							<StackLayout Orientation="Vertical"
 										 Spacing="0">
-							<Label Text="Nazwa"
+								<Label Text="Nazwa"
 								   FontSize="15"
 								   FontAttributes="Bold"
-								   TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+								   TextColor="{StaticResource SecondaryExpenseTextColor}" />
 								<Entry
 									Grid.Column="1"
 									FontSize="18"
@@ -45,7 +45,7 @@
 									PlaceholderColor="LightGray"
 									IsSpellCheckEnabled="False"
 									TextColor="Black"
-									Text="{Binding Name}" />
+									Text="{Binding Category.Name, Mode=TwoWay}" />
 							</StackLayout>
 						</StackLayout>
 						<Button HorizontalOptions="End"
@@ -53,7 +53,8 @@
 								Text="Zapisz"
 								FontSize="18"
 								BackgroundColor="White"
-								TextColor="#da3b01"/>
+								TextColor="#da3b01"
+								Command="{Binding SaveExpenseCategoryCommand}" />
 					</Grid>
 				</Frame>
 			</sharpnado:Shadows>

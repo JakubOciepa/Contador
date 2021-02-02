@@ -101,7 +101,10 @@ namespace Contador.Mobile.ViewModels
 		private async void AddCategory(object obj)
 		{
 			await Application.Current.MainPage.Navigation
-				.PushAsync(new EditExpenseCategoryPage())
+				.PushAsync(new EditExpenseCategoryPage()
+				{
+					BindingContext = new EditExpenseCategoryPageViewModel()
+				})
 				.ConfigureAwait(true);
 		}
 
