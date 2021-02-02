@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+	x:Class="Contador.Mobile.Pages.EditExpenseCategoryPage"
+	NavigationPage.HasNavigationBar="False">
+	<ContentPage.Content>
+		<Grid
+			RowDefinitions="Auto,*"
+			BackgroundColor="White">
+			<Label
+				Text="Dodaj kategorię"
+				FontAttributes="Bold"
+				FontSize="24"
+				Margin="0,10,0,5"
+				TextColor="#da3b01"
+				HorizontalOptions="Center" />
+			<sharpnado:Shadows
+				Grid.Row="1"
+				Margin="10, 5, 10, 0"
+				CornerRadius="36"
+				Shades="{sharpnado:SingleShade Offset='5, 10',
+				BlurRadius=10,
+				Opacity=0.2,
+				Color='Gray'}">
+				<Frame
+					BackgroundColor="White"
+					CornerRadius="10"
+					Margin="10, 0, 10, 20">
+					<Grid
+						RowDefinitions="*, Auto"
+						Margin="10,5">
+						<StackLayout>
+							<Label Text="Here I am." />
+						</StackLayout>
+					</Grid>
+				</Frame>
+			</sharpnado:Shadows>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

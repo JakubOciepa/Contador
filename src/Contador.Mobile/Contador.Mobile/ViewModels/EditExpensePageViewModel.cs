@@ -8,6 +8,7 @@ using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
+using Contador.Mobile.Pages;
 
 using MvvmHelpers;
 
@@ -29,6 +30,7 @@ namespace Contador.Mobile.ViewModels
 		private ExpenseCategory _category;
 		private string _description;
 		private string _receiptImagePath;
+		private Command _addCategoryCommand;
 		private Command _saveChangesCommand;
 
 		private IList<ExpenseCategory> _categories;
@@ -77,6 +79,12 @@ namespace Contador.Mobile.ViewModels
 			set => SetProperty(ref _saveChangesCommand, value);
 		}
 
+		public Command AddCategoryCommand
+		{
+			get => _addCategoryCommand;
+			set => SetProperty(ref _addCategoryCommand, value);
+		}
+
 		public EditExpensePageViewModel(Expense expense = default)
 		{
 			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseManager>();
@@ -86,8 +94,15 @@ namespace Contador.Mobile.ViewModels
 			Categories = new ObservableCollection<ExpenseCategory>();
 
 			SaveChangesCommand = new Command(SaveOrUpdate);
-
+			AddCategoryCommand = new Command(AddCategory);
 			SetupProperties();
+		}
+
+		private async void AddCategory(object obj)
+		{
+			await Application.Current.MainPage.Navigation
+				.PushAsync(new EditExpenseCategoryPage())
+				.ConfigureAwait(true);
 		}
 
 		private async void SaveOrUpdate()

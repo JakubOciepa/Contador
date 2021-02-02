@@ -129,7 +129,8 @@
 										BackgroundColor="White"
 										TextColor="#da3b01"
 										Text="Dodaj kategorię"
-										FontSize="12" />
+										FontSize="12"
+										Command="{Binding AddCategoryCommand}" />
 								</Grid>
 							</StackLayout>
 
