@@ -69,11 +69,11 @@ namespace Contador.Services
 			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, "Can not add expense category.");
-				return new Result<ExpenseCategory>(ResponseCode.Ok,
-					new ExpenseCategory(result.Name) { Id = result.Id });
+				return new Result<ExpenseCategory>(ResponseCode.Error, default);
 			}
 
-			return new Result<ExpenseCategory>(ResponseCode.Error, default);
+			return new Result<ExpenseCategory>(ResponseCode.Ok,
+				new ExpenseCategory(result.Name) { Id = result.Id });
 		}
 
 		/// <inheritdoc/>
