@@ -32,8 +32,28 @@
 						RowDefinitions="*, Auto"
 						Margin="10,5">
 						<StackLayout>
-							<Label Text="Here I am." />
+							<StackLayout Orientation="Vertical"
+										 Spacing="0">
+							<Label Text="Nazwa"
+								   FontSize="15"
+								   FontAttributes="Bold"
+								   TextColor="{StaticResource SecondaryExpenseTextColor}"/>
+								<Entry
+									Grid.Column="1"
+									FontSize="18"
+									Placeholder="Nazwa kategorii"
+									PlaceholderColor="LightGray"
+									IsSpellCheckEnabled="False"
+									TextColor="Black"
+									Text="{Binding Name}" />
+							</StackLayout>
 						</StackLayout>
+						<Button HorizontalOptions="End"
+								VerticalOptions="End"
+								Text="Zapisz"
+								FontSize="18"
+								BackgroundColor="White"
+								TextColor="#da3b01"/>
 					</Grid>
 				</Frame>
 			</sharpnado:Shadows>
