@@ -54,7 +54,7 @@ namespace Contador.Mobile.ViewModels
 		{
 			if (Category is object && !string.IsNullOrEmpty(Category.Name))
 			{
-				var result = await _categoryService.AddExpenseAsync(Category);
+				var result = await _categoryService.AddExpenseCategoryAsync(Category);
 
 				if (result.ResponseCode is ResponseCode.Ok)
 				{

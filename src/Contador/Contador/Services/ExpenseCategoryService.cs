@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
@@ -10,10 +11,16 @@ using Contador.DAL.Abstractions;
 namespace Contador.Services
 {
 	/// <inheritdoc/>
-	public class ExpenseCategoryService : IExpenseCategoryService
+	public class ExpenseCategoryService : IExpenseCategoryManager
 	{
 		private readonly IExpenseCategoryRepository _repository;
 		private readonly ILog _logger;
+
+		public event EventHandler<ExpenseCategory> CategoryAdded;
+
+		public event EventHandler<ExpenseCategory> CategoryUpdated;
+
+		public event EventHandler<int> CategoryRemoved;
 
 		/// <summary>
 		/// Creates instance of <see cref="ExpenseCategoryService"/> class.
@@ -62,7 +69,7 @@ namespace Contador.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<Result<ExpenseCategory>> AddExpenseAsync(ExpenseCategory category)
+		public async Task<Result<ExpenseCategory>> AddExpenseCategoryAsync(ExpenseCategory category)
 		{
 			var result = await _repository.AddCategoryAsync(category).CAF();
 
@@ -77,7 +84,7 @@ namespace Contador.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<Result<ExpenseCategory>> UpdateExpenseAsync(int id, ExpenseCategory category)
+		public async Task<Result<ExpenseCategory>> UpdateExpenseCategoryAsync(int id, ExpenseCategory category)
 		{
 			var result = await _repository.UpdateCategoryAsync(id, category).CAF();
 
@@ -92,7 +99,7 @@ namespace Contador.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<ResponseCode> RemoveExpenseAsync(int id)
+		public async Task<ResponseCode> RemoveExpenseCategoryAsync(int id)
 		{
 			var result = await _repository.RemoveCategoryAsync(id).CAF();
 
