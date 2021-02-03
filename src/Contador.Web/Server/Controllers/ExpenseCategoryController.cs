@@ -85,7 +85,7 @@ namespace Contador.Web.Server.Controllers
 				return Conflict(category);
 			}
 
-			var result = await _expenseCategoryService.AddExpenseAsync(category).CAF();
+			var result = await _expenseCategoryService.AddExpenseCategoryAsync(category).CAF();
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
 			{
@@ -114,7 +114,7 @@ namespace Contador.Web.Server.Controllers
 				return NotFound(category);
 			}
 
-			var result = await _expenseCategoryService.UpdateExpenseAsync(id, category).CAF();
+			var result = await _expenseCategoryService.UpdateExpenseCategoryAsync(id, category).CAF();
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
 			{
@@ -142,7 +142,7 @@ namespace Contador.Web.Server.Controllers
 				return NotFound(id);
 			}
 
-			var result = await _expenseCategoryService.RemoveExpenseAsync(id).CAF();
+			var result = await _expenseCategoryService.RemoveExpenseCategoryAsync(id).CAF();
 
 			if (result == ResponseCode.Ok)
 			{
