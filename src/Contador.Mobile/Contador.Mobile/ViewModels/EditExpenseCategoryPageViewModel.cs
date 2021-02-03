@@ -33,7 +33,7 @@ namespace Contador.Mobile.ViewModels
 
 		public EditExpenseCategoryPageViewModel(ExpenseCategory category = null)
 		{
-			_categoryService = TinyIoCContainer.Current.Resolve<IExpenseCategoryService>();
+			_categoryService = TinyIoCContainer.Current.Resolve<IExpenseCategoryManager>();
 
 			_category = category;
 
@@ -54,7 +54,7 @@ namespace Contador.Mobile.ViewModels
 		{
 			if (Category is object && !string.IsNullOrEmpty(Category.Name))
 			{
-				var result = await _categoryService.AddExpenseCategoryAsync(Category);
+				var result = _categoryService.AddExpenseCategoryAsync(Category).Result;
 
 				if (result.ResponseCode is ResponseCode.Ok)
 				{

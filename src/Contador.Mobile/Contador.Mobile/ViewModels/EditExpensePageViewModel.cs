@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
-using Contador.Core.Utils.Extensions;
 using Contador.Mobile.Pages;
 
 using MvvmHelpers;
 
 using TinyIoC;
 
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Contador.Mobile.ViewModels
@@ -21,7 +21,7 @@ namespace Contador.Mobile.ViewModels
 	public class EditExpensePageViewModel : BaseViewModel
 	{
 		private readonly IExpenseService _expenseService;
-		private readonly IExpenseCategoryService _categoryService;
+		private readonly IExpenseCategoryManager _categoryManager;
 		private Expense _expense;
 
 		private string _name;
@@ -88,14 +88,45 @@ namespace Contador.Mobile.ViewModels
 		public EditExpensePageViewModel(Expense expense = default)
 		{
 			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseManager>();
-			_categoryService = TinyIoCContainer.Current.Resolve<IExpenseCategoryService>();
+			_categoryManager = TinyIoCContainer.Current.Resolve<IExpenseCategoryManager>();
 			_expense = expense;
 
 			Categories = new ObservableCollection<ExpenseCategory>();
 
+			_categoryManager.CategoryAdded += AddedExpenseCategory;
+			_categoryManager.CategoryUpdated += UpdatedExpenseCategory;
+			_categoryManager.CategoryRemoved += RemovedExpenseCategory;
+
 			SaveChangesCommand = new Command(SaveOrUpdate);
 			AddCategoryCommand = new Command(AddCategory);
 			SetupProperties();
+		}
+
+		private void RemovedExpenseCategory(object sender, int id)
+		{
+			var categoryToRemove = Categories.FirstOrDefault(c => c.Id == id);
+
+			if (categoryToRemove is object)
+			{
+				MainThread.BeginInvokeOnMainThread(() => Categories.Remove(categoryToRemove));
+			}
+		}
+
+		private void UpdatedExpenseCategory(object sender, ExpenseCategory category)
+		{
+			var categoryToUpdate = Categories.FirstOrDefault(c => c.Id == category.Id);
+
+			if (categoryToUpdate is object)
+			{
+				var index = Categories.IndexOf(categoryToUpdate);
+
+				MainThread.BeginInvokeOnMainThread(() => Categories[index] = category);
+			}
+		}
+
+		private void AddedExpenseCategory(object sender, ExpenseCategory category)
+		{
+			MainThread.BeginInvokeOnMainThread(() => Categories.Add(category));
 		}
 
 		private async void AddCategory(object obj)
@@ -160,7 +191,7 @@ namespace Contador.Mobile.ViewModels
 
 		private async Task SetupCategories()
 		{
-			var result = await _categoryService.GetCategoriesAsync().ConfigureAwait(true);
+			var result = await _categoryManager.GetCategoriesAsync().ConfigureAwait(true);
 			if (result.ResponseCode is ResponseCode.Ok)
 			{
 				_categories = result.ReturnedObject;
