@@ -79,8 +79,9 @@ namespace Contador.Services
 				return new Result<ExpenseCategory>(ResponseCode.Error, default);
 			}
 
-			return new Result<ExpenseCategory>(ResponseCode.Ok,
-				new ExpenseCategory(result.Name) { Id = result.Id });
+			CategoryAdded?.Invoke(this, result);
+
+			return new Result<ExpenseCategory>(ResponseCode.Ok, result);
 		}
 
 		/// <inheritdoc/>
@@ -91,19 +92,27 @@ namespace Contador.Services
 			if (result is null)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, $"Can not update expense category of the {id}.");
-				return new Result<ExpenseCategory>(ResponseCode.Ok,
-					new ExpenseCategory(result.Name) { Id = result.Id });
+				return new Result<ExpenseCategory>(ResponseCode.Error, default);
 			}
 
-			return new Result<ExpenseCategory>(ResponseCode.Error, default);
+			CategoryUpdated?.Invoke(this, result);
+
+			return new Result<ExpenseCategory>(ResponseCode.Ok, result);
 		}
 
 		/// <inheritdoc/>
 		public async Task<ResponseCode> RemoveExpenseCategoryAsync(int id)
 		{
-			var result = await _repository.RemoveCategoryAsync(id).CAF();
+			var removed = await _repository.RemoveCategoryAsync(id).CAF();
 
-			return result ? ResponseCode.Ok : ResponseCode.Error;
+			if (removed)
+			{
+				CategoryRemoved?.Invoke(this, id);
+
+				return ResponseCode.Ok;
+			}
+
+			return ResponseCode.Error;
 		}
 	}
 }
