@@ -1,8 +1,14 @@
-﻿using Contador.Core.Models;
+﻿using System;
+using System.Windows.Input;
+
+using Contador.Abstractions;
+using Contador.Core.Models;
 using Contador.Mobile.Pages;
 using Contador.Mobile.Services;
 
 using MvvmHelpers;
+
+using TinyIoC;
 
 using Xamarin.Forms;
 
@@ -15,6 +21,7 @@ namespace Contador.Mobile.ViewModels
 	{
 		private readonly CategoryAvatarService _categoryAvatarService;
 		private readonly UserAvatarService _userAvatarService;
+		public readonly IExpenseService _expenseService;
 
 		private Expense _expense;
 		private FontImageSource _categoryGlyph;
@@ -64,18 +71,28 @@ namespace Contador.Mobile.ViewModels
 		/// </summary>
 		public Command EditCommand { get; private set; }
 
+		public ICommand SwipeEndedCommand { get; private set; }
+
 		/// <summary>
 		/// Creates instance of the <see cref="ExpenseControlViewModel"/> class.
 		/// </summary>
 		/// <param name="expense">Expense to display.</param>
 		public ExpenseControlViewModel(Expense expense)
 		{
+			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseManager>();
+
 			Expense = expense;
 			_categoryAvatarService = new CategoryAvatarService();
 			_userAvatarService = new UserAvatarService();
 			ExpenseColor = Color.Red;
+			SwipeEndedCommand = new Command(RemoveExpense);
 
 			InitializeProperties();
+		}
+
+		private void RemoveExpense(object obj)
+		{
+			_expenseService.RemoveAsync(Expense.Id);
 		}
 
 		public void UpdateExpense(Expense expense)

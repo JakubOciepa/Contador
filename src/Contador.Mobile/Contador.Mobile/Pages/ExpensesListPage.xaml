@@ -16,18 +16,24 @@
 			BackgroundColor="#f6f8f8"
 			Padding="0">
 
-			<StackLayout BindableLayout.ItemsSource="{Binding Expenses, Mode=TwoWay}"
-						 Padding="0,0,0,70">
-				<BindableLayout.ItemTemplate>
+			<ListView ItemsSource="{Binding Expenses, Mode=TwoWay}"
+					  HasUnevenRows="True"
+					  SeparatorVisibility="None">
+				<ListView.ItemTemplate>
 					<DataTemplate>
-						<controls:ExpenseControl
+						<ViewCell>
+							<Grid
+								Padding="10,0,10, 10">
+
+								<controls:ExpenseControl
 							BindingContext="{Binding .}"
 							HorizontalOptions="Fill"
-							VerticalOptions="Center"
-							Padding="10, 0" />
+							VerticalOptions="Center" />
+							</Grid>
+						</ViewCell>
 					</DataTemplate>
-				</BindableLayout.ItemTemplate>
-			</StackLayout>
+				</ListView.ItemTemplate>
+			</ListView>
 		</Grid>
 	</ScrollView.Content>
 </ScrollView>

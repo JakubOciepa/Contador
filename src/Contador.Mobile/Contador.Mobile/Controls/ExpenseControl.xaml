@@ -2,6 +2,7 @@
 <ContentView
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
 	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
 	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	x:Class="Contador.Mobile.Controls.ExpenseControl"
@@ -10,8 +11,8 @@
 		<sharpnado:Shadows
 			x:Name="Shadow"
 			Shades="{sharpnado:SingleShade
-					Offset='3, 10',
-					BlurRadius=60,
+					Offset='3, 3',
+					BlurRadius=30,
 					Opacity=0.1,
 					Color=Black}">
 			<SwipeView
@@ -20,6 +21,7 @@
 				VerticalOptions="Center"
 				Threshold="35"
 				HeightRequest="{Binding Source={x:Reference Control}, Path=CustomHeight}">
+
 				<SwipeView.GestureRecognizers>
 					<TapGestureRecognizer
 						Tapped="TapGestureRecognizer_Tapped"
@@ -27,6 +29,12 @@
 				</SwipeView.GestureRecognizers>
 				<SwipeView.RightItems>
 					<SwipeItemView>
+						<SwipeItemView.Behaviors>
+							<toolkit:EventToCommandBehavior
+								EventName="Invoked"
+								Command="{Binding SwipeEndedCommand}">
+							</toolkit:EventToCommandBehavior>
+						</SwipeItemView.Behaviors>
 						<Grid
 							WidthRequest="50">
 							<BoxView
