@@ -90,9 +90,13 @@ namespace Contador.Mobile.ViewModels
 			InitializeProperties();
 		}
 
-		private void RemoveExpense(object obj)
+		private async void RemoveExpense(object obj)
 		{
-			_expenseService.RemoveAsync(Expense.Id);
+			var wantRemove = await Application.Current.MainPage.DisplayAlert("Usuwanie", "Czy na pewno chcesz usunąć ten wydatek?", "TAK", "NIE");
+			if (wantRemove)
+			{
+				_ = _expenseService.RemoveAsync(Expense.Id);
+			}
 		}
 
 		public void UpdateExpense(Expense expense)
