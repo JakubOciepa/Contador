@@ -9,7 +9,7 @@ namespace Contador.Mobile.Pages
 {
 	public partial class MainPage : ContentPage
 	{
-		public Expense Expense => new Expense("Cuksy", 12.11m,
+		public Expense Expense => new Expense("Cuksy", 12m,
 			new User() { Name = "Pysia" },
 			new ExpenseCategory("Słodycze"))
 		{

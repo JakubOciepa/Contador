@@ -18,7 +18,8 @@
 
 			<ListView ItemsSource="{Binding Expenses, Mode=TwoWay}"
 					  HasUnevenRows="True"
-					  SeparatorVisibility="None">
+					  SeparatorVisibility="None"
+					  SelectionMode="None">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>

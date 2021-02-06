@@ -5,8 +5,12 @@
 	xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
 	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
 	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+	xmlns:converters="clr-namespace:Contador.Mobile.Pages.Converters"
 	x:Class="Contador.Mobile.Controls.ExpenseControl"
 	x:Name="Control">
+	<ContentView.Resources>
+		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
+	</ContentView.Resources>
 	<ContentView.Content>
 		<sharpnado:Shadows
 			x:Name="Shadow"
@@ -195,7 +199,7 @@
 									TextColor="{Binding ExpenseColor}">
 									<Label.FormattedText>
 										<FormattedString>
-											<Span Text="{Binding Expense.Value, Mode=TwoWay}" />
+											<Span Text="{Binding Expense.Value, Mode=OneWay}" />
 											<Span Text=" zł" />
 										</FormattedString>
 									</Label.FormattedText>
@@ -210,11 +214,12 @@
 									HorizontalOptions="Center"
 									VerticalOptions="Center"
 									TextColor="{Binding ExpenseColor}"
-									FontSize="21"
+									FontSize="18"
 									FontAttributes="Bold">
 									<Label.FormattedText>
 										<FormattedString>
-											<Span Text="{Binding Expense.Value, Mode=TwoWay}" />
+											<Span Text="{Binding Expense.Value, Mode=OneWay, 
+												Converter={StaticResource DecimalToStringConverter}}" />
 											<Span Text=" zł" />
 										</FormattedString>
 									</Label.FormattedText>

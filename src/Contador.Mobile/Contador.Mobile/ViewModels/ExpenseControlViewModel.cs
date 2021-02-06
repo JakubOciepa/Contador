@@ -67,7 +67,7 @@ namespace Contador.Mobile.ViewModels
 		}
 
 		/// <summary>
-		/// Command which will invoke on edit tap.
+		/// Command which will be invoked on edit tap.
 		/// </summary>
 		public Command EditCommand { get; private set; }
 

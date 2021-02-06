@@ -99,7 +99,7 @@ namespace Contador.Mobile.ViewModels
 
 			SaveChangesCommand = new Command(SaveOrUpdate);
 			AddCategoryCommand = new Command(AddCategory);
-			SetupProperties();
+			_ = SetupProperties();
 		}
 
 		private void RemovedExpenseCategory(object sender, int id)
@@ -183,9 +183,9 @@ namespace Contador.Mobile.ViewModels
 			_expenseService.AddAsync(_expense);
 		}
 
-		private async void SetupProperties()
+		private async Task SetupProperties()
 		{
-			await SetupCategories();
+			await SetupCategories().ConfigureAwait(true);
 			SetupExpense();
 		}
 
@@ -195,11 +195,11 @@ namespace Contador.Mobile.ViewModels
 			if (result.ResponseCode is ResponseCode.Ok)
 			{
 				_categories = result.ReturnedObject;
-			}
 
-			foreach (var category in _categories)
-			{
-				Categories.Add(category);
+				foreach (var category in _categories)
+				{
+					Categories.Add(category);
+				}
 			}
 		}
 
