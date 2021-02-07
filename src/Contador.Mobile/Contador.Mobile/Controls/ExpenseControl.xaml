@@ -36,7 +36,7 @@
 						<SwipeItemView.Behaviors>
 							<toolkit:EventToCommandBehavior
 								EventName="Invoked"
-								Command="{Binding SwipeEndedCommand}">
+								Command="{Binding RemoveCommand}">
 							</toolkit:EventToCommandBehavior>
 						</SwipeItemView.Behaviors>
 						<Grid
@@ -59,6 +59,34 @@
 						</Grid>
 					</SwipeItemView>
 				</SwipeView.RightItems>
+				<SwipeView.LeftItems>
+					<SwipeItemView>
+						<SwipeItemView.Behaviors>
+							<toolkit:EventToCommandBehavior
+								EventName="Invoked"
+								Command="{Binding EditCommand}">
+							</toolkit:EventToCommandBehavior>
+						</SwipeItemView.Behaviors>
+						<Grid
+							WidthRequest="50">
+							<BoxView
+								CornerRadius="15, 0,15,0"
+								Color="Blue" />
+							<Image
+								HorizontalOptions="Start"
+								VerticalOptions="Center"
+								Margin="10,0">
+								<Image.Source>
+									<FontImageSource
+										FontFamily="FontAwesome"
+										Glyph="{x:Static styles:FontAwesomeIcon+Solid.Edit}"
+										Color="{x:StaticResource DefaultBackground}"
+										Size="18" />
+								</Image.Source>
+							</Image>
+						</Grid>
+					</SwipeItemView>
+				</SwipeView.LeftItems>
 				<SwipeView.Content>
 					<Grid
 						Padding="0"
@@ -93,17 +121,6 @@
 									FontAttributes="Bold"
 									TextColor="Green"
 									FontSize="10" />
-								<Label
-									Text="Edytuj"
-									HorizontalOptions="End"
-									Margin="10,0"
-									FontSize="11"
-									FontAttributes="Bold"
-									TextColor="{StaticResource SecondaryExpenseTextColor}">
-									<Label.GestureRecognizers>
-										<TapGestureRecognizer Command="{Binding EditCommand}" />
-									</Label.GestureRecognizers>
-								</Label>
 							</Grid>
 							<Grid
 								VerticalOptions="Center"

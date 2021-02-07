@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Contador.Abstractions;
 using Contador.Core.Common;
@@ -32,8 +33,6 @@ namespace Contador.Mobile.ViewModels
 		private string _receiptImagePath;
 		private Command _addCategoryCommand;
 		private Command _saveChangesCommand;
-
-		private IList<ExpenseCategory> _categories;
 
 		public ObservableCollection<ExpenseCategory> Categories { get; }
 
@@ -85,6 +84,8 @@ namespace Contador.Mobile.ViewModels
 			set => SetProperty(ref _addCategoryCommand, value);
 		}
 
+		public ICommand AppearingCommand { get; private set; }
+
 		public EditExpensePageViewModel(Expense expense = default)
 		{
 			_expenseService = TinyIoCContainer.Current.Resolve<IExpenseManager>();
@@ -99,9 +100,54 @@ namespace Contador.Mobile.ViewModels
 
 			SaveChangesCommand = new Command(SaveOrUpdate);
 			AddCategoryCommand = new Command(AddCategory);
+
+			AppearingCommand = new Command(Appearing);
+		}
+
+		private void Appearing(object obj)
+		{
 			_ = SetupProperties();
 		}
 
+		private async Task SetupProperties()
+		{
+			await SetupCategories().ConfigureAwait(true);
+			SetupExpense();
+		}
+
+		private async Task SetupCategories()
+		{
+			var result = await _categoryManager.GetCategoriesAsync().ConfigureAwait(true);
+			if (result.ResponseCode is ResponseCode.Ok)
+			{
+				foreach (var category in result.ReturnedObject)
+				{
+					Categories.Add(category);
+				}
+			}
+		}
+
+		private void SetupExpense()
+		{
+			if (_expense is object)
+			{
+				Name = _expense.Name;
+				Value = _expense.Value;
+				CreatedDate = _expense.CreateDate;
+
+				Category = Categories.FirstOrDefault(cat => cat.Id == _expense.Category.Id);
+
+				Description = _expense.Description;
+				ReceiptImagePath = _expense.ImagePath;
+
+				OnPropertyChanged(nameof(Categories));
+
+			}
+			else
+			{
+				CreatedDate = DateTime.Now;
+			}
+		}
 		private void RemovedExpenseCategory(object sender, int id)
 		{
 			var categoryToRemove = Categories.FirstOrDefault(c => c.Id == id);
@@ -181,43 +227,6 @@ namespace Contador.Mobile.ViewModels
 			};
 
 			_expenseService.AddAsync(_expense);
-		}
-
-		private async Task SetupProperties()
-		{
-			await SetupCategories().ConfigureAwait(true);
-			SetupExpense();
-		}
-
-		private async Task SetupCategories()
-		{
-			var result = await _categoryManager.GetCategoriesAsync().ConfigureAwait(true);
-			if (result.ResponseCode is ResponseCode.Ok)
-			{
-				_categories = result.ReturnedObject;
-
-				foreach (var category in _categories)
-				{
-					Categories.Add(category);
-				}
-			}
-		}
-
-		private void SetupExpense()
-		{
-			if (_expense is object)
-			{
-				Name = _expense.Name;
-				Value = _expense.Value;
-				CreatedDate = _expense.CreateDate;
-				Category = _categories.FirstOrDefault(cat => cat.Id == _expense.Category.Id);
-				Description = _expense.Description;
-				ReceiptImagePath = _expense.ImagePath;
-			}
-			else
-			{
-				CreatedDate = DateTime.Now;
-			}
 		}
 	}
 }

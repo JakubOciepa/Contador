@@ -1,4 +1,6 @@
-﻿namespace Contador.Mobile.Styles
+﻿using System.Runtime.CompilerServices;
+
+namespace Contador.Mobile.Styles
 {
 	public static partial class FontAwesomeIcon
 	{
@@ -57,6 +59,7 @@
 			public const string User = "\uf007";
 			public const string Trash = "\uf1f8";
 			public const string Save = "\uf0c7";
+			public const string Edit = "\uf044";
 		}
 	}
 }

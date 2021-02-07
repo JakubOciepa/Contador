@@ -69,9 +69,10 @@ namespace Contador.Mobile.ViewModels
 		/// <summary>
 		/// Command which will be invoked on edit tap.
 		/// </summary>
-		public Command EditCommand { get; private set; }
+		public ICommand EditCommand { get; private set; }
 
-		public ICommand SwipeEndedCommand { get; private set; }
+
+		public ICommand RemoveCommand { get; private set; }
 
 		/// <summary>
 		/// Creates instance of the <see cref="ExpenseControlViewModel"/> class.
@@ -85,7 +86,7 @@ namespace Contador.Mobile.ViewModels
 			_categoryAvatarService = new CategoryAvatarService();
 			_userAvatarService = new UserAvatarService();
 			ExpenseColor = Color.Red;
-			SwipeEndedCommand = new Command(RemoveExpense);
+			RemoveCommand = new Command(RemoveExpense);
 
 			InitializeProperties();
 		}

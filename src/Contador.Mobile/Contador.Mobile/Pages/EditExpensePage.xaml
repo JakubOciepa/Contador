@@ -2,10 +2,17 @@
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
 	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	xmlns:converters="clr-namespace:Contador.Mobile.Pages.Converters"
 	x:Class="Contador.Mobile.Pages.EditExpensePage"
 	NavigationPage.HasNavigationBar="False">
+	<ContentPage.Behaviors>
+		<toolkit:EventToCommandBehavior
+			EventName="Appearing"
+			Command="{Binding AppearingCommand}">
+		</toolkit:EventToCommandBehavior>
+	</ContentPage.Behaviors>
 	<ContentPage.Resources>
 		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
 	</ContentPage.Resources>
@@ -73,7 +80,7 @@
 									<StackLayout
 										Spacing="0">
 										<Label
-											Text="Koszt:"
+											Text="Kwota:"
 											FontSize="15"
 											FontAttributes="Bold"
 											VerticalOptions="Center"
@@ -119,7 +126,6 @@
 										<Picker
 											FontSize="18"
 											Grid.Column="0"
-											SelectedIndex="1"
 											TextColor="Black"
 											SelectedItem="{Binding Category, Mode=TwoWay}"
 											ItemsSource="{Binding Categories}"

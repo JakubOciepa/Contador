@@ -96,12 +96,9 @@
 							Color="Black" />
 					</toolkit:TabViewItem.IconSelected>
 					<Grid BackgroundColor="#f6f8f8" Padding="0">
-						<controls:ExpenseControl
-							HorizontalOptions="Fill"
-							VerticalOptions="Center"
-							Padding="10, 0"
-							BindingContext="{Binding ControlViewModel, Source={x:Reference Page}}">
-						</controls:ExpenseControl>
+						<Label Text="Main page"
+							   HorizontalOptions="Center"
+							   VerticalOptions="Center"/>
 					</Grid>
 				</toolkit:TabViewItem>
 
