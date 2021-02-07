@@ -1,0 +1,40 @@
+﻿using System.ComponentModel;
+
+using Android.Content;
+using Android.Widget;
+
+using Contador.Mobile.Droid.Renderers;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+
+[assembly: ExportRenderer(typeof(Xamarin.Forms.Label), typeof(DpLabelRenderer))]
+namespace Contador.Mobile.Droid.Renderers
+{
+	public class DpLabelRenderer : LabelRenderer
+	{
+		public DpLabelRenderer(Context context) : base(context)
+		{
+		}
+
+		protected void setFontSizeAgain()
+		{
+			var nativeControl = (TextView)Control;
+			var xfControl = Element; //e.NewElement;
+			if (nativeControl != null && xfControl != null)
+				nativeControl.SetTextSize(Android.Util.ComplexUnitType.Dip, xfControl.Font.ToScaledPixel());
+		}
+
+		protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Label> e)
+		{
+			base.OnElementChanged(e);
+			setFontSizeAgain();
+		}
+
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+			setFontSizeAgain();
+		}
+	}
+}
