@@ -120,7 +120,8 @@
 									HorizontalOptions="Center"
 									FontAttributes="Bold"
 									TextColor="Green"
-									FontSize="10" />
+									TextTransform="Uppercase"
+									FontSize="16" />
 							</Grid>
 							<Grid
 								VerticalOptions="Center"
