@@ -52,7 +52,7 @@
 								<Label
 									Text="Wydatki"
 									HorizontalOptions="Center"
-									FontSize="15"
+									FontSize="Micro"
 									FontAttributes="Bold"
 									TextColor="Red"
 									Opacity="0.8" />
@@ -90,7 +90,7 @@
 								<Label
 									Text="Przychody"
 									HorizontalOptions="Center"
-									FontSize="15"
+									FontSize="Micro"
 									FontAttributes="Bold"
 									TextColor="Blue"
 									Opacity="0.8" />

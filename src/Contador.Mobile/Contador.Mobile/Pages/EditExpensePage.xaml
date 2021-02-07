@@ -3,75 +3,57 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+	xmlns:converters="clr-namespace:Contador.Mobile.Pages.Converters"
 	x:Class="Contador.Mobile.Pages.EditExpensePage"
 	NavigationPage.HasNavigationBar="False">
-
+	<ContentPage.Resources>
+		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
+	</ContentPage.Resources>
 	<ContentPage.Content>
-		<Grid
-			RowDefinitions="Auto,*"
-			BackgroundColor="White">
-			<Label
-				Text="Dodaj wydatek"
-				FontAttributes="Bold"
-				FontSize="24"
-				Margin="0,10,0,5"
-				TextColor="#da3b01"
-				HorizontalOptions="Center" />
-			<sharpnado:Shadows
-				Grid.Row="1"
-				Margin="10, 5, 10, 0"
-				CornerRadius="36"
-				Shades="{sharpnado:SingleShade Offset='5, 10',
-				BlurRadius=10,
-				Opacity=0.2,
-				Color='Gray'}">
-				<Frame
-					BackgroundColor="White"
-					CornerRadius="10"
-					Margin="10, 0, 10, 20">
+		<ScrollView>
+			<Grid
+				RowDefinitions="Auto,*"
+				BackgroundColor="White">
+				<Label
+					Text="Dodaj wydatek"
+					FontAttributes="Bold"
+					FontSize="24"
+					Margin="0,10,0,5"
+					TextColor="#da3b01"
+					HorizontalOptions="Center" />
+				<sharpnado:Shadows
+					Grid.Row="1"
+					Margin="10, 5, 10, 0"
+					CornerRadius="36"
+					Shades="{sharpnado:SingleShade Offset='5, 10',
+					BlurRadius=10,
+					Opacity=0.2,
+					Color='Gray'}">
+					<Frame
+						BackgroundColor="White"
+						CornerRadius="10"
+						Margin="10, 0, 10, 20">
 
-					<Grid
-						RowDefinitions="*, Auto"
-						Margin="10,5">
-
-						<StackLayout
-							Orientation="Vertical"
-							Margin="0,5,0,10"
-							BackgroundColor="White"
-							Spacing="15"
-							Grid.Row="0">
-
-							<Label
-								Text="Informacje"
-								HorizontalOptions="Center"
-								FontAttributes="Bold"
-								FontSize="15"
-								TextColor="Black" />
+						<Grid
+							RowDefinitions="*, Auto"
+							Margin="10,5">
 							<StackLayout
 								Orientation="Vertical"
-								Spacing="0">
+								Margin="0,5,0,10"
+								BackgroundColor="White"
+								Spacing="15"
+								Grid.Row="0">
 								<Label
-									Text="Nazwa:"
-									FontSize="15"
+									Text="Informacje"
+									HorizontalOptions="Center"
 									FontAttributes="Bold"
-									VerticalOptions="Center"
-									TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								<Entry
-									Grid.Column="1"
-									FontSize="18"
-									Placeholder="Na co znowu wydałeś!?"
-									PlaceholderColor="LightGray"
-									IsSpellCheckEnabled="False"
-									TextColor="Black"
-									Text="{Binding Name}" />
-							</StackLayout>
-
-							<Grid
-								ColumnDefinitions="*,Auto">
+									FontSize="15"
+									TextColor="Black" />
 								<StackLayout
+									Orientation="Vertical"
 									Spacing="0">
 									<Label
-										Text="Koszt:"
+										Text="Nazwa:"
 										FontSize="15"
 										FontAttributes="Bold"
 										VerticalOptions="Center"
@@ -79,114 +61,135 @@
 									<Entry
 										Grid.Column="1"
 										FontSize="18"
-										Placeholder="Zwariowałeś!?"
-										TextColor="Black"
+										Placeholder="Na co znowu wydałeś!?"
 										PlaceholderColor="LightGray"
 										IsSpellCheckEnabled="False"
-										Text="{Binding Value}" />
+										TextColor="Black"
+										Text="{Binding Name}" />
 								</StackLayout>
-								<StackLayout
-									Grid.Column="1"
-									Spacing="0">
 
+								<Grid
+									ColumnDefinitions="*,Auto">
+									<StackLayout
+										Spacing="0">
+										<Label
+											Text="Koszt:"
+											FontSize="15"
+											FontAttributes="Bold"
+											VerticalOptions="Center"
+											TextColor="{StaticResource SecondaryExpenseTextColor}" />
+										<Entry
+											Grid.Column="1"
+											FontSize="18"
+											Placeholder="Zwariowałeś!?"
+											TextColor="Black"
+											PlaceholderColor="LightGray"
+											IsSpellCheckEnabled="False"
+											Keyboard="Numeric"
+											Text="{Binding Value, Converter={StaticResource DecimalToStringConverter}}" />
+									</StackLayout>
+									<StackLayout
+										Grid.Column="1"
+										Spacing="0">
+										<Label
+											Grid.Column="2"
+											Text="Data:"
+											FontSize="15"
+											FontAttributes="Bold"
+											VerticalOptions="Center"
+											TextColor="{StaticResource SecondaryExpenseTextColor}" />
+										<DatePicker
+											Grid.Column="3"
+											Format="dd.MM.yyyy"
+											TextColor="Black"
+											FontSize="18"
+											Date="{Binding CreatedDate}" />
+									</StackLayout>
+								</Grid>
+								<StackLayout
+									Spacing="0">
 									<Label
-										Grid.Column="2"
-										Text="Data:"
+										Text="Kategoria:"
 										FontSize="15"
 										FontAttributes="Bold"
 										VerticalOptions="Center"
 										TextColor="{StaticResource SecondaryExpenseTextColor}" />
-									<DatePicker
-										Grid.Column="3"
-										Format="dd.MM.yyyy"
-										TextColor="Black"
-										FontSize="18"
-										Date="{Binding CreatedDate}" />
+									<Grid
+										ColumnDefinitions="*,Auto">
+										<Picker
+											FontSize="18"
+											Grid.Column="0"
+											SelectedIndex="1"
+											TextColor="Black"
+											SelectedItem="{Binding Category, Mode=TwoWay}"
+											ItemsSource="{Binding Categories}"
+											ItemDisplayBinding="{Binding Name}">
+										</Picker>
+										<Button
+											Grid.Column="1"
+											BackgroundColor="White"
+											TextColor="#da3b01"
+											Text="Dodaj kat."
+											FontSize="12"
+											Command="{Binding AddCategoryCommand}" />
+									</Grid>
 								</StackLayout>
-							</Grid>
-							<StackLayout
-								Spacing="0">
 
 								<Label
-									Text="Kategoria:"
-									FontSize="15"
+									Text="Dodatkowe informacje"
+									HorizontalOptions="Center"
 									FontAttributes="Bold"
-									VerticalOptions="Center"
-									TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								<Grid
-									ColumnDefinitions="*,Auto">
-									<Picker
-										FontSize="18"
-										Grid.Column="0"
-										SelectedIndex="1"
-										TextColor="Black"
-										SelectedItem="{Binding Category, Mode=TwoWay}"
-										ItemsSource="{Binding Categories}"
-										ItemDisplayBinding="{Binding Name}">
-									</Picker>
-									<Button
-										Grid.Column="1"
-										BackgroundColor="White"
-										TextColor="#da3b01"
-										Text="Dodaj kategorię"
-										FontSize="12"
-										Command="{Binding AddCategoryCommand}" />
-								</Grid>
-							</StackLayout>
-
-							<Label
-								Text="Dodatkowe informacje"
-								HorizontalOptions="Center"
-								FontAttributes="Bold"
-								TextColor="Black"
-								Margin="0,20,0,0" />
-							<StackLayout
-								Spacing="0"
-								Orientation="Vertical">
-								<Label
-									Text="Opis:"
-									FontSize="15"
-									FontAttributes="Bold"
-									VerticalOptions="Center"
-									TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								<Editor
-									Grid.Column="1"
-									FontSize="15"
-									PlaceholderColor="LightGray"
 									TextColor="Black"
-									Placeholder="Tłumacz się, po co Ci to."
-									IsSpellCheckEnabled="False"
-									Text="{Binding Description}" />
-							</StackLayout>
-							<StackLayout
-								Spacing="0">
-								<Label
-									Text="Paragon:"
 									FontSize="15"
-									FontAttributes="Bold"
-									TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								<Button
-									Text="Dodaj zdjęcie"
-									HorizontalOptions="Start"
-									BackgroundColor="White"
-									TextColor="#da3b01" />
+									Margin="0,20,0,0" />
+								<StackLayout
+									Spacing="0"
+									Orientation="Vertical">
+									<Label
+										Text="Opis:"
+										FontSize="15"
+										FontAttributes="Bold"
+										VerticalOptions="Center"
+										TextColor="{StaticResource SecondaryExpenseTextColor}" />
+									<Editor
+										Grid.Column="1"
+										FontSize="15"
+										PlaceholderColor="LightGray"
+										TextColor="Black"
+										Placeholder="Tłumacz się, po co Ci to."
+										IsSpellCheckEnabled="False"
+										Text="{Binding Description}" />
+								</StackLayout>
+								<StackLayout
+									Spacing="0">
+									<Label
+										Text="Paragon:"
+										FontSize="15"
+										FontAttributes="Bold"
+										TextColor="{StaticResource SecondaryExpenseTextColor}" />
+									<Button
+										Text="Dodaj zdjęcie"
+										HorizontalOptions="Start"
+										BackgroundColor="White"
+										TextColor="#da3b01" />
+								</StackLayout>
 							</StackLayout>
-						</StackLayout>
-						<Grid
-							Grid.Row="1">
-							<Button
-								HorizontalOptions="End"
-								VerticalOptions="Center"
-								Text="Zapisz"
-								FontSize="18"
-								BackgroundColor="White"
-								TextColor="#da3b01"
-								Command="{Binding SaveChangesCommand}">
-							</Button>
+							<Grid
+								Grid.Row="1">
+								<Button
+									HorizontalOptions="End"
+									VerticalOptions="Center"
+									Text="Zapisz"
+									FontSize="18"
+									BackgroundColor="White"
+									TextColor="#da3b01"
+									Command="{Binding SaveChangesCommand}">
+								</Button>
+							</Grid>
 						</Grid>
-					</Grid>
-				</Frame>
-			</sharpnado:Shadows>
-		</Grid>
+					</Frame>
+				</sharpnado:Shadows>
+			</Grid>
+		</ScrollView>
 	</ContentPage.Content>
 </ContentPage>

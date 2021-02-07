@@ -9,7 +9,7 @@ namespace Contador.Mobile.Pages.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (string.IsNullOrEmpty(value.ToString()))
+			if (string.IsNullOrEmpty(value?.ToString() ?? string.Empty))
 			{
 				return "0";
 			}
@@ -23,7 +23,10 @@ namespace Contador.Mobile.Pages.Converters
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			throw new NotImplementedException();
+			if (string.IsNullOrEmpty(value?.ToString() ?? string.Empty))
+				return 0;
+			
+			return decimal.Parse(value.ToString());
 		}
 	}
 }
