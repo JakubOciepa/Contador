@@ -82,15 +82,14 @@ namespace Contador.Mobile.Controls
 			await Task.Delay(100).ConfigureAwait(true);
 
 			var animation = new Animation(height => Control.HeightRequest = height,
-						   _toggling ? _pageHeight * 1.8 : _pageHeight,
-						   _toggling ? _pageHeight : _pageHeight * 1.8,
-						   Easing.Linear);
-			animation.Commit(Control, "Resize", length: 250);
+							_toggling ? _pageHeight * 1.8 : _pageHeight,
+							_toggling ? _pageHeight : _pageHeight * 1.8,
+							Easing.Linear);
+			animation.Commit(Control, "Resize", length: 150);
 
-			if (!_toggling)
-				await Task.Delay(300).ConfigureAwait(true);
+			await Task.Delay(200).ConfigureAwait(true);
 
-			Swipe.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.8;
+			Main.HeightRequest = _toggling ? _pageHeight : _pageHeight * 1.8;
 
 			Description.Margin = !_toggling
 				? new Thickness(8, 0)

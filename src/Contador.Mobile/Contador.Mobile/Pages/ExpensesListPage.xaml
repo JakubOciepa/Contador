@@ -15,21 +15,20 @@
 		<Grid
 			BackgroundColor="#f6f8f8"
 			Padding="0">
-
 			<ListView ItemsSource="{Binding Expenses, Mode=TwoWay}"
 					  HasUnevenRows="True"
 					  SeparatorVisibility="None"
-					  SelectionMode="None">
+					  SelectionMode="None"
+					  Margin="0, 5">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
 							<Grid
 								Padding="10,0,10, 10">
-
 								<controls:ExpenseControl
-							BindingContext="{Binding .}"
-							HorizontalOptions="Fill"
-							VerticalOptions="Center" />
+									BindingContext="{Binding .}"
+									HorizontalOptions="Fill"
+									VerticalOptions="Center" />
 							</Grid>
 						</ViewCell>
 					</DataTemplate>

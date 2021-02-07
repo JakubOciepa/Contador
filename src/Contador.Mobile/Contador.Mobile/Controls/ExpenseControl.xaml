@@ -12,6 +12,8 @@
 		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
 	</ContentView.Resources>
 	<ContentView.Content>
+		<Grid x:Name="Main">
+			
 		<sharpnado:Shadows
 			x:Name="Shadow"
 			Shades="{sharpnado:SingleShade
@@ -23,8 +25,7 @@
 				x:Name="Swipe"
 				HorizontalOptions="Fill"
 				VerticalOptions="Center"
-				Threshold="35"
-				HeightRequest="{Binding Source={x:Reference Control}, Path=CustomHeight}">
+				Threshold="35">
 
 				<SwipeView.GestureRecognizers>
 					<TapGestureRecognizer
@@ -248,5 +249,6 @@
 				</SwipeView.Content>
 			</SwipeView>
 		</sharpnado:Shadows>
+		</Grid>
 	</ContentView.Content>
 </ContentView>
