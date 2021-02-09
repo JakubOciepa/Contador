@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 using Android.Content;
 using Android.Widget;
@@ -22,7 +23,10 @@ namespace Contador.Mobile.Droid.Renderers
 			var nativeControl = (TextView)Control;
 			var xfControl = Element;
 			if (nativeControl != null && xfControl != null)
-				nativeControl.SetTextSize(Android.Util.ComplexUnitType.Dip, xfControl.Font.ToScaledPixel());
+			{
+				float size = Convert.ToInt64(xfControl.FontSize);
+				nativeControl.SetTextSize(Android.Util.ComplexUnitType.Dip, size);
+			}
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Label> e)
