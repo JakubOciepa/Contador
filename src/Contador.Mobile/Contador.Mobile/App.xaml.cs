@@ -49,7 +49,7 @@ namespace Contador.Mobile
 		{
 		}
 
-		private async void RegisterServices(TinyIoCContainer container)
+		private void RegisterServices(TinyIoCContainer container)
 		{
 			container.Register<SQLiteAsyncConnection>((_, __) => DbConnection.Database);
 
