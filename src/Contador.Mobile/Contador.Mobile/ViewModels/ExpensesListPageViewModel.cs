@@ -17,6 +17,10 @@ namespace Contador.Mobile.ViewModels
 	public class ExpensesListPageViewModel : BaseViewModel, IDisposable
 	{
 		private readonly IExpenseManager _expenseManager;
+
+		/// <summary>
+		/// Gets available <see cref="ExpenseControlViewModel"/> objects.
+		/// </summary>
 		public ObservableCollection<ExpenseControlViewModel> Expenses { get; }
 
 		/// <summary>
@@ -28,12 +32,9 @@ namespace Contador.Mobile.ViewModels
 
 			Expenses = new ObservableCollection<ExpenseControlViewModel>();
 
-			if (_expenseManager is object)
-			{
-				_expenseManager.ExpenseAdded += ExpenseAdded;
-				_expenseManager.ExpenseUpdated += ExpenseUpdated;
-				_expenseManager.ExpenseRemoved += ExpenseRemoved;
-			}
+			_expenseManager.ExpenseAdded += ExpenseAdded;
+			_expenseManager.ExpenseUpdated += ExpenseUpdated;
+			_expenseManager.ExpenseRemoved += ExpenseRemoved;
 
 			LoadExpenses();
 		}
@@ -43,18 +44,18 @@ namespace Contador.Mobile.ViewModels
 			Expenses.Add(new ExpenseControlViewModel(expense));
 		}
 
+		private void ExpenseRemoved(object sender, int expenseId)
+		{
+			var expenseToRemove = Expenses.FirstOrDefault(ex => ex.Expense.Id == expenseId);
+			Expenses.Remove(expenseToRemove);
+		}
+
 		private void ExpenseUpdated(object sender, Core.Models.Expense expense)
 		{
 			var updatedExpense = Expenses.FirstOrDefault(ex => ex.Expense.Id == expense.Id);
 			updatedExpense.UpdateExpense(expense);
 
 			OnPropertyChanged(nameof(Expenses));
-		}
-
-		private void ExpenseRemoved(object sender, int expenseId)
-		{
-			var expenseToRemove = Expenses.FirstOrDefault(ex => ex.Expense.Id == expenseId);
-			Expenses.Remove(expenseToRemove);
 		}
 
 		private void LoadExpenses()
