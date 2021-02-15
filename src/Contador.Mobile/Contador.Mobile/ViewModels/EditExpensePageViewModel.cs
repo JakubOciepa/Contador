@@ -212,7 +212,7 @@ namespace Contador.Mobile.ViewModels
 			_ = Application.Current.MainPage.Navigation.PopAsync().ConfigureAwait(true);
 		}
 
-		private void AddNewExpense()
+		private async void AddNewExpense()
 		{
 			var user = new User()
 			{
@@ -227,9 +227,9 @@ namespace Contador.Mobile.ViewModels
 				ImagePath = ReceiptImagePath,
 			};
 
-			_expenseService.AddAsync(_expense);
+			_expense = (await _expenseService.AddAsync(_expense)).ReturnedObject;
 		}
-		private void UpdateExpense()
+		private async void UpdateExpense()
 		{
 			_expense.Name = Name;
 			_expense.Value = Value;
@@ -237,7 +237,7 @@ namespace Contador.Mobile.ViewModels
 			_expense.Description = Description;
 			_expense.ImagePath = ReceiptImagePath;
 
-			_expenseService.UpdateAsync(_expense.Id, _expense);
+			_expense = (await _expenseService.UpdateAsync(_expense.Id, _expense)).ReturnedObject;
 		}
 
 		private void AddCategory(object obj)

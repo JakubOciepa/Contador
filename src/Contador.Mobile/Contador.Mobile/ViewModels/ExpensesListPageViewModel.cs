@@ -58,9 +58,9 @@ namespace Contador.Mobile.ViewModels
 			OnPropertyChanged(nameof(Expenses));
 		}
 
-		private void LoadExpenses()
+		private async void LoadExpenses()
 		{
-			var expenses = _expenseManager.GetExpensesAsync().Result;
+			var expenses = await _expenseManager.GetExpensesAsync();
 
 			if (expenses is object && (ResponseCode)expenses.ResponseCode == ResponseCode.Ok)
 			{
