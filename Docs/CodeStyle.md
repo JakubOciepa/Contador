@@ -13,11 +13,11 @@
 ## Order in classes
 While coding please stick to this order:
 
-private [const,readonly,static] member.  
-private [readonly,static] property.  
-internal [const,readonly,static] property.  
-protected [const,readonly,static] property.  
-public [readonly,static] property.
+private *[const,readonly,static]* member.  
+private *[readonly,static]* property.  
+internal *[const,readonly,static]* property.  
+protected *[const,readonly,static]* property.  
+public *[readonly,static]* property.
 
 constructor methods  
 public methods  
