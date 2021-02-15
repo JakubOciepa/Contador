@@ -63,9 +63,10 @@ namespace Contador.DAL.SQLite.Repositories
 
 				return await Task.FromResult(new Expense(saved.Name, saved.Value, user, category)
 				{
+					Id = saved.Id,
 					CreateDate = saved.CreateDate,
 					Description = saved.Description,
-					ImagePath = expense.ImagePath,
+					ImagePath = saved.ImagePath,
 				}).CAF();
 			}
 
