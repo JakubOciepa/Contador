@@ -97,17 +97,17 @@ namespace Contador.Mobile.ViewModels
 		/// <summary>
 		/// Gets the command that will be invoked after tap on add category button.
 		/// </summary>
-		public ICommand AddCategoryCommand { get; private set; }
+		public ICommand AddCategoryCommand { get; }
 
 		/// <summary>
 		/// Gets the command that will be invoked on appearing of the <see cref="EditExpensePage"/> view.
 		/// </summary>
-		public ICommand AppearingCommand { get; private set; }
+		public ICommand AppearingCommand { get; }
 
 		/// <summary>
 		/// Gets the command that will be invoked after tap on Save button.
 		/// </summary>
-		public ICommand SaveChangesCommand { get; private set; }
+		public ICommand SaveChangesCommand { get; }
 
 		/// <summary>
 		/// Creates instance of the <see cref="EditExpensePageViewModel"/> class.
@@ -229,7 +229,8 @@ namespace Contador.Mobile.ViewModels
 				ImagePath = ReceiptImagePath,
 			};
 
-			_expense = (await _expenseService.AddAsync(_expense)).ReturnedObject;
+			_expense = (await _expenseService.AddAsync(_expense)
+				.ConfigureAwait(true)).ReturnedObject;
 		}
 
 		private async void UpdateExpense()
@@ -240,7 +241,8 @@ namespace Contador.Mobile.ViewModels
 			_expense.Description = Description;
 			_expense.ImagePath = ReceiptImagePath;
 
-			_expense = (await _expenseService.UpdateAsync(_expense.Id, _expense)).ReturnedObject;
+			_expense = (await _expenseService.UpdateAsync(_expense.Id, _expense)
+				.ConfigureAwait(true)).ReturnedObject;
 		}
 
 		private void AddCategory(object obj)

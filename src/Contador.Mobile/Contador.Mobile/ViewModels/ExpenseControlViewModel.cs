@@ -110,7 +110,8 @@ namespace Contador.Mobile.ViewModels
 
 			EditCommand = new Command(async _
 				=> await Application.Current.MainPage.Navigation
-					.PushAsync(new EditExpensePage() { BindingContext = new EditExpensePageViewModel(Expense) }));
+					.PushAsync(new EditExpensePage() { BindingContext = new EditExpensePageViewModel(Expense) })
+					.ConfigureAwait(true));
 		}
 
 		private async void RemoveExpense(object obj)
