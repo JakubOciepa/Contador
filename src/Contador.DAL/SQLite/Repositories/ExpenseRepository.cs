@@ -58,7 +58,7 @@ namespace Contador.DAL.SQLite.Repositories
 					Email = string.Empty,
 				};
 
-				var category = await _expenseCategoryRepository.GetCategoryByIdAsync(saved.CategoryId);
+				var category = await _expenseCategoryRepository.GetCategoryByIdAsync(saved.CategoryId).CAF();
 
 				return await Task.FromResult(new Expense(saved.Name, saved.Value, user, category)
 				{
