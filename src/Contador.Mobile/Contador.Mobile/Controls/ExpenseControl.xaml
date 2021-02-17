@@ -3,111 +3,111 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+	xmlns:converters="clr-namespace:Contador.Mobile.Pages.Converters"
 	xmlns:styles="clr-namespace:Contador.Mobile.Styles"
 	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-	xmlns:converters="clr-namespace:Contador.Mobile.Pages.Converters"
 	x:Class="Contador.Mobile.Controls.ExpenseControl"
 	x:Name="Control">
 	<ContentView.Resources>
-		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
+		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter" />
 	</ContentView.Resources>
 	<ContentView.Content>
 		<Grid x:Name="Main">
-			
-		<sharpnado:Shadows
+
+			<sharpnado:Shadows
 			x:Name="Shadow"
 			Shades="{sharpnado:SingleShade
 					Offset='3, 3',
 					BlurRadius=30,
 					Opacity=0.1,
 					Color=Black}">
-			<SwipeView
+				<SwipeView
 				x:Name="Swipe"
 				HorizontalOptions="Fill"
 				VerticalOptions="Center"
 				Threshold="35">
 
-				<SwipeView.GestureRecognizers>
-					<TapGestureRecognizer
+					<SwipeView.GestureRecognizers>
+						<TapGestureRecognizer
 						Tapped="TapGestureRecognizer_Tapped"
 						NumberOfTapsRequired="2" />
-				</SwipeView.GestureRecognizers>
-				<SwipeView.RightItems>
-					<SwipeItemView>
-						<SwipeItemView.Behaviors>
-							<toolkit:EventToCommandBehavior
+					</SwipeView.GestureRecognizers>
+					<SwipeView.RightItems>
+						<SwipeItemView>
+							<SwipeItemView.Behaviors>
+								<toolkit:EventToCommandBehavior
 								EventName="Invoked"
 								Command="{Binding RemoveCommand}">
-							</toolkit:EventToCommandBehavior>
-						</SwipeItemView.Behaviors>
-						<Grid
+								</toolkit:EventToCommandBehavior>
+							</SwipeItemView.Behaviors>
+							<Grid
 							WidthRequest="50">
-							<BoxView
+								<BoxView
 								CornerRadius="0, 15,0,15"
 								Color="Red" />
-							<Image
+								<Image
 								HorizontalOptions="End"
 								VerticalOptions="Center"
 								Margin="10,0">
-								<Image.Source>
-									<FontImageSource
+									<Image.Source>
+										<FontImageSource
 										FontFamily="FontAwesome"
 										Glyph="{x:Static styles:FontAwesomeIcon+Solid.Trash}"
 										Color="{x:StaticResource DefaultBackground}"
 										Size="18" />
-								</Image.Source>
-							</Image>
-						</Grid>
-					</SwipeItemView>
-				</SwipeView.RightItems>
-				<SwipeView.LeftItems>
-					<SwipeItemView>
-						<SwipeItemView.Behaviors>
-							<toolkit:EventToCommandBehavior
+									</Image.Source>
+								</Image>
+							</Grid>
+						</SwipeItemView>
+					</SwipeView.RightItems>
+					<SwipeView.LeftItems>
+						<SwipeItemView>
+							<SwipeItemView.Behaviors>
+								<toolkit:EventToCommandBehavior
 								EventName="Invoked"
 								Command="{Binding EditCommand}">
-							</toolkit:EventToCommandBehavior>
-						</SwipeItemView.Behaviors>
-						<Grid
+								</toolkit:EventToCommandBehavior>
+							</SwipeItemView.Behaviors>
+							<Grid
 							WidthRequest="50">
-							<BoxView
+								<BoxView
 								CornerRadius="15, 0,15,0"
 								Color="Blue" />
-							<Image
+								<Image
 								HorizontalOptions="Start"
 								VerticalOptions="Center"
 								Margin="10,0">
-								<Image.Source>
-									<FontImageSource
+									<Image.Source>
+										<FontImageSource
 										FontFamily="FontAwesome"
 										Glyph="{x:Static styles:FontAwesomeIcon+Solid.Edit}"
 										Color="{x:StaticResource DefaultBackground}"
 										Size="18" />
-								</Image.Source>
-							</Image>
-						</Grid>
-					</SwipeItemView>
-				</SwipeView.LeftItems>
-				<SwipeView.Content>
-					<Grid
+									</Image.Source>
+								</Image>
+							</Grid>
+						</SwipeItemView>
+					</SwipeView.LeftItems>
+					<SwipeView.Content>
+						<Grid
 						Padding="0"
 						Margin="0">
-						<BoxView
+							<BoxView
 							CornerRadius="15"
 							BackgroundColor="{x:StaticResource DefaultBackground}" />
-						<Grid
+							<Grid
 							ColumnDefinitions="*, 2*, 2*"
 							RowDefinitions="Auto, *, Auto"
 							ColumnSpacing="0"
 							Padding="2, 5"
 							Margin="0">
-							<Grid
+								<Grid
 								x:Name="TopBar"
 								Grid.Row="0"
 								Grid.Column="0"
 								Grid.ColumnSpan="3"
 								HorizontalOptions="Fill">
-								<Label
+									<Label
 									HorizontalOptions="Start"
 									Text="{Binding Expense.CreateDate,
 												StringFormat='{0:dd.MM.yyyy}',
@@ -115,7 +115,7 @@
 									FontSize="11"
 									Margin="10,0"
 									TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								<Label
+									<Label
 									x:Name="CategoryName"
 									Text="{Binding Expense.Category.Name}"
 									HorizontalOptions="Center"
@@ -123,21 +123,21 @@
 									TextColor="Green"
 									TextTransform="Uppercase"
 									FontSize="16" />
-							</Grid>
-							<Grid
+								</Grid>
+								<Grid
 								VerticalOptions="Center"
 								HorizontalOptions="Center"
 								Grid.Row="1">
-								<StackLayout
+									<StackLayout
 									x:Name="AvatarImage"
 									Orientation="Vertical"
 									VerticalOptions="Center"
 									HorizontalOptions="Center"
 									Spacing="0">
-									<Grid
+										<Grid
 										Margin="0"
 										Padding="0">
-										<BoxView
+											<BoxView
 											HeightRequest="46"
 											WidthRequest="46"
 											CornerRadius="23"
@@ -145,13 +145,13 @@
 											HorizontalOptions="Center"
 											VerticalOptions="Center"
 											Margin="0" />
-										<Image
+											<Image
 											HorizontalOptions="Center"
 											VerticalOptions="Center"
 											Margin="0"
 											Source="{Binding UserGlyph}" />
-									</Grid>
-									<Label
+										</Grid>
+										<Label
 										Text="{Binding Expense.User.Name}"
 										HorizontalOptions="Center"
 										VerticalOptions="Center"
@@ -160,25 +160,25 @@
 										Margin="0, 2"
 										Padding="0"
 										TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								</StackLayout>
-								<Grid
+									</StackLayout>
+									<Grid
 									x:Name="CategoryImage"
 									HorizontalOptions="Center"
 									VerticalOptions="Center">
-									<BoxView
+										<BoxView
 										HeightRequest="40"
 										WidthRequest="40"
 										CornerRadius="20"
 										BackgroundColor="#0716ff"
 										HorizontalOptions="Center"
 										VerticalOptions="Center" />
-									<Image
+										<Image
 										HorizontalOptions="Center"
 										VerticalOptions="Center"
 										Source="{Binding CategoryGlyph}" />
+									</Grid>
 								</Grid>
-							</Grid>
-							<StackLayout
+								<StackLayout
 								x:Name="Description"
 								Grid.Column="1"
 								Grid.Row="1"
@@ -186,14 +186,14 @@
 								VerticalOptions="Center"
 								HorizontalOptions="Start"
 								Spacing="0">
-								<Label
+									<Label
 									Text="{Binding Expense.Name, Mode=TwoWay}"
 									VerticalOptions="End"
 									FontAttributes="Bold"
 									FontSize="16"
 									Padding="0"
 									TextColor="{StaticResource MainExpenseTextColor}" />
-								<Label
+									<Label
 									x:Name="ToggledDate"
 									Text="{Binding Expense.CreateDate,
 												StringFormat='{0:dd.MM.yyyy}',
@@ -202,53 +202,53 @@
 									Padding="0"
 									FontSize="12"
 									TextColor="{StaticResource SecondaryExpenseTextColor}" />
-								<Label
+									<Label
 									x:Name="DescriptionText"
 									Text="{Binding Expense.Description, Mode=TwoWay}"
 									VerticalOptions="Start"
 									Padding="0"
 									FontSize="10"
 									TextColor="{StaticResource DescriptionExpenseTextColor}" />
-								<Label
+									<Label
 									x:Name="UntoggledValue"
 									VerticalOptions="Start"
 									Padding="0"
 									FontSize="18"
 									FontAttributes="Bold"
 									TextColor="{Binding ExpenseColor}">
-									<Label.FormattedText>
-										<FormattedString>
-											<Span Text="{Binding Expense.Value, Mode=OneWay}" />
-											<Span Text=" zł" />
-										</FormattedString>
-									</Label.FormattedText>
-								</Label>
-							</StackLayout>
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="{Binding Expense.Value, Mode=OneWay}" />
+												<Span Text=" zł" />
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+								</StackLayout>
 
-							<Grid
+								<Grid
 								Grid.Column="2"
 								Grid.Row="1">
-								<Label
+									<Label
 									x:Name="ToggledValue"
 									HorizontalOptions="Center"
 									VerticalOptions="Center"
 									TextColor="{Binding ExpenseColor}"
 									FontSize="18"
 									FontAttributes="Bold">
-									<Label.FormattedText>
-										<FormattedString>
-											<Span Text="{Binding Expense.Value, Mode=OneWay, 
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="{Binding Expense.Value, Mode=OneWay,
 												Converter={StaticResource DecimalToStringConverter}}" />
-											<Span Text=" zł" />
-										</FormattedString>
-									</Label.FormattedText>
-								</Label>
+												<Span Text=" zł" />
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+								</Grid>
 							</Grid>
 						</Grid>
-					</Grid>
-				</SwipeView.Content>
-			</SwipeView>
-		</sharpnado:Shadows>
+					</SwipeView.Content>
+				</SwipeView>
+			</sharpnado:Shadows>
 		</Grid>
 	</ContentView.Content>
 </ContentView>

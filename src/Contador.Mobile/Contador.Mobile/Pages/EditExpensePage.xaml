@@ -3,8 +3,8 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	xmlns:converters="clr-namespace:Contador.Mobile.Pages.Converters"
+	xmlns:sharpnado="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
 	x:Class="Contador.Mobile.Pages.EditExpensePage"
 	NavigationPage.HasNavigationBar="False">
 	<ContentPage.Behaviors>
@@ -14,7 +14,7 @@
 		</toolkit:EventToCommandBehavior>
 	</ContentPage.Behaviors>
 	<ContentPage.Resources>
-		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter"/>
+		<converters:DecimalToStringConverter x:Key="DecimalToStringConverter" />
 	</ContentPage.Resources>
 	<ContentPage.Content>
 		<ScrollView>

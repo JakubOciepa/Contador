@@ -1,5 +1,4 @@
-﻿
-using Contador.Abstractions;
+﻿using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 

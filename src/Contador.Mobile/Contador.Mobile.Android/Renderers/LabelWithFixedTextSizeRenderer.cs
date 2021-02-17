@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(Xamarin.Forms.Label), typeof(LabelWithFixedTextSizeRenderer))]
+
 namespace Contador.Mobile.Droid.Renderers
 {
 	/// <summary>

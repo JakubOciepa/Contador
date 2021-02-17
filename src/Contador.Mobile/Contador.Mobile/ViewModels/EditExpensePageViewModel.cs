@@ -169,6 +169,7 @@ namespace Contador.Mobile.ViewModels
 				CreatedDate = DateTime.Now;
 			}
 		}
+
 		private void AddedExpenseCategory(object sender, ExpenseCategory category)
 		{
 			MainThread.BeginInvokeOnMainThread(() => Categories.Add(category));
@@ -195,6 +196,7 @@ namespace Contador.Mobile.ViewModels
 				MainThread.BeginInvokeOnMainThread(() => Categories[index] = category);
 			}
 		}
+
 		private async void SaveOrUpdate()
 		{
 			if (_expense is object)
@@ -229,6 +231,7 @@ namespace Contador.Mobile.ViewModels
 
 			_expense = (await _expenseService.AddAsync(_expense)).ReturnedObject;
 		}
+
 		private async void UpdateExpense()
 		{
 			_expense.Name = Name;

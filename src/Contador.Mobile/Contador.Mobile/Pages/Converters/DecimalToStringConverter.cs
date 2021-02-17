@@ -25,7 +25,7 @@ namespace Contador.Mobile.Pages.Converters
 		{
 			if (string.IsNullOrEmpty(value?.ToString() ?? string.Empty))
 				return 0;
-			
+
 			return decimal.Parse(value.ToString());
 		}
 	}

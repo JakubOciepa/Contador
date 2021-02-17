@@ -1,9 +1,4 @@
-﻿using System;
-
-using Contador.Core.Models;
-using Contador.Mobile.ViewModels;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Contador.Mobile.Pages
 {

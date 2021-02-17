@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Contador.Mobile.Styles
+﻿namespace Contador.Mobile.Styles
 {
 	public static partial class FontAwesomeIcon
 	{
