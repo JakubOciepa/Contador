@@ -6,7 +6,7 @@
 	public class ExpenseCategory
 	{
 		/// <summary>
-		/// The id of this expense ss  category.
+		/// The id of this expense category.
 		/// </summary>
 		public int Id { get; set; }
 
