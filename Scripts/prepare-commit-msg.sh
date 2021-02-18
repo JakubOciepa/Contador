@@ -1,8 +1,6 @@
 #!/bin/sh
 
 COMMIT_EDITMSG=$1
-TYPE=$2 # one of message, template, merge, squash, commit
-REF=$3 # optional, when TYPE is commit
 
 TAGS=""
 
