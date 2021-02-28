@@ -13,7 +13,7 @@ Commit messages should contain last word of the project name in the square brack
 e.g:
     
     "[Mobile] Prepare custom renderer of the label in the android project."
-    "[MySQL] Add new column to the expense table."
+    "[Web] Add new column to the expense table."
 
 For commits that are not project specific as scripts to build whole project please skip the project name.
 
