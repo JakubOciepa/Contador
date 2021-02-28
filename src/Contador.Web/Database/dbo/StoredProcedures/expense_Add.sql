@@ -1,3 +1,4 @@
+DELIMITER $$
 CREATE OR REPLACE PROCEDURE expense_Add (
         IN name_p VARCHAR(255),
         IN value_p DECIMAL,

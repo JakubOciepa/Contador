@@ -1,3 +1,4 @@
+DELIMITER $$
 CREATE OR REPLACE PROCEDURE expenseCategory_Update (
         IN id_p INTEGER,
         IN name_p VARCHAR(255)
