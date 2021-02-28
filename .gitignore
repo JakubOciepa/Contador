@@ -6,7 +6,7 @@
 Designs/*.svg
 *.db3
 src/Contador.Web/Server/Properties/launchSettings.json
-#src/Contador.Web/Server/Contador.Web.Server.csproj
+src/Contador.Web/Server/Contador.Web.Server.csproj
 
 # User-specific files
 *.rsuser
