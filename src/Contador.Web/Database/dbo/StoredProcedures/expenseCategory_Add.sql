@@ -1,3 +1,4 @@
+DELIMITER $$
 CREATE OR REPLACE PROCEDURE expenseCategory_Add (IN name_p VARCHAR(255)) BEGIN
 INSERT INTO ExpenseCategory (Name, CreateDate, ModifiedDate)
 VALUES (
