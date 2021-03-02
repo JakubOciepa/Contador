@@ -15,10 +15,12 @@ param(
 
 $passwd = $(ConvertFrom-SecureString $DatabasePassword -AsPlainText);
 
-dotnet user-secrets clear --project "../src/Contador.Web/Server/Contador.Web.Server.csproj" 
-dotnet user-secrets init --project "../src/Contador.Web/Server/Contador.Web.Server.csproj"
+$projectPath = Get-ChildItem -Recurse -Path ../ -Filter Contador.Web.Server.csproj;
 
-if ($SetupWSL) {
+dotnet user-secrets clear --project $projectPath
+dotnet user-secrets init --project $projectPath
+
+if ($SetupWSL -eq $true) {
     wsl -- pwsh ./CreateWebDb.ps1 -DatabaseName $DatabaseName -DatabaseUserName $DatabaseUserName -DatabasePwd $passwd;
     wsl -- pwsh ./SetupSecrets.ps1 -DbUserName $DatabaseUserName -DbPasswd $passwd;
 }
