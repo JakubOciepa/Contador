@@ -1,3 +1,8 @@
+# TO DO:
+# 	- Move each steps to separate script file;
+# 	- Add docs;
+# 	- Cleanup this a little
+
 $DbUserName = ""
 $DbPasswd = ""
 $DbName = ""
