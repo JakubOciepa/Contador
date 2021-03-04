@@ -4,16 +4,21 @@ COMMIT_EDITMSG=$1
 
 TAGS=""
 
+declare oldTag
+
 Files=$(git diff --name-only --cached)
 for Line in $Files;
 do
     tag=''
     tag=$(python .git/hooks/getPrefixFromPath.py $Line)
-    len=`echo $TAGS |awk '{print length}'`
-    if [ $len -gt 1 ]; then
-        TAGS+=","
+    if [ "$tag" != "$oldTag" ]; then 
+        len=`echo $TAGS |awk '{print length}'`
+        if [ $len -gt 1 ]; then
+            TAGS+=","
+        fi
+        oldTag=$tag
+        TAGS+="$tag";
     fi
-    TAGS+="$tag";
 done
 
 Tagslen=`echo $TAGS |awk '{print length}'`
