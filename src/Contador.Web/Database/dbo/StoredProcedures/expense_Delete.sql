@@ -1,5 +1,0 @@
-DELIMITER $$
-CREATE OR REPLACE PROCEDURE expense_Delete (id_p INTEGER) BEGIN
-DELETE FROM Expense
-WHERE Id = id_p;
-END;
