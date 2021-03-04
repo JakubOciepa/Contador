@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
-using Contador.DAL.Models;
+using Contador.DAL.MySql.Models;
 
 using Dapper;
 
-namespace Contador.DAL.Repositories
+namespace Contador.DAL.MySql.Repositories
 {
 	/// <summary>
 	/// Manages expense categories in db.
