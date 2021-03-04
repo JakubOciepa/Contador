@@ -28,7 +28,11 @@ namespace Contador.DAL.MySql.Repositories
 			_dbConnection = connection;
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Adds expense category to storage.
+		/// </summary>
+		/// <param name="expenseCategory">Expense category to add.</param>
+		/// <returns>Added expense category</returns>
 		public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
 		{
 			var parameter = new DynamicParameters();
@@ -39,14 +43,21 @@ namespace Contador.DAL.MySql.Repositories
 				.CAF()).AsExpenseCategory();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Gets all available expense categories.
+		/// </summary>
+		/// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
 		public async Task<IList<ExpenseCategory>> GetCategoriesAsync()
 		{
 			return (await _dbConnection.QueryAsync<ExpenseCategoryDto>(ExpenseCategoryDto.ProcedureName.GetAll,
 				commandType: CommandType.StoredProcedure).CAF()).Cast<ExpenseCategory>().ToList();
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Gets category by its id.
+		/// </summary>
+		/// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
+		/// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
 		public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
 		{
 			var parameter = new DynamicParameters();
@@ -56,7 +67,11 @@ namespace Contador.DAL.MySql.Repositories
 				parameter, commandType: CommandType.StoredProcedure).CAF();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Removes expense category from storage.
+		/// </summary>
+		/// <param name="id">Id of expense category to remove.</param>
+		/// <returns>True if removed, false otherwise.</returns>
 		public async Task<bool> RemoveCategoryAsync(int id)
 		{
 			var parameter = new DynamicParameters();
@@ -67,7 +82,12 @@ namespace Contador.DAL.MySql.Repositories
 			return !(await GetCategoryByIdAsync(id).CAF() is object);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Updates expense category of provided id.
+		/// </summary>
+		/// <param name="id">Id of expense category to update.</param>
+		/// <param name="expenseCategory">Category info.</param>
+		/// <returns>Updated category.</returns>
 		public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
 		{
 			var parameter = new DynamicParameters();

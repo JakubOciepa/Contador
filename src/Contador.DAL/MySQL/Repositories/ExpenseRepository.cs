@@ -28,7 +28,11 @@ namespace Contador.DAL.MySql.Repositories
 			_dbConnection = dbConnection;
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Gets <see cref="Expense"/> of provided id.
+		/// </summary>
+		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
+		/// <returns><see cref="Expense"/> of provided Id.</returns>
 		public async Task<Expense> GetExpenseAsync(int expenseId)
 		{
 			var parameter = new DynamicParameters();
@@ -50,7 +54,10 @@ namespace Contador.DAL.MySql.Repositories
 			return expense?.AsExpense();
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Gets all available expenses.
+		/// </summary>
+		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
 		public async Task<IList<Expense>> GetExpensesAsync()
 		{
 			var expenses = await _dbConnection
@@ -68,7 +75,11 @@ namespace Contador.DAL.MySql.Repositories
 			return expenses.Cast<Expense>().ToList();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Adds provided <see cref="Expense"/> to storage.
+		/// </summary>
+		/// <param name="expense">Expense to add.</param>
+		/// <returns>Added expense or default</returns>
 		public async Task<Expense> AddExpenseAsync(Expense expense)
 		{
 			var param = new DynamicParameters();
@@ -93,7 +104,12 @@ namespace Contador.DAL.MySql.Repositories
 			return result.FirstOrDefault()?.AsExpense();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Updates <see cref="Expense"/> of provided id.
+		/// </summary>
+		/// <param name="id">Id of expense to update.</param>
+		/// <param name="info">Expense info.</param>
+		/// <returns>Updated expense or default.</returns>
 		public async Task<Expense> UpdateExpenseAsync(int id, Expense expense)
 		{
 			var param = new DynamicParameters();
@@ -119,7 +135,11 @@ namespace Contador.DAL.MySql.Repositories
 			return result.First().AsExpense();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Removes <see cref="Expense"/> of provided id from storage.
+		/// </summary>
+		/// <param name="id">Id of expense to remove.</param>
+		/// <returns>True if removed, false otherwise.</returns>
 		public async Task<bool> RemoveExpenseAsync(int id)
 		{
 			var param = new DynamicParameters();

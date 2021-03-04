@@ -10,16 +10,27 @@ using Contador.DAL.Abstractions;
 
 namespace Contador.Services
 {
-	/// <inheritdoc/>
+	/// <summary>
+	/// Notify on expense category changes.
+	/// </summary>
 	public class ExpenseCategoryService : IExpenseCategoryManager
 	{
 		private readonly IExpenseCategoryRepository _repository;
 		private readonly ILog _logger;
 
+		/// <summary>
+		/// Invoked when new(returned) category has been added.
+		/// </summary>
 		public event EventHandler<ExpenseCategory> CategoryAdded;
 
+		/// <summary>
+		/// Invoked when returned category has been updated.
+		/// </summary>
 		public event EventHandler<ExpenseCategory> CategoryUpdated;
 
+		/// <summary>
+		/// Invoked when category of returned id has been removed.
+		/// </summary>
 		public event EventHandler<int> CategoryRemoved;
 
 		/// <summary>
@@ -32,7 +43,10 @@ namespace Contador.Services
 			_logger = logger;
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Gets all available expense categories.
+		/// </summary>
+		/// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
 		public async Task<Result<IList<ExpenseCategory>>> GetCategoriesAsync()
 		{
 			var result = await _repository.GetCategoriesAsync().CAF();
@@ -54,7 +68,11 @@ namespace Contador.Services
 			return new Result<IList<ExpenseCategory>>(ResponseCode.Ok, list);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Gets <see cref="ExpenseCategory"/> by id.
+		/// </summary>
+		/// <param name="id">Id of requested expense category</param>
+		/// <returns>Correct ExpenseCategory or default</returns>
 		public async Task<Result<ExpenseCategory>> GetCategoryByIdAsync(int id)
 		{
 			var result = await _repository.GetCategoryByIdAsync(id).CAF();
@@ -68,7 +86,11 @@ namespace Contador.Services
 			return new Result<ExpenseCategory>(ResponseCode.Ok, new ExpenseCategory(result.Name) { Id = result.Id });
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Adds expense category.
+		/// </summary>
+		/// <param name="category">Expense category to add.</param>
+		/// <returns><see cref="ResponseCode"/> for operation and added category.</returns>
 		public async Task<Result<ExpenseCategory>> AddExpenseCategoryAsync(ExpenseCategory category)
 		{
 			var result = await _repository.AddCategoryAsync(category).CAF();
@@ -84,7 +106,12 @@ namespace Contador.Services
 			return new Result<ExpenseCategory>(ResponseCode.Ok, result);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Updates expense category of provided id.
+		/// </summary>
+		/// <param name="id">Id of category to update.</param>
+		/// <param name="category">Category info.</param>
+		/// <returns>Updated category</returns>
 		public async Task<Result<ExpenseCategory>> UpdateExpenseCategoryAsync(int id, ExpenseCategory category)
 		{
 			var result = await _repository.UpdateCategoryAsync(id, category).CAF();
@@ -100,7 +127,11 @@ namespace Contador.Services
 			return new Result<ExpenseCategory>(ResponseCode.Ok, result);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Removes expense category of provided id.
+		/// </summary>
+		/// <param name="id">Id of category to remove.</param>
+		/// <returns><see cref="ResponseCode"/> of operation.</returns>
 		public async Task<ResponseCode> RemoveExpenseCategoryAsync(int id)
 		{
 			var removed = await _repository.RemoveCategoryAsync(id).CAF();

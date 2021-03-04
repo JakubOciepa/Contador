@@ -26,7 +26,11 @@ namespace Contador.DAL.SQLite.Repositories
 			_dbConnection = connection;
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Adds expense category to storage.
+		/// </summary>
+		/// <param name="expenseCategory">Expense category to add.</param>
+		/// <returns>Added expense category</returns>
 		public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
 		{
 			if (await GetCategoryByName(expenseCategory.Name).CAF() is object)
@@ -45,7 +49,10 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Gets all available expense categories.
+		/// </summary>
+		/// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
 		public async Task<IList<ExpenseCategory>> GetCategoriesAsync()
 		{
 			var categories = await _dbConnection.Table<ExpenseCategoryDto>().ToListAsync().CAF();
@@ -60,7 +67,11 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Gets category by its id.
+		/// </summary>
+		/// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
+		/// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
 		public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
 		{
 			var category = await _dbConnection.Table<ExpenseCategoryDto>()
@@ -75,7 +86,11 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Removes expense category from storage.
+		/// </summary>
+		/// <param name="id">Id of expense category to remove.</param>
+		/// <returns>True if removed, false otherwise.</returns>
 		public async Task<bool> RemoveCategoryAsync(int id)
 		{
 			return await Task.FromResult(await _dbConnection.Table<ExpenseCategoryDto>()
@@ -84,7 +99,12 @@ namespace Contador.DAL.SQLite.Repositories
 							 .CAF();
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Updates expense category of provided id.
+		/// </summary>
+		/// <param name="id">Id of expense category to update.</param>
+		/// <param name="expenseCategory">Category info.</param>
+		/// <returns>Updated category.</returns>
 		public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
 		{
 			var categoryToUpdate = await _dbConnection.Table<ExpenseCategoryDto>().FirstAsync(category => category.Id == id).CAF();
@@ -101,7 +121,7 @@ namespace Contador.DAL.SQLite.Repositories
 			return null;
 		}
 
-		///<inheritdoc/>
+
 		private async Task<ExpenseCategoryDto> GetCategoryByName(string name)
 		{
 			return await _dbConnection.Table<ExpenseCategoryDto>()

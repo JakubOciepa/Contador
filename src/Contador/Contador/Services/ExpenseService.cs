@@ -10,16 +10,27 @@ using Contador.DAL.Abstractions;
 
 namespace Contador.Services
 {
-	/// <inheritdoc/>
+	/// <summary>
+	/// Notify on expense changes.
+	/// </summary>
 	public class ExpenseService : IExpenseManager
 	{
 		private readonly IExpenseRepository _expenseRepo;
 		private readonly ILog _logger;
 
+		/// <summary>
+		/// Invoked when new(returned) expense has been added.
+		/// </summary>
 		public event EventHandler<Expense> ExpenseAdded;
 
+		/// <summary>
+		/// Invoked when returned expense has been updated.
+		/// </summary>
 		public event EventHandler<Expense> ExpenseUpdated;
 
+		/// <summary>
+		/// Invoked when expense of returned id has been removed.
+		/// </summary>
 		public event EventHandler<int> ExpenseRemoved;
 
 		/// <summary>
@@ -32,7 +43,10 @@ namespace Contador.Services
 			_logger = logger;
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Gets all available expenses.
+		/// </summary>
+		/// <returns>Result which proper response code and list of expenses.</returns>
 		public async Task<Result<IList<Expense>>> GetExpensesAsync()
 		{
 			var result = await _expenseRepo.GetExpensesAsync().CAF();
@@ -53,7 +67,11 @@ namespace Contador.Services
 			return new Result<IList<Expense>>(ResponseCode.Ok, list);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Gets <see cref="Expense"/> of provided id.
+		/// </summary>
+		/// <param name="id">Id of requested Expense.</param>
+		/// <returns><see cref="Expense"/> of provided id.</returns>
 		public async Task<Result<Expense>> GetExpenseAsync(int id)
 		{
 			var result = await _expenseRepo.GetExpenseAsync(id).CAF();
@@ -67,7 +85,11 @@ namespace Contador.Services
 			return new Result<Expense>(ResponseCode.Ok, result);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Adds provided <see cref="Expense"/> into storage.
+		/// </summary>
+		/// <param name="expense">Expense to add.</param>
+		/// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
 		public async Task<Result<Expense>> AddAsync(Expense expense)
 		{
 			var result = await _expenseRepo.AddExpenseAsync(expense).CAF();
@@ -83,7 +105,12 @@ namespace Contador.Services
 			return new Result<Expense>(ResponseCode.Ok, result);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Updates <see cref="Expense"/> of provided id.
+		/// </summary>
+		/// <param name="id">Id of expense to update.</param>
+		/// <param name="expense">Expense info.</param>
+		/// <returns>Correct <see cref="ResponseCode"/> for operation and updated expense.</returns>
 		public async Task<Result<Expense>> UpdateAsync(int id, Expense expense)
 		{
 			var result = await _expenseRepo.UpdateExpenseAsync(id, expense).CAF();
@@ -99,7 +126,11 @@ namespace Contador.Services
 			return new Result<Expense>(ResponseCode.Ok, result);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Removes <see cref="Expense"/> of provided id.
+		/// </summary>
+		/// <param name="id">Id of expense to remove.</param>
+		/// <returns>Correct <see cref="ResponseCode"/> for operation</returns>
 		public async Task<ResponseCode> RemoveAsync(int id)
 		{
 			var result = await _expenseRepo.RemoveExpenseAsync(id).CAF();

@@ -6,7 +6,6 @@ _I'll add links later, sorry..._
 ### Used 3rd party packages:
 - FontAwesome
 - Sharpnado.Shadows
-- InheritDoc
 - Dapper
 - Serilog
 - TinyIoC

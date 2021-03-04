@@ -6,10 +6,14 @@ using Serilog;
 //[assembly: Dependency(typeof(Contador.Mobile.Droid.Services.Log))]
 namespace Contador.Mobile.Droid.Services
 {
-	/// <inheritdoc/>
+	/// <summary>
+	/// Provides basic logging functionality.
+	/// </summary>
 	public class Log : ILog
 	{
-		/// <inheritdoc/>
+		/// <summary>
+		/// Creates an instance of the <see cref="Log"/> class.
+		/// </summary>
 		public Log()
 		{
 			Serilog.Log.Logger = new LoggerConfiguration()
@@ -19,7 +23,11 @@ namespace Contador.Mobile.Droid.Services
 				.CreateLogger();
 		}
 
-		///<inheritdoc/>
+		/// <summary>
+		/// Writes message of specific type into target output.
+		/// </summary>
+		/// <param name="level">Log level of the message.</param>
+		/// <param name="message">Message to write out.</param>
 		public void Write(LogLevel level, string message)
 		{
 			switch (level)

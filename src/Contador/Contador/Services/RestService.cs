@@ -11,7 +11,9 @@ using Newtonsoft.Json;
 
 namespace Contador.Services
 {
-	/// <inheritdoc/>
+	/// <summary>
+	/// Service which consumes REST API requests from Contador REST API.
+	/// </summary>
 	public class RestService : IRestService
 	{
 		private const string REST_ADDR = "http://192.168.1.31:5000/api/";
@@ -24,7 +26,11 @@ namespace Contador.Services
 			_logger = logger;
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Gets expense from API by provided id.
+		/// </summary>
+		/// <param name="id">Id of desired expense.</param>
+		/// <returns>Expense of provided id or <see cref="default"/>.</returns>
 		public async Task<Result<Expense>> GetExpenseByIdAsync(int id)
 		{
 			using var client = new HttpClient();

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Contador.Core\Core\Contador.Core.csproj" />
     <ProjectReference Include="..\Shared\Contador.Web.Shared.csproj" />
   </ItemGroup>
 

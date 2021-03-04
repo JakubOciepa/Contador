@@ -26,14 +26,13 @@ namespace Contador.Mobile.Droid.Renderers
 		{
 		}
 
-		/// <inheritdoc/>
 		protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Label> e)
 		{
 			base.OnElementChanged(e);
 			SetFontSizeAgain();
 		}
 
-		/// <inheritdoc/>
+
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
