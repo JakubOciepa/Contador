@@ -82,4 +82,5 @@ $SetupHooks = Read-Host "Do you want to setup git hooks? [Y/n]"
 if ($SetupHooks -eq "Y") {
 	Copy-Item -Path $($ScriptPath + "/pre-push.sh") -Destination $($ScriptPath + "/../.git/hooks/pre-push")
 	Copy-Item -Path $($ScriptPath + "/prepare-commit-msg.sh") -Destination $($ScriptPath + "/../.git/hooks/prepare-commit-msg")
+	Copy-Item -Path $($ScriptPath + "/getPrefixFromPath.py") -Destination $($ScriptPath + "/../.git/hooks/getPrefixFromPath.py")
 }

@@ -16,4 +16,9 @@ do
     TAGS+="$tag";
 done
 
-printf "[$TAGS] $(cat $COMMIT_EDITMSG)" > $COMMIT_EDITMSG
+Tagslen=`echo $TAGS |awk '{print length}'`
+if [ $Tagslen -gt 1 ]; then
+    printf "[$TAGS] $(cat $COMMIT_EDITMSG)" > $COMMIT_EDITMSG
+else
+    printf $COMMIT_EDITMSG
+fi
