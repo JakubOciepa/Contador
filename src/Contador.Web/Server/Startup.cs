@@ -1,12 +1,19 @@
+using System.Data;
+
+using Contador.Abstractions;
+using Contador.DAL.Abstractions;
+using Contador.DAL.MySql.Repositories;
+using Contador.Services;
+using Contador.Web.Server.Services;
+
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 using Microsoft.OpenApi.Models;
+
+using MySql.Data.MySqlClient;
 
 namespace Contador.Web.Server
 {
@@ -27,7 +34,16 @@ namespace Contador.Web.Server
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" });
 			});
-
+			services.AddTransient<IDbConnection>(db
+				=> new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}"));
+			services.AddSingleton<ILog, Log>();
+			services.AddScoped<IExpenseRepository, ExpenseRepository>();
+			services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
+			services.AddScoped<IExpenseService, ExpenseService>();
+			services.AddControllers();
 			services.AddControllersWithViews();
             services.AddRazorPages();
         }
