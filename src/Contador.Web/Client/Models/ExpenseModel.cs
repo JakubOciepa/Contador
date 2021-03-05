@@ -12,8 +12,7 @@ namespace Contador.Web.Client.Models
 		[Required]
 		public decimal Value { get; set; }
 
-		[Required]
-		public ExpenseCategory Category { get; set; }
+		public int CategoryId { get; set; }
 
 		public string Description { get; set; }
 	}

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
@@ -33,10 +36,45 @@ namespace Contador.Web.Client.Pages
 			}
 		}
 
-		private void AddNewExpense()
+		private async void AddNewExpense()
 		{
+			// create request object
+			var request = new HttpRequestMessage(HttpMethod.Post, "api/expense");
+
+			Console.WriteLine(expenseModel.Value);
+			var body = new
+			{
+				name = expenseModel.Name,
+				category = new
+				{
+					id = expenseModel.CategoryId,
+					name = categories.First(c => c.Id == expenseModel.CategoryId).Name,
+				},
+				user = new
+				{
+					id = 1,
+					name = "Kuba",
+					email = "kuba@test.com"
+				},
+				value = expenseModel.Value.ToString(),
+				description = expenseModel.Description,
+				imagePath = "",
+				createDate = DateTime.Now.ToString("yyyy-MM-dd") //"2021-03-05T12:03:04.291Z"
+			};
+
+			try
+			{
+				request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+				request.Headers.Add("My-Custom-Header", "foobar");
+
+				var resut = await _httpClient.SendAsync(request);
+				Console.WriteLine(resut);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
 
 		}
-
 	}
 }

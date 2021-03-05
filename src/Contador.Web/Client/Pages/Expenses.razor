@@ -21,10 +21,11 @@ else
 
 
 		<label for="expense-category">Category:</label>
-		<InputSelect id="expense-category" @bind-Value="@expenseModel.Category">
+		<InputSelect id="expense-category" @bind-Value="@expenseModel.CategoryId">
+			<option value="0">–Select a category–</option>
 			@foreach (var category in categories)
 				{
-				<option value="@category">@category.Name</option>
+				<option value="@category.Id">@category.Name</option>
 				}
 		</InputSelect>
 
