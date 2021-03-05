@@ -1,6 +1,5 @@
 ﻿@page "/expenses"
 @inject HttpClient Http
-<h3>Expenses</h3>
 
 @if (expenses == null)
 {
@@ -8,6 +7,32 @@
 }
 else
 {
+	<h3>Add new expense</h3>
+
+	<div class="input-expese">
+		<label for="expense-name">Name:</label>
+		<input type="text" id="expense-name" name="expense-name" required
+			   minlength="2" maxlength="255" />
+
+		<label for="expense-value">Value:</label>
+		<input type="text" id="expense-value" name="expense-value" required
+			   minlength="2" maxlength="255" />
+
+		<label for="expense-categories"></label>
+		<form>
+			<select id="expense-categories" name="expense-categories">
+				@foreach(var category in categories)
+				{
+					<option value="@category">@category.Name</option>
+				}
+			</select>
+		</form>
+		<button @onclick="addExpese">Add</button>
+	</div>
+
+
+
+	<h3>Expenses</h3>
 	<table class="table">
 		<thead>
 			<tr>
@@ -25,31 +50,18 @@ else
 		<tbody>
 			@foreach (var expense in expenses)
 			{
-			<tr>
-				<td>@expense.Name</td>
-				<td>@expense.Value</td>
-				<td>@expense.User.Name</td>
-				<td>@expense.Category.Name</td>
-				<td>@expense.Description</td>
-				<td>@expense.CreateDate</td>
-				<td>Not implemented</td>
-				<td>Not implemented</td>
+				<tr>
+					<td>@expense.Name</td>
+					<td>@expense.Value</td>
+					<td>@expense.User.Name</td>
+					<td>@expense.Category.Name</td>
+					<td>@expense.Description</td>
+					<td>@expense.CreateDate</td>
+					<td>Not implemented</td>
+					<td>Not implemented</td>
 
-			</tr>
+				</tr>
 			}
 		</tbody>
 	</table>
-}
-
-@code {
-	private IList<Expense> expenses;
-
-	protected override async Task OnInitializedAsync()
-	{
-		expenses = await Http.GetFromJsonAsync<IList<Expense>>("api/expense");
-		foreach(var expense in expenses)
-		{
-			Console.WriteLine(expense.Name);
-		}
-	}
 }
