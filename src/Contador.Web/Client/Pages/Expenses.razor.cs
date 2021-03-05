@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
+using Contador.Web.Client.Models;
 
 using Microsoft.AspNetCore.Components;
 
@@ -17,6 +18,7 @@ namespace Contador.Web.Client.Pages
 
 		private IList<Expense> expenses;
 		private IList<ExpenseCategory> categories;
+		private ExpenseModel expenseModel = new ExpenseModel();
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -25,10 +27,14 @@ namespace Contador.Web.Client.Pages
 				expenses = await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense");
 				categories = await _httpClient.GetFromJsonAsync<IList<ExpenseCategory>>("api/expensecategory");
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 
 			}
+		}
+
+		private void AddNewExpense()
+		{
 
 		}
 

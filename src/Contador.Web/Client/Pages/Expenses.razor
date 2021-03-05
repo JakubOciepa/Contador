@@ -9,28 +9,30 @@ else
 {
 	<h3>Add new expense</h3>
 
-	<div class="input-expese">
+	<EditForm Model="@expenseModel" OnValidSubmit="@AddNewExpense">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
 		<label for="expense-name">Name:</label>
-		<input type="text" id="expense-name" name="expense-name" required
-			   minlength="2" maxlength="255" />
+		<InputText id="expense-name" @bind-Value="@expenseModel.Name" />
 
 		<label for="expense-value">Value:</label>
-		<input type="text" id="expense-value" name="expense-value" required
-			   minlength="2" maxlength="255" />
+		<InputNumber id="expense-value" @bind-Value="@expenseModel.Value" />
 
-		<label for="expense-categories"></label>
-		<form>
-			<select id="expense-categories" name="expense-categories">
-				@foreach(var category in categories)
+
+		<label for="expense-category">Category:</label>
+		<InputSelect id="expense-category" @bind-Value="@expenseModel.Category">
+			@foreach (var category in categories)
 				{
-					<option value="@category">@category.Name</option>
+				<option value="@category">@category.Name</option>
 				}
-			</select>
-		</form>
-		<button @onclick="addExpese">Add</button>
-	</div>
+		</InputSelect>
 
+		<label for="expense-description">Description:</label>
+		<InputText id="expense-description" @bind-Value="@expenseModel.Description"/>
 
+		<button type="submit">Add expense</button>
+	</EditForm>
 
 	<h3>Expenses</h3>
 	<table class="table">
