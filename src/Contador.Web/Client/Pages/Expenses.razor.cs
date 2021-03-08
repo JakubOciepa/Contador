@@ -27,7 +27,7 @@ namespace Contador.Web.Client.Pages
 		{
 			try
 			{
-				expenses = await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense");
+				expenses = (await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense")).OrderByDescending(e => e.CreateDate).ToList();
 				categories = await _httpClient.GetFromJsonAsync<IList<ExpenseCategory>>("api/expensecategory");
 			}
 			catch (Exception ex)
@@ -59,7 +59,7 @@ namespace Contador.Web.Client.Pages
 				value = expenseModel.Value.ToString(),
 				description = expenseModel.Description,
 				imagePath = "",
-				createDate = DateTime.Now.ToString("yyyy-MM-dd") //"2021-03-05T12:03:04.291Z"
+				createDate = DateTime.Now.ToString("yyyy-MM-dd")
 			};
 
 			try
@@ -67,8 +67,13 @@ namespace Contador.Web.Client.Pages
 				request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
 				request.Headers.Add("My-Custom-Header", "foobar");
 
-				var resut = await _httpClient.SendAsync(request);
-				Console.WriteLine(resut);
+				var result = await _httpClient.SendAsync(request);
+
+				if (result is HttpResponseMessage response && response.IsSuccessStatusCode)
+				{
+					expenses = (await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense")).OrderByDescending(e => e.CreateDate).ToList();
+					this.StateHasChanged();
+				}
 			}
 			catch (Exception ex)
 			{
