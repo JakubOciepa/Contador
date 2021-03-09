@@ -4,7 +4,7 @@ CREATE OR REPLACE TABLE Expense (
         Name VARCHAR(255) NOT NULL,
         CategoryId INTEGER NOT NULL,
         UserId INTEGER NOT NULL,
-        Value DECIMAL NOT NULL,
+        Value DECIMAL(10,2) NOT NULL,
         Description VARCHAR(255),
         CreateDate DATETIME NOT NULL,
         ModifiedDate DATETIME NOT NULL,
