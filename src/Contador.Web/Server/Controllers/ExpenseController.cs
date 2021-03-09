@@ -35,14 +35,15 @@ namespace Contador.Web.Server.Controllers
 		/// <returns>IList of expenses.</returns>
 		[HttpGet]
 		[ProducesResponseType(typeof(IList<Expense>), 200)]
-		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(204)]
+
 		public async Task<ActionResult<IList<Expense>>> GetExpenses()
 		{
 			var result = await _expenseService.GetExpensesAsync().CAF();
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
 			{
-				return NotFound("No expense found");
+				return NoContent();
 			}
 
 			return Ok(result.ReturnedObject);

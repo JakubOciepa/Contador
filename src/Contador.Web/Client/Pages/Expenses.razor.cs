@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -19,29 +20,40 @@ namespace Contador.Web.Client.Pages
 		[Inject]
 		private HttpClient _httpClient { get; set; }
 
-		private IList<Expense> expenses;
-		private IList<ExpenseCategory> categories;
-		private ExpenseModel expenseModel = new ExpenseModel();
+		private IList<Expense> expenses = new List<Expense>();
+		private IList<ExpenseCategory> categories= new List<ExpenseCategory>();
+		private ExpenseModel expenseModel = new();
 
 		protected override async Task OnInitializedAsync()
 		{
+			
+				await GetAndSortExpenses();
+
+				categories = await _httpClient.GetFromJsonAsync<IList<ExpenseCategory>>("api/expensecategory");
+		}
+
+		private async Task GetAndSortExpenses()
+		{
 			try
 			{
-				expenses = (await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense")).OrderByDescending(e => e.CreateDate).ToList();
-				categories = await _httpClient.GetFromJsonAsync<IList<ExpenseCategory>>("api/expensecategory");
+				var result = await _httpClient.GetAsync("api/expense");
+
+				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
+				{
+					expenses = (await result.Content.ReadFromJsonAsync<IList<Expense>>())
+						.OrderByDescending(e => e.CreateDate).ToList();
+				}
 			}
 			catch (Exception ex)
 			{
-
+				Console.WriteLine(ex);
 			}
 		}
 
 		private async void AddNewExpense()
 		{
-			// create request object
 			var request = new HttpRequestMessage(HttpMethod.Post, "api/expense");
 
-			Console.WriteLine(expenseModel.Value);
 			var body = new
 			{
 				name = expenseModel.Name,
@@ -56,22 +68,26 @@ namespace Contador.Web.Client.Pages
 					name = "Kuba",
 					email = "kuba@test.com"
 				},
-				value = expenseModel.Value.ToString(),
+				value = expenseModel.Value,
 				description = expenseModel.Description,
 				imagePath = "",
-				createDate = DateTime.Now.ToString("yyyy-MM-dd")
+				createDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
 			};
 
 			try
 			{
 				request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
-				request.Headers.Add("My-Custom-Header", "foobar");
+
+				Console.WriteLine(JsonSerializer.Serialize(body));
 
 				var result = await _httpClient.SendAsync(request);
 
 				if (result is HttpResponseMessage response && response.IsSuccessStatusCode)
 				{
-					expenses = (await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense")).OrderByDescending(e => e.CreateDate).ToList();
+					expenses = (await _httpClient.GetFromJsonAsync<IList<Expense>>("api/expense"))
+						.OrderByDescending(e => e.CreateDate)
+						.ToList();
+
 					this.StateHasChanged();
 				}
 			}

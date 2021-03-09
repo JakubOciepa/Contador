@@ -1,40 +1,37 @@
 ﻿@page "/expenses"
 @inject HttpClient Http
 
-@if (expenses == null)
+
+<h3>Add new expense</h3>
+
+<EditForm Model="@expenseModel" OnValidSubmit="@AddNewExpense">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<label for="expense-name">Name:</label>
+	<InputText id="expense-name" @bind-Value="@expenseModel.Name" />
+
+	<label for="expense-value">Value:</label>
+	<InputNumber id="expense-value" @bind-Value="@expenseModel.Value" />
+
+
+	<label for="expense-category">Category:</label>
+	<InputSelect id="expense-category" @bind-Value="@expenseModel.CategoryId">
+		<option value="0">–Select a category–</option>
+		@foreach (var category in categories)
+		{
+			<option value="@category.Id">@category.Name</option>
+		}
+	</InputSelect>
+
+	<label for="expense-description">Description:</label>
+	<InputText id="expense-description" @bind-Value="@expenseModel.Description" />
+
+	<button type="submit">Add expense</button>
+</EditForm>
+
+@if (expenses.Count > 0)
 {
-	<p><em>Loading...</em></p>
-}
-else
-{
-	<h3>Add new expense</h3>
-
-	<EditForm Model="@expenseModel" OnValidSubmit="@AddNewExpense">
-		<DataAnnotationsValidator />
-		<ValidationSummary />
-
-		<label for="expense-name">Name:</label>
-		<InputText id="expense-name" @bind-Value="@expenseModel.Name" />
-
-		<label for="expense-value">Value:</label>
-		<InputNumber id="expense-value" @bind-Value="@expenseModel.Value" />
-
-
-		<label for="expense-category">Category:</label>
-		<InputSelect id="expense-category" @bind-Value="@expenseModel.CategoryId">
-			<option value="0">–Select a category–</option>
-			@foreach (var category in categories)
-				{
-				<option value="@category.Id">@category.Name</option>
-				}
-		</InputSelect>
-
-		<label for="expense-description">Description:</label>
-		<InputText id="expense-description" @bind-Value="@expenseModel.Description"/>
-
-		<button type="submit">Add expense</button>
-	</EditForm>
-
 	<h3>Expenses</h3>
 	<table class="table">
 		<thead>
@@ -51,6 +48,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
+
 			@foreach (var expense in expenses)
 			{
 				<tr>
@@ -59,7 +57,7 @@ else
 					<td>@expense.User.Name</td>
 					<td>@expense.Category.Name</td>
 					<td>@expense.Description</td>
-					<td>@expense.CreateDate</td>
+					<td>@expense.CreateDate.ToString("dd.MM.yyyy")</td>
 					<td>Not implemented</td>
 					<td>Not implemented</td>
 
@@ -67,4 +65,8 @@ else
 			}
 		</tbody>
 	</table>
+}
+else
+{
+	<p>No expense found</p>
 }
