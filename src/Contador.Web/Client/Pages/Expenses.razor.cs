@@ -67,10 +67,16 @@ namespace Contador.Web.Client.Pages
 
 				if (result is HttpResponseMessage response && response.IsSuccessStatusCode)
 				{
-					await GetAndSortExpenses();
+					expenses = await GetAndSortExpenses();
 
 					this.StateHasChanged();
 
+				}
+				else if (result.StatusCode is HttpStatusCode.Conflict 
+					|| result.StatusCode is HttpStatusCode.BadRequest)
+				{
+					_logger.Write(Core.Common.LogLevel.Error, "Cannot add expense!");
+					await _jsRuntime.InvokeVoidAsync("alert", "Cannot add expense!");
 				}
 			}
 			catch (Exception ex)

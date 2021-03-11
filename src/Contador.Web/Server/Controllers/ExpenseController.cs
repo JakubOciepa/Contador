@@ -82,7 +82,10 @@ namespace Contador.Web.Server.Controllers
 		public async Task<ActionResult> AddExpense([FromBody] Expense expense)
 		{
 			if ((await _expenseService.GetExpensesAsync().CAF())
-				.ReturnedObject.Any(e => e.Equals(expense)))
+				.ReturnedObject
+					.Where(e => e.CreateDate.DayOfYear == expense.CreateDate.DayOfYear 
+							&& e.CreateDate.Year == expense.CreateDate.Year)
+						.Any(e => e.Equals(expense)))
 			{
 				return Conflict(expense);
 			}

@@ -66,9 +66,10 @@ namespace Contador.Core.Models
 			if (obj is Expense expense)
 			{
 				return expense.Name == Name
-					&& expense.Category == Category
+					&& expense.Category.Name == Category.Name
 					&& expense.Value == Value
-					&& expense.CreateDate == CreateDate;
+					&& expense.CreateDate.DayOfYear == CreateDate.DayOfYear
+					&& expense.CreateDate.Year == CreateDate.Year;
 			}
 			return false;
 		}
