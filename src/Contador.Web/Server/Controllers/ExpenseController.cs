@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
@@ -34,8 +35,8 @@ namespace Contador.Web.Server.Controllers
 		/// </summary>
 		/// <returns>IList of expenses.</returns>
 		[HttpGet]
-		[ProducesResponseType(typeof(IList<Expense>), 200)]
-		[ProducesResponseType(204)]
+		[ProducesResponseType(typeof(IList<Expense>), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
 
 		public async Task<ActionResult<IList<Expense>>> GetExpenses()
 		{
@@ -55,7 +56,7 @@ namespace Contador.Web.Server.Controllers
 		/// <param name="id">Id of the requested expense.</param>
 		/// <returns>Expense of requested id.</returns>
 		[HttpGet("{id}")]
-		[ProducesResponseType(typeof(Expense), 200)]
+		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<Expense>> GetExpense([FromRoute] int id)
 		{
@@ -63,7 +64,7 @@ namespace Contador.Web.Server.Controllers
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
 			{
-				return NotFound("Expense not found.");
+				return NotFound($"Expense of id {id} could not be found");
 			}
 
 			return Ok(result.ReturnedObject);
@@ -77,8 +78,15 @@ namespace Contador.Web.Server.Controllers
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult> AddExpense([FromBody] Expense expense)
 		{
+			if ((await _expenseService.GetExpensesAsync().CAF())
+				.ReturnedObject.Any(e => e.Equals(expense)))
+			{
+				return Conflict(expense);
+			}
+
 			var result = await _expenseService.AddAsync(expense).CAF();
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
@@ -97,7 +105,7 @@ namespace Contador.Web.Server.Controllers
 		/// <param name="expense">Expense info.</param>
 		/// <returns>HTTP code.</returns>
 		[HttpPut("{id}")]
-		[ProducesResponseType(typeof(Expense), 200)]
+		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
@@ -105,7 +113,7 @@ namespace Contador.Web.Server.Controllers
 			if ((await _expenseService.GetExpenseAsync(id).CAF())
 					.ReturnedObject == null)
 			{
-				NotFound(expense);
+				return NotFound(expense);
 			}
 
 			var result = await _expenseService.UpdateAsync(id, expense).CAF();
@@ -132,7 +140,7 @@ namespace Contador.Web.Server.Controllers
 			if ((await _expenseService.GetExpenseAsync(id).CAF())
 					.ReturnedObject == null)
 			{
-				NotFound(id);
+				return NotFound(id);
 			}
 
 			var result = await _expenseService.RemoveAsync(id).CAF();
