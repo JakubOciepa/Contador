@@ -72,5 +72,10 @@ namespace Contador.Core.Models
 			}
 			return false;
 		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 	}
 }
