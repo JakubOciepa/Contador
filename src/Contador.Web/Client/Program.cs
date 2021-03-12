@@ -19,17 +19,17 @@ namespace Contador.Web.Client
         {
 			Serilog.Log.Logger = new LoggerConfiguration()
 				.Enrich.FromLogContext()
-				.WriteTo.Console()
-				.WriteTo.File(@"logs\log-.log",
-					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-					rollingInterval: RollingInterval.Month)
+				.WriteTo.BrowserHttp()
+				.WriteTo.BrowserConsole()
 				.CreateLogger();
 
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-			builder.Services.AddSingleton<ILog, Services.Log>();
+			builder.Services.AddSingleton<ILog>(log => new Services.Log());
+
+			Serilog.Log.Logger.Information("Warming up!");
 
             await builder.Build().RunAsync();
         }

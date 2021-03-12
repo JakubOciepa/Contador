@@ -1,7 +1,7 @@
 ﻿
 using Contador.Abstractions;
 
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Contador.Web.Client.Services
 {
@@ -10,15 +10,14 @@ namespace Contador.Web.Client.Services
 	/// </summary>
 	public class Log : ILog
 	{
-		private readonly ILogger<Program> _logger;
 
 		/// <summary>
 		/// Creates instance of the <see cref="Log"/> class.
 		/// </summary>
 		/// <param name="logger">Logging provider;</param>
-		public Log(ILogger<Program> logger)
+		public Log()
 		{
-			_logger = logger;
+
 		}
 
 		/// <summary>
@@ -31,19 +30,19 @@ namespace Contador.Web.Client.Services
 			switch (level)
 			{
 				case Core.Common.LogLevel.Info:
-					_logger.LogInformation(message);
+					Serilog.Log.Information(message);
 					break;
 
 				case Core.Common.LogLevel.Warning:
-					_logger.LogWarning(message);
+					Serilog.Log.Warning(message);
 					break;
 
 				case Core.Common.LogLevel.Error:
-					_logger.LogError(message);
+					Serilog.Log.Error(message);
 					break;
 
 				case Core.Common.LogLevel.Fatal:
-					_logger.LogCritical(message);
+					Serilog.Log.Fatal(message);
 					break;
 			}
 		}
