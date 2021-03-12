@@ -54,7 +54,14 @@
 				<tr>
 					<td>@expense.Name</td>
 					<td>@expense.Value</td>
-					<td>@expense.User.Name</td>
+					@if (expense.User is null)
+					{
+						<td>Tokk</td>
+					}
+					else
+					{
+						<td>@expense.User.Name</td>
+					}
 					<td>@expense.Category.Name</td>
 					<td>@expense.Description</td>
 					<td>@expense.CreateDate.ToString("dd.MM.yyyy")</td>

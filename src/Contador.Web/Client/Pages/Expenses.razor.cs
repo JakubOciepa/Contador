@@ -13,7 +13,6 @@ using Contador.Core.Models;
 using Contador.Web.Client.Models;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Pages
@@ -72,7 +71,7 @@ namespace Contador.Web.Client.Pages
 					this.StateHasChanged();
 
 				}
-				else if (result.StatusCode is HttpStatusCode.Conflict 
+				else if (result.StatusCode is HttpStatusCode.Conflict
 					|| result.StatusCode is HttpStatusCode.BadRequest)
 				{
 					_logger.Write(Core.Common.LogLevel.Error, "Cannot add expense!");
