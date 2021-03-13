@@ -1,7 +1,7 @@
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE expense_Add (
         IN name_p VARCHAR(255),
-        IN value_p DECIMAL,
+        IN value_p DECIMAL(10,2),
         IN description_p VARCHAR(255),
         IN categoryId_p INTEGER,
         IN userId_p INTEGER,
@@ -22,8 +22,8 @@ VALUES (
         categoryId_p,
         userId_p,
         value_p,
-        CURRENT_DATE(),
-        CURRENT_DATE(),
+        CURRENT_TIME(),
+        CURRENT_TIME(),
         description_p,
         image_path_p
     );

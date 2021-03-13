@@ -60,5 +60,23 @@ namespace Contador.Core.Models
 			User = user;
 			Category = category;
 		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is Expense expense)
+			{
+				return expense.Name == Name
+					&& expense.Category.Name == Category.Name
+					&& expense.Value == Value
+					&& expense.CreateDate.DayOfYear == CreateDate.DayOfYear
+					&& expense.CreateDate.Year == CreateDate.Year;
+			}
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 	}
 }

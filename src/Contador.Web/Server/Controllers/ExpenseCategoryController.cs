@@ -36,15 +36,15 @@ namespace Contador.Web.Server.Controllers
 		/// </summary>
 		/// <returns>IList of expense categories.</returns>
 		[HttpGet]
-		[ProducesResponseType(typeof(IList<ExpenseCategory>), 200)]
-		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(typeof(IList<ExpenseCategory>), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
 		{
 			var result = await _expenseCategoryService.GetCategoriesAsync().CAF();
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
 			{
-				return NotFound("No expense category found");
+				return NoContent();
 			}
 
 			return Ok(result.ReturnedObject);
@@ -56,7 +56,7 @@ namespace Contador.Web.Server.Controllers
 		/// <param name="id">Id of the requested expense category.</param>
 		/// <returns>Expense category of requested id.</returns>
 		[HttpGet("{id}")]
-		[ProducesResponseType(typeof(ExpenseCategory), 200)]
+		[ProducesResponseType(typeof(ExpenseCategory), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
 		{
@@ -64,7 +64,7 @@ namespace Contador.Web.Server.Controllers
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
 			{
-				return NotFound("Expense category not found.");
+				return NotFound($"Expense category of id {id} not found.");
 			}
 
 			return Ok(result.ReturnedObject);
@@ -104,7 +104,7 @@ namespace Contador.Web.Server.Controllers
 		/// <param name="category">Expense category info.</param>
 		/// <returns>HTTP code.</returns>
 		[HttpPut("{id}")]
-		[ProducesResponseType(typeof(ExpenseCategory), 200)]
+		[ProducesResponseType(typeof(ExpenseCategory), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] ExpenseCategory category)
