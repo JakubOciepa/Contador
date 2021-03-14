@@ -29,7 +29,6 @@ namespace Contador.Web.Client.Pages
 
 		protected override async Task OnInitializedAsync()
 		{
-
 			expenses = await GetAndSortExpenses();
 			categories = await GetCategories();
 		}
