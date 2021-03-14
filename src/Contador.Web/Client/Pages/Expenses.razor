@@ -1,4 +1,5 @@
 ﻿@page "/expenses"
+@using Contador.Web.Client.Components
 @inject HttpClient Http
 
 
@@ -27,7 +28,7 @@
 	<label for="expense-description">Description:</label>
 	<InputText id="expense-description" @bind-Value="@expenseModel.Description" />
 
-	<button type="submit">Add expense</button>
+	<button type="submit">Save expense</button>
 </EditForm>
 
 @if (expenses.Count > 0)
@@ -44,6 +45,7 @@
 				<th>Date</th>
 				<th>Transaction</th>
 				<th>Image</th>
+				<th></th>
 
 			</tr>
 		</thead>
@@ -52,22 +54,7 @@
 			@foreach (var expense in expenses)
 			{
 				<tr>
-					<td>@expense.Name</td>
-					<td>@expense.Value</td>
-					@if (expense.User is null)
-					{
-						<td>Tokk</td>
-					}
-					else
-					{
-						<td>@expense.User.Name</td>
-					}
-					<td>@expense.Category.Name</td>
-					<td>@expense.Description</td>
-					<td>@expense.CreateDate.ToString("dd.MM.yyyy")</td>
-					<td>Not implemented</td>
-					<td>Not implemented</td>
-
+					<ExpenseComponent Expense="expense" />
 				</tr>
 			}
 		</tbody>
