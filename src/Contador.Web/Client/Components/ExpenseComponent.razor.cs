@@ -64,7 +64,7 @@ namespace Contador.Web.Client.Components
 
 			try
 			{
-				request.Content = new StringContent(JsonSerializer.Serialize(CreateHttpBody()), Encoding.UTF8, "application/json");
+				request.Content = GetHttpStringContent();
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -96,8 +96,9 @@ namespace Contador.Web.Client.Components
 
 		}
 
-		private object CreateHttpBody()
-			=> new
+		private StringContent GetHttpStringContent()
+		{
+			var body = new
 			{
 				id = Expense.Id,
 				name = Name,
@@ -117,6 +118,9 @@ namespace Contador.Web.Client.Components
 				imagePath = "",
 				createDate = CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")
 			};
+
+			return new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+		}
 
 		private async Task<Expense> GetExpense(int id)
 		{

@@ -39,7 +39,7 @@ namespace Contador.Web.Client.Pages
 
 			try
 			{
-				request.Content = new StringContent(JsonSerializer.Serialize(CreateHttpBody()), Encoding.UTF8, "application/json");
+				request.Content = GetHttpStringContent();
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -64,8 +64,9 @@ namespace Contador.Web.Client.Pages
 			}
 		}
 
-		private object CreateHttpBody()
-			=> new
+		private StringContent GetHttpStringContent()
+		{
+			var body = new
 			{
 				name = ExpenseModel.Name,
 				category = new
@@ -84,6 +85,9 @@ namespace Contador.Web.Client.Pages
 				imagePath = "",
 				createDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
 			};
+
+			return new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+		}
 
 		private async Task<IList<Expense>> GetAndSortExpenses()
 		{
