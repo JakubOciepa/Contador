@@ -23,49 +23,29 @@ namespace Contador.Web.Client.Pages
 		[Inject] private ILog _logger { get; set; }
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
 
-		private IList<Expense> expenses = new List<Expense>();
-		private IList<ExpenseCategory> categories = new List<ExpenseCategory>();
-		private ExpenseModel expenseModel = new();
+		private IList<Expense> ExpensesList = new List<Expense>();
+		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
+		private ExpenseModel ExpenseModel = new();
 
 		protected override async Task OnInitializedAsync()
 		{
-			expenses = await GetAndSortExpenses();
-			categories = await GetCategories();
+			ExpensesList = await GetAndSortExpenses();
+			Categories = await GetCategories();
 		}
 
 		private async void AddNewExpense()
 		{
 			var request = new HttpRequestMessage(HttpMethod.Post, "api/expense");
 
-			var body = new
-			{
-				name = expenseModel.Name,
-				category = new
-				{
-					id = expenseModel.CategoryId,
-					name = categories.First(c => c.Id == expenseModel.CategoryId).Name,
-				},
-				user = new
-				{
-					id = 1,
-					name = "Kuba",
-					email = "kuba@test.com"
-				},
-				value = expenseModel.Value,
-				description = expenseModel.Description,
-				imagePath = "",
-				createDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
-			};
-
 			try
 			{
-				request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+				request.Content = new StringContent(JsonSerializer.Serialize(CreateHttpBody()), Encoding.UTF8, "application/json");
 
 				var result = await _httpClient.SendAsync(request);
 
 				if (result is HttpResponseMessage response && response.IsSuccessStatusCode)
 				{
-					expenses = await GetAndSortExpenses();
+					ExpensesList = await GetAndSortExpenses();
 
 					this.StateHasChanged();
 
@@ -83,6 +63,27 @@ namespace Contador.Web.Client.Pages
 				await _jsRuntime.InvokeVoidAsync("alert", "Cannot add expense!");
 			}
 		}
+
+		private object CreateHttpBody()
+			=> new
+			{
+				name = ExpenseModel.Name,
+				category = new
+				{
+					id = ExpenseModel.CategoryId,
+					name = Categories.First(c => c.Id == ExpenseModel.CategoryId).Name,
+				},
+				user = new
+				{
+					id = 1,
+					name = "Kuba",
+					email = "kuba@test.com"
+				},
+				value = ExpenseModel.Value,
+				description = ExpenseModel.Description,
+				imagePath = "",
+				createDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+			};
 
 		private async Task<IList<Expense>> GetAndSortExpenses()
 		{

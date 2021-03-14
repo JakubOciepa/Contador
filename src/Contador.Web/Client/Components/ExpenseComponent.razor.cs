@@ -25,6 +25,9 @@ namespace Contador.Web.Client.Components
 
 		private bool isEditMode = false;
 
+		/// <summary>
+		/// Expense which will be displayed and managed by the component.
+		/// </summary>
 		[Parameter]
 		public Expense Expense { get; set; }
 
@@ -45,43 +48,23 @@ namespace Contador.Web.Client.Components
 				Description = Expense.Description;
 				CreatedDate = Expense.CreateDate;
 			}
+
 			Categories = await GetCategories();
 		}
 
-		private void EnterEditMode() 
+		private void EnterEditMode()
 			=> isEditMode = true;
 
-		private void ExitEditMode() 
+		private void ExitEditMode()
 			=> isEditMode = false;
 
-		private async Task UpdateExpenseAsync() 
+		private async Task UpdateExpenseAsync()
 		{
 			var request = new HttpRequestMessage(HttpMethod.Put, $"api/expense/{Expense.Id}");
 
-			var body = new
-			{
-				id=Expense.Id,
-				name = Name,
-				category = new
-				{
-					id = CategoryId,
-					name = Categories.First(c => c.Id == CategoryId).Name,
-				},
-				user = new
-				{
-					id = 1,
-					name = "Kuba",
-					email = "kuba@test.com"
-				},
-				value = Value,
-				description = Description,
-				imagePath = "",
-				createDate = CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")
-			};
-
 			try
 			{
-				request.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+				request.Content = new StringContent(JsonSerializer.Serialize(CreateHttpBody()), Encoding.UTF8, "application/json");
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -110,8 +93,30 @@ namespace Contador.Web.Client.Components
 			{
 				isEditMode = false;
 			}
-		
+
 		}
+
+		private object CreateHttpBody()
+			=> new
+			{
+				id = Expense.Id,
+				name = Name,
+				category = new
+				{
+					id = CategoryId,
+					name = Categories.First(c => c.Id == CategoryId).Name,
+				},
+				user = new
+				{
+					id = 1,
+					name = "Kuba",
+					email = "kuba@test.com"
+				},
+				value = Value,
+				description = Description,
+				imagePath = "",
+				createDate = CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")
+			};
 
 		private async Task<Expense> GetExpense(int id)
 		{
