@@ -120,6 +120,7 @@ namespace Contador.DAL.MySql.Repositories
 			param.Add(ExpenseDto.ParameterName.CategoryId, expense.Category.Id);
 			param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
 			param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
+			param.Add(ExpenseDto.ParameterName.CreateDate, expense.CreateDate);
 
 			var result = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.Update,

@@ -2,17 +2,19 @@ DELIMITER $$
 CREATE OR REPLACE PROCEDURE expense_Update (
         IN id_p INTEGER,
         IN name_p VARCHAR(255),
-        IN value_p DECIMAL,
+        IN value_p DECIMAL(10,2),
         IN description_p VARCHAR(255),
         IN categoryId_p INTEGER,
         IN userId_p INTEGER,
-        IN image_path_p VARCHAR(4096)
+        IN image_path_p VARCHAR(4096),
+        IN create_date_p DATETIME
     ) BEGIN
 UPDATE Expense
 SET Name = name_p,
     CategoryId = categoryId_p,
     UserId = userId_p,
     Value = value_p,
+    CreateDate = create_date_p,
     ModifiedDate = CURRENT_TIME(),
     Description = description_p,
     ImagePath = image_path_p

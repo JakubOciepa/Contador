@@ -5,33 +5,33 @@
 
 <h3>Add new expense</h3>
 
-<EditForm Model="@expenseModel" OnValidSubmit="@AddNewExpense">
+<EditForm Model="@ExpenseModel" OnValidSubmit="@AddNewExpense">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
 	<label for="expense-name">Name:</label>
-	<InputText id="expense-name" @bind-Value="@expenseModel.Name" />
+	<InputText id="expense-name" @bind-Value="@ExpenseModel.Name" />
 
 	<label for="expense-value">Value:</label>
-	<InputNumber id="expense-value" @bind-Value="@expenseModel.Value" />
+	<InputNumber id="expense-value" @bind-Value="@ExpenseModel.Value" />
 
 
 	<label for="expense-category">Category:</label>
-	<InputSelect id="expense-category" @bind-Value="@expenseModel.CategoryId">
+	<InputSelect id="expense-category" @bind-Value="@ExpenseModel.CategoryId">
 		<option value="0">–Select a category–</option>
-		@foreach (var category in categories)
+		@foreach (var category in Categories)
 		{
 			<option value="@category.Id">@category.Name</option>
 		}
 	</InputSelect>
 
 	<label for="expense-description">Description:</label>
-	<InputText id="expense-description" @bind-Value="@expenseModel.Description" />
+	<InputText id="expense-description" @bind-Value="@ExpenseModel.Description" />
 
 	<button type="submit">Add expense</button>
 </EditForm>
 
-@if (expenses.Count > 0)
+@if (ExpensesList.Count > 0)
 {
 	<h3>Expenses</h3>
 	<table class="table">
@@ -51,7 +51,7 @@
 		</thead>
 		<tbody>
 
-			@foreach (var expense in expenses)
+			@foreach (var expense in ExpensesList)
 			{
 				<tr>
 					<ExpenseComponent Expense="expense" />

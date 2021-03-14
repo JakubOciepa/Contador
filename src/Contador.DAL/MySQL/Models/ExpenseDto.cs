@@ -49,6 +49,7 @@ namespace Contador.DAL.MySql.Models
 			return new Expense(Name, Value, User, Category)
 			{
 				Id = this.Id,
+				CreateDate = CreateDate,
 				Description = Description,
 				ImagePath = ImagePath
 			};
@@ -93,6 +94,11 @@ namespace Contador.DAL.MySql.Models
 			/// Value parameter name.
 			/// </summary>
 			public static readonly string Value = "value_p";
+
+			/// <summary>
+			/// Created date parameter name.
+			/// </summary>
+			public static readonly string CreateDate = "create_date_p";
 		}
 
 		/// <summary>
