@@ -45,15 +45,14 @@
 				<th>Date</th>
 				<th>Transaction</th>
 				<th>Image</th>
-
 			</tr>
 		</thead>
 		<tbody>
-
 			@foreach (var expense in ExpensesList)
 			{
 				<tr>
-					<ExpenseComponent Expense="expense" />
+					<ExpenseComponent Expense="expense"
+							OnExpenseRemoved="@RemoveExpenseFromExpenseList" />
 				</tr>
 			}
 		</tbody>

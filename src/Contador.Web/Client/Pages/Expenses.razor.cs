@@ -64,6 +64,11 @@ namespace Contador.Web.Client.Pages
 			}
 		}
 
+		private void RemoveExpenseFromExpenseList(Expense expenseToRemove)
+		{
+			ExpensesList.Remove(expenseToRemove);
+		}
+
 		private StringContent GetHttpStringContent()
 		{
 			var body = new

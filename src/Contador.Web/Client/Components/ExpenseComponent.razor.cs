@@ -31,6 +31,12 @@ namespace Contador.Web.Client.Components
 		[Parameter]
 		public Expense Expense { get; set; }
 
+		/// <summary>
+		/// Action that will be invoked after correct removing the expense.
+		/// </summary>
+		[Parameter]
+		public EventCallback<Expense> OnExpenseRemoved { get; set; }
+
 		private string Name { get; set; }
 		private decimal Value { get; set; }
 		private int CategoryId { get; set; }
@@ -54,6 +60,29 @@ namespace Contador.Web.Client.Components
 
 		private void EnterEditMode()
 			=> isEditMode = true;
+
+		private async void RemoveExpense()
+		{
+			var removeConfirmed = await _jsRuntime.InvokeAsync<bool>("confirm", "Do you really want to remove this expense?");
+
+			if (removeConfirmed)
+			{
+				try
+				{
+					var request = new HttpRequestMessage(HttpMethod.Delete, $"api/expense/{Expense.Id}");
+					var result = await _httpClient.SendAsync(request);
+
+					if (result.IsSuccessStatusCode)
+					{
+						await OnExpenseRemoved.InvokeAsync(Expense);
+					}
+				}
+				catch (Exception ex)
+				{
+					_logger.Write(Core.Common.LogLevel.Warning, $"Can't remove {Expense.Name}\n: {ex.StackTrace}");
+				}
+			}
+		}
 
 		private void ExitEditMode()
 			=> isEditMode = false;
