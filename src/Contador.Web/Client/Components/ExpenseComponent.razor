@@ -1,0 +1,64 @@
+﻿@if (isEditMode)
+{
+	<td><input @bind="@Name" /></td>
+	<td><input @bind="@Value" type="number" step="0.01" /></td>
+
+	@if (Expense.User is null)
+	{
+		<td>Not found</td>
+	}
+	else
+	{
+		<td>@Expense.User.Name</td>
+	}
+	
+	<td>
+		<select @bind="CategoryId">
+			@foreach(var category in Categories)
+			{
+				<option value="@category.Id">@category.Name</option>
+			}
+		</select>
+	</td>
+	<td><input @bind="Description" /></td>
+	<td><input @bind="@CreatedDate" type="date" /></td>
+	<td>Not implemented</td>
+	<td>Not implemented</td>
+}
+else
+{
+	<td>@Expense.Name</td>
+	<td>@Expense.Value</td>
+
+	@if (Expense.User is null)
+	{
+		<td>Not found</td>
+	}
+	else
+	{
+		<td>@Expense.User.Name</td>
+	}
+	<td>@Expense.Category.Name</td>
+	<td>@Expense.Description</td>
+	<td>@Expense.CreateDate.ToString("dd.MM.yyyy")</td>
+	<td>Not implemented</td>
+	<td>Not implemented</td>
+}
+
+<td>
+
+	@if (isEditMode)
+	{
+		<button @onclick="UpdateExpenseAsync">Save</button>
+	}
+	else
+	{
+		<button @onclick="EnterEditMode">Edit</button>
+	}
+</td>
+<td>
+	@if (isEditMode)
+	{
+		<button @onclick="ExitEditMode">Cancel</button>
+	}
+</td>
