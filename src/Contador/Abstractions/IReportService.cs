@@ -5,8 +5,8 @@ namespace Contador.Abstractions
 {
 	public interface IReportService
 	{
-		Report GetMonthlyShortReport(int month);
+		ReportShort GetMonthlyShortReport(int month);
 
-		Report GetYearlyShortReport(int year);
+		ReportShort GetYearlyShortReport(int year);
 	}
 }

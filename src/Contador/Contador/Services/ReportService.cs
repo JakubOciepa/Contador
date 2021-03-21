@@ -17,12 +17,12 @@ namespace Contador.Services
 			_logger = logger;
 		}
 
-		public Report GetMonthlyShortReport(int month)
+		public ReportShort GetMonthlyShortReport(int month)
 		{
 			return null;
 		}
 
-		public Report GetYearlyShortReport(int year)
+		public ReportShort GetYearlyShortReport(int year)
 		{
 			return null;
 		}
