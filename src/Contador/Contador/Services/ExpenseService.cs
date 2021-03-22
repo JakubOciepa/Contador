@@ -139,5 +139,10 @@ namespace Contador.Services
 
 			return result ? ResponseCode.Ok : ResponseCode.Error;
 		}
+
+		public Task<Result<IList<Expense>>> GetByMonth(int month, int year)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

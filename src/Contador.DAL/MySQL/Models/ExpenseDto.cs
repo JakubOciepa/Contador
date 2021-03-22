@@ -104,6 +104,11 @@ namespace Contador.DAL.MySql.Models
 			/// Month number parameter name.
 			/// </summary>
 			public static readonly string MonthNum = "month_p";
+
+			/// <summary>
+			/// Year parameter name.
+			/// </summary>
+			public static readonly string Year = "year_p";
 		}
 
 		/// <summary>
