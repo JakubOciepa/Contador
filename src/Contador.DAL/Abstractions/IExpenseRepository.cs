@@ -24,6 +24,13 @@ namespace Contador.DAL.Abstractions
 		Task<IList<Expense>> GetExpensesAsync();
 
 		/// <summary>
+		/// Gets all expenses by provided month.
+		/// </summary>
+		/// <param name="month">Creation month of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided month.</returns>
+		Task<IList<Expense>> GetByMonth(int month);
+
+		/// <summary>
 		/// Adds provided <see cref="Expense"/> to storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
