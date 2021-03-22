@@ -29,7 +29,7 @@ namespace Contador.DAL.Abstractions
 		/// <param name="month">Creation month of the expenses.</param>
 		/// <param name="year">Creation year of the expenses.</param>
 		/// <returns><see cref="IList{Expense}"/> of all expenses from provided month.</returns>
-		Task<IList<Expense>> GetByMonth(int month, int year);
+		Task<IList<Expense>> GetByMonthAsync(int month, int year);
 
 		/// <summary>
 		/// Adds provided <see cref="Expense"/> to storage.

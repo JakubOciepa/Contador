@@ -81,7 +81,7 @@ namespace Contador.DAL.MySql.Repositories
 		/// <param name="month">Creation month of the expenses.</param>
 		/// <param name="year">Creation year of the expenses.</param>
 		/// <returns><see cref="IList{Expense}"/> of all expenses from provided month.</returns>
-		public async Task<IList<Expense>> GetByMonth(int month, int year)
+		public async Task<IList<Expense>> GetByMonthAsync(int month, int year)
 		{
 			var parameter = new DynamicParameters();
 			parameter.Add(ExpenseDto.ParameterName.MonthNum, month);

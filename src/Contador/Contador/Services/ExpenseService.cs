@@ -86,6 +86,25 @@ namespace Contador.Services
 		}
 
 		/// <summary>
+		/// Gets <see cref="Expense"/> for provided month.
+		/// </summary>
+		/// <param name="month">Month of the expenses creation.</param>
+		/// <param name="month">Year of the expenses creation.</param>
+		/// <returns><see cref="IList{Expense}"/> which were created in provided month.</returns>
+		public async Task<Result<IList<Expense>>> GetByMonthAsync(int month, int year)
+		{
+			var result = await _expenseRepo.GetByMonthAsync(month, year).CAF();
+			if(result is null)
+			{
+				_logger.Write(Core.Common.LogLevel.Warning, $"Expenses that were created at {month}-{year} not found.");
+				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<IList<Expense>>(ResponseCode.Ok, result);
+		}
+
+
+		/// <summary>
 		/// Adds provided <see cref="Expense"/> into storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
@@ -138,11 +157,6 @@ namespace Contador.Services
 			ExpenseRemoved?.Invoke(this, id);
 
 			return result ? ResponseCode.Ok : ResponseCode.Error;
-		}
-
-		public Task<Result<IList<Expense>>> GetByMonth(int month, int year)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
