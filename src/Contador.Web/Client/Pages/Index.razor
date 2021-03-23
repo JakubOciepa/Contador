@@ -1,7 +1,10 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@if (Report is object)
+{
+	<p>Month total: @Report.ExpensesTotal</p>
+	@foreach(var category in @Report.CategoriesTotals)
+	{
+		<p>@category.Key: @category.Value</p>
+	}
+}
