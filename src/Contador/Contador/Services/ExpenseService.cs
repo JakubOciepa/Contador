@@ -49,9 +49,19 @@ namespace Contador.Services
 		/// <returns>Result which proper response code and list of expenses.</returns>
 		public async Task<Result<IList<Expense>>> GetExpensesAsync()
 		{
-			var result = await _expenseRepo.GetExpensesAsync().CAF();
+			var expenses = new List<Expense>();
 
-			if (result?.Count is 0)
+			try
+			{
+				expenses = await _expenseRepo.GetExpensesAsync().CAF() as List<Expense>;
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex}");
+				return new Result<IList<Expense>>(ResponseCode.Error, new List<Expense>()) { Message = $"{ex}" };
+			}
+
+			if (expenses?.Count is 0)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, "Expenses not found.");
 				return new Result<IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
@@ -59,7 +69,7 @@ namespace Contador.Services
 
 			var list = new List<Expense>();
 
-			foreach (var expense in result)
+			foreach (var expense in expenses)
 			{
 				list.Add(expense);
 			}
@@ -93,14 +103,27 @@ namespace Contador.Services
 		/// <returns><see cref="IList{Expense}"/> which were created in provided month.</returns>
 		public async Task<Result<IList<Expense>>> GetByMonthAsync(int month, int year)
 		{
-			var result = await _expenseRepo.GetByMonthAsync(month, year).CAF();
-			if(result is null)
+			var expenses = new List<Expense>();
+
+			try
+			{
+				expenses = await _expenseRepo.GetByMonthAsync(month, year).CAF() as List<Expense>;
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex}";
+
+				_logger.Write(LogLevel.Error, $"{message}\n{ex.StackTrace}");
+				return new Result<IList<Expense>>(ResponseCode.Error, expenses) { Message = message };
+			}
+
+			if (expenses.Count < 1)
 			{
 				_logger.Write(Core.Common.LogLevel.Warning, $"Expenses that were created at {month}-{year} not found.");
 				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
 			}
 
-			return new Result<IList<Expense>>(ResponseCode.Ok, result);
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
 		}
 
 

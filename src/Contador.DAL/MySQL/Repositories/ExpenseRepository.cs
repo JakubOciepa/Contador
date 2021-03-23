@@ -95,7 +95,7 @@ namespace Contador.DAL.MySql.Repositories
 					expense.User = user;
 
 					return expense;
-				}, 
+				},
 				parameter,
 				commandType: CommandType.StoredProcedure)
 				.CAF();
