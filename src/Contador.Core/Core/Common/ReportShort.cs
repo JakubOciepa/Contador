@@ -2,6 +2,9 @@
 
 namespace Contador.Core.Common
 {
+	/// <summary>
+	/// Contains short info about expenses and categories.
+	/// </summary>
 	public class ReportShort
 	{
 		/// <summary>
@@ -19,6 +22,9 @@ namespace Contador.Core.Common
 		/// </summary>
 		public IDictionary<string, int> CategoriesPercentages { get; set; }
 
+		/// <summary>
+		/// <see cref="ReportShort"/> with dummy/empty data.
+		/// </summary>
 		public static ReportShort Empty
 			=> new ReportShort()
 			{

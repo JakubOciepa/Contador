@@ -12,17 +12,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Contador.Web.Server.Controllers
 {
+	/// <summary>
+	/// Provides methods to get reports for expenses and categories.
+	/// </summary>
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ReportController : Controller
 	{
 		private readonly IReportService _reportService;
 
+		/// <summary>
+		/// Creates an instance of the <see cref="ReportController"/> class.
+		/// </summary>
+		/// <param name="reportService"></param>
 		public ReportController(IReportService reportService)
 		{
 			_reportService = reportService;
 		}
 
+		/// <summary>
+		/// Gets the monthly short report by the provided month.
+		/// </summary>
+		/// <param name="year">Year for the report.</param>
+		/// <param name="month">Month for the report.</param>
+		/// <returns><see cref="ReportShort"/> for provided month.</returns>
 		[HttpGet("short/{year}/{month}")]
 		[ProducesResponseType(typeof(ReportShort), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -46,6 +59,11 @@ namespace Contador.Web.Server.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Gets the yearly short report by the provided year.
+		/// </summary>
+		/// <param name="year">Year for the report.</param>
+		/// <returns><see cref="ReportShort"/> for provided year.</returns>
 		[HttpGet("short/{year}")]
 		[ProducesResponseType(typeof(ReportShort), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]

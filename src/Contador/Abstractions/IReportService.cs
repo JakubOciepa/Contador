@@ -5,6 +5,9 @@ using Contador.Core.Common;
 
 namespace Contador.Abstractions
 {
+	/// <summary>
+	/// Provides methods to get reports for expenses and categories.
+	/// </summary>
 	public interface IReportService
 	{
 		/// <summary>

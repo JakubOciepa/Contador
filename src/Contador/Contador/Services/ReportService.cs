@@ -12,7 +12,7 @@ using Contador.Core.Utils.Extensions;
 namespace Contador.Services
 {
 	/// <summary>
-	/// Provides methods for the report creation.
+	/// Provides methods to get reports for expenses and categories.
 	/// </summary>
 	public class ReportService : IReportService
 	{
