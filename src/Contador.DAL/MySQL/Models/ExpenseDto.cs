@@ -142,6 +142,11 @@ namespace Contador.DAL.MySql.Models
 			public static readonly string GetByMonth = "expense_GetByMonth";
 
 			/// <summary>
+			/// Name of the procedure which gets all expenses for the provided month.
+			/// </summary>
+			public static readonly string GetByYear = "expense_GetByYear";
+
+			/// <summary>
 			/// Name of the procedure which updates expense from the database.
 			/// </summary>
 			public static readonly string Update = "expense_Update";

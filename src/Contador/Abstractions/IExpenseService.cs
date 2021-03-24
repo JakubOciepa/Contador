@@ -28,9 +28,16 @@ namespace Contador.Abstractions
 		/// Gets <see cref="Expense"/> for provided month.
 		/// </summary>
 		/// <param name="month">Month of the expenses creation.</param>
-		/// <param name="month">Year of the expenses creation.</param>
+		/// <param name="year">Year of the expenses creation.</param>
 		/// <returns><see cref="IList{Expense}"/> which were created in provided month.</returns>
 		Task<Result<IList<Expense>>> GetByMonthAsync(int month, int year);
+
+		/// <summary>
+		/// Gets <see cref="Expense"/> for provided year.
+		/// </summary>
+		/// <param name="year">Year of the expenses creation.</param>
+		/// <returns><see cref="IList{Expense}"/> which were created in provided year.</returns>
+		Task<Result<IList<Expense>>> GetByYearAsync(int year);
 
 		/// <summary>
 		/// Adds provided <see cref="Expense"/> into storage.

@@ -99,7 +99,7 @@ namespace Contador.Services
 		/// Gets <see cref="Expense"/> for provided month.
 		/// </summary>
 		/// <param name="month">Month of the expenses creation.</param>
-		/// <param name="month">Year of the expenses creation.</param>
+		/// <param name="year">Year of the expenses creation.</param>
 		/// <returns><see cref="IList{Expense}"/> which were created in provided month.</returns>
 		public async Task<Result<IList<Expense>>> GetByMonthAsync(int month, int year)
 		{
@@ -126,6 +126,35 @@ namespace Contador.Services
 			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
 		}
 
+		/// <summary>
+		/// Gets <see cref="Expense"/> for provided year.
+		/// </summary>
+		/// <param name="year">Year of the expenses creation.</param>
+		/// <returns><see cref="IList{Expense}"/> which were created in provided year.</returns>
+		public async Task<Result<IList<Expense>>> GetByYearAsync( int year)
+		{
+			var expenses = new List<Expense>();
+
+			try
+			{
+				expenses = await _expenseRepo.GetByYearAsync(year).CAF() as List<Expense>;
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex}";
+
+				_logger.Write(LogLevel.Error, $"{message}\n{ex.StackTrace}");
+				return new Result<IList<Expense>>(ResponseCode.Error, expenses) { Message = message };
+			}
+
+			if (expenses.Count < 1)
+			{
+				_logger.Write(Core.Common.LogLevel.Warning, $"Expenses that were created at {year} not found.");
+				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
+		}
 
 		/// <summary>
 		/// Adds provided <see cref="Expense"/> into storage.
