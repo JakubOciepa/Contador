@@ -66,9 +66,26 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="year">Year for the report.</param>
 		/// <returns><see cref="ReportShort"/>for the provided year.</returns>
-		public ReportShort GetYearlyShortReport(int year)
+		public async Task<Result<ReportShort>> GetYearlyShortReportAsync(int year)
 		{
-			return null;
+			var report = new ReportShort();
+
+			var result = await _expenseManager.GetByYearAsync(year).CAF();
+
+			switch (result.ResponseCode)
+			{
+				case ResponseCode.Error:
+					_logger.Write(LogLevel.Error, $"{result.Message}");
+					return new Result<ReportShort>(ResponseCode.Error, report) { Message = result.Message };
+				case ResponseCode.NotFound:
+					_logger.Write(LogLevel.Info, $"Couldn't find any expenses for provided year");
+					return new Result<ReportShort>(ResponseCode.NotFound, report);
+				case ResponseCode.Ok:
+					return await GetReportFromExpenses(result.ReturnedObject);
+				default:
+					_logger.Write(LogLevel.Fatal, "That shouldn't happened...");
+					throw new Exception("Holy molly, something gone terribly wrong... (╯°□°）╯︵ ┻━┻");
+			}
 		}
 
 		private async Task<Result<ReportShort>> GetReportFromExpenses(IList<Expense> expenses)

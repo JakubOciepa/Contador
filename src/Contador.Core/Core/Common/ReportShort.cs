@@ -19,5 +19,12 @@ namespace Contador.Core.Common
 		/// </summary>
 		public IDictionary<string, int> CategoriesPercentages { get; set; }
 
+		public static ReportShort Empty
+			=> new ReportShort()
+			{
+				ExpensesTotal = 0,
+				CategoriesTotals = new Dictionary<string, decimal>() { { "empty", 0m } },
+				CategoriesPercentages = new Dictionary<string, int>() { { "empty", 0 } }
+			};
 	}
 }

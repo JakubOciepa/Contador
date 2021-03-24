@@ -16,11 +16,11 @@ namespace Contador.Web.Server.Controllers
 	[ApiController]
 	public class ReportController : Controller
 	{
-		private readonly IReportService _reportServise;
+		private readonly IReportService _reportService;
 
 		public ReportController(IReportService reportService)
 		{
-			_reportServise = reportService;
+			_reportService = reportService;
 		}
 
 		[HttpGet("short/{year}/{month}")]
@@ -35,7 +35,29 @@ namespace Contador.Web.Server.Controllers
 				return BadRequest("Provided year or month is not valid!");
 			}
 
-			var result = await _reportServise.GetMonthlyShortReportAsync(month, year).CAF();
+			var result = await _reportService.GetMonthlyShortReportAsync(month, year).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest("Something gone wrong..."),
+			};
+		}
+
+		[HttpGet("short/{year}")]
+		[ProducesResponseType(typeof(ReportShort), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		public async Task<ActionResult<ReportShort>> GetYearlyShort(int year)
+		{
+			if (year > DateTime.Now.Year)
+			{
+				return BadRequest("Provided year or month is not valid!");
+			}
+
+			var result = await _reportService.GetYearlyShortReportAsync(year).CAF();
 
 			return result.ResponseCode switch
 			{

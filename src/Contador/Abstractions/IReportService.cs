@@ -20,6 +20,6 @@ namespace Contador.Abstractions
 		/// </summary>
 		/// <param name="year">Year for the report.</param>
 		/// <returns><see cref="ReportShort"/>for the provided year.</returns>
-		ReportShort GetYearlyShortReport(int year);
+		Task<Result<ReportShort>> GetYearlyShortReportAsync(int year);
 	}
 }
