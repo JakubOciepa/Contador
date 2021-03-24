@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,33 +76,45 @@ namespace Contador.Services
 			var report = new ReportShort
 			{
 				ExpensesTotal = expenses.Sum(e => e.Value),
-
-				CategoriesTotals = await GetCategoriesTotals(expenses)
+				CategoriesTotals = await GetCategoriesTotals(expenses),
 			};
+
+			report.CategoriesPercentages = GetCategoriesPercentages(report.ExpensesTotal, report.CategoriesTotals);
 
 			return new Result<ReportShort>(ResponseCode.Ok, report);
 		}
 
 		private async Task<IDictionary<string, decimal>> GetCategoriesTotals(IList<Expense> expenses)
 		{
-			var categoriesTotals = new Dictionary<string, decimal>();
+			var categoriesTotals = new ConcurrentDictionary<string, decimal>();
 			var resultCategories = await _expenseCategoryManager.GetCategoriesAsync().CAF();
 
 			if (resultCategories.ResponseCode is ResponseCode.Ok
 				&& resultCategories.ReturnedObject is IList<ExpenseCategory> categories)
 			{
-				/// consider parallel this
-				foreach (var category in categories)
+				Parallel.ForEach(categories, category =>
 				{
 					var filteredExpenses = expenses.Where(ex => ex.Category.Id == category.Id);
 					if (filteredExpenses is IEnumerable<Expense>)
 					{
-						categoriesTotals.Add(category.Name, filteredExpenses.Sum(ex => ex.Value));
+						categoriesTotals.AddOrUpdate(category.Name, filteredExpenses.Sum(ex => ex.Value), (key, value) => value);
 					}
-				}
+				});
 			}
 
 			return categoriesTotals;
+		}
+
+		private IDictionary<string, int> GetCategoriesPercentages(decimal expensesTotal, IDictionary<string, decimal> categoriesTotals)
+		{
+			var percentages = new Dictionary<string, int>();
+
+			foreach (var categoryTotal in categoriesTotals)
+			{
+				percentages.Add(categoryTotal.Key, (int)(categoryTotal.Value * 100 / expensesTotal));
+			}
+
+			return percentages;
 		}
 	}
 }

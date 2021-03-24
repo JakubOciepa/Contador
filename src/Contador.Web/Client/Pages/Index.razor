@@ -2,9 +2,15 @@
 
 @if (Report is object)
 {
-	<p>Month total: @Report.ExpensesTotal</p>
-	@foreach(var category in @Report.CategoriesTotals)
+	<h3>Monthly totals:</h3>
+	<p>Total: @Report.ExpensesTotal zł</p>
+	@foreach(var categoryTotal in @Report.CategoriesTotals)
 	{
-		<p>@category.Key: @category.Value</p>
+		<p>@categoryTotal.Key: @categoryTotal.Value zł</p>
+	}
+	<h4>Monthly percentage:</h4>
+	@foreach(var categoryPercentage in @Report.CategoriesPercentages)
+	{
+		<p>@categoryPercentage.Key: @categoryPercentage.Value%</p>
 	}
 }
