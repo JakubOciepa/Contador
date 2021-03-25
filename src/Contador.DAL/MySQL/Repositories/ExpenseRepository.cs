@@ -58,7 +58,7 @@ namespace Contador.DAL.MySql.Repositories
 		/// Gets all available expenses.
 		/// </summary>
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-		public async Task<IList<Expense>> GetExpensesAsync()
+		public async Task<IList<Expense>> GetAllAsync()
 		{
 			var expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetAll,

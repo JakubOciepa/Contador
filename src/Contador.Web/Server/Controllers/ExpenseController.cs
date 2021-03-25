@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Contador.Web.Server.Controllers
 {
 	/// <summary>
-	/// Expense controller.
+	/// Provides methods to get, add, update or remove expense.
 	/// </summary>
 	[Route("api/[controller]")]
 	[ApiController]
@@ -22,7 +22,7 @@ namespace Contador.Web.Server.Controllers
 		private readonly IExpenseService _expenseService;
 
 		/// <summary>
-		/// Creates instance of <see cref="ExpenseController> class.
+		/// Creates the instance of the <see cref="ExpenseController"> class.
 		/// </summary>
 		/// <param name="expenses">Repository of expenses.</param>
 		public ExpenseController(IExpenseService expenses)
@@ -33,32 +33,33 @@ namespace Contador.Web.Server.Controllers
 		/// <summary>
 		/// Gets all available expenses.
 		/// </summary>
-		/// <returns>IList of expenses.</returns>
+		/// <returns><see cref="IList{Expense}"/> of the expenses.</returns>
 		[HttpGet]
 		[ProducesResponseType(typeof(IList<Expense>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-
-		public async Task<ActionResult<IList<Expense>>> GetExpenses()
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<IList<Expense>>> GetAll()
 		{
-			var result = await _expenseService.GetExpensesAsync().CAF();
+			var result = await _expenseService.GetAllAsync().CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
+			return result.ResponseCode switch
 			{
-				return NoContent();
-			}
-
-			return Ok(result.ReturnedObject);
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest(@"¯\_(ツ)_/¯ - I really don't know how this happened...")
+			};
 		}
 
 		/// <summary>
-		/// Gets expense of provided id.
+		/// Gets expense by the provided id.
 		/// </summary>
 		/// <param name="id">Id of the requested expense.</param>
-		/// <returns>Expense of requested id.</returns>
+		/// <returns>Expense of the requested id.</returns>
 		[HttpGet("{id}")]
 		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<Expense>> GetExpense([FromRoute] int id)
+		public async Task<ActionResult<Expense>> GetById([FromRoute] int id)
 		{
 			var result = await _expenseService.GetExpenseAsync(id).CAF();
 
@@ -79,9 +80,9 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
-		public async Task<ActionResult> AddExpense([FromBody] Expense expense)
+		public async Task<ActionResult> Add([FromBody] Expense expense)
 		{
-			if ((await _expenseService.GetExpensesAsync().CAF())
+			if ((await _expenseService.GetAllAsync().CAF())
 				.ReturnedObject
 					.Where(e => e.CreateDate.DayOfYear == expense.CreateDate.DayOfYear 
 							&& e.CreateDate.Year == expense.CreateDate.Year)
@@ -94,7 +95,7 @@ namespace Contador.Web.Server.Controllers
 
 			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
 			{
-				return CreatedAtAction(nameof(GetExpense),
+				return CreatedAtAction(nameof(GetById),
 					new { id = result.ReturnedObject.Id }, result.ReturnedObject);
 			}
 

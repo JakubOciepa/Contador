@@ -21,7 +21,7 @@ namespace Contador.DAL.Abstractions
 		/// Gets all available expenses.
 		/// </summary>
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-		Task<IList<Expense>> GetExpensesAsync();
+		Task<IList<Expense>> GetAllAsync();
 
 		/// <summary>
 		/// Gets all expenses by provided month.

@@ -11,7 +11,9 @@ using Contador.DAL.Abstractions;
 namespace Contador.Services
 {
 	/// <summary>
-	/// Notify on expense changes.
+	/// Provides methods to manage expenses.
+	/// Gives possibility to get, add, update or remove expense.
+	/// Notifies on any expense change.
 	/// </summary>
 	public class ExpenseService : IExpenseManager
 	{
@@ -19,22 +21,22 @@ namespace Contador.Services
 		private readonly ILog _logger;
 
 		/// <summary>
-		/// Invoked when new(returned) expense has been added.
+		/// Invoked when the new(returned) expense has been added.
 		/// </summary>
 		public event EventHandler<Expense> ExpenseAdded;
 
 		/// <summary>
-		/// Invoked when returned expense has been updated.
+		/// Invoked when the returned expense has been updated.
 		/// </summary>
 		public event EventHandler<Expense> ExpenseUpdated;
 
 		/// <summary>
-		/// Invoked when expense of returned id has been removed.
+		/// Invoked when the expense of the returned id has been removed.
 		/// </summary>
 		public event EventHandler<int> ExpenseRemoved;
 
 		/// <summary>
-		/// Creates instance of <see cref="ExpenseService"/> class.
+		/// Creates an instance of the <see cref="ExpenseService"/> class.
 		/// </summary>
 		/// <param name="expenses">Repository of expenses.</param>
 		public ExpenseService(IExpenseRepository expenses, ILog logger)
@@ -46,35 +48,30 @@ namespace Contador.Services
 		/// <summary>
 		/// Gets all available expenses.
 		/// </summary>
-		/// <returns>Result which proper response code and list of expenses.</returns>
-		public async Task<Result<IList<Expense>>> GetExpensesAsync()
+		/// <returns><see cref="Result{IList{Expense}}"/> with the proper <see cref="ResponseCode"/> and the <see cref="IList{Expense}"/>.</returns>
+		public async Task<Result<IList<Expense>>> GetAllAsync()
 		{
-			var expenses = new List<Expense>();
+			List<Expense> expenses;
 
 			try
 			{
-				expenses = await _expenseRepo.GetExpensesAsync().CAF() as List<Expense>;
+				expenses = await _expenseRepo.GetAllAsync().CAF() as List<Expense>;
 			}
 			catch (Exception ex)
 			{
 				_logger.Write(LogLevel.Error, $"{ex}");
+
 				return new Result<IList<Expense>>(ResponseCode.Error, new List<Expense>()) { Message = $"{ex}" };
 			}
 
 			if (expenses?.Count is 0)
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, "Expenses not found.");
+				_logger.Write(LogLevel.Warning, "Expenses not found.");
+
 				return new Result<IList<Expense>>(ResponseCode.NotFound, new List<Expense>());
 			}
 
-			var list = new List<Expense>();
-
-			foreach (var expense in expenses)
-			{
-				list.Add(expense);
-			}
-
-			return new Result<IList<Expense>>(ResponseCode.Ok, list);
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
 		}
 
 		/// <summary>
@@ -131,7 +128,7 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="year">Year of the expenses creation.</param>
 		/// <returns><see cref="IList{Expense}"/> which were created in provided year.</returns>
-		public async Task<Result<IList<Expense>>> GetByYearAsync( int year)
+		public async Task<Result<IList<Expense>>> GetByYearAsync(int year)
 		{
 			var expenses = new List<Expense>();
 

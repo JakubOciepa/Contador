@@ -31,11 +31,9 @@ namespace Contador.Web.Server
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" });
-			});
-			services.AddTransient<IDbConnection>(db
-				=> new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}"));
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" }));
+			services.AddTransient<IDbConnection>(db => 
+			new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}"));
 			services.AddSingleton<ILog, Log>();
 			services.AddScoped<IExpenseRepository, ExpenseRepository>();
 			services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();

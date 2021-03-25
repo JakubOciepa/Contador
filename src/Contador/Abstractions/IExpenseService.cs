@@ -14,8 +14,8 @@ namespace Contador.Abstractions
 		/// <summary>
 		/// Gets all available expenses.
 		/// </summary>
-		/// <returns>Result which proper response code and list of expenses.</returns>
-		Task<Result<IList<Expense>>> GetExpensesAsync();
+		/// <returns><see cref="Result{IList{Expense}}"/> with the proper <see cref="ResponseCode"/> and the <see cref="IList{Expense}"/>.</returns>
+		Task<Result<IList<Expense>>> GetAllAsync();
 
 		/// <summary>
 		/// Gets <see cref="Expense"/> of provided id.
