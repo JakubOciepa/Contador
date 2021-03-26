@@ -81,7 +81,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// </summary>
 		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
 		/// <returns><see cref="Expense"/> of provided Id.</returns>
-		public async Task<Expense> GetExpenseAsync(int expenseId)
+		public async Task<Expense> GetByIdAsync(int expenseId)
 		{
 			var expense = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
 
@@ -113,7 +113,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// Gets all available expenses.
 		/// </summary>
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-		public async Task<IList<Expense>> GetExpensesAsync()
+		public async Task<IList<Expense>> GetAllAsync()
 		{
 			var expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
 
@@ -181,6 +181,27 @@ namespace Contador.DAL.SQLite.Repositories
 			}
 
 			return null;
+		}
+
+		/// <summary>
+		/// Gets all expenses by provided month.
+		/// </summary>
+		/// <param name="month">Creation month of the expenses.</param>
+		/// <param name="year">Creation year of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided month.</returns>
+		public Task<IList<Expense>> GetByMonthAsync(int month, int year)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Gets all expenses by provided year.
+		/// </summary>
+		/// <param name="year">Creation year of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided year.</returns>
+		public Task<IList<Expense>> GetByYearAsync(int year)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

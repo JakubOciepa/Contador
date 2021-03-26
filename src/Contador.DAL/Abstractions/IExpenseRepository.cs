@@ -15,7 +15,7 @@ namespace Contador.DAL.Abstractions
 		/// </summary>
 		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
 		/// <returns><see cref="Expense"/> of provided Id.</returns>
-		Task<Expense> GetExpenseAsync(int expenseId);
+		Task<Expense> GetByIdAsync(int expenseId);
 
 		/// <summary>
 		/// Gets all available expenses.

@@ -33,7 +33,7 @@ namespace Contador.DAL.MySql.Repositories
 		/// </summary>
 		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
 		/// <returns><see cref="Expense"/> of provided Id.</returns>
-		public async Task<Expense> GetExpenseAsync(int expenseId)
+		public async Task<Expense> GetByIdAsync(int expenseId)
 		{
 			var parameter = new DynamicParameters();
 			parameter.Add(ExpenseDto.ParameterName.Id, expenseId);
@@ -202,7 +202,7 @@ namespace Contador.DAL.MySql.Repositories
 
 			await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
 
-			return !(await GetExpenseAsync(id).CAF() is object);
+			return !(await GetByIdAsync(id).CAF() is object);
 		}
 	}
 }

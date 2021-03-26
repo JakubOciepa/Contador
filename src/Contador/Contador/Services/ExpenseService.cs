@@ -81,7 +81,7 @@ namespace Contador.Services
 		/// <returns><see cref="Expense"/> of provided id.</returns>
 		public async Task<Result<Expense>> GetExpenseAsync(int id)
 		{
-			var result = await _expenseRepo.GetExpenseAsync(id).CAF();
+			var result = await _expenseRepo.GetByIdAsync(id).CAF();
 
 			if (result is null)
 			{

@@ -44,7 +44,7 @@ namespace Server.Tests
 			var usersRepoMock = new Mock<IUserService>();
 			var loggerMock = new Mock<ILog>();
 
-			expenseRepoMock.Setup(r => r.GetExpensesAsync())
+			expenseRepoMock.Setup(r => r.GetAllAsync())
 				.Returns(Task.FromResult(_returnedExpenses));
 
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
@@ -55,7 +55,7 @@ namespace Server.Tests
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
 			//act
-			var result = await expenseService.GetExpensesAsync().CAF();
+			var result = await expenseService.GetAllAsync().CAF();
 
 			//assert
 			result.ResponseCode.Should().Equals(ResponseCode.Ok);
@@ -72,7 +72,7 @@ namespace Server.Tests
 			var usersRepoMock = new Mock<IUserService>();
 			var loggerMock = new Mock<ILog>();
 
-			expenseRepoMock.Setup(r => r.GetExpensesAsync())
+			expenseRepoMock.Setup(r => r.GetAllAsync())
 				.Returns(Task.FromResult(new List<Expense>() as IList<Expense>));
 
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
@@ -83,7 +83,7 @@ namespace Server.Tests
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
 			//act
-			var result = await expenseService.GetExpensesAsync().CAF();
+			var result = await expenseService.GetAllAsync().CAF();
 
 			//assert
 			result.ResponseCode.Should().Equals(ResponseCode.NotFound);
@@ -99,7 +99,7 @@ namespace Server.Tests
 			var usersRepoMock = new Mock<IUserService>();
 			var loggerMock = new Mock<ILog>();
 
-			expenseRepoMock.Setup(r => r.GetExpenseAsync(It.IsAny<int>()))
+			expenseRepoMock.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(_returnedExpenses[1]));
 
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
@@ -125,7 +125,7 @@ namespace Server.Tests
 			var usersRepoMock = new Mock<IUserService>();
 			var loggerMock = new Mock<ILog>();
 
-			expenseRepoMock.Setup(r => r.GetExpenseAsync(It.IsAny<int>()))
+			expenseRepoMock.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(default(Expense)));
 
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
