@@ -29,10 +29,10 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> of provided id.
+		/// Gets <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
-		/// <returns><see cref="Expense"/> of provided Id.</returns>
+		/// <param name="expenseId">Id of the requested <see cref="Expense"/>.</param>
+		/// <returns><see cref="Expense"/> of the provided Id.</returns>
 		public async Task<Expense> GetByIdAsync(int expenseId)
 		{
 			var parameter = new DynamicParameters();

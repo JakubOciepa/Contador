@@ -59,16 +59,18 @@ namespace Contador.Web.Server.Controllers
 		[HttpGet("{id}")]
 		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<Expense>> GetById([FromRoute] int id)
 		{
-			var result = await _expenseService.GetExpenseAsync(id).CAF();
+			var result = await _expenseService.GetByIdAsync(id).CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
+			return result.ResponseCode switch
 			{
-				return NotFound($"Expense of id {id} could not be found");
-			}
-
-			return Ok(result.ReturnedObject);
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest("ᓚᘏᗢ my oh my...That looks bad.")
+			};
 		}
 
 		/// <summary>
@@ -84,7 +86,7 @@ namespace Contador.Web.Server.Controllers
 		{
 			if ((await _expenseService.GetAllAsync().CAF())
 				.ReturnedObject
-					.Where(e => e.CreateDate.DayOfYear == expense.CreateDate.DayOfYear 
+					.Where(e => e.CreateDate.DayOfYear == expense.CreateDate.DayOfYear
 							&& e.CreateDate.Year == expense.CreateDate.Year)
 						.Any(e => e.Equals(expense)))
 			{
@@ -114,10 +116,9 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
 		{
-			if ((await _expenseService.GetExpenseAsync(id).CAF())
-					.ReturnedObject == null)
+			if (!await ExpenseOfIdExists(id))
 			{
-				return NotFound(expense);
+				return NotFound();
 			}
 
 			var result = await _expenseService.UpdateAsync(id, expense).CAF();
@@ -141,10 +142,9 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> RemoveExpense([FromRoute] int id)
 		{
-			if ((await _expenseService.GetExpenseAsync(id).CAF())
-					.ReturnedObject == null)
+			if (!await ExpenseOfIdExists(id))
 			{
-				return NotFound(id);
+				return NotFound();
 			}
 
 			var result = await _expenseService.RemoveAsync(id).CAF();
@@ -155,6 +155,18 @@ namespace Contador.Web.Server.Controllers
 			}
 
 			return BadRequest("Error occurred while removing expense.");
+		}
+
+		private async Task<bool> ExpenseOfIdExists(int id)
+		{
+			try
+			{
+				return (await _expenseService.GetByIdAsync(id).CAF()).ReturnedObject is not null;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 	}
 }

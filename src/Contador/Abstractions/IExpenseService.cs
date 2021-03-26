@@ -22,7 +22,7 @@ namespace Contador.Abstractions
 		/// </summary>
 		/// <param name="id">Id of requested Expense.</param>
 		/// <returns><see cref="Expense"/> of provided id.</returns>
-		Task<Result<Expense>> GetExpenseAsync(int id);
+		Task<Result<Expense>> GetByIdAsync(int id);
 
 		/// <summary>
 		/// Gets <see cref="Expense"/> for provided month.

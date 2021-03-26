@@ -109,7 +109,7 @@ namespace Server.Tests
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 			//act
-			var result = await expenseService.GetExpenseAsync(0).CAF();
+			var result = await expenseService.GetByIdAsync(0).CAF();
 
 			//assert
 			result.ResponseCode.Should().BeEquivalentTo(ResponseCode.Ok);
@@ -135,7 +135,7 @@ namespace Server.Tests
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 			//act
-			var result = await expenseService.GetExpenseAsync(0).CAF();
+			var result = await expenseService.GetByIdAsync(0).CAF();
 
 			//assert
 			result.ResponseCode.Should().BeEquivalentTo(ResponseCode.NotFound);

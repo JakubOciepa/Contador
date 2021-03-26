@@ -79,17 +79,29 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="id">Id of requested Expense.</param>
 		/// <returns><see cref="Expense"/> of provided id.</returns>
-		public async Task<Result<Expense>> GetExpenseAsync(int id)
+		public async Task<Result<Expense>> GetByIdAsync(int id)
 		{
-			var result = await _expenseRepo.GetByIdAsync(id).CAF();
+			Expense expense;
 
-			if (result is null)
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, $"Expense of the {id} not found.");
+				expense = await _expenseRepo.GetByIdAsync(id).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return new Result<Expense>(ResponseCode.Error, null) { Message = ex.Message };
+			}
+
+			if (expense is null)
+			{
+				_logger.Write(LogLevel.Warning, $"Expense of the {id} not found.");
+
 				return new Result<Expense>(ResponseCode.NotFound, null);
 			}
 
-			return new Result<Expense>(ResponseCode.Ok, result);
+			return new Result<Expense>(ResponseCode.Ok, expense);
 		}
 
 		/// <summary>
