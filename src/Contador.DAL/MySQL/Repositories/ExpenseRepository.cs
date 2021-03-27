@@ -191,11 +191,11 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id from storage.
+		/// Removes the <see cref="Expense"/> of the provided id from the storage.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		public async Task<bool> RemoveExpenseAsync(int id)
+		public async Task<bool> RemoveAsync(int id)
 		{
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Id, id);

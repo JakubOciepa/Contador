@@ -54,10 +54,10 @@ namespace Contador.DAL.Abstractions
 		Task<Expense> UpdateAsync(int id, Expense info);
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id from storage.
+		/// Removes the <see cref="Expense"/> of the provided id from the storage.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		Task<bool> RemoveExpenseAsync(int id);
+		Task<bool> RemoveAsync(int id);
 	}
 }

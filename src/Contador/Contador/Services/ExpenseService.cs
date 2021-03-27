@@ -76,7 +76,7 @@ namespace Contador.Services
 		}
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> of provided id.
+		/// Gets the <see cref="Expense"/> of the provided id.
 		/// </summary>
 		/// <param name="id">Id of requested Expense.</param>
 		/// <returns><see cref="Expense"/> of provided id.</returns>
@@ -106,7 +106,7 @@ namespace Contador.Services
 		}
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> for provided month.
+		/// Gets the <see cref="Expense"/> for the provided month.
 		/// </summary>
 		/// <param name="month">Month of the expenses creation.</param>
 		/// <param name="year">Year of the expenses creation.</param>
@@ -137,7 +137,7 @@ namespace Contador.Services
 		}
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> for provided year.
+		/// Gets the <see cref="Expense"/> for the provided year.
 		/// </summary>
 		/// <param name="year">Year of the expenses creation.</param>
 		/// <returns><see cref="IList{Expense}"/> which were created in provided year.</returns>
@@ -167,7 +167,7 @@ namespace Contador.Services
 		}
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> into storage.
+		/// Adds the provided <see cref="Expense"/> into the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
 		/// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
@@ -233,13 +233,23 @@ namespace Contador.Services
 		}
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id.
+		/// Removes the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>Correct <see cref="ResponseCode"/> for operation</returns>
 		public async Task<ResponseCode> RemoveAsync(int id)
 		{
-			var result = await _expenseRepo.RemoveExpenseAsync(id).CAF();
+			bool result;
+			try
+			{
+				result = await _expenseRepo.RemoveAsync(id).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return ResponseCode.Error;
+			}
 
 			ExpenseRemoved?.Invoke(this, id);
 

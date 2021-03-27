@@ -131,15 +131,15 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
-		/// Removes expense of provided id.
+		/// Removes the expense of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>HTTP code.</returns>
 		[HttpDelete("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult> RemoveExpense([FromRoute] int id)
+		public async Task<ActionResult> Remove([FromRoute] int id)
 		{
 			if (!await ExpenseOfIdExists(id))
 			{
@@ -148,12 +148,12 @@ namespace Contador.Web.Server.Controllers
 
 			var result = await _expenseService.RemoveAsync(id).CAF();
 
-			if (result == ResponseCode.Ok)
+			return result switch
 			{
-				return Ok();
-			}
-
-			return BadRequest("Error occurred while removing expense.");
+				ResponseCode.Error => BadRequest("Error occurred while removing expense."),
+				ResponseCode.Ok => Ok(),
+				_ => BadRequest("Just check the logs my love.")
+			};
 		}
 
 		private async Task<bool> ExpenseOfIdExists(int id)

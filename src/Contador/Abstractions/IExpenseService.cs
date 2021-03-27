@@ -18,14 +18,14 @@ namespace Contador.Abstractions
 		Task<Result<IList<Expense>>> GetAllAsync();
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> of provided id.
+		/// Gets the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of requested Expense.</param>
+		/// <param name="id">Id of the requested <see cref="Expense"/>.</param>
 		/// <returns><see cref="Expense"/> of provided id.</returns>
 		Task<Result<Expense>> GetByIdAsync(int id);
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> for provided month.
+		/// Gets the <see cref="Expense"/> for the provided month.
 		/// </summary>
 		/// <param name="month">Month of the expenses creation.</param>
 		/// <param name="year">Year of the expenses creation.</param>
@@ -33,31 +33,31 @@ namespace Contador.Abstractions
 		Task<Result<IList<Expense>>> GetByMonthAsync(int month, int year);
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> for provided year.
+		/// Gets the <see cref="Expense"/> for the provided year.
 		/// </summary>
 		/// <param name="year">Year of the expenses creation.</param>
 		/// <returns><see cref="IList{Expense}"/> which were created in provided year.</returns>
 		Task<Result<IList<Expense>>> GetByYearAsync(int year);
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> into storage.
+		/// Adds the provided <see cref="Expense"/> into the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
 		/// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
 		Task<Result<Expense>> AddAsync(Expense expense);
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="expense">Expense info.</param>
 		/// <returns>Correct <see cref="ResponseCode"/> for operation and updated expense.</returns>
 		Task<Result<Expense>> UpdateAsync(int id, Expense expense);
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id.
+		/// Removes the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>Correct <see cref="ResponseCode"/> for operation</returns>
 		Task<ResponseCode> RemoveAsync(int id);
 	}
