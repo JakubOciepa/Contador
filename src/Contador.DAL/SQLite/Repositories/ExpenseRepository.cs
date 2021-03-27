@@ -31,11 +31,11 @@ namespace Contador.DAL.SQLite.Repositories
 		}
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> to storage.
+		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>Added expense or default</returns>
-		public async Task<Expense> AddExpenseAsync(Expense expense)
+		/// <returns>The added expense.</returns>
+		public async Task<Expense> AddAsync(Expense expense)
 		{
 			var expenseToSave = new ExpenseDto()
 			{

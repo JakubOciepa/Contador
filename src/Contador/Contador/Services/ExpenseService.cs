@@ -172,17 +172,29 @@ namespace Contador.Services
 		/// <returns>Correct <see cref="ResponseCode"/> for operation and added expense.</returns>
 		public async Task<Result<Expense>> AddAsync(Expense expense)
 		{
-			var result = await _expenseRepo.AddExpenseAsync(expense).CAF();
-
-			if (result is null)
+			Expense addedExpense;
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, "Cannot add the expense.");
-				return new Result<Expense>(ResponseCode.Error, null);
+				addedExpense = await _expenseRepo.AddAsync(expense).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return new Result<Expense>(ResponseCode.Error, null) { Message = ex.Message };
 			}
 
-			ExpenseAdded?.Invoke(this, result);
+			if (addedExpense is null)
+			{
+				var error = "Cannot add the expense";
+				_logger.Write(LogLevel.Warning, error);
 
-			return new Result<Expense>(ResponseCode.Ok, result);
+				return new Result<Expense>(ResponseCode.Error, null) { Message = error };
+			}
+
+			ExpenseAdded?.Invoke(this, addedExpense);
+
+			return new Result<Expense>(ResponseCode.Ok, addedExpense);
 		}
 
 		/// <summary>

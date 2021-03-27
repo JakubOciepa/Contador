@@ -94,9 +94,9 @@ namespace Contador.Mobile
 			};
 
 			expense.Category.Id = 1;
-			await expenseRepo.AddExpenseAsync(expense);
-			await expenseRepo.AddExpenseAsync(expense);
-			await expenseRepo.AddExpenseAsync(expense);
+			await expenseRepo.AddAsync(expense);
+			await expenseRepo.AddAsync(expense);
+			await expenseRepo.AddAsync(expense);
 
 			//await expenseRepo.UpdateExpenseAsync(1, expense);
 			//await expenseRepo.RemoveExpenseAsync(10);

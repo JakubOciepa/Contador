@@ -77,7 +77,7 @@ namespace Contador.Web.Server.Controllers
 		/// Adds new expense.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>HTTP code.</returns>
+		/// <returns>HTTP code with created expense if all succeeded.</returns>
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -95,13 +95,12 @@ namespace Contador.Web.Server.Controllers
 
 			var result = await _expenseService.AddAsync(expense).CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
+			return result.ResponseCode switch
 			{
-				return CreatedAtAction(nameof(GetById),
-					new { id = result.ReturnedObject.Id }, result.ReturnedObject);
-			}
-
-			return BadRequest("Error occurred while saving expense.");
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => CreatedAtAction(nameof(GetById), new {id = result.ReturnedObject.Id}, result.ReturnedObject),
+				_ => BadRequest("(T_T) Seriously don't know how this happened..."),
+			};
 		}
 
 		/// <summary>

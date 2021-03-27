@@ -39,11 +39,11 @@ namespace Contador.DAL.Abstractions
 		Task<IList<Expense>> GetByYearAsync(int year);
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> to storage.
+		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>Added expense or default</returns>
-		Task<Expense> AddExpenseAsync(Expense expense);
+		/// <returns>The added expense.</returns>
+		Task<Expense> AddAsync(Expense expense);
 
 		/// <summary>
 		/// Updates <see cref="Expense"/> of provided id.

@@ -130,11 +130,11 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> to storage.
+		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>Added expense or default</returns>
-		public async Task<Expense> AddExpenseAsync(Expense expense)
+		/// <returns>The added expense.</returns>
+		public async Task<Expense> AddAsync(Expense expense)
 		{
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Name, expense.Name);
@@ -155,7 +155,7 @@ namespace Contador.DAL.MySql.Repositories
 				},
 				param, commandType: CommandType.StoredProcedure).CAF();
 
-			return result.FirstOrDefault()?.AsExpense();
+			return result.First().AsExpense();
 		}
 
 		/// <summary>
