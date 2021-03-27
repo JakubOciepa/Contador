@@ -98,22 +98,22 @@ namespace Contador.Web.Server.Controllers
 			return result.ResponseCode switch
 			{
 				ResponseCode.Error => BadRequest(result.Message),
-				ResponseCode.Ok => CreatedAtAction(nameof(GetById), new {id = result.ReturnedObject.Id}, result.ReturnedObject),
+				ResponseCode.Ok => CreatedAtAction(nameof(GetById), new { id = result.ReturnedObject.Id }, result.ReturnedObject),
 				_ => BadRequest("(T_T) Seriously don't know how this happened..."),
 			};
 		}
 
 		/// <summary>
-		/// Updates expense of provided id.
+		/// Updates the expense of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="expense">Expense info.</param>
 		/// <returns>HTTP code.</returns>
 		[HttpPut("{id}")]
 		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] Expense expense)
+		public async Task<ActionResult> Update([FromRoute] int id, [FromBody] Expense expense)
 		{
 			if (!await ExpenseOfIdExists(id))
 			{
@@ -122,12 +122,12 @@ namespace Contador.Web.Server.Controllers
 
 			var result = await _expenseService.UpdateAsync(id, expense).CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
+			return result.ResponseCode switch
 			{
-				return Ok(result.ReturnedObject);
-			}
-
-			return BadRequest("Error occurred while updating expense.");
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				ResponseCode.Error => BadRequest(result.Message),
+				_ => BadRequest("(¬_¬ ) You should look into the logs..."),
+			};
 		}
 
 		/// <summary>

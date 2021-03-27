@@ -153,12 +153,12 @@ namespace Contador.DAL.SQLite.Repositories
 		}
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="info">Expense info.</param>
-		/// <returns>Updated expense or default.</returns>
-		public async Task<Expense> UpdateExpenseAsync(int id, Expense info)
+		/// <returns>Updated expense.</returns>
+		public async Task<Expense> UpdateAsync(int id, Expense info)
 		{
 			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>()
 													.FirstOrDefaultAsync(expense => expense.Id == id)

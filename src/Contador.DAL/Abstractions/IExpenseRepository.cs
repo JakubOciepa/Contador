@@ -46,12 +46,12 @@ namespace Contador.DAL.Abstractions
 		Task<Expense> AddAsync(Expense expense);
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="info">Expense info.</param>
-		/// <returns>Updated expense or default.</returns>
-		Task<Expense> UpdateExpenseAsync(int id, Expense info);
+		/// <returns>Updated expense.</returns>
+		Task<Expense> UpdateAsync(int id, Expense info);
 
 		/// <summary>
 		/// Removes <see cref="Expense"/> of provided id from storage.

@@ -151,7 +151,7 @@ namespace Server.Tests
 			var usersRepoMock = new Mock<IUserService>();
 			var loggerMock = new Mock<ILog>();
 
-			expenseRepoMock.Setup(r => r.UpdateExpenseAsync(It.IsAny<int>(), It.IsAny<Expense>()))
+			expenseRepoMock.Setup(r => r.UpdateAsync(It.IsAny<int>(), It.IsAny<Expense>()))
 				.Returns(Task.FromResult(default(Expense)));
 
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
@@ -185,7 +185,7 @@ namespace Server.Tests
 			var expectedExpenes = _expectedExpenses[0];
 			expectedExpenes.Description = expectedDescription;
 
-			expenseRepoMock.Setup(r => r.UpdateExpenseAsync(It.IsAny<int>(), It.IsAny<Expense>()))
+			expenseRepoMock.Setup(r => r.UpdateAsync(It.IsAny<int>(), It.IsAny<Expense>()))
 				.Returns(Task.FromResult(updatedExpense));
 
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))

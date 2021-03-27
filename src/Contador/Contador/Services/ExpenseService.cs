@@ -8,6 +8,7 @@ using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
 
+
 namespace Contador.Services
 {
 	/// <summary>
@@ -198,24 +199,37 @@ namespace Contador.Services
 		}
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="expense">Expense info.</param>
 		/// <returns>Correct <see cref="ResponseCode"/> for operation and updated expense.</returns>
 		public async Task<Result<Expense>> UpdateAsync(int id, Expense expense)
 		{
-			var result = await _expenseRepo.UpdateExpenseAsync(id, expense).CAF();
+			Expense updated;
 
-			if (result is null)
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, $"Cannot update the expense of the {id}.");
-				return new Result<Expense>(ResponseCode.Error, null);
+				updated = await _expenseRepo.UpdateAsync(id, expense).CAF();
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex.Message}\n{ex.StackTrace}";
+
+				return new Result<Expense>(ResponseCode.Error, null) { Message = message };
 			}
 
-			ExpenseUpdated?.Invoke(this, result);
+			if (updated is null)
+			{
+				var message = $"Cannot update the expense of the {id}.";
+				_logger.Write(LogLevel.Warning, message);
 
-			return new Result<Expense>(ResponseCode.Ok, result);
+				return new Result<Expense>(ResponseCode.Error, null) { Message = message };
+			}
+
+			ExpenseUpdated?.Invoke(this, updated);
+
+			return new Result<Expense>(ResponseCode.Ok, updated);
 		}
 
 		/// <summary>

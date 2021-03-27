@@ -159,12 +159,12 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="info">Expense info.</param>
-		/// <returns>Updated expense or default.</returns>
-		public async Task<Expense> UpdateExpenseAsync(int id, Expense expense)
+		/// <returns>Updated expense.</returns>
+		public async Task<Expense> UpdateAsync(int id, Expense expense)
 		{
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Id, expense.Id);
