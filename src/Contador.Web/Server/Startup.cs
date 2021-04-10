@@ -20,6 +20,9 @@ using MySql.Data.MySqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Contador.Web.Server
 {
@@ -43,11 +46,23 @@ namespace Contador.Web.Server
 
 			services.AddDbContext<IdentityDatabaseContext>(options
 				=> options.UseMySql($"server=localhost;{Configuration["DbUsers"]}",
-				new MySqlServerVersion(new Version(10, 3, 25)),	mySqlOptions
+				new MySqlServerVersion(new Version(10, 3, 25)), mySqlOptions
 					=> mySqlOptions.CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.NeverAppend))
 					.EnableSensitiveDataLogging().EnableDetailedErrors());
 
 			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<IdentityDatabaseContext>();
+
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+			{
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+				};
+			});
+
 
 			services.AddSingleton<ILog, Log>();
 			services.AddScoped<IExpenseRepository, ExpenseRepository>();
