@@ -76,6 +76,60 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
+		/// Gets all expenses by provided month.
+		/// </summary>
+		/// <param name="month">Creation month of the expenses.</param>
+		/// <param name="year">Creation year of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided month.</returns>
+		public async Task<IList<Expense>> GetByMonthAsync(int month, int year)
+		{
+			var parameter = new DynamicParameters();
+			parameter.Add(ExpenseDto.ParameterName.MonthNum, month);
+			parameter.Add(ExpenseDto.ParameterName.Year, year);
+
+			var expenses = await _dbConnection
+				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetByMonth,
+				(expense, category, user) =>
+				{
+					expense.Category = category;
+					expense.User = user;
+
+					return expense;
+				},
+				parameter,
+				commandType: CommandType.StoredProcedure)
+				.CAF();
+
+			return expenses.Cast<Expense>().ToList();
+		}
+		
+		/// <summary>
+		/// Gets all expenses by provided year.
+		/// </summary>
+		/// <param name="year">Creation year of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided year.</returns>
+		public async Task<IList<Expense>> GetByYearAsync(int year)
+		{
+			var parameter = new DynamicParameters();
+			parameter.Add(ExpenseDto.ParameterName.Year, year);
+
+			var expenses = await _dbConnection
+				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetByYear,
+				(expense, category, user) =>
+				{
+					expense.Category = category;
+					expense.User = user;
+
+					return expense;
+				},
+				parameter,
+				commandType: CommandType.StoredProcedure)
+				.CAF();
+
+			return expenses.Cast<Expense>().ToList();
+		}
+
+		/// <summary>
 		/// Adds provided <see cref="Expense"/> to storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

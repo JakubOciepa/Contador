@@ -43,6 +43,9 @@ namespace Contador.Web.Server
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
 			services.AddScoped<IExpenseService, ExpenseService>();
+			services.AddScoped<IExpenseManager, ExpenseService>();
+			services.AddScoped<IExpenseCategoryManager, ExpenseCategoryService>();
+			services.AddScoped<IReportService, ReportService>();
 			services.AddControllers();
 			services.AddControllersWithViews();
             services.AddRazorPages();

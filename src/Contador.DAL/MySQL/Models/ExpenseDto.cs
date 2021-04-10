@@ -99,6 +99,16 @@ namespace Contador.DAL.MySql.Models
 			/// Created date parameter name.
 			/// </summary>
 			public static readonly string CreateDate = "create_date_p";
+
+			/// <summary>
+			/// Month number parameter name.
+			/// </summary>
+			public static readonly string MonthNum = "month_p";
+
+			/// <summary>
+			/// Year parameter name.
+			/// </summary>
+			public static readonly string Year = "year_p";
 		}
 
 		/// <summary>
@@ -125,6 +135,16 @@ namespace Contador.DAL.MySql.Models
 			/// Name of the procedure which gets expense by id from the database.
 			/// </summary>
 			public static readonly string GetById = "expense_GetById";
+
+			/// <summary>
+			/// Name of the procedure which gets all expenses for the provided month.
+			/// </summary>
+			public static readonly string GetByMonth = "expense_GetByMonth";
+
+			/// <summary>
+			/// Name of the procedure which gets all expenses for the provided month.
+			/// </summary>
+			public static readonly string GetByYear = "expense_GetByYear";
 
 			/// <summary>
 			/// Name of the procedure which updates expense from the database.
