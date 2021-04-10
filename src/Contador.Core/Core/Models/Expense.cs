@@ -55,8 +55,8 @@ namespace Contador.Core.Models
 		/// <param name="category">Category of the expense.</param>
 		public Expense(string name, decimal value, User user, ExpenseCategory category)
 		{
-			Name = name;
-			Value = value;
+			SetName(name);
+			SetValue(value);
 			User = user;
 			Category = category;
 		}
@@ -77,6 +77,31 @@ namespace Contador.Core.Models
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+
+		private void SetName(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentNullException(nameof(name), "Expense name cannot be empty.");
+			}
+
+			if (name.Length < 3)
+			{
+				throw new ArgumentException("Name requires minimum 3 characters.");
+			}
+
+			Name = name;
+		}
+
+		private void SetValue(decimal value)
+		{
+			if (value <= 0)
+			{
+				throw new ArgumentException("Value must be greater than zero.");
+			}
+
+			Value = value;
 		}
 	}
 }
