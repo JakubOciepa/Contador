@@ -27,7 +27,7 @@ namespace Contador.DAL.MySql.Models
 		/// <summary>
 		/// Initializes instance of the <see cref="ExpenseDto"/> class.
 		/// </summary>
-		public ExpenseDto() : base(string.Empty, 0, null, null)
+		public ExpenseDto() : base()
 		{
 		}
 

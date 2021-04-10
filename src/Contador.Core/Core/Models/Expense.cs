@@ -48,6 +48,14 @@ namespace Contador.Core.Models
 		public DateTime CreateDate { get; set; }
 
 		/// <summary>
+		/// Constructor method for children only.
+		/// </summary>
+		protected Expense()
+		{
+
+		}
+
+		/// <summary>
 		/// Creates instance of <see cref="Expense"/> class.
 		/// <param name="name">Name of the expense.</param>
 		/// <param name="value">Value of the expense.</param>
