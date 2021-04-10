@@ -4,6 +4,7 @@ using Contador.Abstractions;
 using Contador.DAL.Abstractions;
 using Contador.DAL.MySql.Repositories;
 using Contador.Services;
+using Contador.Web.Server.Identity;
 using Contador.Web.Server.Services;
 
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +14,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
 using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
+using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace Contador.Web.Server
 {
@@ -33,7 +39,16 @@ namespace Contador.Web.Server
 			services.AddSwaggerGen(c =>
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" }));
 			services.AddTransient<IDbConnection>(db => 
-			new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}"));
+				new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}"));
+
+			services.AddDbContext<IdentityDatabaseContext>(options
+				=> options.UseMySql($"server=localhost;{Configuration["DbUsers"]}",
+				new MySqlServerVersion(new Version(10, 3, 25)),	mySqlOptions
+					=> mySqlOptions.CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.NeverAppend))
+					.EnableSensitiveDataLogging().EnableDetailedErrors());
+
+			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<IdentityDatabaseContext>();
+
 			services.AddSingleton<ILog, Log>();
 			services.AddScoped<IExpenseRepository, ExpenseRepository>();
 			services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
