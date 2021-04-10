@@ -79,7 +79,7 @@ namespace Contador.Core.Models
 			return base.GetHashCode();
 		}
 
-		public void SetName(string name)
+		private void SetName(string name)
 		{
 			if (string.IsNullOrWhiteSpace(name))
 			{
@@ -93,9 +93,10 @@ namespace Contador.Core.Models
 
 			Name = name;
 		}
-		public void SetValue(decimal value)
+
+		private void SetValue(decimal value)
 		{
-			if (value < 0)
+			if (value <= 0)
 			{
 				throw new ArgumentException("Value must be greater than zero.");
 			}
