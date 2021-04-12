@@ -62,7 +62,7 @@ namespace Contador.Web.Client.Services
 			}
 
 			await _localStorage.SetItemAsync("authToken", loginResult.Token);
-			((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
+			((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Name);
 			_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);
 
 			return loginResult;
