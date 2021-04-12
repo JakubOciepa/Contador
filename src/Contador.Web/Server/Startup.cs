@@ -40,7 +40,7 @@ namespace Contador.Web.Server
 			services.AddSwaggerGen(c =>
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" }));
 			services.AddTransient<IDbConnection>(db =>
-				new MySqlConnection($"server=localhost;{Configuration["DbCredentials"]}"));
+				new MySqlConnection($"server=localhost;{Configuration["DbContent"]}"));
 
 			services.AddDbContext<IdentityDatabaseContext>(options
 				=> options.UseMySql($"server=localhost;{Configuration["DbUsers"]}",
@@ -117,9 +117,9 @@ namespace Contador.Web.Server
 
 	public static class TempConfig 
 	{
-		public static string TokenKey = @"um+:$^ie4z%,`,d'i]sr4$/,3e]qu!>7q*h=n!/<n=b*eg{ogf}a~f7<j<moz7~z";
-		public static string JwtIssuer = "https://localhost";
-		public static string JwtAudience = "https://localhost";
-		public static int JwtExpiryInDays = 1;
+		public static readonly string TokenKey = @"um+:$^ie4z%,`,d'i]sr4$/,3e]qu!>7q*h=n!/<n=b*eg{ogf}a~f7<j<moz7~z";
+		public static readonly string JwtIssuer = "https://localhost";
+		public static readonly string JwtAudience = "https://localhost";
+		public static readonly int JwtExpiryInDays = 1;
 	}
 }

@@ -27,7 +27,7 @@ if ($SetupSecrets -eq "Y") {
 	dotnet user-secrets init --project $projectPath
 	
 	if ($SetupDb -eq "Y") {
-		dotnet user-secrets set "DbCredentials" "user=$DbUserName;password=$DbPasswd;database=$DbName" -p "$($projectPath.FullName)";
+		dotnet user-secrets set "DbContent" "user=$DbUserName;password=$DbPasswd;database=$DbName" -p "$($projectPath.FullName)";
 	}
 
 	else {
@@ -36,7 +36,7 @@ if ($SetupSecrets -eq "Y") {
 		$DbPasswd = ConvertFrom-SecureString $DbCredentials.Password -AsPlainText
 		$DbUserName = $DbCredentials.UserName
 		
-		[void](dotnet user-secrets set "DbCredentials" "user=$DbUserName;password=$DbPasswd;database=$DbName" -p "$($projectPath.FullName)")
+		[void](dotnet user-secrets set "DbContent" "user=$DbUserName;password=$DbPasswd;database=$DbName" -p "$($projectPath.FullName)")
 	}
 }
 
