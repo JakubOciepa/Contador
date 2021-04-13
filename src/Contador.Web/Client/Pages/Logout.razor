@@ -4,10 +4,10 @@
 
 @code {
 
-    protected override async Task OnInitializedAsync()
-    {
-        await AuthService.Logout();
-        NavigationManager.NavigateTo("/");
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		await AuthService.Logout();
+		NavigationManager.NavigateTo("/");
+	}
 
 }
