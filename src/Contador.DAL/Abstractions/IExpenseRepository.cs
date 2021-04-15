@@ -15,13 +15,13 @@ namespace Contador.DAL.Abstractions
 		/// </summary>
 		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
 		/// <returns><see cref="Expense"/> of provided Id.</returns>
-		Task<Expense> GetExpenseAsync(int expenseId);
+		Task<Expense> GetByIdAsync(int expenseId);
 
 		/// <summary>
 		/// Gets all available expenses.
 		/// </summary>
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-		Task<IList<Expense>> GetExpensesAsync();
+		Task<IList<Expense>> GetAllAsync();
 
 		/// <summary>
 		/// Gets all expenses by provided month.
@@ -39,25 +39,25 @@ namespace Contador.DAL.Abstractions
 		Task<IList<Expense>> GetByYearAsync(int year);
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> to storage.
+		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>Added expense or default</returns>
-		Task<Expense> AddExpenseAsync(Expense expense);
+		/// <returns>The added expense.</returns>
+		Task<Expense> AddAsync(Expense expense);
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="info">Expense info.</param>
-		/// <returns>Updated expense or default.</returns>
-		Task<Expense> UpdateExpenseAsync(int id, Expense info);
+		/// <returns>Updated expense.</returns>
+		Task<Expense> UpdateAsync(int id, Expense info);
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id from storage.
+		/// Removes the <see cref="Expense"/> of the provided id from the storage.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		Task<bool> RemoveExpenseAsync(int id);
+		Task<bool> RemoveAsync(int id);
 	}
 }

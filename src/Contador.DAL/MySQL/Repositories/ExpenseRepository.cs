@@ -29,11 +29,11 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Gets <see cref="Expense"/> of provided id.
+		/// Gets <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
-		/// <returns><see cref="Expense"/> of provided Id.</returns>
-		public async Task<Expense> GetExpenseAsync(int expenseId)
+		/// <param name="expenseId">Id of the requested <see cref="Expense"/>.</param>
+		/// <returns><see cref="Expense"/> of the provided Id.</returns>
+		public async Task<Expense> GetByIdAsync(int expenseId)
 		{
 			var parameter = new DynamicParameters();
 			parameter.Add(ExpenseDto.ParameterName.Id, expenseId);
@@ -58,7 +58,7 @@ namespace Contador.DAL.MySql.Repositories
 		/// Gets all available expenses.
 		/// </summary>
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-		public async Task<IList<Expense>> GetExpensesAsync()
+		public async Task<IList<Expense>> GetAllAsync()
 		{
 			var expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetAll,
@@ -130,11 +130,11 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> to storage.
+		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>Added expense or default</returns>
-		public async Task<Expense> AddExpenseAsync(Expense expense)
+		/// <returns>The added expense.</returns>
+		public async Task<Expense> AddAsync(Expense expense)
 		{
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Name, expense.Name);
@@ -155,16 +155,16 @@ namespace Contador.DAL.MySql.Repositories
 				},
 				param, commandType: CommandType.StoredProcedure).CAF();
 
-			return result.FirstOrDefault()?.AsExpense();
+			return result.First().AsExpense();
 		}
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="info">Expense info.</param>
-		/// <returns>Updated expense or default.</returns>
-		public async Task<Expense> UpdateExpenseAsync(int id, Expense expense)
+		/// <returns>Updated expense.</returns>
+		public async Task<Expense> UpdateAsync(int id, Expense expense)
 		{
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Id, expense.Id);
@@ -191,18 +191,18 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id from storage.
+		/// Removes the <see cref="Expense"/> of the provided id from the storage.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		public async Task<bool> RemoveExpenseAsync(int id)
+		public async Task<bool> RemoveAsync(int id)
 		{
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Id, id);
 
 			await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
 
-			return !(await GetExpenseAsync(id).CAF() is object);
+			return !(await GetByIdAsync(id).CAF() is object);
 		}
 	}
 }

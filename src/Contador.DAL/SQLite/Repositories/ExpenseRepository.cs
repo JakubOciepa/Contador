@@ -31,11 +31,11 @@ namespace Contador.DAL.SQLite.Repositories
 		}
 
 		/// <summary>
-		/// Adds provided <see cref="Expense"/> to storage.
+		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
-		/// <returns>Added expense or default</returns>
-		public async Task<Expense> AddExpenseAsync(Expense expense)
+		/// <returns>The added expense.</returns>
+		public async Task<Expense> AddAsync(Expense expense)
 		{
 			var expenseToSave = new ExpenseDto()
 			{
@@ -81,7 +81,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// </summary>
 		/// <param name="expenseId">Id of requested <see cref="Expense"/>.</param>
 		/// <returns><see cref="Expense"/> of provided Id.</returns>
-		public async Task<Expense> GetExpenseAsync(int expenseId)
+		public async Task<Expense> GetByIdAsync(int expenseId)
 		{
 			var expense = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
 
@@ -113,7 +113,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// Gets all available expenses.
 		/// </summary>
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
-		public async Task<IList<Expense>> GetExpensesAsync()
+		public async Task<IList<Expense>> GetAllAsync()
 		{
 			var expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
 
@@ -141,11 +141,11 @@ namespace Contador.DAL.SQLite.Repositories
 		}
 
 		/// <summary>
-		/// Removes <see cref="Expense"/> of provided id from storage.
+		/// Removes the <see cref="Expense"/> of the provided id from the storage.
 		/// </summary>
-		/// <param name="id">Id of expense to remove.</param>
+		/// <param name="id">Id of the expense to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		public async Task<bool> RemoveExpenseAsync(int id)
+		public async Task<bool> RemoveAsync(int id)
 		{
 			return await Task.FromResult(await _dbConnection.Table<ExpenseDto>()
 															 .DeleteAsync(expense => expense.Id == id).CAF() == 1)
@@ -153,12 +153,12 @@ namespace Contador.DAL.SQLite.Repositories
 		}
 
 		/// <summary>
-		/// Updates <see cref="Expense"/> of provided id.
+		/// Updates the <see cref="Expense"/> of the provided id.
 		/// </summary>
-		/// <param name="id">Id of expense to update.</param>
+		/// <param name="id">Id of the expense to update.</param>
 		/// <param name="info">Expense info.</param>
-		/// <returns>Updated expense or default.</returns>
-		public async Task<Expense> UpdateExpenseAsync(int id, Expense info)
+		/// <returns>Updated expense.</returns>
+		public async Task<Expense> UpdateAsync(int id, Expense info)
 		{
 			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>()
 													.FirstOrDefaultAsync(expense => expense.Id == id)
@@ -181,6 +181,27 @@ namespace Contador.DAL.SQLite.Repositories
 			}
 
 			return null;
+		}
+
+		/// <summary>
+		/// Gets all expenses by provided month.
+		/// </summary>
+		/// <param name="month">Creation month of the expenses.</param>
+		/// <param name="year">Creation year of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided month.</returns>
+		public Task<IList<Expense>> GetByMonthAsync(int month, int year)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Gets all expenses by provided year.
+		/// </summary>
+		/// <param name="year">Creation year of the expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of all expenses from provided year.</returns>
+		public Task<IList<Expense>> GetByYearAsync(int year)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
