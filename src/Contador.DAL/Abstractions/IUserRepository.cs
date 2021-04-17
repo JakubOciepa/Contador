@@ -12,6 +12,6 @@ namespace Contador.DAL.Abstractions
 		/// </summary>
 		/// <param name="id">Id of requested user.</param>
 		/// <returns>User of provided id.</returns>
-		User GetUserById(int id);
+		User GetUserById(string id);
 	}
 }

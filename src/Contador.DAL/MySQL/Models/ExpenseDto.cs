@@ -17,7 +17,7 @@ namespace Contador.DAL.MySql.Models
 		/// <summary>
 		/// Id of the <see cref="UserDto"/> which is the creator of this expense.
 		/// </summary>
-		public int UserId { get; set; }
+		public string UserId { get; set; }
 
 		/// <summary>
 		/// Date when the expense has been edited last time.

@@ -40,7 +40,7 @@ namespace Contador.DAL.SQLite.Models
 		/// <summary>
 		/// Id of the <see cref="UserDto"/> which is the creator of this expense.
 		/// </summary>
-		public int UserId { get; set; }
+		public string UserId { get; set; }
 
 		/// <summary>
 		/// <see cref="DateTime"/> when the expense has been created.
