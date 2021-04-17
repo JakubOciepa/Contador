@@ -49,5 +49,14 @@ namespace Contador.Web.Server.Controllers
 
 			return Ok(new RegisterResult { Successful = true });
 		}
+
+		[HttpGet("{userName}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public async Task<ActionResult<IdentityUser>> GetByName([FromRoute]string userName)
+		{
+			var user = await _userManager.FindByNameAsync(userName);
+
+			return user is IdentityUser ? Ok(user) : BadRequest("User not found.");
+		}
 	}
 }
