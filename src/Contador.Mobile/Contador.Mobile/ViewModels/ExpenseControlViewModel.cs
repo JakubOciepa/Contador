@@ -103,7 +103,7 @@ namespace Contador.Mobile.ViewModels
 		private void InitializeProperties()
 		{
 			CategoryGlyph = _categoryAvatarService.GetByCategoryName(Expense.Category.Name);
-			UserGlyph = _userAvatarService.GetByUserName(Expense.User.Name);
+			UserGlyph = _userAvatarService.GetByUserName(Expense.User.UserName);
 
 			ExpenseColor = Color.Red;
 			RemoveCommand = new Command(RemoveExpense);

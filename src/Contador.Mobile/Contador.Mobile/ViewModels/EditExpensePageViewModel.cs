@@ -218,8 +218,8 @@ namespace Contador.Mobile.ViewModels
 		{
 			var user = new User()
 			{
-				Name = "Kuba",
-				Id = 1,
+				UserName = "Kuba",
+				Id = "1",
 			};
 
 			_expense = new Expense(Name, Value, user, Category)
