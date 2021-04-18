@@ -38,7 +38,7 @@ namespace Contador.DAL.MySql.Repositories
 			var parameter = new DynamicParameters();
 			parameter.Add(ExpenseDto.ParameterName.Id, expenseId);
 
-			var expense = (await _dbConnection
+			ExpenseDto expense = (await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetById,
 					(expense, category, user) =>
 					{
@@ -60,7 +60,7 @@ namespace Contador.DAL.MySql.Repositories
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
 		public async Task<IList<Expense>> GetAllAsync()
 		{
-			var expenses = await _dbConnection
+			IEnumerable<ExpenseDto> expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetAll,
 					(expense, category, user) =>
 					{
@@ -87,7 +87,7 @@ namespace Contador.DAL.MySql.Repositories
 			parameter.Add(ExpenseDto.ParameterName.MonthNum, month);
 			parameter.Add(ExpenseDto.ParameterName.Year, year);
 
-			var expenses = await _dbConnection
+			IEnumerable<ExpenseDto> expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetByMonth,
 				(expense, category, user) =>
 				{
@@ -102,7 +102,7 @@ namespace Contador.DAL.MySql.Repositories
 
 			return expenses.Cast<Expense>().ToList();
 		}
-		
+
 		/// <summary>
 		/// Gets all expenses by provided year.
 		/// </summary>
@@ -113,7 +113,7 @@ namespace Contador.DAL.MySql.Repositories
 			var parameter = new DynamicParameters();
 			parameter.Add(ExpenseDto.ParameterName.Year, year);
 
-			var expenses = await _dbConnection
+			IEnumerable<ExpenseDto> expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetByYear,
 				(expense, category, user) =>
 				{
@@ -144,7 +144,7 @@ namespace Contador.DAL.MySql.Repositories
 			param.Add(ExpenseDto.ParameterName.UserId, expense.User.Id);
 			param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
 
-			var result = await _dbConnection
+			IEnumerable<ExpenseDto> result = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.Add,
 				(expense, category, user) =>
 				{
@@ -176,7 +176,7 @@ namespace Contador.DAL.MySql.Repositories
 			param.Add(ExpenseDto.ParameterName.ImagePath, expense.ImagePath);
 			param.Add(ExpenseDto.ParameterName.CreateDate, expense.CreateDate);
 
-			var result = await _dbConnection
+			IEnumerable<ExpenseDto> result = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.Update,
 				(expense, category, user) =>
 				{
@@ -200,7 +200,7 @@ namespace Contador.DAL.MySql.Repositories
 			var param = new DynamicParameters();
 			param.Add(ExpenseDto.ParameterName.Id, id);
 
-			await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
+			_ = await _dbConnection.ExecuteAsync(ExpenseDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
 
 			return !(await GetByIdAsync(id).CAF() is object);
 		}

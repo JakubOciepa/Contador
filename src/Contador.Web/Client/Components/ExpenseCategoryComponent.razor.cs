@@ -36,7 +36,7 @@ namespace Contador.Web.Client.Components
 
 		private string Name { get; set; }
 
-		protected override async Task OnInitializedAsync()
+		protected override void OnInitialized()
 		{
 			if (Category is not null)
 			{

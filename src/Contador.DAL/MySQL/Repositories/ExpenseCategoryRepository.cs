@@ -76,7 +76,7 @@ namespace Contador.DAL.MySql.Repositories
 		{
 			var parameter = new DynamicParameters();
 			parameter.Add(ExpenseCategoryDto.ParameterName.Id, id);
-			await _dbConnection.ExecuteAsync(ExpenseCategoryDto.ProcedureName.Delete, parameter,
+			_ = await _dbConnection.ExecuteAsync(ExpenseCategoryDto.ProcedureName.Delete, parameter,
 				commandType: CommandType.StoredProcedure).CAF();
 
 			return !(await GetByIdAsync(id).CAF() is object);

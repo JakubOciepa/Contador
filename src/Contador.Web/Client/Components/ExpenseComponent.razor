@@ -38,7 +38,14 @@ else
 	{
 		<td>@Expense.User.UserName</td>
 	}
-	<td>@Expense.Category.Name</td>
+	@if(Expense.Category is null)
+	{
+		<td>Not found</td>
+	}
+	else
+	{
+		<td>@Expense.Category.Name</td>
+	}
 	<td>@Expense.Description</td>
 	<td>@Expense.CreateDate.ToString("dd.MM.yyyy")</td>
 	<td>Not implemented</td>

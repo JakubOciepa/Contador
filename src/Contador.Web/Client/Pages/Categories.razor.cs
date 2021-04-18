@@ -25,7 +25,7 @@ namespace Contador.Web.Client.Pages
 
 
 		private IList<ExpenseCategory> CategoriesList = new List<ExpenseCategory>();
-		private ExpenseCategoryModel CategoryModel = new();
+		private readonly ExpenseCategoryModel CategoryModel = new();
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -73,8 +73,6 @@ namespace Contador.Web.Client.Pages
 			try
 			{
 				var result = await _httpClient.GetAsync("api/expensecategory");
-
-				_logger.Write(Core.Common.LogLevel.Warning, await result.Content.ReadAsStringAsync());
 
 				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
 				{
