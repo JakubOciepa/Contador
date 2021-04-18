@@ -31,7 +31,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// </summary>
 		/// <param name="expenseCategory">Expense category to add.</param>
 		/// <returns>Added expense category</returns>
-		public async Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory)
+		public async Task<ExpenseCategory> AddAsync(ExpenseCategory expenseCategory)
 		{
 			if (await GetCategoryByName(expenseCategory.Name).CAF() is object)
 				return null;
@@ -53,7 +53,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// Gets all available expense categories.
 		/// </summary>
 		/// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-		public async Task<IList<ExpenseCategory>> GetCategoriesAsync()
+		public async Task<IList<ExpenseCategory>> GetAllAsync()
 		{
 			var categories = await _dbConnection.Table<ExpenseCategoryDto>().ToListAsync().CAF();
 
@@ -72,7 +72,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// </summary>
 		/// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
 		/// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
-		public async Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId)
+		public async Task<ExpenseCategory> GetByIdAsync(int categoryId)
 		{
 			var category = await _dbConnection.Table<ExpenseCategoryDto>()
 											.FirstOrDefaultAsync(category => category.Id == categoryId)
@@ -91,7 +91,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// </summary>
 		/// <param name="id">Id of expense category to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		public async Task<bool> RemoveCategoryAsync(int id)
+		public async Task<bool> RemoveAsync(int id)
 		{
 			return await Task.FromResult(await _dbConnection.Table<ExpenseCategoryDto>()
 															 .DeleteAsync(category => category.Id == id)
@@ -105,7 +105,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// <param name="id">Id of expense category to update.</param>
 		/// <param name="expenseCategory">Category info.</param>
 		/// <returns>Updated category.</returns>
-		public async Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory)
+		public async Task<ExpenseCategory> UpdateAsync(int id, ExpenseCategory expenseCategory)
 		{
 			var categoryToUpdate = await _dbConnection.Table<ExpenseCategoryDto>().FirstAsync(category => category.Id == id).CAF();
 

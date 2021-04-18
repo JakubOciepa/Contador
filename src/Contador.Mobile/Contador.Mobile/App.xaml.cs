@@ -76,10 +76,10 @@ namespace Contador.Mobile
 			var category = new ExpenseCategory("Słodycze");
 			var expenseCategoryRepository = container.Resolve<IExpenseCategoryRepository>();
 
-			await expenseCategoryRepository.AddCategoryAsync(category);
+			await expenseCategoryRepository.AddAsync(category);
 
-			var categories = await expenseCategoryRepository.GetCategoriesAsync();
-			var cat = await expenseCategoryRepository.GetCategoryByIdAsync(2);
+			var categories = await expenseCategoryRepository.GetAllAsync();
+			var cat = await expenseCategoryRepository.GetByIdAsync(2);
 
 			category.Name = "Słodkości";
 			var expenseRepo = container.Resolve<IExpenseRepository>();

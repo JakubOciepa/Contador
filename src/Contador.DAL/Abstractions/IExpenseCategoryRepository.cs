@@ -15,20 +15,20 @@ namespace Contador.DAL.Abstractions
 		/// </summary>
 		/// <param name="categoryId">Id of requested <see cref="ExpenseCategory"/>.</param>
 		/// <returns><see cref="ExpenseCategory"/> of requested Id.</returns>
-		Task<ExpenseCategory> GetCategoryByIdAsync(int categoryId);
+		Task<ExpenseCategory> GetByIdAsync(int categoryId);
 
 		/// <summary>
 		/// Gets all available expense categories.
 		/// </summary>
 		/// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-		Task<IList<ExpenseCategory>> GetCategoriesAsync();
+		Task<IList<ExpenseCategory>> GetAllAsync();
 
 		/// <summary>
 		/// Adds expense category to storage.
 		/// </summary>
 		/// <param name="expenseCategory">Expense category to add.</param>
 		/// <returns>Added expense category</returns>
-		Task<ExpenseCategory> AddCategoryAsync(ExpenseCategory expenseCategory);
+		Task<ExpenseCategory> AddAsync(ExpenseCategory expenseCategory);
 
 		/// <summary>
 		/// Updates expense category of provided id.
@@ -36,13 +36,13 @@ namespace Contador.DAL.Abstractions
 		/// <param name="id">Id of expense category to update.</param>
 		/// <param name="expenseCategory">Category info.</param>
 		/// <returns>Updated category.</returns>
-		Task<ExpenseCategory> UpdateCategoryAsync(int id, ExpenseCategory expenseCategory);
+		Task<ExpenseCategory> UpdateAsync(int id, ExpenseCategory expenseCategory);
 
 		/// <summary>
 		/// Removes expense category from storage.
 		/// </summary>
 		/// <param name="id">Id of expense category to remove.</param>
 		/// <returns>True if removed, false otherwise.</returns>
-		Task<bool> RemoveCategoryAsync(int id);
+		Task<bool> RemoveAsync(int id);
 	}
 }
