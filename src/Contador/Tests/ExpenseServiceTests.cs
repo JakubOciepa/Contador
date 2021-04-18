@@ -18,7 +18,7 @@ namespace Server.Tests
 {
 	public class ExpenseServiceTests
 	{
-		private static readonly User _expectedUser = new User() { Email = "john@domain.com", Id = 0, Name = "John" };
+		private static readonly User _expectedUser = new User() { Email = "john@domain.com", Id = "0", UserName = "John" };
 		private static readonly ExpenseCategory _expectedCategory = new ExpenseCategory("Słodycze") { Id = 0 };
 
 		private static readonly IList<Expense> _returnedExpenses = new List<Expense>
@@ -50,7 +50,7 @@ namespace Server.Tests
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
-			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
@@ -78,7 +78,7 @@ namespace Server.Tests
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
-			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 
@@ -105,7 +105,7 @@ namespace Server.Tests
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
-			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 			//act
@@ -131,7 +131,7 @@ namespace Server.Tests
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
-			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 			//act
@@ -157,7 +157,7 @@ namespace Server.Tests
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
-			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 			//act
@@ -191,7 +191,7 @@ namespace Server.Tests
 			categoriesRepoMock.Setup(c => c.GetCategoryByIdAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(new Result<ExpenseCategory>(ResponseCode.Ok, _expectedCategory)));
 
-			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<int>())).Returns(_expectedUser);
+			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
 			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
 			//act

@@ -57,8 +57,8 @@ namespace Contador.DAL.SQLite.Repositories
 
 				var user = new User()
 				{
-					Name = "Kuba",
-					Id = 1,
+					UserName = "Kuba",
+					Id = "1",
 					Email = string.Empty,
 				};
 
@@ -89,8 +89,8 @@ namespace Contador.DAL.SQLite.Repositories
 			{
 				var user = new User()
 				{
-					Name = "Kuba",
-					Id = 1,
+					UserName = "Kuba",
+					Id = "1",
 					Email = string.Empty,
 				};
 
@@ -121,8 +121,8 @@ namespace Contador.DAL.SQLite.Repositories
 			{
 				var user = new User()
 				{
-					Name = "Kuba",
-					Id = 1,
+					UserName = "Kuba",
+					Id = "1",
 					Email = string.Empty,
 				};
 

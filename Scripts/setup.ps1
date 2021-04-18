@@ -5,17 +5,19 @@
 
 $DbUserName = ""
 $DbPasswd = ""
-$DbName = ""
+$ContentDbName = ""
+$UserDbName = ""
 $ScriptPath = Split-Path $($MyInvocation.MyCommand.Path) -Parent
 
 $SetupDb = Read-Host "Do you want to setup Contador.Server db? [Y/n]"
 
 if ($SetupDb -eq "Y") {
-	$DbName = Read-Host "Database name"
+	$ContentDbName = Read-Host "Content database name"
+	$UserDbName = Read-Host "User database name"
 	$DbCredentials = Get-Credential -Message "Database server credentials"
 	$DbPasswd = ConvertFrom-SecureString $DbCredentials.Password -AsPlainText
 	$DbUserName = $DbCredentials.UserName
-	./CreateWebDb.ps1 -DatabaseName $DbName -DatabaseUserName $DbUserName -DatabasePwd $DbPasswd;
+	./CreateWebDb.ps1 -DatabaseName $ContentDbName -DatabaseUserName $DbUserName -DatabasePwd $DbPasswd;
 }
 
 $SetupSecrets = Read-Host "Do you want to setup dotnet secrets for db connection string? [Y/n]"
@@ -27,17 +29,26 @@ if ($SetupSecrets -eq "Y") {
 	dotnet user-secrets init --project $projectPath
 	
 	if ($SetupDb -eq "Y") {
-		dotnet user-secrets set "DbCredentials" "user=$DbUserName;password=$DbPasswd;database=$DbName" -p "$($projectPath.FullName)";
+		dotnet user-secrets set "DbContent" "user=$DbUserName;password=$DbPasswd;database=$ContentDbName" -p "$($projectPath.FullName)";
+		dotnet user-secrets set "DbUsers" "user=$DbUserName;password=$DbPasswd;database=$UserDbName" -p "$($projectPath.FullName)";
 	}
 
 	else {
-		$DbName = Read-Host "Database name"
+		$ContentDbName = Read-Host "Database name"
+		$UserDbName = Read-Host "User database name"
 		$DbCredentials = Get-Credential -Message "Database server credentials"
 		$DbPasswd = ConvertFrom-SecureString $DbCredentials.Password -AsPlainText
 		$DbUserName = $DbCredentials.UserName
 		
-		[void](dotnet user-secrets set "DbCredentials" "user=$DbUserName;password=$DbPasswd;database=$DbName" -p "$($projectPath.FullName)")
+		[void](dotnet user-secrets set "DbContent" "user=$DbUserName;password=$DbPasswd;database=$ContentDbName" -p "$($projectPath.FullName)")
+		[void](dotnet user-secrets set "DbUsers" "user=$DbUserName;password=$DbPasswd;database=$UserDbName" -p "$($projectPath.FullName)")
 	}
+}
+
+$UpdateUserDb = Read-Host "Do you want ot update User database? [Y/n]"
+if ($UpdateUserDb -eq "Y") {
+	$projectPath = Get-ChildItem -Recurse -Path $($ScriptPath + "/../" ) -Filter Contador.Web.Server.csproj;
+	dotnet-ef database update --project $projectPath.FullName
 }
 
 $SetupWsl = Read-Host "Do you want to setup WSL? [Y/n]"

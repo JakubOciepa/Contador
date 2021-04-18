@@ -8,12 +8,12 @@
 		/// <summary>
 		/// Id of this user.
 		/// </summary>
-		public int Id { get; set; }
+		public string Id { get; set; }
 
 		/// <summary>
 		/// Name of this user.
 		/// </summary>
-		public string Name { get; set; }
+		public string UserName { get; set; }
 
 		/// <summary>
 		/// Email of this user.

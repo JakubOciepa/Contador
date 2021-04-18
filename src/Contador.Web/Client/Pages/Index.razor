@@ -1,38 +1,45 @@
 ﻿@page "/"
 
-<div class="summary-container">
+<AuthorizeView>
+	<Authorized Context="Auth">
+		<div class="summary-container">
 
-	<div class="summary-monthly">
-		@if (MonthlyReport is object)
-		{
-			<h3>Monthly totals:</h3>
-			<p>Total: @MonthlyReport.ExpensesTotal zł</p>
-			@foreach (var categoryTotal in @MonthlyReport.CategoriesTotals)
-			{
-				<p>@categoryTotal.Key: @categoryTotal.Value zł</p>
-			}
-			<h4>Monthly percentage:</h4>
-			@foreach (var categoryPercentage in @MonthlyReport.CategoriesPercentages)
-			{
-				<p>@categoryPercentage.Key: @categoryPercentage.Value%</p>
-			}
-		}
-	</div>
+			<div class="summary-monthly">
+				@if (MonthlyReport is object)
+				{
+					<h3>Monthly totals:</h3>
+					<p>Total: @MonthlyReport.ExpensesTotal zł</p>
+					@foreach (var categoryTotal in @MonthlyReport.CategoriesTotals)
+					{
+						<p>@categoryTotal.Key: @categoryTotal.Value zł</p>
+					}
+					<h4>Monthly percentage:</h4>
+					@foreach (var categoryPercentage in @MonthlyReport.CategoriesPercentages)
+					{
+						<p>@categoryPercentage.Key: @categoryPercentage.Value%</p>
+					}
+					}
+			</div>
 
-	<div class="summary-yearly">
-		@if (YearlyReport is object)
-		{
-			<h3>Yearly totals:</h3>
-			<p>Total: @YearlyReport.ExpensesTotal zł</p>
-			@foreach (var categoryTotal in @YearlyReport.CategoriesTotals)
-			{
-				<p>@categoryTotal.Key: @categoryTotal.Value zł</p>
-			}
-			<h4>Yearly percentage:</h4>
-			@foreach (var categoryPercentage in @YearlyReport.CategoriesPercentages)
-			{
-				<p>@categoryPercentage.Key: @categoryPercentage.Value%</p>
-			}
-		}
-	</div>
-</div>
+			<div class="summary-yearly">
+				@if (YearlyReport is object)
+				{
+					<h3>Yearly totals:</h3>
+					<p>Total: @YearlyReport.ExpensesTotal zł</p>
+					@foreach (var categoryTotal in @YearlyReport.CategoriesTotals)
+					{
+						<p>@categoryTotal.Key: @categoryTotal.Value zł</p>
+					}
+					<h4>Yearly percentage:</h4>
+					@foreach (var categoryPercentage in @YearlyReport.CategoriesPercentages)
+					{
+						<p>@categoryPercentage.Key: @categoryPercentage.Value%</p>
+					}
+				}
+			</div>
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		<h3>You have to log in first.</h3>
+	</NotAuthorized>
+</AuthorizeView>

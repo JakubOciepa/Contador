@@ -1,64 +1,68 @@
 ﻿@page "/expenses"
 @using Contador.Web.Client.Components
 @inject HttpClient Http
+<AuthorizeView>
+	<Authorized Context="Auth">
+		<h3>Add new expense</h3>
+
+		<EditForm Model="@ExpenseModel" OnValidSubmit="@AddNewExpense">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<label for="expense-name">Name:</label>
+			<InputText id="expense-name" @bind-Value="@ExpenseModel.Name" />
+
+			<label for="expense-value">Value:</label>
+			<InputNumber id="expense-value" @bind-Value="@ExpenseModel.Value" />
 
 
-<h3>Add new expense</h3>
+			<label for="expense-category">Category:</label>
+			<InputSelect id="expense-category" @bind-Value="@ExpenseModel.CategoryId">
+				<option value="0">–Select a category–</option>
+				@foreach (var category in Categories)
+				{
+					<option value="@category.Id">@category.Name</option>
+				}
+			</InputSelect>
 
-<EditForm Model="@ExpenseModel" OnValidSubmit="@AddNewExpense">
-	<DataAnnotationsValidator />
-	<ValidationSummary />
+			<label for="expense-description">Description:</label>
+			<InputText id="expense-description" @bind-Value="@ExpenseModel.Description" />
 
-	<label for="expense-name">Name:</label>
-	<InputText id="expense-name" @bind-Value="@ExpenseModel.Name" />
+			<button type="submit">Add expense</button>
+		</EditForm>
 
-	<label for="expense-value">Value:</label>
-	<InputNumber id="expense-value" @bind-Value="@ExpenseModel.Value" />
-
-
-	<label for="expense-category">Category:</label>
-	<InputSelect id="expense-category" @bind-Value="@ExpenseModel.CategoryId">
-		<option value="0">–Select a category–</option>
-		@foreach (var category in Categories)
+		@if (ExpensesList.Count > 0)
 		{
-			<option value="@category.Id">@category.Name</option>
-		}
-	</InputSelect>
-
-	<label for="expense-description">Description:</label>
-	<InputText id="expense-description" @bind-Value="@ExpenseModel.Description" />
-
-	<button type="submit">Add expense</button>
-</EditForm>
-
-@if (ExpensesList.Count > 0)
-{
-	<h3>Expenses</h3>
-	<table class="table">
-		<thead>
+			<h3>Expenses</h3>
+			<table class="table">
+			<thead>
 			<tr>
-				<th>Name</th>
-				<th>Value</th>
-				<th>User</th>
-				<th>Category</th>
-				<th>Description</th>
-				<th>Date</th>
-				<th>Transaction</th>
-				<th>Image</th>
+			 <th>Name</th>
+			 <th>Value</th>
+			 <th>User</th>
+			 <th>Category</th>
+			 <th>Description</th>
+			 <th>Date</th>
+			 <th>Transaction</th>
+			 <th>Image</th>
 			</tr>
-		</thead>
-		<tbody>
-			@foreach (var expense in ExpensesList)
-			{
-				<tr>
-					<ExpenseComponent Expense="expense"
-							OnExpenseRemoved="@RemoveExpenseFromExpenseList" />
-				</tr>
-			}
-		</tbody>
-	</table>
-}
-else
-{
-	<p>No expense found</p>
-}
+			</thead>
+			<tbody>
+				@foreach (var expense in ExpensesList)
+				{
+					<tr>
+						<ExpenseComponent Expense="expense" OnExpenseRemoved="@RemoveExpenseFromExpenseList" />
+					</tr>
+				}
+			</tbody>
+			</table>
+		}
+		else
+		{
+			<p>No expense found</p>
+		}
+	</Authorized>
+	<NotAuthorized>
+		<h3>You have to log in first.</h3>
+	</NotAuthorized>
+</AuthorizeView>

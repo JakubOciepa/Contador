@@ -19,7 +19,7 @@ namespace Contador.DAL.MySql.Repositories
 		{
 			_stub = new List<User>
 			{
-				new User { Id = 0, Name = "Marysia", Email = "m@o.com"},
+				new User { Id = "0", UserName = "Marysia", Email = "m@o.com"},
 			};
 		}
 
@@ -28,7 +28,7 @@ namespace Contador.DAL.MySql.Repositories
 		/// </summary>
 		/// <param name="id">Id of requested user.</param>
 		/// <returns>User of provided id.</returns>
-		public User GetUserById(int id)
+		public User GetUserById(string id)
 		{
 			return _stub.Find(x => x.Id == id);
 		}

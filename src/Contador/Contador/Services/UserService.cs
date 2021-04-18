@@ -25,12 +25,12 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="id">Id of requested user.</param>
 		/// <returns>User of provided id.</returns>
-		public User GetUserById(int id)
+		public User GetUserById(string id)
 		{
 			var user = _repository.GetUserById(id);
 
 			return user != null
-				? new User() { Name = user.Name, Email = user.Email }
+				? new User() { UserName = user.UserName, Email = user.Email }
 				: default;
 		}
 	}

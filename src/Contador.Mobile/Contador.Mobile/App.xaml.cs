@@ -85,7 +85,7 @@ namespace Contador.Mobile
 			var expenseRepo = container.Resolve<IExpenseRepository>();
 
 			var expense = new Expense("Czekoladki", 12.11m,
-			new User() { Id = 1, Name = "Pysia" },
+			new User() { Id = "1", UserName = "Pysia" },
 			new ExpenseCategory("Słodycze"))
 			{
 				Id = 1,

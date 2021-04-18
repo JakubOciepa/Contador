@@ -13,6 +13,8 @@ using Contador.Core.Models;
 using Contador.Web.Client.Models;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+
 using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Pages
@@ -22,6 +24,7 @@ namespace Contador.Web.Client.Pages
 		[Inject] private HttpClient _httpClient { get; set; }
 		[Inject] private ILog _logger { get; set; }
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
+		[Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; }
 
 		private IList<Expense> ExpensesList = new List<Expense>();
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
@@ -39,7 +42,7 @@ namespace Contador.Web.Client.Pages
 
 			try
 			{
-				request.Content = GetHttpStringContent();
+				request.Content = await GetHttpStringContent();
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -69,8 +72,12 @@ namespace Contador.Web.Client.Pages
 			ExpensesList.Remove(expenseToRemove);
 		}
 
-		private StringContent GetHttpStringContent()
+		private async Task<StringContent> GetHttpStringContent()
 		{
+			var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+			var result = await _httpClient.GetAsync($"api/account/{authState.User.Identity.Name}");
+			var user = await result.Content.ReadFromJsonAsync<User>();
+
 			var body = new
 			{
 				name = ExpenseModel.Name,
@@ -81,9 +88,9 @@ namespace Contador.Web.Client.Pages
 				},
 				user = new
 				{
-					id = 1,
-					name = "Kuba",
-					email = "kuba@test.com"
+					id = user.Id,
+					name = user.UserName,
+					email = user.Email
 				},
 				value = ExpenseModel.Value,
 				description = ExpenseModel.Description,
