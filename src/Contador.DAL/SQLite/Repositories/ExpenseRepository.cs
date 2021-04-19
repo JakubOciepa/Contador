@@ -51,7 +51,7 @@ namespace Contador.DAL.SQLite.Repositories
 
 			if (await _dbConnection.InsertAsync(expenseToSave).CAF() != 0)
 			{
-				var saved = await _dbConnection.Table<ExpenseDto>()
+				ExpenseDto saved = await _dbConnection.Table<ExpenseDto>()
 					.FirstAsync(item => item.Name == expenseToSave.Name && item.CreateDate == expenseToSave.CreateDate)
 					.CAF();
 
@@ -62,7 +62,7 @@ namespace Contador.DAL.SQLite.Repositories
 					Email = string.Empty,
 				};
 
-				var category = await _expenseCategoryRepository.GetCategoryByIdAsync(saved.CategoryId).CAF();
+				ExpenseCategory category = await _expenseCategoryRepository.GetByIdAsync(saved.CategoryId).CAF();
 
 				return await Task.FromResult(new Expense(saved.Name, saved.Value, user, category)
 				{
@@ -83,7 +83,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// <returns><see cref="Expense"/> of provided Id.</returns>
 		public async Task<Expense> GetByIdAsync(int expenseId)
 		{
-			var expense = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
+			ExpenseDto expense = await _dbConnection.Table<ExpenseDto>().FirstAsync(item => item.Id == expenseId).CAF();
 
 			if (expense is object)
 			{
@@ -94,7 +94,7 @@ namespace Contador.DAL.SQLite.Repositories
 					Email = string.Empty,
 				};
 
-				ExpenseCategory category = await _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).CAF();
+				ExpenseCategory category = await _expenseCategoryRepository.GetByIdAsync(expense.CategoryId).CAF();
 
 				return await Task.FromResult(new Expense(expense.Name, expense.Value, user, category)
 				{
@@ -115,7 +115,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// <returns><see cref="IList{Expense}"/> of all available expenses.</returns>
 		public async Task<IList<Expense>> GetAllAsync()
 		{
-			var expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
+			List<ExpenseDto> expenses = await _dbConnection.Table<ExpenseDto>().ToListAsync().CAF();
 
 			if (expenses is object)
 			{
@@ -127,7 +127,7 @@ namespace Contador.DAL.SQLite.Repositories
 				};
 
 				return await Task.FromResult(expenses?.ConvertAll
-					(expense => new Expense(expense.Name, expense.Value, user, _expenseCategoryRepository.GetCategoryByIdAsync(expense.CategoryId).Result)
+					(expense => new Expense(expense.Name, expense.Value, user, _expenseCategoryRepository.GetByIdAsync(expense.CategoryId).Result)
 					{
 						Id = expense.Id,
 						Description = expense.Description,
@@ -160,7 +160,7 @@ namespace Contador.DAL.SQLite.Repositories
 		/// <returns>Updated expense.</returns>
 		public async Task<Expense> UpdateAsync(int id, Expense info)
 		{
-			var expenseToUpdate = await _dbConnection.Table<ExpenseDto>()
+			ExpenseDto expenseToUpdate = await _dbConnection.Table<ExpenseDto>()
 													.FirstOrDefaultAsync(expense => expense.Id == id)
 													.ConfigureAwait(true);
 

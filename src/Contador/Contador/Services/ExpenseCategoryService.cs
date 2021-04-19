@@ -47,25 +47,29 @@ namespace Contador.Services
 		/// Gets all available expense categories.
 		/// </summary>
 		/// <returns><see cref="IList{ExpenseCategory}"/> of all available categories.</returns>
-		public async Task<Result<IList<ExpenseCategory>>> GetCategoriesAsync()
+		public async Task<Result<IList<ExpenseCategory>>> GetAllAsync()
 		{
-			var result = await _repository.GetCategoriesAsync().CAF();
+			List<ExpenseCategory> categories;
 
-			if (result.Count == 0)
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Error, "Can not find any expense categories");
+				categories = await _repository.GetAllAsync().CAF() as List<ExpenseCategory>;
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex}");
+
+				return new Result<IList<ExpenseCategory>>(ResponseCode.Error, new List<ExpenseCategory>()) { Message = $"{ex}" };
+			}
+
+			if (categories?.Count is 0)
+			{
+				_logger.Write(LogLevel.Warning, "Categories not found.");
 
 				return new Result<IList<ExpenseCategory>>(ResponseCode.NotFound, new List<ExpenseCategory>());
 			}
 
-			var list = new List<ExpenseCategory>();
-
-			foreach (var category in result)
-			{
-				list.Add(new ExpenseCategory(category.Name) { Id = category.Id });
-			}
-
-			return new Result<IList<ExpenseCategory>>(ResponseCode.Ok, list);
+			return new Result<IList<ExpenseCategory>>(ResponseCode.Ok, categories);
 		}
 
 		/// <summary>
@@ -73,17 +77,29 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="id">Id of requested expense category</param>
 		/// <returns>Correct ExpenseCategory or default</returns>
-		public async Task<Result<ExpenseCategory>> GetCategoryByIdAsync(int id)
+		public async Task<Result<ExpenseCategory>> GetByIdAsync(int id)
 		{
-			var result = await _repository.GetCategoryByIdAsync(id).CAF();
+			ExpenseCategory category;
 
-			if (result is null)
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Error, $"Can not find any expense category of the {id}.");
-				return new Result<ExpenseCategory>(ResponseCode.NotFound, default);
+				category = await _repository.GetByIdAsync(id).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return new Result<ExpenseCategory>(ResponseCode.Error, null) { Message = ex.Message };
 			}
 
-			return new Result<ExpenseCategory>(ResponseCode.Ok, new ExpenseCategory(result.Name) { Id = result.Id });
+			if (category is null)
+			{
+				_logger.Write(LogLevel.Warning, $"Category of the {id} not found.");
+
+				return new Result<ExpenseCategory>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<ExpenseCategory>(ResponseCode.Ok, category);
 		}
 
 		/// <summary>
@@ -91,19 +107,32 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="category">Expense category to add.</param>
 		/// <returns><see cref="ResponseCode"/> for operation and added category.</returns>
-		public async Task<Result<ExpenseCategory>> AddExpenseCategoryAsync(ExpenseCategory category)
+		public async Task<Result<ExpenseCategory>> AddAsync(ExpenseCategory category)
 		{
-			var result = await _repository.AddCategoryAsync(category).CAF();
+			ExpenseCategory addedCategory;
 
-			if (result is null)
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, "Can not add expense category.");
-				return new Result<ExpenseCategory>(ResponseCode.Error, default);
+				addedCategory = await _repository.AddAsync(category).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return new Result<ExpenseCategory>(ResponseCode.Error, null) { Message = ex.Message };
 			}
 
-			CategoryAdded?.Invoke(this, result);
+			if (addedCategory is null)
+			{
+				var error = "Cannot add the category";
+				_logger.Write(LogLevel.Warning, error);
 
-			return new Result<ExpenseCategory>(ResponseCode.Ok, result);
+				return new Result<ExpenseCategory>(ResponseCode.Error, null) { Message = error };
+			}
+
+			CategoryAdded?.Invoke(this, addedCategory);
+
+			return new Result<ExpenseCategory>(ResponseCode.Ok, addedCategory);
 		}
 
 		/// <summary>
@@ -112,19 +141,32 @@ namespace Contador.Services
 		/// <param name="id">Id of category to update.</param>
 		/// <param name="category">Category info.</param>
 		/// <returns>Updated category</returns>
-		public async Task<Result<ExpenseCategory>> UpdateExpenseCategoryAsync(int id, ExpenseCategory category)
+		public async Task<Result<ExpenseCategory>> UpdateAsync(int id, ExpenseCategory category)
 		{
-			var result = await _repository.UpdateCategoryAsync(id, category).CAF();
+			ExpenseCategory updated;
 
-			if (result is null)
+			try
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, $"Can not update expense category of the {id}.");
-				return new Result<ExpenseCategory>(ResponseCode.Error, default);
+				updated = await _repository.UpdateAsync(id, category).CAF();
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex.Message}\n{ex.StackTrace}";
+
+				return new Result<ExpenseCategory>(ResponseCode.Error, null) { Message = message };
 			}
 
-			CategoryUpdated?.Invoke(this, result);
+			if (updated is null)
+			{
+				var message = $"Cannot update the category of the {id}.";
+				_logger.Write(LogLevel.Warning, message);
 
-			return new Result<ExpenseCategory>(ResponseCode.Ok, result);
+				return new Result<ExpenseCategory>(ResponseCode.Error, null) { Message = message };
+			}
+
+			CategoryUpdated?.Invoke(this, updated);
+
+			return new Result<ExpenseCategory>(ResponseCode.Ok, updated);
 		}
 
 		/// <summary>
@@ -132,18 +174,23 @@ namespace Contador.Services
 		/// </summary>
 		/// <param name="id">Id of category to remove.</param>
 		/// <returns><see cref="ResponseCode"/> of operation.</returns>
-		public async Task<ResponseCode> RemoveExpenseCategoryAsync(int id)
+		public async Task<ResponseCode> RemoveAsync(int id)
 		{
-			var removed = await _repository.RemoveCategoryAsync(id).CAF();
-
-			if (removed)
+			bool result;
+			try
 			{
-				CategoryRemoved?.Invoke(this, id);
+				result = await _repository.RemoveAsync(id).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
 
-				return ResponseCode.Ok;
+				return ResponseCode.Error;
 			}
 
-			return ResponseCode.Error;
+			CategoryRemoved?.Invoke(this, id);
+
+			return result ? ResponseCode.Ok : ResponseCode.Error;
 		}
 	}
 }

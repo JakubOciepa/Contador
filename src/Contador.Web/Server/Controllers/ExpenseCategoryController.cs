@@ -38,16 +38,18 @@ namespace Contador.Web.Server.Controllers
 		[HttpGet]
 		[ProducesResponseType(typeof(IList<ExpenseCategory>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		public async Task<ActionResult<IList<ExpenseCategory>>> GetExpenseCategories()
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<IList<ExpenseCategory>>> GetAll()
 		{
-			var result = await _expenseCategoryService.GetCategoriesAsync().CAF();
+			var result = await _expenseCategoryService.GetAllAsync().CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
+			return result.ResponseCode switch
 			{
-				return NoContent();
-			}
-
-			return Ok(result.ReturnedObject);
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest(@"¯\_(ツ)_/¯ - I really don't know how this happened...")
+			};
 		}
 
 		/// <summary>
@@ -58,16 +60,18 @@ namespace Contador.Web.Server.Controllers
 		[HttpGet("{id}")]
 		[ProducesResponseType(typeof(ExpenseCategory), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory([FromRoute] int id)
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<ExpenseCategory>> GetById([FromRoute] int id)
 		{
-			var result = await _expenseCategoryService.GetCategoryByIdAsync(id).CAF();
+			var result = await _expenseCategoryService.GetByIdAsync(id).CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.NotFound)
+			return result.ResponseCode switch
 			{
-				return NotFound($"Expense category of id {id} not found.");
-			}
-
-			return Ok(result.ReturnedObject);
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest("ᓚᘏᗢ my oh my...That looks bad.")
+			};
 		}
 
 		/// <summary>
@@ -78,23 +82,22 @@ namespace Contador.Web.Server.Controllers
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
-		public async Task<ActionResult> AddExpenseCategory([FromBody] ExpenseCategory category)
+		public async Task<ActionResult> Add([FromBody] ExpenseCategory category)
 		{
-			if ((await _expenseCategoryService.GetCategoriesAsync().CAF())
+			if ((await _expenseCategoryService.GetAllAsync().CAF())
 				.ReturnedObject.Any(x => x.Name == category.Name))
 			{
 				return Conflict(category);
 			}
 
-			var result = await _expenseCategoryService.AddExpenseCategoryAsync(category).CAF();
+			var result = await _expenseCategoryService.AddAsync(category).CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
+			return result.ResponseCode switch
 			{
-				return CreatedAtAction(nameof(GetExpenseCategory),
-					new { id = result.ReturnedObject.Id }, result.ReturnedObject);
-			}
-
-			return BadRequest("Error occurred while saving expense category.");
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => CreatedAtAction(nameof(GetById), new { id = result.ReturnedObject.Id }, result.ReturnedObject),
+				_ => BadRequest("(T_T) Seriously don't know how this happened..."),
+			};
 		}
 
 		/// <summary>
@@ -107,22 +110,21 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(typeof(ExpenseCategory), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult> UpdateExpense([FromRoute] int id, [FromBody] ExpenseCategory category)
+		public async Task<ActionResult> Update([FromRoute] int id, [FromBody] ExpenseCategory category)
 		{
-			if ((await _expenseCategoryService.GetCategoriesAsync().CAF())
-				.ReturnedObject.All(x => x.Name != category.Name))
+			if (!await CategoryOfIdExists(id))
 			{
-				return NotFound(category);
+				return NotFound();
 			}
 
-			var result = await _expenseCategoryService.UpdateExpenseCategoryAsync(id, category).CAF();
+			var result = await _expenseCategoryService.UpdateAsync(id, category).CAF();
 
-			if ((ResponseCode)result.ResponseCode == ResponseCode.Ok)
+			return result.ResponseCode switch
 			{
-				return Ok(result.ReturnedObject);
-			}
-
-			return BadRequest("Error occurred while updating expense category.");
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				ResponseCode.Error => BadRequest(result.Message),
+				_ => BadRequest("(¬_¬ ) You should look into the logs..."),
+			};
 		}
 
 		/// <summary>
@@ -130,27 +132,37 @@ namespace Contador.Web.Server.Controllers
 		/// </summary>
 		/// <param name="id">Id of expense category to remove.</param>
 		/// <returns>HTTP code.</returns>
-		/// [HttpGet("{id}")]
 		[HttpDelete("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult> RemoveExpense([FromRoute] int id)
+		public async Task<ActionResult> Remove([FromRoute] int id)
 		{
-			if ((await _expenseCategoryService.GetCategoriesAsync().CAF())
-				.ReturnedObject.All(x => x.Id != id))
+			if (!await CategoryOfIdExists(id))
 			{
-				return NotFound(id);
+				return NotFound();
 			}
 
-			var result = await _expenseCategoryService.RemoveExpenseCategoryAsync(id).CAF();
+			var result = await _expenseCategoryService.RemoveAsync(id).CAF();
 
-			if (result == ResponseCode.Ok)
+			return result switch
 			{
-				return Ok();
-			}
+				ResponseCode.Error => BadRequest("Error occurred while removing category."),
+				ResponseCode.Ok => Ok(),
+				_ => BadRequest("Just check the logs my love.")
+			};
+		}
 
-			return BadRequest("Error occurred while removing expense category.");
+		private async Task<bool> CategoryOfIdExists(int id)
+		{
+			try
+			{
+				return (await _expenseCategoryService.GetByIdAsync(id).CAF()).ReturnedObject is not null;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 	}
 }

@@ -1,0 +1,27 @@
+﻿@if (isEditMode)
+{
+	<td><input @bind="@Name" /></td>
+}
+else
+{
+	<td>@Category.Name</td>
+}
+
+<td>
+
+	@if (isEditMode)
+	{
+		<button @onclick="UpdateCategoryAsync">Save</button>
+	}
+	else
+	{
+		<button @onclick="EnterEditMode">Edit</button>
+		<button @onclick="RemoveCategory">Remove</button>
+	}
+</td>
+<td>
+	@if (isEditMode)
+	{
+		<button @onclick="ExitEditMode">Cancel</button>
+	}
+</td>

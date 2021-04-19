@@ -143,7 +143,7 @@ namespace Contador.Mobile.ViewModels
 
 		private async Task SetupCategories()
 		{
-			var result = await _categoryManager.GetCategoriesAsync().ConfigureAwait(true);
+			var result = await _categoryManager.GetAllAsync().ConfigureAwait(true);
 			if (result.ResponseCode is ResponseCode.Ok)
 			{
 				foreach (var category in result.ReturnedObject)

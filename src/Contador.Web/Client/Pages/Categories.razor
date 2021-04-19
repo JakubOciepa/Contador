@@ -1,0 +1,45 @@
+﻿@page "/categories"
+@using Contador.Web.Client.Components
+@inject HttpClient Http
+<AuthorizeView>
+	<Authorized Context="Auth">
+		<h3>Add new category</h3>
+
+		<EditForm Model="@CategoryModel" OnValidSubmit="@AddNewCategory">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<label for="expense-name">Name:</label>
+			<InputText id="expense-name" @bind-Value="@CategoryModel.Name" />
+
+			<button type="submit">Add category</button>
+		</EditForm>
+
+		@if (CategoriesList.Count > 0)
+		{
+			<h3>Categories</h3>
+			<table class="table">
+			<thead>
+			<tr>
+			 <th>Name</th>
+			</tr>
+			</thead>
+			<tbody>
+				@foreach (var category in CategoriesList)
+				{
+					<tr>
+						<ExpenseCategoryComponent Category="category" OnCategoryRemoved="@RemoveCategoryFromCategoryList" />
+					</tr>
+				}
+			</tbody>
+			</table>
+		}
+		else
+		{
+			<p>No category found</p>
+		}
+	</Authorized>
+	<NotAuthorized>
+		<h3>You have to log in first.</h3>
+	</NotAuthorized>
+</AuthorizeView>

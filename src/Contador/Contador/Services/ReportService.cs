@@ -104,7 +104,7 @@ namespace Contador.Services
 		private async Task<IDictionary<string, decimal>> GetCategoriesTotals(IList<Expense> expenses)
 		{
 			var categoriesTotals = new ConcurrentDictionary<string, decimal>();
-			var resultCategories = await _expenseCategoryManager.GetCategoriesAsync().CAF();
+			var resultCategories = await _expenseCategoryManager.GetAllAsync().CAF();
 
 			if (resultCategories.ResponseCode is ResponseCode.Ok
 				&& resultCategories.ReturnedObject is IList<ExpenseCategory> categories)

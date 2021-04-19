@@ -13,6 +13,7 @@ using Contador.Abstractions;
 using Contador.Core.Models;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Components
@@ -22,6 +23,7 @@ namespace Contador.Web.Client.Components
 		[Inject] private HttpClient _httpClient { get; set; }
 		[Inject] private ILog _logger { get; set; }
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
+		[Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; }
 
 		private bool isEditMode = false;
 
@@ -50,7 +52,7 @@ namespace Contador.Web.Client.Components
 			{
 				Name = Expense.Name;
 				Value = Expense.Value;
-				CategoryId = Expense.Category.Id;
+				CategoryId = Expense.Category?.Id ?? -1;
 				Description = Expense.Description;
 				CreatedDate = Expense.CreateDate;
 			}
@@ -93,7 +95,7 @@ namespace Contador.Web.Client.Components
 
 			try
 			{
-				request.Content = GetHttpStringContent();
+				request.Content = await GetHttpStringContent();
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -125,8 +127,12 @@ namespace Contador.Web.Client.Components
 
 		}
 
-		private StringContent GetHttpStringContent()
+		private async Task<StringContent> GetHttpStringContent()
 		{
+			var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+			var result = await _httpClient.GetAsync($"api/account/{authState.User.Identity.Name}");
+			var user = await result.Content.ReadFromJsonAsync<User>();
+
 			var body = new
 			{
 				id = Expense.Id,
@@ -138,9 +144,9 @@ namespace Contador.Web.Client.Components
 				},
 				user = new
 				{
-					id = 1,
-					name = "Kuba",
-					email = "kuba@test.com"
+					id = user.Id,
+					name = user.UserName,
+					email = user.Email
 				},
 				value = Value,
 				description = Description,

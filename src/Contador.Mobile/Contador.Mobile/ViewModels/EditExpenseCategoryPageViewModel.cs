@@ -59,7 +59,7 @@ namespace Contador.Mobile.ViewModels
 		{
 			if (Category is object && !string.IsNullOrEmpty(Category.Name))
 			{
-				var result = _categoryService.AddExpenseCategoryAsync(Category).Result;
+				var result = _categoryService.AddAsync(Category).Result;
 
 				if (result.ResponseCode is ResponseCode.Ok)
 				{

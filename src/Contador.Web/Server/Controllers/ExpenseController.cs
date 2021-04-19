@@ -44,7 +44,7 @@ namespace Contador.Web.Server.Controllers
 
 			return result.ResponseCode switch
 			{
-				ResponseCode.NotFound => NotFound(),
+				ResponseCode.NotFound => NoContent(),
 				ResponseCode.Error => BadRequest(result.Message),
 				ResponseCode.Ok => Ok(result.ReturnedObject),
 				_ => BadRequest(@"¯\_(ツ)_/¯ - I really don't know how this happened...")
