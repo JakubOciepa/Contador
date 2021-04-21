@@ -167,6 +167,16 @@ namespace Contador.Services
 		}
 
 		/// <summary>
+		/// Gets provided count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Amount of expenses to return.</param>
+		/// <returns>Provided count or less of the latest </returns>
+		public Task<Result<IList<Expense>>> GetTopCount(int count)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

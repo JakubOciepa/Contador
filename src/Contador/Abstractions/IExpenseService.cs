@@ -40,6 +40,13 @@ namespace Contador.Abstractions
 		Task<Result<IList<Expense>>> GetByYearAsync(int year);
 
 		/// <summary>
+		/// Gets provided count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Amount of expenses to return.</param>
+		/// <returns>Provided count or less of the latest </returns>
+		Task<Result<IList<Expense>>> GetTopCount(int count);
+
+		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

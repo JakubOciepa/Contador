@@ -74,6 +74,28 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
+		/// Gets provided count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Amount of expenses to return.</param>
+		/// <returns>Provided count or less of the latest </returns>
+		[HttpGet]
+		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<IList<Expense>>> GetTopCount([FromQuery] int count = 0)
+		{
+			var result = await _expenseService.GetTopCount(count).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => Ok((result.ReturnedObject)),
+				_ => BadRequest(@"Not enough mana...")
+			};
+		}
+
+		/// <summary>
 		/// Adds new expense.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>
