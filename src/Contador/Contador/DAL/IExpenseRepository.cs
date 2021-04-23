@@ -39,6 +39,13 @@ namespace Contador.DAL.Abstractions
 		Task<IList<Expense>> GetByYearAsync(int year);
 
 		/// <summary>
+		/// Gets the count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Max count of latest expenses to return.</param>
+		/// <returns>The count or less of latest expenses.</returns>
+		Task<IList<Expense>> GetLatest(int count);
+
+		/// <summary>
 		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

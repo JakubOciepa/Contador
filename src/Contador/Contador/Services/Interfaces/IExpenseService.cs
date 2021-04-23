@@ -44,7 +44,7 @@ namespace Contador.Abstractions
 		/// </summary>
 		/// <param name="count">Amount of expenses to return.</param>
 		/// <returns>Provided count or less of the latest </returns>
-		Task<Result<IList<Expense>>> GetTopCount(int count);
+		Task<Result<IList<Expense>>> GetLatest(int count);
 
 		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.

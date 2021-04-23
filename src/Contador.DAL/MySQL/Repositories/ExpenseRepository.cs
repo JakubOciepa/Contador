@@ -130,6 +130,32 @@ namespace Contador.DAL.MySql.Repositories
 		}
 
 		/// <summary>
+		/// Gets the count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Max count of latest expenses to return.</param>
+		/// <returns>The count or less of latest expenses.</returns>
+		public async Task<IList<Expense>> GetLatest(int count)
+		{
+			var parameter = new DynamicParameters();
+			parameter.Add(ExpenseDto.ParameterName.Count, count);
+
+			IEnumerable<ExpenseDto> expenses = await _dbConnection
+				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetLatest,
+				(expense, category, user) =>
+				{
+					expense.Category = category;
+					expense.User = user;
+
+					return expense;
+				},
+				parameter,
+				commandType: CommandType.StoredProcedure)
+				.CAF();
+
+			return expenses.Cast<Expense>().ToList();
+		}
+
+		/// <summary>
 		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

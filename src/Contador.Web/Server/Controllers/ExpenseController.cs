@@ -78,13 +78,13 @@ namespace Contador.Web.Server.Controllers
 		/// </summary>
 		/// <param name="count">Amount of expenses to return.</param>
 		/// <returns>Provided count or less of the latest </returns>
-		[HttpGet]
+		[HttpGet("latest")]
 		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<IList<Expense>>> GetTopCount([FromQuery] int count = 0)
+		public async Task<ActionResult<IList<Expense>>> GetLatest([FromQuery] int count = 0)
 		{
-			var result = await _expenseService.GetTopCount(count).CAF();
+			var result = await _expenseService.GetLatest(count).CAF();
 
 			return result.ResponseCode switch
 			{

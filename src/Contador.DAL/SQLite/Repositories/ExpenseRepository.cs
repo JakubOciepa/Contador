@@ -203,5 +203,15 @@ namespace Contador.DAL.SQLite.Repositories
 		{
 			throw new NotImplementedException();
 		}
+
+		/// <summary>
+		/// Gets the count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Max count of latest expenses to return.</param>
+		/// <returns>The count or less of latest expenses.</returns>
+		public Task<IList<Expense>> GetLatest(int count)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

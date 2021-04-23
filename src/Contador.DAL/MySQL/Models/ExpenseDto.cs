@@ -109,6 +109,11 @@ namespace Contador.DAL.MySql.Models
 			/// Year parameter name.
 			/// </summary>
 			public static readonly string Year = "year_p";
+
+			/// <summary>
+			/// Count parameter name.
+			/// </summary>
+			public static readonly string Count = "count_p";
 		}
 
 		/// <summary>
@@ -145,6 +150,11 @@ namespace Contador.DAL.MySql.Models
 			/// Name of the procedure which gets all expenses for the provided month.
 			/// </summary>
 			public static readonly string GetByYear = "expense_GetByYear";
+
+			/// <summary>
+			/// Name of the procedure which gets max provided amount of latest expenses.
+			/// </summary>
+			public static readonly string GetLatest = "expense_GetLatest";
 
 			/// <summary>
 			/// Name of the procedure which updates expense from the database.
