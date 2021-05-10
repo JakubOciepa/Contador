@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Contador.Core.Common;
@@ -45,6 +46,16 @@ namespace Contador.Abstractions
 		/// <param name="count">Amount of expenses to return.</param>
 		/// <returns>Provided count or less of the latest </returns>
 		Task<Result<IList<Expense>>> GetLatest(int count);
+
+		/// <summary>
+		/// Gets expenses filtered by provided values.
+		/// </summary>
+		/// <param name="name">Name of the expense of part of the name to filter.</param>
+		/// <param name="categoryName">Name of the category to filter.</param>
+		/// <param name="userName">Name of the user to filter.</param>
+		/// <param name="createDate">Create date of the expense</param>
+		/// <returns>List of the expenses that fulfill the requirements</returns>
+		Task<Result<IList<Expense>>> GetFiltered(string name, string categoryName, string userName, DateTime createDate);
 
 		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.

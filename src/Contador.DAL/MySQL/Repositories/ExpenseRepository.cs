@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -149,6 +150,38 @@ namespace Contador.DAL.MySql.Repositories
 					return expense;
 				},
 				parameter,
+				commandType: CommandType.StoredProcedure)
+				.CAF();
+
+			return expenses.Cast<Expense>().ToList();
+		}
+
+		/// <summary>
+		/// Gets expenses filtered by provided values.
+		/// </summary>
+		/// <param name="name">Name of the expense of part of the name to filter.</param>
+		/// <param name="categoryName">Name of the category to filter.</param>
+		/// <param name="userName">Name of the user to filter.</param>
+		/// <param name="createDate">Create date of the expense</param>
+		/// <returns>List of the expenses that fulfill the requirements</returns>
+		public async Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName, DateTime createDate)
+		{
+			var parameters = new DynamicParameters();
+			parameters.Add(ExpenseDto.ParameterName.Name);
+			parameters.Add(ExpenseDto.ParameterName.CategoryName);
+			parameters.Add(ExpenseDto.ParameterName.UserName);
+			parameters.Add(ExpenseDto.ParameterName.CreateDate);
+
+			IEnumerable<ExpenseDto> expenses = await _dbConnection
+				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetFiltered,
+				(expense, category, user) =>
+				{
+					expense.Category = category;
+					expense.User = user;
+
+					return expense;
+				},
+				parameters,
 				commandType: CommandType.StoredProcedure)
 				.CAF();
 

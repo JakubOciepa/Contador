@@ -63,57 +63,67 @@ namespace Contador.DAL.MySql.Models
 			/// <summary>
 			/// CategoryId parameter name.
 			/// </summary>
-			public static readonly string CategoryId = "categoryId_p";
+			public const string CategoryId = "categoryId_p";
+
+			/// <summary>
+			/// CategoryName parameter name.
+			/// </summary>
+			public const string CategoryName = "categoryName_p";
 
 			/// <summary>
 			/// Description parameter name.
 			/// </summary>
-			public static readonly string Description = "description_p";
+			public const string Description = "description_p";
 
 			/// <summary>
 			/// Id parameter name.
 			/// </summary>
-			public static readonly string Id = "id_p";
+			public const string Id = "id_p";
 
 			/// <summary>
 			/// ImagePath parameter name.
 			/// </summary>
-			public static readonly string ImagePath = "image_path_p";
+			public const string ImagePath = "image_path_p";
 
 			/// <summary>
 			/// Name parameter name.
 			/// </summary>
-			public static readonly string Name = "name_p";
+			public const string Name = "name_p";
 
 			/// <summary>
 			/// UserId parameter name.
 			/// </summary>
-			public static readonly string UserId = "userId_p";
+			public const string UserId = "userId_p";
+
+			/// <summary>
+			/// UserName parameter name.
+			/// </summary>
+			public const string UserName = "userName_p";
 
 			/// <summary>
 			/// Value parameter name.
 			/// </summary>
-			public static readonly string Value = "value_p";
+			public const string Value = "value_p";
 
 			/// <summary>
 			/// Created date parameter name.
 			/// </summary>
-			public static readonly string CreateDate = "create_date_p";
+			public const string CreateDate = "create_date_p";
 
 			/// <summary>
 			/// Month number parameter name.
 			/// </summary>
-			public static readonly string MonthNum = "month_p";
+			public const string MonthNum = "month_p";
 
 			/// <summary>
 			/// Year parameter name.
 			/// </summary>
-			public static readonly string Year = "year_p";
+			public const string Year = "year_p";
 
 			/// <summary>
 			/// Count parameter name.
 			/// </summary>
-			public static readonly string Count = "count_p";
+			public const string Count = "count_p";
 		}
 
 		/// <summary>
@@ -124,42 +134,47 @@ namespace Contador.DAL.MySql.Models
 			/// <summary>
 			/// Name of the procedure which adds new expense into the database.
 			/// </summary>
-			public static readonly string Add = "expense_Add";
+			public const string Add = "expense_Add";
 
 			/// <summary>
 			/// Name of the procedure which removes expense from the database.
 			/// </summary>
-			public static readonly string Delete = "expense_Delete";
+			public const string Delete = "expense_Delete";
 
 			/// <summary>
 			/// Name of the procedure which gets all available expenses from the database.
 			/// </summary>
-			public static readonly string GetAll = "expense_GetAll";
+			public const string GetAll = "expense_GetAll";
 
 			/// <summary>
 			/// Name of the procedure which gets expense by id from the database.
 			/// </summary>
-			public static readonly string GetById = "expense_GetById";
+			public const string GetById = "expense_GetById";
 
 			/// <summary>
 			/// Name of the procedure which gets all expenses for the provided month.
 			/// </summary>
-			public static readonly string GetByMonth = "expense_GetByMonth";
+			public const string GetByMonth = "expense_GetByMonth";
 
 			/// <summary>
 			/// Name of the procedure which gets all expenses for the provided month.
 			/// </summary>
-			public static readonly string GetByYear = "expense_GetByYear";
+			public const string GetByYear = "expense_GetByYear";
 
 			/// <summary>
 			/// Name of the procedure which gets max provided amount of latest expenses.
 			/// </summary>
-			public static readonly string GetLatest = "expense_GetLatest";
+			public const string GetLatest = "expense_GetLatest";
 
+			/// <summary>
+			/// Name of the procedure which gets filtered expenses.
+			/// </summary>
+			public const string GetFiltered = "expense_GetFiltered";
+			
 			/// <summary>
 			/// Name of the procedure which updates expense from the database.
 			/// </summary>
-			public static readonly string Update = "expense_Update";
+			public const string Update = "expense_Update";
 		}
 	}
 }

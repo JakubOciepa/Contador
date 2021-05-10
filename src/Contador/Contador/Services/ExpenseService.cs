@@ -197,6 +197,40 @@ namespace Contador.Services
 		}
 
 		/// <summary>
+		/// Gets expenses filtered by provided values.
+		/// </summary>
+		/// <param name="name">Name of the expense of part of the name to filter.</param>
+		/// <param name="categoryName">Name of the category to filter.</param>
+		/// <param name="userName">Name of the user to filter.</param>
+		/// <param name="createDate">Create date of the expense</param>
+		/// <returns>List of the expenses that fulfill the requirements</returns>
+		public async Task<Result<IList<Expense>>> GetFiltered(string name, string categoryName, string userName, DateTime createDate)
+		{
+			var expenses = new List<Expense>();
+
+			try
+			{
+				expenses = await _expenseRepo.GetFiltered(name,categoryName, userName, createDate) as List<Expense>;
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex}";
+
+				_logger.Write(LogLevel.Error, $"{message}\n{ex.StackTrace}");
+				return new Result<IList<Expense>>(ResponseCode.Error, expenses) { Message = message };
+			}
+
+			if (expenses.Count < 1)
+			{
+				_logger.Write(LogLevel.Warning, $"Expenses not found.");
+				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
+		}
+
+
+		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

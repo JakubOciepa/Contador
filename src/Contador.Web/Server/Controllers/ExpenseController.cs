@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -93,6 +94,23 @@ namespace Contador.Web.Server.Controllers
 				ResponseCode.Ok => Ok((result.ReturnedObject)),
 				_ => BadRequest(@"Not enough mana...")
 			};
+		}
+
+		[HttpGet("filter")]
+		public async Task<ActionResult<IList<Expense>>> GetFiltered([FromQuery] string name = null, [FromQuery] string categoryName = null, 
+			[FromQuery] string userName = "", [FromQuery]DateTime createDate = default)
+		{
+			var result = await _expenseService.GetFiltered(name, categoryName, userName, createDate);
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => Ok((result.ReturnedObject)),
+				_ => BadRequest(@"Not enough mana...")
+			};
+
+			return null;
 		}
 
 		/// <summary>
