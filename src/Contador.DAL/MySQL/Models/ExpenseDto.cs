@@ -83,7 +83,7 @@ namespace Contador.DAL.MySql.Models
 			/// <summary>
 			/// ImagePath parameter name.
 			/// </summary>
-			public const string ImagePath = "image_path_p";
+			public const string ImagePath = "imagePath_p";
 
 			/// <summary>
 			/// Name parameter name.
@@ -108,7 +108,7 @@ namespace Contador.DAL.MySql.Models
 			/// <summary>
 			/// Created date parameter name.
 			/// </summary>
-			public const string CreateDate = "create_date_p";
+			public const string CreateDate = "createDate_p";
 
 			/// <summary>
 			/// Month number parameter name.

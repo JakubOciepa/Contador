@@ -170,7 +170,6 @@ namespace Contador.DAL.MySql.Repositories
 			parameters.Add(ExpenseDto.ParameterName.Name);
 			parameters.Add(ExpenseDto.ParameterName.CategoryName);
 			parameters.Add(ExpenseDto.ParameterName.UserName);
-			parameters.Add(ExpenseDto.ParameterName.CreateDate);
 
 			IEnumerable<ExpenseDto> expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetFiltered,
