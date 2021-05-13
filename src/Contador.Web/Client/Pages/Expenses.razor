@@ -31,9 +31,12 @@
 			<button type="submit">Add expense</button>
 		</EditForm>
 
+
 		@if (ExpensesList.Count > 0)
 		{
 			<h3>Expenses</h3>
+			<label for="filter">Filter:</label>
+			<input type="text" id="fitler" @bind-value="@Filter" @bind-value:event="oninput"/>
 			<table class="table">
 			<thead>
 			<tr>
@@ -50,6 +53,8 @@
 			<tbody>
 				@foreach (var expense in ExpensesList)
 				{
+					if (!IsVisible(expense))
+						continue;
 					<tr>
 						<ExpenseComponent Expense="expense" OnExpenseRemoved="@RemoveExpenseFromExpenseList" />
 					</tr>

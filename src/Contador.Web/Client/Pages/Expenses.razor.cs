@@ -29,6 +29,7 @@ namespace Contador.Web.Client.Pages
 		private IList<Expense> ExpensesList = new List<Expense>();
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
 		private ExpenseModel ExpenseModel = new();
+		private string Filter = "";
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -36,7 +37,7 @@ namespace Contador.Web.Client.Pages
 			Categories = await GetCategories();
 		}
 
-		private async void AddNewExpense()
+		private async Task AddNewExpense()
 		{
 			var request = new HttpRequestMessage(HttpMethod.Post, "api/expense");
 
@@ -65,6 +66,22 @@ namespace Contador.Web.Client.Pages
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 				await _jsRuntime.InvokeVoidAsync("alert", "Cannot add expense!");
 			}
+		}
+
+		private bool IsVisible(Expense expense)
+		{
+			if (string.IsNullOrEmpty(Filter))
+				return true;
+			if (expense.Name.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+			if (expense.Category.Name.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+			if (expense.User.UserName.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+			if (expense.Description.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+
+			return false;
 		}
 
 		private void RemoveExpenseFromExpenseList(Expense expenseToRemove)
