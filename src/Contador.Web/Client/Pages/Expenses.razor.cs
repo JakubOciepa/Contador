@@ -7,6 +7,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 using Contador.Abstractions;
 using Contador.Core.Models;
@@ -30,6 +31,12 @@ namespace Contador.Web.Client.Pages
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
 		private ExpenseModel ExpenseModel = new();
 		private string Filter = "";
+
+		private bool SortByNameDescending = false;
+		private bool SortByCategoryDescending = false;
+		private bool SortByUserDescending = false;
+		private bool SortByValueDescending = false;
+		private bool SortByDateDescending = false;
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -82,6 +89,11 @@ namespace Contador.Web.Client.Pages
 				return true;
 
 			return false;
+		}
+
+		private void SortBy(string propertyName)
+		{
+			ExpensesList = ExpensesList.OrderBy(e => e.Name).ToList();
 		}
 
 		private void RemoveExpenseFromExpenseList(Expense expenseToRemove)

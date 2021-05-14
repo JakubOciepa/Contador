@@ -5,7 +5,7 @@ CREATE OR REPLACE PROCEDURE expense_Add (
 		IN description_p VARCHAR(255),
 		IN categoryId_p INTEGER,
 		IN userId_p VARCHAR(255),
-		IN image_path_p VARCHAR(4096)
+		IN imagePath_p VARCHAR(4096)
 	) BEGIN
 INSERT INTO Expense (
 		Name,
@@ -25,7 +25,7 @@ VALUES (
 		CURRENT_TIME(),
 		CURRENT_TIME(),
 		description_p,
-		image_path_p
+		imagePath_p
 	);
 SELECT *
 FROM Expense ex
