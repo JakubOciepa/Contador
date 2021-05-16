@@ -7,7 +7,6 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 using Contador.Abstractions;
 using Contador.Core.Models;
@@ -32,11 +31,11 @@ namespace Contador.Web.Client.Pages
 		private ExpenseModel ExpenseModel = new();
 		private string Filter = "";
 
-		private bool SortByNameDescending = false;
-		private bool SortByCategoryDescending = false;
-		private bool SortByUserDescending = false;
-		private bool SortByValueDescending = false;
-		private bool SortByDateDescending = false;
+		private bool _sortByNameDescending = false;
+		private bool _sortByCategoryDescending = false;
+		private bool _sortByUserDescending = false;
+		private bool _sortByValueDescending = false;
+		private bool _sortByDateDescending = false;
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -93,7 +92,96 @@ namespace Contador.Web.Client.Pages
 
 		private void SortBy(string propertyName)
 		{
-			ExpensesList = ExpensesList.OrderBy(e => e.Name).ToList();
+			if (propertyName is "Name")
+			{
+				SortByName();
+			}
+			else if (propertyName is "Category")
+			{
+				SortByCategory();
+			}
+			else if (propertyName is "Value")
+			{
+				SortByValue();
+			}
+			else if (propertyName is "CreateDate")
+			{
+				SortByDate();
+			}
+			else if (propertyName is "User")
+			{
+				SortByUser();
+			}
+		}
+
+		private void SortByUser()
+		{
+			if (_sortByUserDescending)
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.User.UserName).ToList();
+				_sortByUserDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.User.UserName).ToList();
+				_sortByUserDescending = true;
+			}
+		}
+
+		private void SortByDate()
+		{
+			if (_sortByDateDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.CreateDate).ToList();
+				_sortByDateDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.CreateDate).ToList();
+				_sortByDateDescending = true;
+			}
+		}
+
+		private void SortByValue()
+		{
+			if (_sortByValueDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.Value).ToList();
+				_sortByValueDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.Value).ToList();
+				_sortByValueDescending = true;
+			}
+		}
+
+		private void SortByCategory()
+		{
+			if (_sortByCategoryDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.Category.Name).ToList();
+				_sortByCategoryDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.Category.Name).ToList();
+				_sortByCategoryDescending = true;
+			}
+		}
+
+		private void SortByName()
+		{
+			if (_sortByNameDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.Name).ToList();
+				_sortByNameDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.Name).ToList();
+				_sortByNameDescending = true;
+			}
 		}
 
 		private void RemoveExpenseFromExpenseList(Expense expenseToRemove)

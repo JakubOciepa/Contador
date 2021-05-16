@@ -41,11 +41,11 @@
 			<thead>
 			<tr>
 			 <th @onclick="@(() => SortBy("Name"))">Name</th>
-			 <th>Value</th>
-			 <th>User</th>
-			 <th>Category</th>
+			 <th @onclick="@(() => SortBy("Value"))">Value</th>
+			 <th @onclick="@(() => SortBy("User"))">User</th>
+			 <th @onclick="@(() => SortBy("Category"))">Category</th>
 			 <th>Description</th>
-			 <th>Date</th>
+			 <th @onclick="@(() => SortBy("CreateDate"))">Date</th>
 			 <th>Transaction</th>
 			 <th>Image</th>
 			</tr>
