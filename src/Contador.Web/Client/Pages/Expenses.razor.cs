@@ -77,7 +77,7 @@ namespace Contador.Web.Client.Pages
 
 		private async Task SearchExpenses()
 		{
-
+			
 		}
 
 		private bool IsVisible(Expense expense)

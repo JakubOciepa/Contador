@@ -214,7 +214,7 @@ namespace Contador.DAL.SQLite.Repositories
 			throw new NotImplementedException();
 		}
 
-		public Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName, DateTime createDate)
+		public Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName)
 		{
 			throw new NotImplementedException();
 		}

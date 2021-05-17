@@ -202,15 +202,16 @@ namespace Contador.Services
 		/// <param name="name">Name of the expense of part of the name to filter.</param>
 		/// <param name="categoryName">Name of the category to filter.</param>
 		/// <param name="userName">Name of the user to filter.</param>
-		/// <param name="createDate">Create date of the expense</param>
+		/// <param name="createDateFrom">Create date of the expense</param>
+		/// <param name="createDateTo">The start date of the period that the searched expense could be created.</param>
 		/// <returns>List of the expenses that fulfill the requirements</returns>
-		public async Task<Result<IList<Expense>>> GetFiltered(string name, string categoryName, string userName, DateTime createDate)
+		public async Task<Result<IList<Expense>>> GetFiltered(string name, string categoryName, string userName, DateTime createDateFrom, DateTime createDateTo)
 		{
 			var expenses = new List<Expense>();
 
 			try
 			{
-				expenses = await _expenseRepo.GetFiltered(name,categoryName, userName, createDate) as List<Expense>;
+				expenses = await _expenseRepo.GetFiltered(name, categoryName, userName) as List<Expense>;
 			}
 			catch (Exception ex)
 			{

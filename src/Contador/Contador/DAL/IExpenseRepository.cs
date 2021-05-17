@@ -52,9 +52,8 @@ namespace Contador.DAL.Abstractions
 		/// <param name="name">Name of the expense of part of the name to filter.</param>
 		/// <param name="categoryName">Name of the category to filter.</param>
 		/// <param name="userName">Name of the user to filter.</param>
-		/// <param name="createDate">Create date of the expense</param>
 		/// <returns>List of the expenses that fulfill the requirements</returns>
-		Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName, DateTime createDate);
+		Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName);
 
 		/// <summary>
 		/// Adds provided <see cref="Expense"/> to the storage.

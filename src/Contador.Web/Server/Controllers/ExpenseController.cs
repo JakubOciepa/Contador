@@ -97,10 +97,14 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		[HttpGet("filter")]
-		public async Task<ActionResult<IList<Expense>>> GetFiltered([FromQuery] string name = null, [FromQuery] string categoryName = null, 
-			[FromQuery] string userName = "", [FromQuery]DateTime createDate = default)
+		public async Task<ActionResult<IList<Expense>>> GetFiltered(
+			[FromQuery] string name = null, 
+			[FromQuery] string categoryName = null,
+			[FromQuery] string userName = "", 
+			[FromQuery] DateTime createDateFrom = default, 
+			[FromQuery] DateTime createDateTo = default)
 		{
-			var result = await _expenseService.GetFiltered(name, categoryName, userName, createDate);
+			var result = await _expenseService.GetFiltered(name, categoryName, userName, createDateFrom, createDateTo);
 
 			return result.ResponseCode switch
 			{
