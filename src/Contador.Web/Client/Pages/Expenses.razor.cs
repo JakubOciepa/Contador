@@ -50,7 +50,7 @@ namespace Contador.Web.Client.Pages
 
 			try
 			{
-				request.Content = await GetHttpStringContent();
+				request.Content = await GetAddingHttpStringContent();
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -77,7 +77,27 @@ namespace Contador.Web.Client.Pages
 
 		private async Task SearchExpenses()
 		{
-			
+			var requestString = @$"?name={SearchExpense.Name}&categoryName={SearchExpense.CategoryName}&userName={SearchExpense.UserName}"
+				+@$"&createDateFrom={SearchExpense.StartDate:yyyy-MM-dd}&createDateTo={SearchExpense.EndDate:yyyy-MM-dd}";
+
+			try
+			{
+				var result = await _httpClient.GetAsync("api/expense/filter" + requestString);
+
+				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
+				{
+					ExpensesList = (await result.Content.ReadFromJsonAsync<IList<Expense>>()).ToList();
+				}
+				else
+				{
+					ExpensesList =  new List<Expense>();
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
+				await _jsRuntime.InvokeVoidAsync("alert", "Cannot found expense!");
+			}
 		}
 
 		private bool IsVisible(Expense expense)
@@ -195,7 +215,7 @@ namespace Contador.Web.Client.Pages
 			ExpensesList.Remove(expenseToRemove);
 		}
 
-		private async Task<StringContent> GetHttpStringContent()
+		private async Task<StringContent> GetAddingHttpStringContent()
 		{
 			var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
 			var result = await _httpClient.GetAsync($"api/account/{authState.User.Identity.Name}");

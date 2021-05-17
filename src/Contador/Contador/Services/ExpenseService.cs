@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
@@ -212,6 +213,16 @@ namespace Contador.Services
 			try
 			{
 				expenses = await _expenseRepo.GetFiltered(name, categoryName, userName) as List<Expense>;
+
+				if (createDateFrom != default)
+				{
+					expenses = expenses.Where(e => e.CreateDate >= createDateFrom.AddDays(-1)).ToList();
+				}
+
+				if (createDateTo != default)
+				{
+					expenses = expenses.Where(e => e.CreateDate <= createDateTo.AddDays(1)).ToList();
+				}
 			}
 			catch (Exception ex)
 			{

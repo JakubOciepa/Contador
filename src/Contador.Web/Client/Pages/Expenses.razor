@@ -33,8 +33,8 @@
 
 		<h3>Search expenses</h3>
 		<EditForm Model="@SearchExpense" OnValidSubmit="@SearchExpenses">
-			<label for="expense-name">Name:</label>
-			<InputText id="expense-name" @bind-Value="@SearchExpense.Name"/>
+			<label for="search-expense-name">Name:</label>
+			<InputText id="search-expense-name" @bind-Value="@SearchExpense.Name"/>
 			<label for="category-name">Category name:</label>
 			<InputText id="category-name" @bind-Value="@SearchExpense.CategoryName"/>
 			<label for="user-name">User name:</label>
