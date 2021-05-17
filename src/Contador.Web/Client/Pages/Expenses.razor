@@ -5,19 +5,19 @@
 	<Authorized Context="Auth">
 		<h3>Add new expense</h3>
 
-		<EditForm Model="@ExpenseModel" OnValidSubmit="@AddNewExpense">
+		<EditForm Model="@AddExpenseModel" OnValidSubmit="@AddNewExpense">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
 			<label for="expense-name">Name:</label>
-			<InputText id="expense-name" @bind-Value="@ExpenseModel.Name" />
+			<InputText id="expense-name" @bind-Value="@AddExpenseModel.Name" />
 
 			<label for="expense-value">Value:</label>
-			<InputNumber id="expense-value" @bind-Value="@ExpenseModel.Value" />
+			<InputNumber id="expense-value" @bind-Value="@AddExpenseModel.Value" />
 
 
 			<label for="expense-category">Category:</label>
-			<InputSelect id="expense-category" @bind-Value="@ExpenseModel.CategoryId">
+			<InputSelect id="expense-category" @bind-Value="@AddExpenseModel.CategoryId">
 				<option value="0">–Select a category–</option>
 				@foreach (var category in Categories)
 				{
@@ -26,9 +26,24 @@
 			</InputSelect>
 
 			<label for="expense-description">Description:</label>
-			<InputText id="expense-description" @bind-Value="@ExpenseModel.Description" />
+			<InputText id="expense-description" @bind-Value="@AddExpenseModel.Description" />
 
 			<button type="submit">Add expense</button>
+		</EditForm>
+
+		<h3>Search expenses</h3>
+		<EditForm Model="@SearchExpense" OnValidSubmit="@SearchExpenses">
+			<label for="expense-name">Name:</label>
+			<InputText id="expense-name" @bind-Value="@SearchExpense.Name"/>
+			<label for="category-name">Category name:</label>
+			<InputText id="category-name" @bind-Value="@SearchExpense.CategoryName"/>
+			<label for="user-name">User name:</label>
+			<InputText id="user-name" @bind-Value="@SearchExpense.UserName"/>
+			<label for="created-date-from">Created at:</label>
+			<InputDate id="created-date-from" @bind-Value="@SearchExpense.StartDate"/>
+			<label for="created-date-to">to:</label>
+			<InputDate id="created-date-to" @bind-Value="@SearchExpense.EndDate"/>
+			<button type="submit">Search</button>
 		</EditForm>
 
 

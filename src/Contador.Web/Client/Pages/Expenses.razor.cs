@@ -28,7 +28,8 @@ namespace Contador.Web.Client.Pages
 
 		private IList<Expense> ExpensesList = new List<Expense>();
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
-		private ExpenseModel ExpenseModel = new();
+		private ExpenseModel AddExpenseModel = new();
+		private SearchExpenseModel SearchExpense = new();
 		private string Filter = "";
 
 		private bool _sortByNameDescending = false;
@@ -72,6 +73,11 @@ namespace Contador.Web.Client.Pages
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 				await _jsRuntime.InvokeVoidAsync("alert", "Cannot add expense!");
 			}
+		}
+
+		private async Task SearchExpenses()
+		{
+
 		}
 
 		private bool IsVisible(Expense expense)
@@ -197,11 +203,11 @@ namespace Contador.Web.Client.Pages
 
 			var body = new
 			{
-				name = ExpenseModel.Name,
+				name = AddExpenseModel.Name,
 				category = new
 				{
-					id = ExpenseModel.CategoryId,
-					name = Categories.First(c => c.Id == ExpenseModel.CategoryId).Name,
+					id = AddExpenseModel.CategoryId,
+					name = Categories.First(c => c.Id == AddExpenseModel.CategoryId).Name,
 				},
 				user = new
 				{
@@ -209,8 +215,8 @@ namespace Contador.Web.Client.Pages
 					name = user.UserName,
 					email = user.Email
 				},
-				value = ExpenseModel.Value,
-				description = ExpenseModel.Description,
+				value = AddExpenseModel.Value,
+				description = AddExpenseModel.Description,
 				imagePath = "",
 				createDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
 			};
