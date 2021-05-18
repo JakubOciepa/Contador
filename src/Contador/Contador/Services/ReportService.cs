@@ -88,6 +88,32 @@ namespace Contador.Services
 			}
 		}
 
+		/// <summary>
+		/// Generates <see cref="CategoryReport"/> for the category of provided id.
+		/// </summary>
+		/// <param name="categoryId">Category id for the report</param>
+		/// <returns><see cref="CategoryReport"/> for the provided category.</returns>
+		public async Task<Result<CategoryReport>> GetForCategoryAsync(int categoryId)
+		{
+			var report = new CategoryReport();
+			var result = await _expenseManager.GetByCategory(categoryId);
+
+			switch (result.ResponseCode)
+			{
+				case ResponseCode.Error:
+					_logger.Write(LogLevel.Error, $"{result.Message}");
+					return new Result<CategoryReport>(ResponseCode.Error, report) { Message = result.Message };
+				case ResponseCode.NotFound:
+					_logger.Write(LogLevel.Info, $"Couldn't find any expenses for provided category");
+					return new Result<CategoryReport>(ResponseCode.NotFound, report);
+				case ResponseCode.Ok:
+					return await GetReportForCategoryAsync(result.ReturnedObject);
+				default:
+					_logger.Write(LogLevel.Fatal, "That shouldn't happened...");
+					throw new Exception("Holy molly, something gone terribly wrong... (╯°□°）╯︵ ┻━┻");
+			}
+		}
+
 		private async Task<Result<ReportShort>> GetReportFromExpenses(IList<Expense> expenses)
 		{
 			var report = new ReportShort
@@ -99,6 +125,37 @@ namespace Contador.Services
 			report.CategoriesPercentages = GetCategoriesPercentages(report.ExpensesTotal, report.CategoriesTotals);
 
 			return new Result<ReportShort>(ResponseCode.Ok, report);
+		}
+
+		private async Task<Result<CategoryReport>> GetReportForCategoryAsync(IList<Expense> expenses)
+		{
+			var report = new CategoryReport
+			{
+				AverageMonthly = GetAverageMontlhy(expenses),
+				AverageYearly = GetAverageYearly(expenses),
+				MonthSpent = expenses.Where(e => e.CreateDate.Month == DateTime.Now.Month).Sum(e => e.Value),
+				YearSpent = expenses.Where(e => e.CreateDate.Year == DateTime.Now.Year).Sum(e => e.Value),
+				Expenses = expenses
+			};
+
+			return new Result<CategoryReport>(ResponseCode.Ok, report);
+		}
+
+		private decimal GetAverageYearly(IList<Expense> expenses)
+		{
+			var yearCount = DateTime.Now.Year - expenses.OrderBy(e => e.CreateDate.Year).First().CreateDate.Year;
+
+			return expenses.Sum(e => e.Value) / (yearCount == 0 ? 1 : yearCount);
+		}
+
+		private decimal GetAverageMontlhy(IList<Expense> expenses)
+		{
+			var expensesInRange = expenses.Where(e => e.CreateDate >= DateTime.Now.AddMonths(-12))
+				.OrderBy(e => e.CreateDate);
+
+			var monthCount = (DateTime.Now.Month - expensesInRange.First().CreateDate.Month) % 12;
+
+			return expensesInRange.Sum(e => e.Value) / (monthCount == 0 ? 1 : monthCount);
 		}
 
 		private async Task<IDictionary<string, decimal>> GetCategoriesTotals(IList<Expense> expenses)

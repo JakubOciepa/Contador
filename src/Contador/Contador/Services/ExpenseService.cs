@@ -241,6 +241,35 @@ namespace Contador.Services
 			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
 		}
 
+		/// <summary>
+		/// Gets all expenses for provided category.
+		/// </summary>
+		/// <param name="categoryId">Category id of searched expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of expenses in this category.</returns>
+		public async Task<Result<IList<Expense>>> GetByCategory(int categoryId)
+		{
+			var expenses = new List<Expense>();
+
+			try
+			{
+				expenses = await _expenseRepo.GetByCategory(categoryId) as List<Expense>;
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex}";
+
+				_logger.Write(LogLevel.Error, $"{message}\n{ex.StackTrace}");
+				return new Result<IList<Expense>>(ResponseCode.Error, expenses) { Message = message };
+			}
+
+			if (expenses.Count < 1)
+			{
+				_logger.Write(LogLevel.Warning, $"Expenses not found.");
+				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
+		}
 
 		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.
