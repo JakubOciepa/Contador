@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Contador.Core.Common;
@@ -38,6 +39,24 @@ namespace Contador.Abstractions
 		/// <param name="year">Year of the expenses creation.</param>
 		/// <returns><see cref="IList{Expense}"/> which were created in provided year.</returns>
 		Task<Result<IList<Expense>>> GetByYearAsync(int year);
+
+		/// <summary>
+		/// Gets provided count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Amount of expenses to return.</param>
+		/// <returns>Provided count or less of the latest </returns>
+		Task<Result<IList<Expense>>> GetLatest(int count);
+
+		/// <summary>
+		/// Gets expenses filtered by provided values.
+		/// </summary>
+		/// <param name="name">Name of the expense of part of the name to filter.</param>
+		/// <param name="categoryName">Name of the category to filter.</param>
+		/// <param name="userName">Name of the user to filter.</param>
+		/// <param name="createDateFrom">The start date of the period that the searched expense could be created.</param>
+		/// <param name="createDateTo">The start date of the period that the searched expense could be created.</param>
+		/// <returns>List of the expenses that fulfill the requirements</returns>
+		Task<Result<IList<Expense>>> GetFiltered(string name, string categoryName, string userName, DateTime createDateFrom, DateTime createDateTo);
 
 		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.

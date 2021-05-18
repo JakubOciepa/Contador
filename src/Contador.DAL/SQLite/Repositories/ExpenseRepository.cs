@@ -203,5 +203,27 @@ namespace Contador.DAL.SQLite.Repositories
 		{
 			throw new NotImplementedException();
 		}
+
+		/// <summary>
+		/// Gets the count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Max count of latest expenses to return.</param>
+		/// <returns>The count or less of latest expenses.</returns>
+		public Task<IList<Expense>> GetLatest(int count)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Gets expenses filtered by provided values.
+		/// </summary>
+		/// <param name="name">Name of the expense of part of the name to filter.</param>
+		/// <param name="categoryName">Name of the category to filter.</param>
+		/// <param name="userName">Name of the user to filter.</param>
+		/// <returns>List of the expenses that fulfill the requirements</returns>
+		public Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

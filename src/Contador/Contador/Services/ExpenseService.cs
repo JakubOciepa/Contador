@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
@@ -159,12 +160,87 @@ namespace Contador.Services
 
 			if (expenses.Count < 1)
 			{
-				_logger.Write(Core.Common.LogLevel.Warning, $"Expenses that were created at {year} not found.");
+				_logger.Write(LogLevel.Warning, $"Expenses that were created at {year} not found.");
 				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
 			}
 
 			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
 		}
+
+		/// <summary>
+		/// Gets provided count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Amount of expenses to return.</param>
+		/// <returns>Provided count or less of the latest </returns>
+		public async Task<Result<IList<Expense>>> GetLatest(int count)
+		{
+			var expenses = new List<Expense>();
+
+			try
+			{
+				expenses = await _expenseRepo.GetLatest(count).CAF() as List<Expense>;
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex}";
+
+				_logger.Write(LogLevel.Error, $"{message}\n{ex.StackTrace}");
+				return new Result<IList<Expense>>(ResponseCode.Error, expenses) { Message = message };
+			}
+
+			if (expenses.Count < 1)
+			{
+				_logger.Write(LogLevel.Warning, $"Expenses not found.");
+				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
+		}
+
+		/// <summary>
+		/// Gets expenses filtered by provided values.
+		/// </summary>
+		/// <param name="name">Name of the expense of part of the name to filter.</param>
+		/// <param name="categoryName">Name of the category to filter.</param>
+		/// <param name="userName">Name of the user to filter.</param>
+		/// <param name="createDateFrom">Create date of the expense</param>
+		/// <param name="createDateTo">The start date of the period that the searched expense could be created.</param>
+		/// <returns>List of the expenses that fulfill the requirements</returns>
+		public async Task<Result<IList<Expense>>> GetFiltered(string name, string categoryName, string userName, DateTime createDateFrom, DateTime createDateTo)
+		{
+			var expenses = new List<Expense>();
+
+			try
+			{
+				expenses = await _expenseRepo.GetFiltered(name, categoryName, userName) as List<Expense>;
+
+				if (createDateFrom != default)
+				{
+					expenses = expenses.Where(e => e.CreateDate >= createDateFrom.AddDays(-1)).ToList();
+				}
+
+				if (createDateTo != default)
+				{
+					expenses = expenses.Where(e => e.CreateDate <= createDateTo.AddDays(1)).ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex}";
+
+				_logger.Write(LogLevel.Error, $"{message}\n{ex.StackTrace}");
+				return new Result<IList<Expense>>(ResponseCode.Error, expenses) { Message = message };
+			}
+
+			if (expenses.Count < 1)
+			{
+				_logger.Write(LogLevel.Warning, $"Expenses not found.");
+				return new Result<IList<Expense>>(ResponseCode.NotFound, null);
+			}
+
+			return new Result<IList<Expense>>(ResponseCode.Ok, expenses);
+		}
+
 
 		/// <summary>
 		/// Adds the provided <see cref="Expense"/> into the storage.

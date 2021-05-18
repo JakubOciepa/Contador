@@ -28,7 +28,15 @@ namespace Contador.Web.Client.Pages
 
 		private IList<Expense> ExpensesList = new List<Expense>();
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
-		private ExpenseModel ExpenseModel = new();
+		private ExpenseModel AddExpenseModel = new();
+		private SearchExpenseModel SearchExpense = new();
+		private string Filter = "";
+
+		private bool _sortByNameDescending = false;
+		private bool _sortByCategoryDescending = false;
+		private bool _sortByUserDescending = false;
+		private bool _sortByValueDescending = false;
+		private bool _sortByDateDescending = false;
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -36,13 +44,13 @@ namespace Contador.Web.Client.Pages
 			Categories = await GetCategories();
 		}
 
-		private async void AddNewExpense()
+		private async Task AddNewExpense()
 		{
 			var request = new HttpRequestMessage(HttpMethod.Post, "api/expense");
 
 			try
 			{
-				request.Content = await GetHttpStringContent();
+				request.Content = await GetAddingHttpStringContent();
 
 				var result = await _httpClient.SendAsync(request);
 
@@ -67,12 +75,147 @@ namespace Contador.Web.Client.Pages
 			}
 		}
 
+		private async Task SearchExpenses()
+		{
+			var requestString = @$"?name={SearchExpense.Name}&categoryName={SearchExpense.CategoryName}&userName={SearchExpense.UserName}"
+				+@$"&createDateFrom={SearchExpense.StartDate:yyyy-MM-dd}&createDateTo={SearchExpense.EndDate:yyyy-MM-dd}";
+
+			try
+			{
+				var result = await _httpClient.GetAsync("api/expense/filter" + requestString);
+
+				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
+				{
+					ExpensesList = (await result.Content.ReadFromJsonAsync<IList<Expense>>()).ToList();
+				}
+				else
+				{
+					ExpensesList =  new List<Expense>();
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
+				await _jsRuntime.InvokeVoidAsync("alert", "Cannot found expense!");
+			}
+		}
+
+		private bool IsVisible(Expense expense)
+		{
+			if (string.IsNullOrEmpty(Filter))
+				return true;
+			if (expense.Name.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+			if (expense.Category.Name.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+			if (expense.User.UserName.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+			if (expense.Description.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+				return true;
+
+			return false;
+		}
+
+		private void SortBy(string propertyName)
+		{
+			if (propertyName is "Name")
+			{
+				SortByName();
+			}
+			else if (propertyName is "Category")
+			{
+				SortByCategory();
+			}
+			else if (propertyName is "Value")
+			{
+				SortByValue();
+			}
+			else if (propertyName is "CreateDate")
+			{
+				SortByDate();
+			}
+			else if (propertyName is "User")
+			{
+				SortByUser();
+			}
+		}
+
+		private void SortByUser()
+		{
+			if (_sortByUserDescending)
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.User.UserName).ToList();
+				_sortByUserDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.User.UserName).ToList();
+				_sortByUserDescending = true;
+			}
+		}
+
+		private void SortByDate()
+		{
+			if (_sortByDateDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.CreateDate).ToList();
+				_sortByDateDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.CreateDate).ToList();
+				_sortByDateDescending = true;
+			}
+		}
+
+		private void SortByValue()
+		{
+			if (_sortByValueDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.Value).ToList();
+				_sortByValueDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.Value).ToList();
+				_sortByValueDescending = true;
+			}
+		}
+
+		private void SortByCategory()
+		{
+			if (_sortByCategoryDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.Category.Name).ToList();
+				_sortByCategoryDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.Category.Name).ToList();
+				_sortByCategoryDescending = true;
+			}
+		}
+
+		private void SortByName()
+		{
+			if (_sortByNameDescending)
+			{
+				ExpensesList = ExpensesList.OrderByDescending(e => e.Name).ToList();
+				_sortByNameDescending = false;
+			}
+			else
+			{
+				ExpensesList = ExpensesList.OrderBy(e => e.Name).ToList();
+				_sortByNameDescending = true;
+			}
+		}
+
 		private void RemoveExpenseFromExpenseList(Expense expenseToRemove)
 		{
 			ExpensesList.Remove(expenseToRemove);
 		}
 
-		private async Task<StringContent> GetHttpStringContent()
+		private async Task<StringContent> GetAddingHttpStringContent()
 		{
 			var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
 			var result = await _httpClient.GetAsync($"api/account/{authState.User.Identity.Name}");
@@ -80,11 +223,11 @@ namespace Contador.Web.Client.Pages
 
 			var body = new
 			{
-				name = ExpenseModel.Name,
+				name = AddExpenseModel.Name,
 				category = new
 				{
-					id = ExpenseModel.CategoryId,
-					name = Categories.First(c => c.Id == ExpenseModel.CategoryId).Name,
+					id = AddExpenseModel.CategoryId,
+					name = Categories.First(c => c.Id == AddExpenseModel.CategoryId).Name,
 				},
 				user = new
 				{
@@ -92,8 +235,8 @@ namespace Contador.Web.Client.Pages
 					name = user.UserName,
 					email = user.Email
 				},
-				value = ExpenseModel.Value,
-				description = ExpenseModel.Description,
+				value = AddExpenseModel.Value,
+				description = AddExpenseModel.Description,
 				imagePath = "",
 				createDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
 			};

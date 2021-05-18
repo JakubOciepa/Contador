@@ -101,9 +101,9 @@
       <Project>{9D10DF47-46FF-461C-9FEE-4A84A2E13DB1}</Project>
       <Name>Contador.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Contador\Abstractions\Contador.Abstractions.csproj">
-      <Project>{93955773-c674-44fc-9c8d-52b48bf09866}</Project>
-      <Name>Contador.Abstractions</Name>
+    <ProjectReference Include="..\..\Contador\Contador\Contador.csproj">
+      <Project>{09276162-E7A5-4F03-B5DE-4D60D536C470}</Project>
+      <Name>Contador</Name>
     </ProjectReference>
     <ProjectReference Include="..\Contador.Mobile\Contador.Mobile.csproj">
       <Project>{02A0CC38-AAA9-4FDA-BE2C-A7D31D2F4D3F}</Project>

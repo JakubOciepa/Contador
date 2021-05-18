@@ -23,9 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Contador.DAL\Abstractions\Contador.DAL.Abstractions.csproj" />
 		<ProjectReference Include="..\..\Contador.DAL\MySQL\Contador.DAL.MySQL.csproj" />
-		<ProjectReference Include="..\..\Contador\Abstractions\Contador.Abstractions.csproj" />
 		<ProjectReference Include="..\..\Contador\Contador\Contador.csproj" />
 		<ProjectReference Include="..\Client\Contador.Web.Client.csproj" />
 		<ProjectReference Include="..\Shared\Contador.Web.Shared.csproj" />

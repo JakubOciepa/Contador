@@ -19,7 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Contador.Core\Core\Contador.Core.csproj" />
-		<ProjectReference Include="..\..\Contador\Abstractions\Contador.Abstractions.csproj" />
+		<ProjectReference Include="..\..\Contador\Contador\Contador.csproj" />
 		<ProjectReference Include="..\Shared\Contador.Web.Shared.csproj" />
 	</ItemGroup>
 

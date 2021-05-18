@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -71,6 +72,58 @@ namespace Contador.Web.Server.Controllers
 				ResponseCode.Ok => Ok(result.ReturnedObject),
 				_ => BadRequest("ᓚᘏᗢ my oh my...That looks bad.")
 			};
+		}
+
+		/// <summary>
+		/// Gets provided count or less of latest expenses.
+		/// </summary>
+		/// <param name="count">Amount of expenses to return.</param>
+		/// <returns>Provided count or less of the latest </returns>
+		[HttpGet("latest")]
+		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<IList<Expense>>> GetLatest([FromQuery] int count = 0)
+		{
+			var result = await _expenseService.GetLatest(count).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => Ok((result.ReturnedObject)),
+				_ => BadRequest(@"Not enough mana...")
+			};
+		}
+
+		/// <summary>
+		/// Gets the filtered expenses by the provided values.
+		/// </summary>
+		/// <param name="name">A part of the name of the expense.</param>
+		/// <param name="categoryName">A part of the expense category name.</param>
+		/// <param name="userName">A part of the user name.</param>
+		/// <param name="createDateFrom">Minimal date of the expense creation.</param>
+		/// <param name="createDateTo">Maximum date of the expense creation.</param>
+		/// <returns></returns>
+		[HttpGet("filter")]
+		public async Task<ActionResult<IList<Expense>>> GetFiltered(
+			[FromQuery] string name = null, 
+			[FromQuery] string categoryName = null,
+			[FromQuery] string userName = "", 
+			[FromQuery] DateTime createDateFrom = default, 
+			[FromQuery] DateTime createDateTo = default)
+		{
+			var result = await _expenseService.GetFiltered(name, categoryName, userName, createDateFrom, createDateTo);
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => Ok((result.ReturnedObject)),
+				_ => BadRequest(@"Not enough mana...")
+			};
+
+			return null;
 		}
 
 		/// <summary>

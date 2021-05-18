@@ -6,18 +6,18 @@ CREATE OR REPLACE PROCEDURE expense_Update (
 		IN description_p VARCHAR(255),
 		IN categoryId_p INTEGER,
 		IN userId_p VARCHAR(255),
-		IN image_path_p VARCHAR(4096),
-		IN create_date_p DATETIME
+		IN imagePath_p VARCHAR(4096),
+		IN createDate_p DATETIME
 	) BEGIN
 UPDATE Expense
 SET Name = name_p,
 	CategoryId = categoryId_p,
 	UserId = userId_p,
 	Value = value_p,
-	CreateDate = create_date_p,
+	CreateDate = createDate_p,
 	ModifiedDate = CURRENT_TIME(),
 	Description = description_p,
-	ImagePath = image_path_p
+	ImagePath = imagePath_p
 WHERE Id = id_p;
 SELECT *
 FROM Expense ex
