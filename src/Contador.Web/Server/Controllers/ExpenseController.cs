@@ -96,6 +96,15 @@ namespace Contador.Web.Server.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Gets the filtered expenses by the provided values.
+		/// </summary>
+		/// <param name="name">A part of the name of the expense.</param>
+		/// <param name="categoryName">A part of the expense category name.</param>
+		/// <param name="userName">A part of the user name.</param>
+		/// <param name="createDateFrom">Minimal date of the expense creation.</param>
+		/// <param name="createDateTo">Maximum date of the expense creation.</param>
+		/// <returns></returns>
 		[HttpGet("filter")]
 		public async Task<ActionResult<IList<Expense>>> GetFiltered(
 			[FromQuery] string name = null, 
