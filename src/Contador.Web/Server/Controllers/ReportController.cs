@@ -87,10 +87,10 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
-		/// Gets the yearly short report by the provided year.
+		/// Gets the full report for the expense category.
 		/// </summary>
-		/// <param name="year">Year for the report.</param>
-		/// <returns><see cref="CategoryReport"/> for provided year.</returns>
+		/// <param name="id">Id of the category.</param>
+		/// <returns><see cref="CategoryReport"/> for provided category.</returns>
 		[HttpGet("category/{id}")]
 		[ProducesResponseType(typeof(ReportShort), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
