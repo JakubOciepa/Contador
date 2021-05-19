@@ -225,5 +225,15 @@ namespace Contador.DAL.SQLite.Repositories
 		{
 			throw new NotImplementedException();
 		}
+
+		/// <summary>
+		/// Gets all expenses for provided category.
+		/// </summary>
+		/// <param name="categoryId">Category id of searched expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of expenses in this category.</returns>
+		public Task<IList<Expense>> GetByCategory(int categoryId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

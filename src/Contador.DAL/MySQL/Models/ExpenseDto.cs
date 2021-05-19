@@ -170,7 +170,12 @@ namespace Contador.DAL.MySql.Models
 			/// Name of the procedure which gets filtered expenses.
 			/// </summary>
 			public const string GetFiltered = "expense_GetFiltered";
-			
+
+			/// <summary>
+			/// Name of the procedure which gets expenses by the category id.
+			/// </summary>
+			public const string GetByCategory = "expense_GetByCategory";
+
 			/// <summary>
 			/// Name of the procedure which updates expense from the database.
 			/// </summary>

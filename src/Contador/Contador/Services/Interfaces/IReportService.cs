@@ -24,5 +24,12 @@ namespace Contador.Abstractions
 		/// <param name="year">Year for the report.</param>
 		/// <returns><see cref="ReportShort"/>for the provided year.</returns>
 		Task<Result<ReportShort>> GetYearlyShortReportAsync(int year);
+
+		/// <summary>
+		/// Generates <see cref="CategoryReport"/> for the category of provided id.
+		/// </summary>
+		/// <param name="categoryId">Category id for the report</param>
+		/// <returns><see cref="CategoryReport"/> for the provided category.</returns>
+		Task<Result<CategoryReport>> GetForCategoryAsync(int categoryId);
 	}
 }

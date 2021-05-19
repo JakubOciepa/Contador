@@ -56,6 +56,14 @@ namespace Contador.DAL.Abstractions
 		Task<IList<Expense>> GetFiltered(string name, string categoryName, string userName);
 
 		/// <summary>
+		/// Gets all expenses for provided category.
+		/// </summary>
+		/// <param name="categoryId">Category id of searched expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of expenses in this category.</returns>
+		Task<IList<Expense>> GetByCategory(int categoryId);
+
+
+		/// <summary>
 		/// Adds provided <see cref="Expense"/> to the storage.
 		/// </summary>
 		/// <param name="expense">Expense to add.</param>

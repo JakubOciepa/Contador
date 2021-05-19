@@ -1,0 +1,12 @@
+﻿.summary-container {
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+.summary-monthly {
+	grid-column: 1;
+}
+
+.summary-yearly {
+	grid-column: 2;
+}

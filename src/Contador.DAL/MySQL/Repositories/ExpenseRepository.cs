@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -172,6 +171,32 @@ namespace Contador.DAL.MySql.Repositories
 
 			IEnumerable<ExpenseDto> expenses = await _dbConnection
 				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetFiltered,
+				(expense, category, user) =>
+				{
+					expense.Category = category;
+					expense.User = user;
+
+					return expense;
+				},
+				parameters,
+				commandType: CommandType.StoredProcedure)
+				.CAF();
+
+			return expenses.Cast<Expense>().ToList();
+		}
+
+		/// <summary>
+		/// Gets all expenses for provided category.
+		/// </summary>
+		/// <param name="categoryId">Category id of searched expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of expenses in this category.</returns>
+		public async Task<IList<Expense>> GetByCategory(int categoryId)
+		{
+			var parameters = new DynamicParameters();
+			parameters.Add(ExpenseDto.ParameterName.CategoryId, categoryId);
+
+			IEnumerable<Expense> expenses = await _dbConnection
+				.QueryAsync<ExpenseDto, ExpenseCategoryDto, UserDto, ExpenseDto>(ExpenseDto.ProcedureName.GetByCategory,
 				(expense, category, user) =>
 				{
 					expense.Category = category;

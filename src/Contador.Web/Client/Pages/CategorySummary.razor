@@ -1,0 +1,22 @@
+﻿@page "/categories/{id}"
+
+
+<h1>@Category.Name</h1>
+
+@if (Report is object)
+{
+	<div class="summary-container">
+
+	 <div class="summary-monthly">
+	  <h3>Monthly:</h3>
+	  <p>Average: @Report.AverageMonthly zł</p>
+	  <p>Spent: @Report.MonthSpent zł</p>
+	 </div>
+
+	 <div class="summary-yearly">
+	  <h3>Yearly:</h3>
+	  <p>Average: @Report.AverageYearly zł</p>
+	  <p>Spent: @Report.YearSpent zł</p>
+	 </div>
+	</div>
+}

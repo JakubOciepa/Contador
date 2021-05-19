@@ -48,6 +48,13 @@ namespace Contador.Abstractions
 		Task<Result<IList<Expense>>> GetLatest(int count);
 
 		/// <summary>
+		/// Gets all expenses for provided category.
+		/// </summary>
+		/// <param name="categoryId">Category id of searched expenses.</param>
+		/// <returns><see cref="IList{Expense}"/> of expenses in this category.</returns>
+		Task<Result<IList<Expense>>> GetByCategory(int categoryId);
+
+		/// <summary>
 		/// Gets expenses filtered by provided values.
 		/// </summary>
 		/// <param name="name">Name of the expense of part of the name to filter.</param>

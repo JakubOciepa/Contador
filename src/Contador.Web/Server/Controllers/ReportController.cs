@@ -72,7 +72,7 @@ namespace Contador.Web.Server.Controllers
 		{
 			if (year > DateTime.Now.Year)
 			{
-				return BadRequest("Provided year or month is not valid!");
+				return BadRequest("Provided year is not valid!");
 			}
 
 			var result = await _reportService.GetYearlyShortReportAsync(year).CAF();
@@ -85,5 +85,28 @@ namespace Contador.Web.Server.Controllers
 				_ => BadRequest("Something gone wrong..."),
 			};
 		}
+
+		/// <summary>
+		/// Gets the full report for the expense category.
+		/// </summary>
+		/// <param name="id">Id of the category.</param>
+		/// <returns><see cref="CategoryReport"/> for provided category.</returns>
+		[HttpGet("category/{id}")]
+		[ProducesResponseType(typeof(ReportShort), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		public async Task<ActionResult<CategoryReport>> GetForCategory(int id)
+		{
+			var result = await _reportService.GetForCategoryAsync(id).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.NotFound => NoContent(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest("Something gone wrong..."),
+			};
+		}
+
 	}
 }
