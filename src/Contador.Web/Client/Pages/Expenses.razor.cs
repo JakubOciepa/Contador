@@ -32,6 +32,9 @@ namespace Contador.Web.Client.Pages
 		private SearchExpenseModel SearchExpense = new();
 		private string Filter = "";
 
+		private IList<Expense> ExpensesToRemove = new List<Expense>();
+		private bool AllToRemoveChecked = false;
+
 		private bool _sortByNameDescending = false;
 		private bool _sortByCategoryDescending = false;
 		private bool _sortByUserDescending = false;
@@ -78,7 +81,7 @@ namespace Contador.Web.Client.Pages
 		private async Task SearchExpenses()
 		{
 			var requestString = @$"?name={SearchExpense.Name}&categoryName={SearchExpense.CategoryName}&userName={SearchExpense.UserName}"
-				+@$"&createDateFrom={SearchExpense.StartDate:yyyy-MM-dd}&createDateTo={SearchExpense.EndDate:yyyy-MM-dd}";
+				+ @$"&createDateFrom={SearchExpense.StartDate:yyyy-MM-dd}&createDateTo={SearchExpense.EndDate:yyyy-MM-dd}";
 
 			try
 			{
@@ -90,13 +93,53 @@ namespace Contador.Web.Client.Pages
 				}
 				else
 				{
-					ExpensesList =  new List<Expense>();
+					ExpensesList = new List<Expense>();
 				}
 			}
 			catch (Exception ex)
 			{
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 				await _jsRuntime.InvokeVoidAsync("alert", "Cannot found expense!");
+			}
+		}
+
+		private void AddToRemove(object isSelected, params Expense[] expenses)
+		{
+			if ((bool)isSelected)
+			{
+				foreach (var expense in expenses)
+				{
+					ExpensesToRemove.Add(expense);
+					_logger.Write(Core.Common.LogLevel.Error, $"{expense.Name} should be removed");
+				}
+			}
+		}
+
+		private async Task RemoveSelected()
+		{
+			var removeConfirmed = await _jsRuntime.InvokeAsync<bool>("confirm", "Do you really want to remove selected expenses?");
+
+			if (removeConfirmed)
+			{
+				foreach (var expense in ExpensesToRemove)
+				{
+					try
+					{
+						var request = new HttpRequestMessage(HttpMethod.Delete, $"api/expense/{expense.Id}");
+						var result = await _httpClient.SendAsync(request);
+
+						if (result.IsSuccessStatusCode)
+						{
+							ExpensesList.Remove(expense);
+						}
+					}
+					catch (Exception ex)
+					{
+						_logger.Write(Core.Common.LogLevel.Warning, $"Can't remove {expense.Name}\n: {ex.StackTrace}");
+					}
+				}
+
+				ExpensesToRemove.Clear();
 			}
 		}
 
