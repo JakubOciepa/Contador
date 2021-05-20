@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using Contador.Abstractions;
 using Contador.Core.Models;
+using Contador.Web.Client.Pages;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -39,12 +40,20 @@ namespace Contador.Web.Client.Components
 		[Parameter]
 		public EventCallback<Expense> OnExpenseRemoved { get; set; }
 
+		/// <summary>
+		/// Expense page parameter.
+		/// </summary>
+		[CascadingParameter]
+		public Expenses ExpensesPage { get; set; }
+
 		private string Name { get; set; }
 		private decimal Value { get; set; }
 		private int CategoryId { get; set; }
 		private string Description { get; set; }
 		private DateTime CreatedDate { get; set; }
 		private List<ExpenseCategory> Categories { get; set; }
+
+		private bool IsSelected { get; set; }
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -58,10 +67,25 @@ namespace Contador.Web.Client.Components
 			}
 
 			Categories = await GetCategories();
+			ExpensesPage.DeselectAllExpenses += ExpensesPage_DeselectAllExpenses;
+		}
+
+		private void ExpensesPage_DeselectAllExpenses(object sender, EventArgs e)
+		{
+			IsSelected = false;
+			InvokeAsync(StateHasChanged);
 		}
 
 		private void EnterEditMode()
 			=> isEditMode = true;
+
+		private void OnSelectionChanged(object args)
+		{
+			if((bool)args)
+			{
+				ExpensesPage.ExpenseSelectionChanged((bool)args, Expense);
+			}
+		}
 
 		private async void RemoveExpense()
 		{

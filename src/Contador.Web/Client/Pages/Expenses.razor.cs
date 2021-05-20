@@ -26,14 +26,18 @@ namespace Contador.Web.Client.Pages
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
 		[Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; }
 
+		/// <summary>
+		/// Invokes when all expenses should be deselected.
+		/// </summary>
+		public event EventHandler DeselectAllExpenses;
+
 		private IList<Expense> ExpensesList = new List<Expense>();
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
 		private ExpenseModel AddExpenseModel = new();
 		private SearchExpenseModel SearchExpense = new();
 		private string Filter = "";
 
-		private IList<Expense> ExpensesToRemove = new List<Expense>();
-		private bool AllToRemoveChecked = false;
+		private IList<Expense> SelectedExpenses = new List<Expense>();
 
 		private bool _sortByNameDescending = false;
 		private bool _sortByCategoryDescending = false;
@@ -45,6 +49,23 @@ namespace Contador.Web.Client.Pages
 		{
 			ExpensesList = await GetAndSortExpenses();
 			Categories = await GetCategories();
+		}
+
+		/// <summary>
+		/// Sets the expense as selected or not.
+		/// </summary>
+		/// <param name="isSelected">Is expense selected</param>
+		/// <param name="expense">Expense to set.</param>
+		public void ExpenseSelectionChanged(bool isSelected, Expense expense)
+		{
+			if (isSelected)
+			{
+				SelectedExpenses.Add(expense);
+			}
+			else
+			{
+				SelectedExpenses.Remove(expense);
+			}
 		}
 
 		private async Task AddNewExpense()
@@ -103,25 +124,13 @@ namespace Contador.Web.Client.Pages
 			}
 		}
 
-		private void AddToRemove(object isSelected, params Expense[] expenses)
-		{
-			if ((bool)isSelected)
-			{
-				foreach (var expense in expenses)
-				{
-					ExpensesToRemove.Add(expense);
-					_logger.Write(Core.Common.LogLevel.Error, $"{expense.Name} should be removed");
-				}
-			}
-		}
-
 		private async Task RemoveSelected()
 		{
 			var removeConfirmed = await _jsRuntime.InvokeAsync<bool>("confirm", "Do you really want to remove selected expenses?");
 
 			if (removeConfirmed)
 			{
-				foreach (var expense in ExpensesToRemove)
+				foreach (var expense in SelectedExpenses)
 				{
 					try
 					{
@@ -139,7 +148,9 @@ namespace Contador.Web.Client.Pages
 					}
 				}
 
-				ExpensesToRemove.Clear();
+				SelectedExpenses.Clear();
+
+				DeselectAllExpenses?.Invoke(this, EventArgs.Empty);
 			}
 		}
 

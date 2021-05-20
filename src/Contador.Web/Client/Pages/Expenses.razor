@@ -74,8 +74,9 @@
 					if (!IsVisible(expense))
 						continue;
 					<tr>
-						<th><input type="checkbox" @onchange="@(args => AddToRemove(args.Value, expense))"/></th>
-						<ExpenseComponent Expense="expense" OnExpenseRemoved="@RemoveExpenseFromExpenseList" />
+						<CascadingValue Value="this">
+							<ExpenseComponent @key="expense.Id" Expense="expense" OnExpenseRemoved="@RemoveExpenseFromExpenseList" />
+						</CascadingValue>
 					</tr>
 				}
 			</tbody>
