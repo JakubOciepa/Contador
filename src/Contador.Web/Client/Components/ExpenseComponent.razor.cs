@@ -52,7 +52,6 @@ namespace Contador.Web.Client.Components
 		private string Description { get; set; }
 		private DateTime CreatedDate { get; set; }
 		private List<ExpenseCategory> Categories { get; set; }
-
 		private bool IsSelected { get; set; }
 
 		protected override async Task OnInitializedAsync()
@@ -81,7 +80,7 @@ namespace Contador.Web.Client.Components
 
 		private void OnSelectionChanged(object args)
 		{
-			if((bool)args)
+			if ((bool)args)
 			{
 				ExpensesPage.ExpenseSelectionChanged((bool)args, Expense);
 			}

@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using Contador.Core.Models;
-
 namespace Contador.Web.Client.Models
 {
 	public class ExpenseModel

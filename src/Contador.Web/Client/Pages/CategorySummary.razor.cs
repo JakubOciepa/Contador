@@ -31,7 +31,7 @@ namespace Contador.Web.Client.Pages
 		{
 			var result = await _httpClient.GetAsync($"api/report/category/{Category.Id}");
 
-			if(result.IsSuccessStatusCode && result.StatusCode is not System.Net.HttpStatusCode.NoContent)
+			if (result.IsSuccessStatusCode && result.StatusCode is not System.Net.HttpStatusCode.NoContent)
 			{
 				return await result.Content.ReadFromJsonAsync<CategoryReport>();
 			}

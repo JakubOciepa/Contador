@@ -107,10 +107,10 @@ namespace Contador.Web.Server.Controllers
 		/// <returns></returns>
 		[HttpGet("filter")]
 		public async Task<ActionResult<IList<Expense>>> GetFiltered(
-			[FromQuery] string name = null, 
+			[FromQuery] string name = null,
 			[FromQuery] string categoryName = null,
-			[FromQuery] string userName = "", 
-			[FromQuery] DateTime createDateFrom = default, 
+			[FromQuery] string userName = "",
+			[FromQuery] DateTime createDateFrom = default,
 			[FromQuery] DateTime createDateTo = default)
 		{
 			var result = await _expenseService.GetFiltered(name, categoryName, userName, createDateFrom, createDateTo);
