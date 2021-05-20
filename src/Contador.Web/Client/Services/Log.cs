@@ -1,8 +1,6 @@
 ﻿
 using Contador.Abstractions;
 
-using Serilog;
-
 namespace Contador.Web.Client.Services
 {
 	/// <summary>

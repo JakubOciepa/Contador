@@ -26,11 +26,18 @@ namespace Contador.Web.Client.Pages
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
 		[Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; }
 
+		/// <summary>
+		/// Invokes when all expenses should be deselected.
+		/// </summary>
+		public event EventHandler DeselectAllExpenses;
+
 		private IList<Expense> ExpensesList = new List<Expense>();
 		private IList<ExpenseCategory> Categories = new List<ExpenseCategory>();
 		private ExpenseModel AddExpenseModel = new();
 		private SearchExpenseModel SearchExpense = new();
 		private string Filter = "";
+
+		private IList<Expense> SelectedExpenses = new List<Expense>();
 
 		private bool _sortByNameDescending = false;
 		private bool _sortByCategoryDescending = false;
@@ -42,6 +49,23 @@ namespace Contador.Web.Client.Pages
 		{
 			ExpensesList = await GetAndSortExpenses();
 			Categories = await GetCategories();
+		}
+
+		/// <summary>
+		/// Sets the expense as selected or not.
+		/// </summary>
+		/// <param name="isSelected">Is expense selected</param>
+		/// <param name="expense">Expense to set.</param>
+		public void ExpenseSelectionChanged(bool isSelected, Expense expense)
+		{
+			if (isSelected)
+			{
+				SelectedExpenses.Add(expense);
+			}
+			else
+			{
+				SelectedExpenses.Remove(expense);
+			}
 		}
 
 		private async Task AddNewExpense()
@@ -78,7 +102,7 @@ namespace Contador.Web.Client.Pages
 		private async Task SearchExpenses()
 		{
 			var requestString = @$"?name={SearchExpense.Name}&categoryName={SearchExpense.CategoryName}&userName={SearchExpense.UserName}"
-				+@$"&createDateFrom={SearchExpense.StartDate:yyyy-MM-dd}&createDateTo={SearchExpense.EndDate:yyyy-MM-dd}";
+				+ @$"&createDateFrom={SearchExpense.StartDate:yyyy-MM-dd}&createDateTo={SearchExpense.EndDate:yyyy-MM-dd}";
 
 			try
 			{
@@ -90,13 +114,43 @@ namespace Contador.Web.Client.Pages
 				}
 				else
 				{
-					ExpensesList =  new List<Expense>();
+					ExpensesList = new List<Expense>();
 				}
 			}
 			catch (Exception ex)
 			{
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 				await _jsRuntime.InvokeVoidAsync("alert", "Cannot found expense!");
+			}
+		}
+
+		private async Task RemoveSelected()
+		{
+			var removeConfirmed = await _jsRuntime.InvokeAsync<bool>("confirm", "Do you really want to remove selected expenses?");
+
+			if (removeConfirmed)
+			{
+				foreach (var expense in SelectedExpenses)
+				{
+					try
+					{
+						var request = new HttpRequestMessage(HttpMethod.Delete, $"api/expense/{expense.Id}");
+						var result = await _httpClient.SendAsync(request);
+
+						if (result.IsSuccessStatusCode)
+						{
+							ExpensesList.Remove(expense);
+						}
+					}
+					catch (Exception ex)
+					{
+						_logger.Write(Core.Common.LogLevel.Warning, $"Can't remove {expense.Name}\n: {ex.StackTrace}");
+					}
+				}
+
+				SelectedExpenses.Clear();
+
+				DeselectAllExpenses?.Invoke(this, EventArgs.Empty);
 			}
 		}
 

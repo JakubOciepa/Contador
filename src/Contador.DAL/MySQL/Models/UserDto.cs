@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using Contador.Core.Models;
 
 namespace Contador.DAL.MySql.Models

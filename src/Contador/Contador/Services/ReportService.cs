@@ -54,7 +54,7 @@ namespace Contador.Services
 					_logger.Write(LogLevel.Info, $"Couldn't find any expenses for provided month");
 					return new Result<ReportShort>(ResponseCode.NotFound, report);
 				case ResponseCode.Ok:
-					return await GetReportFromExpenses(result.ReturnedObject);
+					return await GetReportFromExpensesAsync(result.ReturnedObject);
 				default:
 					_logger.Write(LogLevel.Fatal, "That shouldn't happened...");
 					throw new Exception("Holy molly, something gone terribly wrong... (╯°□°）╯︵ ┻━┻");
@@ -81,7 +81,7 @@ namespace Contador.Services
 					_logger.Write(LogLevel.Info, $"Couldn't find any expenses for provided year");
 					return new Result<ReportShort>(ResponseCode.NotFound, report);
 				case ResponseCode.Ok:
-					return await GetReportFromExpenses(result.ReturnedObject);
+					return await GetReportFromExpensesAsync(result.ReturnedObject);
 				default:
 					_logger.Write(LogLevel.Fatal, "That shouldn't happened...");
 					throw new Exception("Holy molly, something gone terribly wrong... (╯°□°）╯︵ ┻━┻");
@@ -107,14 +107,14 @@ namespace Contador.Services
 					_logger.Write(LogLevel.Info, $"Couldn't find any expenses for provided category");
 					return new Result<CategoryReport>(ResponseCode.NotFound, report);
 				case ResponseCode.Ok:
-					return await GetReportForCategoryAsync(result.ReturnedObject);
+					return GetReportForCategory(result.ReturnedObject);
 				default:
 					_logger.Write(LogLevel.Fatal, "That shouldn't happened...");
 					throw new Exception("Holy molly, something gone terribly wrong... (╯°□°）╯︵ ┻━┻");
 			}
 		}
 
-		private async Task<Result<ReportShort>> GetReportFromExpenses(IList<Expense> expenses)
+		private async Task<Result<ReportShort>> GetReportFromExpensesAsync(IList<Expense> expenses)
 		{
 			var report = new ReportShort
 			{
@@ -127,7 +127,7 @@ namespace Contador.Services
 			return new Result<ReportShort>(ResponseCode.Ok, report);
 		}
 
-		private async Task<Result<CategoryReport>> GetReportForCategoryAsync(IList<Expense> expenses)
+		private Result<CategoryReport> GetReportForCategory(IList<Expense> expenses)
 		{
 			var report = new CategoryReport
 			{

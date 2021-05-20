@@ -52,7 +52,7 @@ namespace Contador.Web.Server.Controllers
 
 		[HttpGet("{userName}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<ActionResult<IdentityUser>> GetByName([FromRoute]string userName)
+		public async Task<ActionResult<IdentityUser>> GetByName([FromRoute] string userName)
 		{
 			var user = await _userManager.FindByNameAsync(userName);
 

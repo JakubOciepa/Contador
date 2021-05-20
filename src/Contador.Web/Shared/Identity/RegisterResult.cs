@@ -11,7 +11,7 @@ namespace Contador.Web.Identity
 		/// Indicates if the registration succeeded. 
 		/// </summary>
 		public bool Successful { get; set; }
-	
+
 		/// <summary>
 		/// Contains errors generated while account registration. 
 		/// </summary>

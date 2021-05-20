@@ -18,7 +18,6 @@ namespace Contador.Web.Client.Pages
 		[Inject] private HttpClient _httpClient { get; set; }
 		[Inject] private ILog _logger { get; set; }
 
-		private bool categoryExists;
 		private ExpenseCategory Category { get; set; } = new("");
 		private CategoryReport Report { get; set; } = new();
 
@@ -32,7 +31,7 @@ namespace Contador.Web.Client.Pages
 		{
 			var result = await _httpClient.GetAsync($"api/report/category/{Category.Id}");
 
-			if(result.IsSuccessStatusCode && result.StatusCode is not System.Net.HttpStatusCode.NoContent)
+			if (result.IsSuccessStatusCode && result.StatusCode is not System.Net.HttpStatusCode.NoContent)
 			{
 				return await result.Content.ReadFromJsonAsync<CategoryReport>();
 			}
@@ -48,8 +47,6 @@ namespace Contador.Web.Client.Pages
 			{
 				return await result.Content.ReadFromJsonAsync<ExpenseCategory>();
 			}
-
-			categoryExists = false;
 
 			return new ExpenseCategory("Not found");
 		}

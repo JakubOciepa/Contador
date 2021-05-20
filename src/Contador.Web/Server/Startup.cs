@@ -115,7 +115,7 @@ namespace Contador.Web.Server
 		}
 	}
 
-	public static class TempConfig 
+	public static class TempConfig
 	{
 		public static readonly string TokenKey = @"um+:$^ie4z%,`,d'i]sr4$/,3e]qu!>7q*h=n!/<n=b*eg{ogf}a~f7<j<moz7~z";
 		public static readonly string JwtIssuer = "https://localhost";

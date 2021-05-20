@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Abstractions;
@@ -42,7 +40,7 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<ActionResult<ReportShort>> GetMonthlyShort(int year, int month)
 		{
-			if(year > DateTime.Now.Year ||
+			if (year > DateTime.Now.Year ||
 				(year == DateTime.Now.Year && month > DateTime.Now.Month))
 			{
 				return BadRequest("Provided year or month is not valid!");
