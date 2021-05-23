@@ -13,7 +13,7 @@ namespace Contador.Services
 	/// <summary>
 	/// Notify on expense category changes.
 	/// </summary>
-	public class ExpenseCategoryService : IExpenseCategoryManager
+	public class ExpenseCategoryManager : IExpenseCategoryManager
 	{
 		private readonly IExpenseCategoryRepository _repository;
 		private readonly ILog _logger;
@@ -34,10 +34,10 @@ namespace Contador.Services
 		public event EventHandler<int> CategoryRemoved;
 
 		/// <summary>
-		/// Creates instance of <see cref="ExpenseCategoryService"/> class.
+		/// Creates instance of <see cref="ExpenseCategoryManager"/> class.
 		/// </summary>
 		/// <param name="repository">Expense category repository.</param>
-		public ExpenseCategoryService(IExpenseCategoryRepository repository, ILog logger)
+		public ExpenseCategoryManager(IExpenseCategoryRepository repository, ILog logger)
 		{
 			_repository = repository;
 			_logger = logger;

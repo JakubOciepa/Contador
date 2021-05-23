@@ -52,7 +52,7 @@ namespace Server.Tests
 
 			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
-			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
+			var expenseService = new ExpenseManager(expenseRepoMock.Object, loggerMock.Object);
 
 			//act
 			var result = await expenseService.GetAllAsync().CAF();
@@ -80,7 +80,7 @@ namespace Server.Tests
 
 			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
-			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
+			var expenseService = new ExpenseManager(expenseRepoMock.Object, loggerMock.Object);
 
 			//act
 			var result = await expenseService.GetAllAsync().CAF();
@@ -107,7 +107,7 @@ namespace Server.Tests
 
 			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
-			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
+			var expenseService = new ExpenseManager(expenseRepoMock.Object, loggerMock.Object);
 			//act
 			var result = await expenseService.GetByIdAsync(0).CAF();
 
@@ -133,7 +133,7 @@ namespace Server.Tests
 
 			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
-			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
+			var expenseService = new ExpenseManager(expenseRepoMock.Object, loggerMock.Object);
 			//act
 			var result = await expenseService.GetByIdAsync(0).CAF();
 
@@ -159,7 +159,7 @@ namespace Server.Tests
 
 			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
-			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
+			var expenseService = new ExpenseManager(expenseRepoMock.Object, loggerMock.Object);
 			//act
 			var result = await expenseService.UpdateAsync(0, _expectedExpenses[0]).CAF();
 
@@ -193,7 +193,7 @@ namespace Server.Tests
 
 			usersRepoMock.Setup(u => u.GetUserById(It.IsAny<string>())).Returns(_expectedUser);
 
-			var expenseService = new ExpenseService(expenseRepoMock.Object, loggerMock.Object);
+			var expenseService = new ExpenseManager(expenseRepoMock.Object, loggerMock.Object);
 			//act
 			var result = await expenseService.UpdateAsync(0, _expectedExpenses[0]).CAF();
 

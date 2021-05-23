@@ -70,10 +70,10 @@ namespace Contador.Web.Server
 			services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
-			services.AddScoped<IExpenseService, ExpenseService>();
-			services.AddScoped<IExpenseManager, ExpenseService>();
-			services.AddScoped<IExpenseCategoryManager, ExpenseCategoryService>();
+			services.AddScoped<IExpenseCategoryService, ExpenseCategoryManager>();
+			services.AddScoped<IExpenseService, ExpenseManager>();
+			services.AddScoped<IExpenseManager, ExpenseManager>();
+			services.AddScoped<IExpenseCategoryManager, ExpenseCategoryManager>();
 			services.AddScoped<IReportService, ReportService>();
 			services.AddControllers();
 			services.AddControllersWithViews();

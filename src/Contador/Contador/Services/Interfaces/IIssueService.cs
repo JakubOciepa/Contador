@@ -9,7 +9,7 @@ namespace Contador.Services.Interfaces
 	/// <summary>
 	/// Provides mechanism to manage Contador issues.
 	/// </summary>
-	public interface IIssuesService
+	public interface IIssueService
 	{
 		/// <summary>
 		/// Gets all created and opened issues.
