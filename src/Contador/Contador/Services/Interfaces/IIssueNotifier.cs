@@ -7,7 +7,7 @@ namespace Contador.Services.Interfaces
 	/// <summary>
 	/// Notify on Contador issues changes.
 	/// </summary>
-	public interface IIssuesNotifier
+	public interface IIssueNotifier
 	{
 		/// <summary>
 		/// Invoked when new(returned) issue has been added.

@@ -1,6 +1,6 @@
 ﻿namespace Contador.Services.Interfaces
 {
-	public interface IIssuesManager : IIssuesNotifier, IIssuesService
+	public interface IIssueManager : IIssueNotifier, IIssueService
 	{
 
 	}
