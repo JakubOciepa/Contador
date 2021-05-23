@@ -9,8 +9,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Models;
+using Contador.Services.Interfaces;
 using Contador.Web.Client.Pages;
 
 using Microsoft.AspNetCore.Components;

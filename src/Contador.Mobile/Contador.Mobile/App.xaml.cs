@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 using Contador.DAL.SQLite.Repositories;
 using Contador.Mobile.DAL;
 using Contador.Mobile.ViewModels;
 using Contador.Services;
+using Contador.Services.Interfaces;
 
 using Plugin.SharedTransitions;
 

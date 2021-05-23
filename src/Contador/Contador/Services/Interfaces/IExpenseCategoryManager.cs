@@ -1,4 +1,4 @@
-﻿namespace Contador.Abstractions
+﻿namespace Contador.Services.Interfaces
 {
 	public interface IExpenseCategoryManager : IExpenseCategoryService, IExpenseCategoryNotifier
 	{

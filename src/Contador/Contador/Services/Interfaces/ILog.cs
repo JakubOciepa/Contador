@@ -1,6 +1,6 @@
 ﻿using Contador.Core.Common;
 
-namespace Contador.Abstractions
+namespace Contador.Services.Interfaces
 {
 	/// <summary>
 	/// Provides basic logging functionality.

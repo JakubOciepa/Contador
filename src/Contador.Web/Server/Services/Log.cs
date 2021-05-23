@@ -1,5 +1,5 @@
 ﻿
-using Contador.Abstractions;
+using Contador.Services.Interfaces;
 
 using Microsoft.Extensions.Logging;
 

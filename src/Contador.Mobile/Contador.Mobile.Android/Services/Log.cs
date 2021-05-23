@@ -1,5 +1,5 @@
-﻿using Contador.Abstractions;
-using Contador.Core.Common;
+﻿using Contador.Core.Common;
+using Contador.Services.Interfaces;
 
 using Serilog;
 

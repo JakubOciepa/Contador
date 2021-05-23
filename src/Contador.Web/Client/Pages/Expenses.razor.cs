@@ -8,13 +8,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Models;
+using Contador.Services.Interfaces;
 using Contador.Web.Client.Models;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-
 using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Pages

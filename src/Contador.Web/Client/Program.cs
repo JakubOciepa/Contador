@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Blazored.LocalStorage;
 
-using Contador.Abstractions;
+using Contador.Services.Interfaces;
 using Contador.Web.Client.Services;
 
 using Microsoft.AspNetCore.Components.Authorization;

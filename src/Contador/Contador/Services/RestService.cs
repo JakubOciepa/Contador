@@ -2,10 +2,10 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
+using Contador.Services.Interfaces;
 
 using Newtonsoft.Json;
 
