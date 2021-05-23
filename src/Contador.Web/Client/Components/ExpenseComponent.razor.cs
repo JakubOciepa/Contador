@@ -19,6 +19,9 @@ using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Components
 {
+	/// <summary>
+	/// Component that shows and manage expense.
+	/// </summary>
 	public partial class ExpenseComponent
 	{
 		[Inject] private HttpClient _httpClient { get; set; }
