@@ -22,10 +22,5 @@ namespace Contador.Core.Models
 		/// Gets or sets the create date of the Contador issue.
 		/// </summary>
 		public DateTime CreatedDate { get; set; }
-
-		/// <summary>
-		/// Gets or sets the value that indicates if the Contador issue is open.
-		/// </summary>
-		public bool IsOpen { get; set; }
 	}
 }

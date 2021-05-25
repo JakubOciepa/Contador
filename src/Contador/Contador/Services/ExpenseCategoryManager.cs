@@ -37,6 +37,7 @@ namespace Contador.Services
 		/// Creates instance of <see cref="ExpenseCategoryManager"/> class.
 		/// </summary>
 		/// <param name="repository">Expense category repository.</param>
+		/// <param name="logger">Logger</param>
 		public ExpenseCategoryManager(IExpenseCategoryRepository repository, ILog logger)
 		{
 			_repository = repository;

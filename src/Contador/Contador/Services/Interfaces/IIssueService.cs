@@ -12,16 +12,16 @@ namespace Contador.Services.Interfaces
 	public interface IIssueService
 	{
 		/// <summary>
-		/// Gets all created and opened issues.
+		/// Gets all created issues.
 		/// </summary>
-		/// <returns></returns>
-		Task<Result<IEnumerable<Issue>>> GetAllIssuesAsync();
+		/// <returns>List of all available issues and correct code.</returns>
+		Task<Result<IList<Issue>>> GetAllAsync();
 
 		/// <summary>
 		/// Add the Contador issue.
 		/// </summary>
 		/// <param name="issue">Information about issue to add.</param>
 		/// <returns>Added issue.</returns>
-		Task<Result<Issue>> AddIssueAsync(Issue issue);
+		Task<Result<Issue>> AddAsync(Issue issue);
 	}
 }
