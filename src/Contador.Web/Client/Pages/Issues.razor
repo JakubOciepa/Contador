@@ -1,0 +1,37 @@
+﻿@page "/issues"
+
+<AuthorizeView>
+	<Authorized Context="Auth">
+		<EditForm Model="@IssueToAdd" OnValidSubmit="@AddNewIssue">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<label for="issue-name">Name:</label>
+			<InputText id="issue-name" @bind-Value="@IssueToAdd.Name" style="width:100vh;"/>
+
+			<button type="submit">Add issue</button>
+		</EditForm>
+
+
+		<thead>
+			<tr>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (@IssueList.Count > 0)
+			{
+				@foreach (var issue in IssueList)
+				{
+					<tr>
+						<td>@issue.Name</td>
+					</tr>
+				}
+			}
+		</tbody>
+
+	</Authorized>
+	<NotAuthorized>
+		<h3>You have to log in first.</h3>
+	</NotAuthorized>
+</AuthorizeView>

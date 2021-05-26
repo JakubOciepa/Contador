@@ -21,6 +21,6 @@ namespace Contador.Core.Models
 		/// <summary>
 		/// Gets or sets the create date of the Contador issue.
 		/// </summary>
-		public DateTime CreatedDate { get; set; }
+		public DateTime CreateDate { get; set; }
 	}
 }

@@ -18,15 +18,15 @@ namespace Contador.Web.Server.Controllers
 	/// </summary>
 	[Route("api/[controller]")]
 	[ApiController]
-	public class IssuesController : Controller
+	public class IssueController : Controller
 	{
 		private readonly IIssueService _issueService;
 
 		/// <summary>
-		/// Creates instance of <see cref="IssuesController"> class.
+		/// Creates instance of <see cref="IssueController"> class.
 		/// </summary>
 		/// <param name="expensecategory">Repository of Contador issues.</param>
-		public IssuesController(IIssueService issueService)
+		public IssueController(IIssueService issueService)
 		{
 			_issueService= issueService;
 		}
