@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Mobile.Pages;
+using Contador.Services.Interfaces;
 
 using MvvmHelpers;
 

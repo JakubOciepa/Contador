@@ -1,6 +1,6 @@
-﻿using Contador.Abstractions;
-using Contador.Core.Models;
+﻿using Contador.Core.Models;
 using Contador.DAL.Abstractions;
+using Contador.Services.Interfaces;
 
 namespace Contador.Services
 {

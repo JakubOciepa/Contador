@@ -1,5 +1,5 @@
 ﻿
-using Contador.Abstractions;
+using Contador.Services.Interfaces;
 
 namespace Contador.Web.Client.Services
 {

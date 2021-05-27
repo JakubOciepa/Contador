@@ -9,8 +9,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Models;
+using Contador.Services.Interfaces;
 using Contador.Web.Client.Pages;
 
 using Microsoft.AspNetCore.Components;
@@ -19,6 +19,9 @@ using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Components
 {
+	/// <summary>
+	/// Component that shows and manage expense.
+	/// </summary>
 	public partial class ExpenseComponent
 	{
 		[Inject] private HttpClient _httpClient { get; set; }

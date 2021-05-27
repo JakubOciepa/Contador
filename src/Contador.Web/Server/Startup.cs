@@ -2,10 +2,12 @@ using System;
 using System.Data;
 using System.Text;
 
-using Contador.Abstractions;
+using Contador.DAL;
 using Contador.DAL.Abstractions;
 using Contador.DAL.MySql.Repositories;
+using Contador.DAL.MySQL.Repositories;
 using Contador.Services;
+using Contador.Services.Interfaces;
 using Contador.Web.Server.Identity;
 using Contador.Web.Server.Services;
 
@@ -70,11 +72,13 @@ namespace Contador.Web.Server
 			services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
-			services.AddScoped<IExpenseService, ExpenseService>();
-			services.AddScoped<IExpenseManager, ExpenseService>();
-			services.AddScoped<IExpenseCategoryManager, ExpenseCategoryService>();
+			services.AddScoped<IExpenseCategoryService, ExpenseCategoryManager>();
+			services.AddScoped<IExpenseService, ExpenseManager>();
+			services.AddScoped<IExpenseManager, ExpenseManager>();
+			services.AddScoped<IExpenseCategoryManager, ExpenseCategoryManager>();
 			services.AddScoped<IReportService, ReportService>();
+			services.AddScoped<IIssueRepository, IssueRepository>();
+			services.AddScoped<IIssueService, IssueManager>();
 			services.AddControllers();
 			services.AddControllersWithViews();
 			services.AddRazorPages();

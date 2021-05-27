@@ -1,6 +1,6 @@
-﻿using Contador.Abstractions;
-using Contador.Core.Common;
+﻿using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Services.Interfaces;
 
 using MvvmHelpers;
 

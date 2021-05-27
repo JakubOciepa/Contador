@@ -2,7 +2,7 @@
 
 using Contador.Core.Models;
 
-namespace Contador.Abstractions
+namespace Contador.Services.Interfaces
 {
 	/// <summary>
 	/// Notify on expense category changes.

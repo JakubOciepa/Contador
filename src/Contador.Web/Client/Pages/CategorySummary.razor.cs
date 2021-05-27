@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
+using Contador.Services.Interfaces;
 
 using Microsoft.AspNetCore.Components;
 

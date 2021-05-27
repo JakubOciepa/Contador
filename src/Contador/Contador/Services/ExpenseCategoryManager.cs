@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
+using Contador.Services.Interfaces;
 
 namespace Contador.Services
 {
 	/// <summary>
 	/// Notify on expense category changes.
 	/// </summary>
-	public class ExpenseCategoryService : IExpenseCategoryManager
+	public class ExpenseCategoryManager : IExpenseCategoryManager
 	{
 		private readonly IExpenseCategoryRepository _repository;
 		private readonly ILog _logger;
@@ -34,10 +34,11 @@ namespace Contador.Services
 		public event EventHandler<int> CategoryRemoved;
 
 		/// <summary>
-		/// Creates instance of <see cref="ExpenseCategoryService"/> class.
+		/// Creates instance of <see cref="ExpenseCategoryManager"/> class.
 		/// </summary>
 		/// <param name="repository">Expense category repository.</param>
-		public ExpenseCategoryService(IExpenseCategoryRepository repository, ILog logger)
+		/// <param name="logger">Logger</param>
+		public ExpenseCategoryManager(IExpenseCategoryRepository repository, ILog logger)
 		{
 			_repository = repository;
 			_logger = logger;

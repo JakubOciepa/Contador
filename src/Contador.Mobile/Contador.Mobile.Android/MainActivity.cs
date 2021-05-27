@@ -3,8 +3,8 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 
-using Contador.Abstractions;
 using Contador.Mobile.Droid.Services;
+using Contador.Services.Interfaces;
 
 using TinyIoC;
 

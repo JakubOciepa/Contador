@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
+using Contador.Services.Interfaces;
 
 using MvvmHelpers;
 

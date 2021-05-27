@@ -3,7 +3,7 @@
 using Contador.Core.Common;
 using Contador.Core.Models;
 
-namespace Contador.Abstractions
+namespace Contador.Services.Interfaces
 {
 	/// <summary>
 	/// Service which consumes REST API requests from Contador REST API.

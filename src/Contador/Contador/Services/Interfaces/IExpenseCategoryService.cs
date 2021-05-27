@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Contador.Core.Common;
 using Contador.Core.Models;
 
-namespace Contador.Abstractions
+namespace Contador.Services.Interfaces
 {
 	/// <summary>
 	/// Expense categories manager.

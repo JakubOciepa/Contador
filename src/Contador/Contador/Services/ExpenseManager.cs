@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
+using Contador.Services.Interfaces;
 
 
 namespace Contador.Services
@@ -17,7 +17,7 @@ namespace Contador.Services
 	/// Gives possibility to get, add, update or remove expense.
 	/// Notifies on any expense change.
 	/// </summary>
-	public class ExpenseService : IExpenseManager
+	public class ExpenseManager : IExpenseManager
 	{
 		private readonly IExpenseRepository _expenseRepo;
 		private readonly ILog _logger;
@@ -38,10 +38,10 @@ namespace Contador.Services
 		public event EventHandler<int> ExpenseRemoved;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ExpenseService"/> class.
+		/// Creates an instance of the <see cref="ExpenseManager"/> class.
 		/// </summary>
 		/// <param name="expenses">Repository of expenses.</param>
-		public ExpenseService(IExpenseRepository expenses, ILog logger)
+		public ExpenseManager(IExpenseRepository expenses, ILog logger)
 		{
 			_expenseRepo = expenses;
 			_logger = logger;

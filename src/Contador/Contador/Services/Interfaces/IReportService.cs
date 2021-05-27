@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Contador.Core.Common;
 
-namespace Contador.Abstractions
+namespace Contador.Services.Interfaces
 {
 	/// <summary>
 	/// Provides methods to get reports for expenses and categories.

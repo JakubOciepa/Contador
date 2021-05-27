@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Contador.Abstractions;
 using Contador.Core.Common;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
+using Contador.Services.Interfaces;
 
 namespace Contador.Services
 {
