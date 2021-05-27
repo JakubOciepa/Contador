@@ -32,9 +32,9 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
-		/// Gets all available expense categories.
+		/// Gets all available Contador issues.
 		/// </summary>
-		/// <returns>IList of expense categories.</returns>
+		/// <returns>IList of Contador issues.</returns>
 		[HttpGet]
 		[ProducesResponseType(typeof(IList<Issue>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -53,10 +53,10 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
-		/// Gets expense category of provided id.
+		/// Gets Contador issue of provided id.
 		/// </summary>
-		/// <param name="id">Id of the requested expense category.</param>
-		/// <returns>Expense category of requested id.</returns>
+		/// <param name="id">Id of the requested Contador issue.</param>
+		/// <returns>Contador issue of requested id.</returns>
 		[HttpGet("{id}")]
 		[ProducesResponseType(typeof(ExpenseCategory), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -75,9 +75,9 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
-		/// Adds new expense category.
+		/// Adds new Contador issue.
 		/// </summary>
-		/// <param name="issue">Expense category to add.</param>
+		/// <param name="issue">Contador issue to add.</param>
 		/// <returns>HTTP code.</returns>
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
