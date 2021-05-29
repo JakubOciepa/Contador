@@ -8,3 +8,17 @@
 - add following to ~/.bashrc
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
+
+# Install Powershell
+
+sudo apt-get update
+
+sudo apt-get install '^libssl1.0.[0-9]$' libunwind8 -y
+
+wget https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-arm32.tar.gz
+
+mkdir ~/powershell
+
+tar -xvf ./powershell-7.1.3-linux-arm32.tar.gz -C ~/powershell
+
+~/powershell/pwsh
