@@ -22,3 +22,9 @@ mkdir ~/powershell
 tar -xvf ./powershell-7.1.3-linux-arm32.tar.gz -C ~/powershell
 
 ~/powershell/pwsh
+
+
+# Install MariaDB
+
+- sudo apt install mariadb-server
+- sudo mysql_secure_installation
