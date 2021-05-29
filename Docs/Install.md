@@ -9,6 +9,11 @@
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
 
+- dotnet tool install --global dotnet-ef
+
+- add following to ~/.bashrc
+export PATH="$PATH:/home/pi/.dotnet/tools"
+
 # Install Powershell
 
 sudo apt-get update
