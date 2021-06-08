@@ -163,7 +163,7 @@ namespace Contador.Web.Client.Pages
 				return true;
 			if (expense.User.UserName.Contains(Filter, StringComparison.OrdinalIgnoreCase))
 				return true;
-			if (expense.Description.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+			if (expense.Description is string && expense.Description.Contains(Filter, StringComparison.OrdinalIgnoreCase))
 				return true;
 
 			return false;
