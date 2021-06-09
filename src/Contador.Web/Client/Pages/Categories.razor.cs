@@ -25,7 +25,7 @@ namespace Contador.Web.Client.Pages
 
 
 		private IList<ExpenseCategory> CategoriesList = new List<ExpenseCategory>();
-		private readonly ExpenseCategoryModel CategoryModel = new();
+		private ExpenseCategoryModel CategoryModel = new();
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -48,6 +48,7 @@ namespace Contador.Web.Client.Pages
 
 					this.StateHasChanged();
 
+					CategoryModel = new();
 				}
 				else if (result.StatusCode is HttpStatusCode.Conflict
 					|| result.StatusCode is HttpStatusCode.BadRequest)
