@@ -28,7 +28,7 @@ namespace Contador.Web.Server.Controllers
 		/// <param name="expensecategory">Repository of Contador issues.</param>
 		public IssueController(IIssueService issueService)
 		{
-			_issueService= issueService;
+			_issueService = issueService;
 		}
 
 		/// <summary>

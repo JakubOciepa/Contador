@@ -83,6 +83,8 @@ namespace Contador.Web.Client.Pages
 
 					this.StateHasChanged();
 
+					AddExpenseModel = new();
+
 				}
 				else if (result.StatusCode is HttpStatusCode.Conflict
 					|| result.StatusCode is HttpStatusCode.BadRequest)
