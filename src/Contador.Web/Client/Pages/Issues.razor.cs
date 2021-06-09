@@ -53,6 +53,7 @@ namespace Contador.Web.Client.Pages
 
 					this.StateHasChanged();
 
+					IssueToAdd = new();
 				}
 				else if (result.StatusCode is HttpStatusCode.Conflict
 					|| result.StatusCode is HttpStatusCode.BadRequest)
