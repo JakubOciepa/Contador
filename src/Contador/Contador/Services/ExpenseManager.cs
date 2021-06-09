@@ -216,7 +216,7 @@ namespace Contador.Services
 
 				if (createDateFrom != default)
 				{
-					expenses = expenses.Where(e => e.CreateDate >= createDateFrom.AddDays(-1)).ToList();
+					expenses = expenses.Where(e => e.CreateDate >= createDateFrom).ToList();
 				}
 
 				if (createDateTo != default)
