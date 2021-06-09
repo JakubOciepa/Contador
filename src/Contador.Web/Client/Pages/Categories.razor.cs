@@ -46,9 +46,9 @@ namespace Contador.Web.Client.Pages
 				{
 					CategoriesList = await GetAndSortCategories();
 
-					this.StateHasChanged();
+					CategoryModel.Name = "";
 
-					CategoryModel = new();
+					this.StateHasChanged();
 				}
 				else if (result.StatusCode is HttpStatusCode.Conflict
 					|| result.StatusCode is HttpStatusCode.BadRequest)

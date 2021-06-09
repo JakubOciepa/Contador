@@ -12,7 +12,6 @@ using Contador.Core.Models;
 using Contador.Services.Interfaces;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Pages
@@ -25,7 +24,7 @@ namespace Contador.Web.Client.Pages
 
 		public List<Issue> IssueList { get; set; } = new List<Issue>();
 
-		public Issue IssueToAdd { get; set; } = new ();
+		public Issue IssueToAdd { get; set; } = new();
 
 		protected override async Task OnInitializedAsync()
 		{

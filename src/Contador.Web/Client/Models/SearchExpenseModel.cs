@@ -15,7 +15,7 @@ namespace Contador.Web.Client.Models
 		/// <summary>
 		/// This phrase will be searched in the name of the Expense category.
 		/// </summary>
-		public string CategoryName { get; set; } 
+		public string CategoryName { get; set; }
 
 		/// <summary>
 		/// This phrase will be searched in the user name.
