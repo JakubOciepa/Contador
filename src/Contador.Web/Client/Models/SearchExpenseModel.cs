@@ -25,11 +25,11 @@ namespace Contador.Web.Client.Models
 		/// <summary>
 		/// The minimum date of the expense creation.
 		/// </summary>
-		public DateTime StartDate { get; set; }
+		public DateTime StartDate { get; set; } = DateTime.Now;
 
 		/// <summary>
 		/// The maximum date of the expense creation.
 		/// </summary>
-		public DateTime EndDate { get; set; }
+		public DateTime EndDate { get; set; } = DateTime.Now;
 	}
 }
