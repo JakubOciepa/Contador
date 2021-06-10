@@ -78,7 +78,7 @@ namespace Contador.Web.Client.Pages
 				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
 				{
 					return (await result.Content.ReadFromJsonAsync<IList<ExpenseCategory>>())
-						.OrderByDescending(e => e.Name).ToList();
+						.OrderBy(e => e.Name).ToList();
 				}
 
 				return new List<ExpenseCategory>();
