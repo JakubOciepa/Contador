@@ -52,7 +52,7 @@ else
 	<td>@Expense.Description</td>
 	<td>@Expense.CreateDate.ToString("dd.MM.yyyy")</td>
 	<td>Not implemented</td>
-	<td>@Expense.ImagePath?.Split(Path.DirectorySeparatorChar).Last()</td>
+	<td><a href="@Expense.ImagePath">@Expense.ImagePath?.Split(Path.DirectorySeparatorChar).Last()</a></td>
 }
 
 <td>

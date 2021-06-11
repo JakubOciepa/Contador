@@ -13,20 +13,20 @@ namespace Contador.Web.Server.Controllers
 	public class FilesController : ControllerBase
 	{
 
+		private readonly string _receiptsPath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts");
 
+		[HttpGet("{fileName}")]
+		public ActionResult<string> GetReceiptFullPath(string fileName)
+		{
+			return Ok(Path.Combine(_receiptsPath, fileName));
+		}
 
 		[HttpPost]
 		public ActionResult<bool> UploadReceiptChunk([FromBody] FileChunk fileChunk)
 		{
 			try
 			{
-				string filePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts");
-				string fileName = Path.Combine(filePath, fileChunk.FileNameNoPath);
-
-				if (Directory.Exists(filePath) is not true)
-				{
-					Directory.CreateDirectory(filePath);
-				}
+				string fileName = Path.Combine(_receiptsPath, fileChunk.FileNameNoPath);
 
 				if (fileChunk.FirstChunk && System.IO.File.Exists(fileName))
 				{
