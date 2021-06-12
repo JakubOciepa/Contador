@@ -122,7 +122,7 @@ namespace Contador.Web.Client.Components
 
 				var result = await _fileManager.UploadFileChunk(chunk);
 
-				if(result is true)
+				if (result is true)
 				{
 					Expense.ImagePath = newFileName;
 				}

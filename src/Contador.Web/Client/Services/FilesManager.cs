@@ -11,11 +11,20 @@ namespace Contador.Web.Client.Services
 	{
 		private readonly HttpClient _client;
 
+		/// <summary>
+		/// Creates an instance of the <see cref="FilesManager"/> class.
+		/// </summary>
+		/// <param name="client">HTTP client.</param>
 		public FilesManager(HttpClient client)
 		{
 			_client = client;
 		}
 
+		/// <summary>
+		/// Uploads the receipt file.
+		/// </summary>
+		/// <param name="fileChunk">Chunk of the receipt file.</param>
+		/// <returns>Boolean that indicates if the file has been added.</returns>
 		public async Task<bool> UploadFileChunk(FileChunk fileChunk)
 		{
 			try
