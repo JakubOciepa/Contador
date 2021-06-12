@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,9 +13,12 @@ using System.Threading.Tasks;
 using Contador.Core.Models;
 using Contador.Services.Interfaces;
 using Contador.Web.Client.Pages;
+using Contador.Web.Client.Services;
+using Contador.Web.Shared.Files;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Components
@@ -28,8 +32,10 @@ namespace Contador.Web.Client.Components
 		[Inject] private ILog _logger { get; set; }
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
 		[Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; }
+		[Inject] private FilesManager _fileManager { get; set; }
 
 		private bool isEditMode = false;
+		private bool uploading = false;
 
 		/// <summary>
 		/// Expense which will be displayed and managed by the component.
@@ -86,6 +92,48 @@ namespace Contador.Web.Client.Components
 			if ((bool)args)
 			{
 				ExpensesPage.ExpenseSelectionChanged((bool)args, Expense);
+			}
+		}
+
+		private async Task OnInputFileChange(InputFileChangeEventArgs args)
+		{
+			try
+			{
+				uploading = true;
+				await InvokeAsync(StateHasChanged);
+
+				var format = "image/png";
+				var imageFile = await args.File.RequestImageFileAsync(format, 480, 640);
+
+
+				var buffer = new byte[imageFile.Size];
+				await imageFile.OpenReadStream().ReadAsync(buffer);
+
+				string fileName = Path.GetFileNameWithoutExtension(args.File.Name);
+				string newFileName = $"{fileName.ToString()}-{DateTime.Now.Ticks.ToString()}.png";
+
+				var chunk = new FileChunk
+				{
+					Data = buffer,
+					FileNameNoPath = newFileName,
+					Offset = 0,
+					FirstChunk = true
+				};
+
+				var result = await _fileManager.UploadFileChunk(chunk);
+
+				if (result is true)
+				{
+					Expense.ImagePath = newFileName;
+				}
+
+				uploading = false;
+
+			}
+			catch (Exception ex)
+			{
+				uploading = false;
+				_logger.Write(Core.Common.LogLevel.Error, ex.ToString());
 			}
 		}
 
@@ -176,7 +224,7 @@ namespace Contador.Web.Client.Components
 				},
 				value = Value,
 				description = Description,
-				imagePath = "",
+				imagePath = Expense.ImagePath,
 				createDate = CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")
 			};
 

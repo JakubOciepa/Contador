@@ -24,7 +24,8 @@
 	<td><input @bind="Description" /></td>
 	<td><input @bind="@CreatedDate" type="date" /></td>
 	<td>Not implemented</td>
-	<td>Not implemented</td>
+	<td><InputFile disable="@uploading"
+		   OnChange="OnInputFileChange" /></td>
 }
 else
 {
@@ -51,7 +52,7 @@ else
 	<td>@Expense.Description</td>
 	<td>@Expense.CreateDate.ToString("dd.MM.yyyy")</td>
 	<td>Not implemented</td>
-	<td>Not implemented</td>
+	<td><a href="@Expense.ImagePath">@Expense.ImagePath?.Split(Path.DirectorySeparatorChar).Last()</a></td>
 }
 
 <td>

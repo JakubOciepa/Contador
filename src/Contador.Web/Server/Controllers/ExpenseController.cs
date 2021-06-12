@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -146,6 +147,8 @@ namespace Contador.Web.Server.Controllers
 				return Conflict(expense);
 			}
 
+			expense.ImagePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts", expense.ImagePath);
+
 			var result = await _expenseService.AddAsync(expense).CAF();
 
 			return result.ResponseCode switch
@@ -171,6 +174,19 @@ namespace Contador.Web.Server.Controllers
 			if (!await ExpenseOfIdExists(id))
 			{
 				return NotFound();
+			}
+
+			if (string.IsNullOrEmpty(expense.ImagePath) is not true)
+			{
+				if (expense.ImagePath?.Contains(Path.Combine(Environment.CurrentDirectory, "Files", "Receipts")) is not true)
+				{
+					expense.ImagePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts", expense.ImagePath);
+				}
+				else
+				{
+					expense.ImagePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts",
+						expense.ImagePath.Split(Path.DirectorySeparatorChar).Last());
+				}
 			}
 
 			var result = await _expenseService.UpdateAsync(id, expense).CAF();
