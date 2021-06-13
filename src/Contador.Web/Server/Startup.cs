@@ -5,7 +5,6 @@ using System.Text;
 
 using Contador.DAL;
 using Contador.DAL.Abstractions;
-using Contador.DAL.MySql.Repositories;
 using Contador.DAL.MySQL.Repositories;
 using Contador.Services;
 using Contador.Services.Interfaces;

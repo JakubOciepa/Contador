@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
-using Contador.DAL.MySql.Models;
+using Contador.DAL.MySQL.Models;
 
 using Dapper;
 
-namespace Contador.DAL.MySql.Repositories
+namespace Contador.DAL.MySQL.Repositories
 {
 	/// <summary>
 	/// Manages expenses in db.
