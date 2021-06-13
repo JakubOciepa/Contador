@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Contador.Core.Models;
+
 namespace Contador.DAL.MySQL.Models
 {
 	/// <summary>
@@ -21,5 +23,51 @@ namespace Contador.DAL.MySQL.Models
 		/// Gets or sets the end date of the budget.
 		/// </summary>
 		public DateTime EndDate { get; set; }
+
+		public Budget AsBudget()
+		{
+			return new Budget
+			{
+				StartDate = StartDate,
+				EndDate = EndDate
+			};
+		}
+
+		/// <summary>
+		/// Procedures parameters for the Budget procedures.
+		/// </summary>
+		public class ParameterName
+		{
+			/// <summary>
+			/// Id parameter name.
+			/// </summary>
+			public const string Id = "id_p";
+
+			/// <summary>
+			/// Start date parameter name.
+			/// </summary>
+			public const string StartDate = "startDate_p";
+
+			/// <summary>
+			/// End date parameter name.
+			/// </summary>
+			public const string EndDate = "endDate_p";
+		}
+
+		/// <summary>
+		/// Procedures names for the Budget.
+		/// </summary>
+		public class ProcedureName
+		{
+			/// <summary>
+			/// Get budget by id procedure name.
+			/// </summary>
+			public const string GetById = "bugdet_GetById";
+
+			/// <summary>
+			/// Add budget procedure name.
+			/// </summary>
+			public const string Add = "budget_Add";
+		}
 	}
 }

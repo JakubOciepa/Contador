@@ -24,5 +24,37 @@
 		/// Gets or sets the value of the budget.
 		/// </summary>
 		public decimal Value { get; set; }
+
+		/// <summary>
+		/// Procedures parameters of the category budget procedures.
+		/// </summary>
+		public static class ParameterName
+		{
+			/// <summary>
+			/// Budget id parameter name.
+			/// </summary>
+			public const string BudgetId = "budgetId_p";
+			
+			/// <summary>
+			/// Category Id parameter name.
+			/// </summary>
+			public const string CategoryId = "cateogryId_p";
+			
+			/// <summary>
+			/// Value parameter name.
+			/// </summary>
+			public const string Value = "value_p";
+		}
+
+		/// <summary>
+		/// Procedures names of the category budget.
+		/// </summary>
+		public static class ProcedureName
+		{
+			/// <summary>
+			/// Adding category budget procedure name.
+			/// </summary>
+			public const string Add = "categoryBudget_Add";
+		}
 	}
 }
