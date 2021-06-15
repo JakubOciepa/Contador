@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Contador.Core.Models;
 
@@ -29,7 +30,8 @@ namespace Contador.DAL.MySQL.Models
 			return new Budget
 			{
 				StartDate = StartDate,
-				EndDate = EndDate
+				EndDate = EndDate,
+				Values = new Dictionary<string, decimal>(),
 			};
 		}
 
@@ -62,12 +64,17 @@ namespace Contador.DAL.MySQL.Models
 			/// <summary>
 			/// Get budget by id procedure name.
 			/// </summary>
-			public const string GetById = "bugdet_GetById";
+			public const string GetById = "budget_GetById";
 
 			/// <summary>
 			/// Add budget procedure name.
 			/// </summary>
 			public const string Add = "budget_Add";
+
+			/// <summary>
+			/// Get budget by the start date procedure name.
+			/// </summary>
+			public const string GetByStartDate = "budget_GetByStartDate";
 		}
 	}
 }

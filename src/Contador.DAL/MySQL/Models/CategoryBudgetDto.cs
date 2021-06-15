@@ -55,6 +55,8 @@
 			/// Adding category budget procedure name.
 			/// </summary>
 			public const string Add = "categoryBudget_Add";
+
+			public const string GetByBudgetId = "categoryBudget_GetByBudgetId";
 		}
 	}
 }

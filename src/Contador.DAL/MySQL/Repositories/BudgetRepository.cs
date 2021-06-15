@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
@@ -42,6 +44,16 @@ namespace Contador.DAL.MySQL.Repositories
 				.CAF()).AsBudget();
 		}
 
+
+		public async Task<Budget> GetByStartDateAsync(DateTime startDate)
+		{
+			var param = new DynamicParameters();
+			param.Add(BudgetDto.ParameterName.StartDate, startDate);
+
+			return (await _dbConnection.QueryAsync<BudgetDto>(BudgetDto.ProcedureName.GetByStartDate,
+				param, commandType: CommandType.StoredProcedure).CAF()).FirstOrDefault()?.AsBudget() ?? null;
+		}
+
 		/// <summary>
 		/// Gets the budget by the provided id.
 		/// </summary>
@@ -52,9 +64,26 @@ namespace Contador.DAL.MySQL.Repositories
 			var param = new DynamicParameters();
 			param.Add(BudgetDto.ParameterName.Id, id);
 
-			return (await _dbConnection.QuerySingleAsync<BudgetDto>(BudgetDto.ProcedureName.GetById,
+			var budget = (await _dbConnection.QueryAsync<BudgetDto>(BudgetDto.ProcedureName.GetById,
 				param, commandType: CommandType.StoredProcedure)
-				.CAF())?.AsBudget() ?? null;
+				.CAF()).FirstOrDefault()?.AsBudget() ?? null;
+
+			if (budget is object)
+			{
+				await _dbConnection
+					.QueryAsync<CategoryBudgetDto, ExpenseCategoryDto, CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.GetByBudgetId,
+					(bc, category) =>
+					{
+						budget.Values.Add(category.Name, bc.Value);
+
+						return bc;
+					},
+					param,
+					commandType: CommandType.StoredProcedure)
+					.CAF();
+			}
+
+			return budget;
 		}
 	}
 }
