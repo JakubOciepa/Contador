@@ -1,4 +1,6 @@
-﻿namespace Contador.DAL.MySQL.Models
+﻿using Contador.Core.Models;
+
+namespace Contador.DAL.MySQL.Models
 {
 	/// <summary>
 	/// Reflects the CategoryBudget structure from db.
@@ -25,11 +27,27 @@
 		/// </summary>
 		public decimal Value { get; set; }
 
+		public CategoryBudget AsCategoryBudget()
+		{
+			return new CategoryBudget
+			{
+				Id = Id,
+				BudgetId = BudgetId,
+				CategoryId = CategoryId,
+				Value = Value
+			};
+		}
+
 		/// <summary>
 		/// Procedures parameters of the category budget procedures.
 		/// </summary>
 		public static class ParameterName
 		{
+			/// <summary>
+			/// Id parameter name.
+			/// </summary>
+			public const string Id = "id_p";
+
 			/// <summary>
 			/// Budget id parameter name.
 			/// </summary>
@@ -38,7 +56,7 @@
 			/// <summary>
 			/// Category Id parameter name.
 			/// </summary>
-			public const string CategoryId = "cateogryId_p";
+			public const string CategoryId = "categoryId_p";
 			
 			/// <summary>
 			/// Value parameter name.
@@ -56,7 +74,20 @@
 			/// </summary>
 			public const string Add = "categoryBudget_Add";
 
+			/// <summary>
+			/// Gets category budget by the id procedure name.
+			/// </summary>
+			public const string GetById = "categoryBudget_GetById";
+
+			/// <summary>
+			/// Getting category budget by budget if procedure name.
+			/// </summary>
 			public const string GetByBudgetId = "categoryBudget_GetByBudgetId";
+
+			/// <summary>
+			/// Getting category budget by the category and budget id.
+			/// </summary>
+			public const string GetByCategoryAndBudgetId = "categoryBudget_GetByCategoryAndBudgetId";
 		}
 	}
 }

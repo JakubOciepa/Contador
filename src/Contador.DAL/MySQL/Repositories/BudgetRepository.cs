@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,12 +29,8 @@ namespace Contador.DAL.MySQL.Repositories
 			_dbConnection = dbConnection;
 		}
 
-		/// <summary>
-		/// Adds the budget to the db.
-		/// </summary>
-		/// <param name="budgetToAdd">Budget to add.</param>
-		/// <returns>Adds budget to the db.</returns>
-		public async Task<Budget> AddAsync(Budget budgetToAdd)
+		/// <inheritdoc/>
+		public async Task<Budget> AddBudgetAsync(Budget budgetToAdd)
 		{
 			var param = new DynamicParameters();
 			param.Add(BudgetDto.ParameterName.StartDate, budgetToAdd.StartDate);
@@ -44,8 +41,29 @@ namespace Contador.DAL.MySQL.Repositories
 				.CAF()).AsBudget();
 		}
 
+		/// <inheritdoc/>
+		public async IAsyncEnumerable<Budget> GetAllBudgetsAsync()
+		{
+			var budgets = (await _dbConnection.QueryAsync<Budget>(BudgetDto.ProcedureName.GetAll,
+				commandType: CommandType.StoredProcedure).CAF()).ToList();
 
-		public async Task<Budget> GetByStartDateAsync(DateTime startDate)
+			if (budgets is object)
+			{
+				foreach (var budget in budgets)
+				{
+					yield return new Budget()
+					{
+						Id = budget.Id,
+						StartDate = budget.StartDate,
+						EndDate = budget.EndDate,
+						Values = await GetValuesForBudget(budget.Id)
+					};
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public async Task<Budget> GetBudgetByStartDateAsync(DateTime startDate)
 		{
 			var param = new DynamicParameters();
 			param.Add(BudgetDto.ParameterName.StartDate, startDate);
@@ -54,12 +72,8 @@ namespace Contador.DAL.MySQL.Repositories
 				param, commandType: CommandType.StoredProcedure).CAF()).FirstOrDefault()?.AsBudget() ?? null;
 		}
 
-		/// <summary>
-		/// Gets the budget by the provided id.
-		/// </summary>
-		/// <param name="id">Id of the budget.</param>
-		/// <returns>Budget or null if doesn't exists.</returns>
-		public async Task<Budget> GetByIdAsync(int id)
+		/// <inheritdoc/>
+		public async Task<Budget> GetBudgetByIdAsync(int id)
 		{
 			var param = new DynamicParameters();
 			param.Add(BudgetDto.ParameterName.Id, id);
@@ -70,20 +84,65 @@ namespace Contador.DAL.MySQL.Repositories
 
 			if (budget is object)
 			{
-				await _dbConnection
+				budget.Values = await GetValuesForBudget(budget.Id);
+			}
+
+			return budget;
+		}
+
+		/// <inheritdoc/>
+		public async Task<CategoryBudget> GetCategoryBudgetByCategoryAndBudgetIdAsync(int budgetId, int categoryId)
+		{
+			var param = new DynamicParameters();
+			param.Add(CategoryBudgetDto.ParameterName.BudgetId, budgetId);
+			param.Add(CategoryBudgetDto.ParameterName.CategoryId, categoryId);
+
+			return (await _dbConnection.QueryAsync<CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.GetByCategoryAndBudgetId,
+				param, commandType: CommandType.StoredProcedure).CAF()).FirstOrDefault()?.AsCategoryBudget() ?? null;
+		}
+
+		/// <inheritdoc/>
+		public async Task<CategoryBudget> AddCategoryBudgetAsync(CategoryBudget categoryBudget)
+		{
+			var param = new DynamicParameters();
+			param.Add(CategoryBudgetDto.ParameterName.BudgetId, categoryBudget.BudgetId);
+			param.Add(CategoryBudgetDto.ParameterName.CategoryId, categoryBudget.CategoryId);
+			param.Add(CategoryBudgetDto.ParameterName.Value, categoryBudget.Value);
+
+			return (await _dbConnection.QueryAsync<CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.Add,
+				param, commandType: CommandType.StoredProcedure).CAF()).FirstOrDefault()?.AsCategoryBudget() ?? null;
+		}
+
+		/// <inheritdoc/>
+		public async Task<CategoryBudget> GetCategoryBudgetByIdAsync(int id)
+		{
+			var param = new DynamicParameters();
+			param.Add(CategoryBudgetDto.ParameterName.Id, id);
+
+			return (await _dbConnection.QueryAsync<CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.GetById,
+				param, commandType: CommandType.StoredProcedure)
+				.CAF()).FirstOrDefault()?.AsCategoryBudget() ?? null;
+		}
+
+		private async Task<Dictionary<string, decimal>> GetValuesForBudget(int id)
+		{
+			var param = new DynamicParameters();
+			param.Add(BudgetDto.ParameterName.Id, id);
+
+			var categoryBudgets = new Dictionary<string, decimal>();
+			await _dbConnection
 					.QueryAsync<CategoryBudgetDto, ExpenseCategoryDto, CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.GetByBudgetId,
 					(bc, category) =>
 					{
-						budget.Values.Add(category.Name, bc.Value);
+						categoryBudgets.Add(category.Name, bc.Value);
 
 						return bc;
 					},
 					param,
 					commandType: CommandType.StoredProcedure)
 					.CAF();
-			}
 
-			return budget;
+			return categoryBudgets;
 		}
 	}
 }

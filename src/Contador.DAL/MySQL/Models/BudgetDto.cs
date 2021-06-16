@@ -29,6 +29,7 @@ namespace Contador.DAL.MySQL.Models
 		{
 			return new Budget
 			{
+				Id = Id,
 				StartDate = StartDate,
 				EndDate = EndDate,
 				Values = new Dictionary<string, decimal>(),
@@ -61,6 +62,8 @@ namespace Contador.DAL.MySQL.Models
 		/// </summary>
 		public class ProcedureName
 		{
+			public const string GetAll = "budget_GetAll";
+
 			/// <summary>
 			/// Get budget by id procedure name.
 			/// </summary>

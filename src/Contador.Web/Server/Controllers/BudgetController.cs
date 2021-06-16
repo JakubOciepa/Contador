@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Contador.Core.Common;
@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Contador.Web.Server.Controllers
 {
-
 	/// <summary>
 	/// Provides functions to manage budgets.
 	/// </summary>
@@ -32,6 +31,27 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
+		/// Gets collection of available budgets.
+		/// </summary>
+		/// <returns>List of available.</returns>
+		[HttpGet]
+		[ProducesResponseType(typeof(Budget), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<List<Budget>>> GetAllBudgets()
+		{
+			var result = await _budgetService.GetAllBudgetsAsync().CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest("ᓚᘏᗢ my oh my...That looks bad.")
+			};
+		}
+
+		/// <summary>
 		/// Gets budget of provided id.
 		/// </summary>
 		/// <param name="id">Id of the requested budget.</param>
@@ -40,9 +60,31 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(typeof(Budget), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<Budget>> GetById([FromRoute] int id)
+		public async Task<ActionResult<Budget>> GetBudgetById([FromRoute] int id)
 		{
-			var result = await _budgetService.GetByIdAsync(id).CAF();
+			var result = await _budgetService.GetBudgetByIdAsync(id).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				_ => BadRequest("ᓚᘏᗢ my oh my...That looks bad.")
+			};
+		}
+
+		/// <summary>
+		/// Gets category budget of provided id.
+		/// </summary>
+		/// <param name="id">Id of the requested budget.</param>
+		/// <returns>Budget of requested id.</returns>
+		[HttpGet("categorybudget/{id}")]
+		[ProducesResponseType(typeof(Budget), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult<Budget>> GetCategoryBudgetById([FromRoute] int id)
+		{
+			var result = await _budgetService.GetCategoryBudgetByIdAsync(id).CAF();
 
 			return result.ResponseCode switch
 			{
@@ -61,26 +103,60 @@ namespace Contador.Web.Server.Controllers
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
-		public async Task<ActionResult> Add([FromBody] BudgetModel budget)
+		public async Task<ActionResult> AddBudget([FromBody] BudgetModel budget)
 		{
-			var result = await _budgetService.AddAsync(new Budget()
+			var result = await _budgetService.AddBudgetAsync(new Budget()
 			{
 				StartDate = budget.StartDate,
-				EndDate  = budget.EndDate
+				EndDate = budget.EndDate
 			}).CAF();
 
 			return result.ResponseCode switch
 			{
 				ResponseCode.Error => BadRequest(result.Message),
-				ResponseCode.Ok => CreatedAtAction(nameof(GetById), new { id = result.ReturnedObject.Id }, result.ReturnedObject),
+				ResponseCode.Ok => CreatedAtAction(nameof(GetBudgetById), new { id = result.ReturnedObject.Id }, result.ReturnedObject),
 				_ => BadRequest("(T_T) Seriously don't know how this happened..."),
 			};
 		}
 
+		/// <summary>
+		/// Adds new category budget.
+		/// </summary>
+		/// <param name="category">Budget model to add.</param>
+		/// <returns>HTTP code.</returns>
+		[HttpPost("categorybudget")]
+		[ProducesResponseType(StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
+		public async Task<ActionResult> AddCategoryBudget([FromBody] CategoryBudget budget)
+		{
+			var result = await _budgetService.AddCategoryBudgetAsync(budget).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.Error => BadRequest(result.Message),
+				ResponseCode.Ok => CreatedAtAction(nameof(GetCategoryBudgetById), new { id = result.ReturnedObject.Id }, result.ReturnedObject),
+				_ => BadRequest("(T_T) Seriously don't know how this happened..."),
+			};
+		}
+
+		/// <summary>
+		/// Contains info about Budget for API.
+		/// </summary>
 		public class BudgetModel
 		{
+			/// <summary>
+			/// Id of the Budget.
+			/// </summary>
 			public int Id { get; set; }
+
+			/// <summary>
+			/// Start date of the budget.
+			/// </summary>
 			public DateTime StartDate { get; set; }
+
+			/// <summary>
+			/// End date of the budget.
+			/// </summary>
 			public DateTime EndDate { get; set; }
 		}
 	}
