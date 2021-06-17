@@ -172,5 +172,51 @@ namespace Contador.Services
 
 			return new Result<CategoryBudget>(ResponseCode.Ok, budget);
 		}
+
+		/// <inheritdoc/>
+		public async Task<ResponseCode> RemoveBudgetAsync(int id)
+		{
+			bool result;
+			try
+			{
+				if (await _repository.GetBudgetByIdAsync(id) is null)
+				{
+					return ResponseCode.NotFound;
+				}
+
+				result = await _repository.RemoveBudgetAsync(id).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return ResponseCode.Error;
+			}
+
+			return result ? ResponseCode.Ok : ResponseCode.Error;
+		}
+
+		/// <inheritdoc/>
+		public async Task<ResponseCode> RemoveCategoryBudgetAsync(int id)
+		{
+			bool result;
+			try
+			{
+				if(await _repository.GetCategoryBudgetByIdAsync(id) is null)
+				{
+					return ResponseCode.NotFound;
+				}
+
+				result = await _repository.RemoveCategoryBudgetAsync(id).CAF();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(LogLevel.Error, $"{ex.Message}\n{ex.StackTrace}");
+
+				return ResponseCode.Error;
+			}
+
+			return result ? ResponseCode.Ok : ResponseCode.Error;
+		}
 	}
 }

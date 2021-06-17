@@ -59,5 +59,19 @@ namespace Contador.DAL.Abstractions
 		/// <param name="id">Id of the budget.</param>
 		/// <returns>Budget or <see langword="null"/> if doesn't exists.</returns>
 		Task<CategoryBudget> GetCategoryBudgetByIdAsync(int id);
+
+		/// <summary>
+		/// Removes the <see cref="Budget"/> of the provided id and its category budgets from the storage.
+		/// </summary>
+		/// <param name="id">Id of the budget to remove.</param>
+		/// <returns><see langword="true"/> if removed, otherwise <see langword="false"/>.</returns>
+		Task<bool> RemoveBudgetAsync(int id);
+
+		/// <summary>
+		/// Removes the <see cref="CategoryBudget"/> of the provided id from the storage.
+		/// </summary>
+		/// <param name="id">Id of the category budget to remove.</param>
+		/// <returns><see langword="true"/> if removed, otherwise <see langword="false"/>.</returns>
+		Task<bool> RemoveCategoryBudgetAsync(int id);
 	}
 }

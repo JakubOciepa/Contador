@@ -62,6 +62,9 @@ namespace Contador.DAL.MySQL.Models
 		/// </summary>
 		public class ProcedureName
 		{
+			/// <summary>
+			/// Get all budgets procedure name.
+			/// </summary>
 			public const string GetAll = "budget_GetAll";
 
 			/// <summary>
@@ -78,6 +81,8 @@ namespace Contador.DAL.MySQL.Models
 			/// Get budget by the start date procedure name.
 			/// </summary>
 			public const string GetByStartDate = "budget_GetByStartDate";
+
+			public const string Delete = "budget_Delete";
 		}
 	}
 }

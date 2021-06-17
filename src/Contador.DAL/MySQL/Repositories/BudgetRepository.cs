@@ -124,6 +124,28 @@ namespace Contador.DAL.MySQL.Repositories
 				.CAF()).FirstOrDefault()?.AsCategoryBudget() ?? null;
 		}
 
+		/// <inheritdoc/>
+		public async Task<bool> RemoveBudgetAsync(int id)
+		{
+			var param = new DynamicParameters();
+			param.Add(ExpenseDto.ParameterName.Id, id);
+
+			_ = await _dbConnection.ExecuteAsync(BudgetDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
+
+			return !(await GetBudgetByIdAsync(id).CAF() is object);
+		}
+
+		/// <inheritdoc/>
+		public async Task<bool> RemoveCategoryBudgetAsync(int id)
+		{
+			var param = new DynamicParameters();
+			param.Add(ExpenseDto.ParameterName.Id, id);
+
+			_ = await _dbConnection.ExecuteAsync(CategoryBudgetDto.ProcedureName.Delete, param, commandType: CommandType.StoredProcedure).CAF();
+
+			return !(await GetBudgetByIdAsync(id).CAF() is object);
+		}
+
 		private async Task<Dictionary<string, decimal>> GetValuesForBudget(int id)
 		{
 			var param = new DynamicParameters();

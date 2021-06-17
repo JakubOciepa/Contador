@@ -79,10 +79,10 @@ namespace Contador.Web.Server.Controllers
 		/// <param name="id">Id of the requested budget.</param>
 		/// <returns>Budget of requested id.</returns>
 		[HttpGet("categorybudget/{id}")]
-		[ProducesResponseType(typeof(Budget), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(CategoryBudget), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult<Budget>> GetCategoryBudgetById([FromRoute] int id)
+		public async Task<ActionResult<CategoryBudget>> GetCategoryBudgetById([FromRoute] int id)
 		{
 			var result = await _budgetService.GetCategoryBudgetByIdAsync(id).CAF();
 
@@ -136,6 +136,50 @@ namespace Contador.Web.Server.Controllers
 				ResponseCode.Error => BadRequest(result.Message),
 				ResponseCode.Ok => CreatedAtAction(nameof(GetCategoryBudgetById), new { id = result.ReturnedObject.Id }, result.ReturnedObject),
 				_ => BadRequest("(T_T) Seriously don't know how this happened..."),
+			};
+		}
+
+		/// <summary>
+		/// Removes the budget of the provided id and its category budgets.
+		/// </summary>
+		/// <param name="id">Id of the budget to remove.</param>
+		/// <returns>HTTP code.</returns>
+		[HttpDelete("{id}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult> RemoveBudget([FromRoute] int id)
+		{
+			var result = await _budgetService.RemoveBudgetAsync(id).CAF();
+
+			return result switch
+			{
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Error => BadRequest("Error occurred while removing budget."),
+				ResponseCode.Ok => Ok(),
+				_ => BadRequest("Just check the logs my love.")
+			};
+		}
+
+		/// <summary>
+		/// Removes the category budget of the provided id.
+		/// </summary>
+		/// <param name="id">Id of the category budget to remove.</param>
+		/// <returns>HTTP code.</returns>
+		[HttpDelete("categorybudget/{id}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult> RemoveCategoryBudget([FromRoute] int id)
+		{
+			var result = await _budgetService.RemoveCategoryBudgetAsync(id).CAF();
+
+			return result switch
+			{
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Error => BadRequest("Error occurred while removing category budget."),
+				ResponseCode.Ok => Ok(),
+				_ => BadRequest("Just check the logs my love.")
 			};
 		}
 

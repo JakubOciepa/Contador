@@ -88,6 +88,11 @@ namespace Contador.DAL.MySQL.Models
 			/// Getting category budget by the category and budget id.
 			/// </summary>
 			public const string GetByCategoryAndBudgetId = "categoryBudget_GetByCategoryAndBudgetId";
+
+			/// <summary>
+			/// Remove category budget procedure name.
+			/// </summary>
+			public const string Delete = "categoryBudget_Delete";
 		}
 	}
 }

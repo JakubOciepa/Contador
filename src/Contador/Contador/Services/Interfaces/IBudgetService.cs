@@ -41,5 +41,19 @@ namespace Contador.Services.Interfaces
 		/// <param name="id">Id of requested budget.</param>
 		/// <returns>Correct budget or <see langword="null"/></returns>
 		Task<Result<CategoryBudget>> GetCategoryBudgetByIdAsync(int id);
+
+		/// <summary>
+		/// Removes the <see cref="Budget"/> of the provided id and its category budgets from the repository.
+		/// </summary>
+		/// <param name="id">Id of the budget to remove.</param>
+		/// <returns><see langword="true"/> if removed, otherwise <see langword="false"/>.</returns>
+		Task<ResponseCode> RemoveBudgetAsync(int id);
+
+		/// <summary>
+		/// Removes the <see cref="CategoryBudget"/> of the provided id from the repository.
+		/// </summary>
+		/// <param name="id">Id of the category budget to remove.</param>
+		/// <returns><see langword="true"/> if removed, otherwise <see langword="false"/>.</returns>
+		Task<ResponseCode> RemoveCategoryBudgetAsync(int id);
 	}
 }
