@@ -35,7 +35,7 @@ namespace Contador.Services
 
 			try
 			{
-				await foreach(var budget in _repository.GetAllBudgetsAsync())
+				await foreach (var budget in _repository.GetAllBudgetsAsync())
 				{
 					list.Add(budget);
 				}

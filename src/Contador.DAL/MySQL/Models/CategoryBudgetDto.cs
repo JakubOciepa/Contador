@@ -52,12 +52,12 @@ namespace Contador.DAL.MySQL.Models
 			/// Budget id parameter name.
 			/// </summary>
 			public const string BudgetId = "budgetId_p";
-			
+
 			/// <summary>
 			/// Category Id parameter name.
 			/// </summary>
 			public const string CategoryId = "categoryId_p";
-			
+
 			/// <summary>
 			/// Value parameter name.
 			/// </summary>

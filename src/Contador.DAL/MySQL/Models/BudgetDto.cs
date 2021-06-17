@@ -14,7 +14,7 @@ namespace Contador.DAL.MySQL.Models
 		/// Gets or sets Id of the budget.
 		/// </summary>
 		public int Id { get; set; }
-		
+
 		/// <summary>
 		/// Gets or sets start date of the budget.
 		/// </summary>
