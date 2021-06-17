@@ -249,7 +249,7 @@ namespace Contador.DAL.MySQL.Repositories
 		public async Task<Expense> UpdateAsync(int id, Expense expense)
 		{
 			var param = new DynamicParameters();
-			param.Add(ExpenseDto.ParameterName.Id, expense.Id);
+			param.Add(ExpenseDto.ParameterName.Id, id);
 			param.Add(ExpenseDto.ParameterName.Name, expense.Name);
 			param.Add(ExpenseDto.ParameterName.Value, expense.Value);
 			param.Add(ExpenseDto.ParameterName.Description, expense.Description);

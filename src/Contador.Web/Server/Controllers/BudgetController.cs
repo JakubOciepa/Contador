@@ -140,6 +140,56 @@ namespace Contador.Web.Server.Controllers
 		}
 
 		/// <summary>
+		/// Updates the budget of the provided id.
+		/// </summary>
+		/// <param name="id">Id of the budget to update.</param>
+		/// <param name="budget">Budget info.</param>
+		/// <returns>HTTP code.</returns>
+		[HttpPut("{id}")]
+		[ProducesResponseType(typeof(Budget), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult> UpdateBudget([FromRoute] int id, [FromBody] BudgetModel budget)
+		{
+			var result = await _budgetService.UpdateBudgetAsync(id, new Budget
+			{
+				Id = budget.Id,
+				StartDate = budget.StartDate,
+				EndDate = budget.EndDate
+			}).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				ResponseCode.Error => BadRequest(result.Message),
+				_ => BadRequest("(¬_¬ ) You should look into the logs..."),
+			};
+		}
+		/// <summary>
+		/// Updates the category budget of the provided id.
+		/// </summary>
+		/// <param name="id">Id of the category budget to update.</param>
+		/// <param name="budget">Category budget info.</param>
+		/// <returns>HTTP code.</returns>
+		[HttpPut("categorybudget/{id}")]
+		[ProducesResponseType(typeof(Expense), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult> UpdateCategoryBudget([FromRoute] int id, [FromBody] CategoryBudget budget)
+		{
+			var result = await _budgetService.UpdateCategoryBudgetAsync(id, budget).CAF();
+
+			return result.ResponseCode switch
+			{
+				ResponseCode.NotFound => NotFound(),
+				ResponseCode.Ok => Ok(result.ReturnedObject),
+				ResponseCode.Error => BadRequest(result.Message),
+				_ => BadRequest("(¬_¬ ) You should look into the logs..."),
+			};
+		}
+
+		/// <summary>
 		/// Removes the budget of the provided id and its category budgets.
 		/// </summary>
 		/// <param name="id">Id of the budget to remove.</param>

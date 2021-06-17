@@ -82,6 +82,14 @@ namespace Contador.DAL.MySQL.Models
 			/// </summary>
 			public const string GetByStartDate = "budget_GetByStartDate";
 
+			/// <summary>
+			/// Update budget procedure name.
+			/// </summary>
+			public const string Update = "budget_Update";
+
+			/// <summary>
+			/// Remove budget by id procedure name.
+			/// </summary>
 			public const string Delete = "budget_Delete";
 		}
 	}

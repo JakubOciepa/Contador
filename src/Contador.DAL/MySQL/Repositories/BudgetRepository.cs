@@ -125,6 +125,29 @@ namespace Contador.DAL.MySQL.Repositories
 		}
 
 		/// <inheritdoc/>
+		public async Task<Budget> UpdateBudgetAsync(int id, Budget budget)
+		{
+			var param = new DynamicParameters();
+			param.Add(BudgetDto.ParameterName.Id, id);
+			param.Add(BudgetDto.ParameterName.StartDate, budget.StartDate);
+			param.Add(BudgetDto.ParameterName.EndDate, budget.EndDate);
+
+			return (await _dbConnection.QuerySingleAsync<BudgetDto>(BudgetDto.ProcedureName.Update,
+				param, commandType: CommandType.StoredProcedure).CAF()).AsBudget();
+		}
+
+		/// <inheritdoc/>
+		public async Task<CategoryBudget> UpdateCategoryBudgetAsync(int id, CategoryBudget budget)
+		{
+			var param = new DynamicParameters();
+			param.Add(CategoryBudgetDto.ParameterName.Id, id);
+			param.Add(CategoryBudgetDto.ParameterName.Value, budget.Value);
+
+			return (await _dbConnection.QuerySingleAsync<CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.Update,
+				param, commandType: CommandType.StoredProcedure).CAF()).AsCategoryBudget();
+		}
+
+		/// <inheritdoc/>
 		public async Task<bool> RemoveBudgetAsync(int id)
 		{
 			var param = new DynamicParameters();

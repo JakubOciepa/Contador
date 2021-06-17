@@ -197,12 +197,76 @@ namespace Contador.Services
 		}
 
 		/// <inheritdoc/>
+		public async Task<Result<Budget>> UpdateBudgetAsync(int id, Budget budget)
+		{
+			Budget updated;
+
+			try
+			{
+				if (await _repository.GetBudgetByIdAsync(id) is null)
+				{
+					return new Result<Budget>(ResponseCode.NotFound, null);
+				}
+
+				updated = await _repository.UpdateBudgetAsync(id, budget).CAF();
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex.Message}\n{ex.StackTrace}";
+
+				return new Result<Budget>(ResponseCode.Error, null) { Message = message };
+			}
+
+			if (updated is null)
+			{
+				var message = $"Cannot update the budget of the {id}.";
+				_logger.Write(LogLevel.Warning, message);
+
+				return new Result<Budget>(ResponseCode.Error, null) { Message = message };
+			}
+
+			return new Result<Budget>(ResponseCode.Ok, updated);
+		}
+
+		/// <inheritdoc/>
+		public async Task<Result<CategoryBudget>> UpdateCategoryBudgetAsync(int id, CategoryBudget budget)
+		{
+			CategoryBudget updated;
+
+			try
+			{
+				if (await _repository.GetCategoryBudgetByIdAsync(id) is null)
+				{
+					return new Result<CategoryBudget>(ResponseCode.NotFound, null);
+				}
+
+				updated = await _repository.UpdateCategoryBudgetAsync(id, budget).CAF();
+			}
+			catch (Exception ex)
+			{
+				var message = $"{ex.Message}\n{ex.StackTrace}";
+
+				return new Result<CategoryBudget>(ResponseCode.Error, null) { Message = message };
+			}
+
+			if (updated is null)
+			{
+				var message = $"Cannot update the category budget of the {id}.";
+				_logger.Write(LogLevel.Warning, message);
+
+				return new Result<CategoryBudget>(ResponseCode.Error, null) { Message = message };
+			}
+
+			return new Result<CategoryBudget>(ResponseCode.Ok, updated);
+		}
+
+		/// <inheritdoc/>
 		public async Task<ResponseCode> RemoveCategoryBudgetAsync(int id)
 		{
 			bool result;
 			try
 			{
-				if(await _repository.GetCategoryBudgetByIdAsync(id) is null)
+				if (await _repository.GetCategoryBudgetByIdAsync(id) is null)
 				{
 					return ResponseCode.NotFound;
 				}
