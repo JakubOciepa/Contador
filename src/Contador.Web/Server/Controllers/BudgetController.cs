@@ -105,6 +105,11 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult> AddBudget([FromBody] BudgetModel budget)
 		{
+			if (budget is null)
+			{
+				return BadRequest();
+			}
+
 			var result = await _budgetService.AddBudgetAsync(new Budget()
 			{
 				StartDate = budget.StartDate,
@@ -129,6 +134,10 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult> AddCategoryBudget([FromBody] CategoryBudget budget)
 		{
+			if (budget is null)
+			{
+				return BadRequest();
+			}
 			var result = await _budgetService.AddCategoryBudgetAsync(budget).CAF();
 
 			return result.ResponseCode switch
@@ -151,6 +160,11 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> UpdateBudget([FromRoute] int id, [FromBody] BudgetModel budget)
 		{
+			if (budget is null)
+			{
+				return BadRequest();
+			}
+
 			var result = await _budgetService.UpdateBudgetAsync(id, new Budget
 			{
 				Id = budget.Id,
@@ -166,6 +180,7 @@ namespace Contador.Web.Server.Controllers
 				_ => BadRequest("(¬_¬ ) You should look into the logs..."),
 			};
 		}
+
 		/// <summary>
 		/// Updates the category budget of the provided id.
 		/// </summary>
@@ -178,6 +193,11 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> UpdateCategoryBudget([FromRoute] int id, [FromBody] CategoryBudget budget)
 		{
+			if (budget is null)
+			{
+				return BadRequest();
+			}
+
 			var result = await _budgetService.UpdateCategoryBudgetAsync(id, budget).CAF();
 
 			return result.ResponseCode switch
