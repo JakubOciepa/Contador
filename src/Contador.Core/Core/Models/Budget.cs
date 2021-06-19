@@ -26,6 +26,6 @@ namespace Contador.Core.Models
 		/// <summary>
 		/// Gets or sets the budget values.
 		/// </summary>
-		public Dictionary<string, decimal> Values { get; set; }
+		public Dictionary<string, CategoryBudget> Values { get; set; }
 	}
 }

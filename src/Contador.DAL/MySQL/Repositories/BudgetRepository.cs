@@ -169,17 +169,17 @@ namespace Contador.DAL.MySQL.Repositories
 			return !(await GetBudgetByIdAsync(id).CAF() is object);
 		}
 
-		private async Task<Dictionary<string, decimal>> GetValuesForBudget(int id)
+		private async Task<Dictionary<string, CategoryBudget>> GetValuesForBudget(int id)
 		{
 			var param = new DynamicParameters();
 			param.Add(BudgetDto.ParameterName.Id, id);
 
-			var categoryBudgets = new Dictionary<string, decimal>();
+			var categoryBudgets = new Dictionary<string, CategoryBudget>();
 			await _dbConnection
 					.QueryAsync<CategoryBudgetDto, ExpenseCategoryDto, CategoryBudgetDto>(CategoryBudgetDto.ProcedureName.GetByBudgetId,
 					(bc, category) =>
 					{
-						categoryBudgets.Add(category.Name, bc.Value);
+						categoryBudgets.Add(category.Name, bc.AsCategoryBudget());
 
 						return bc;
 					},

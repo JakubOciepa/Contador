@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -14,40 +12,42 @@ using Microsoft.JSInterop;
 
 namespace Contador.Web.Client.Pages
 {
-	public partial class Budgets
+	public partial class BudgetInfo
 	{
+		[Parameter] public string Id { get; set; }
+
 		[Inject] private HttpClient _httpClient { get; set; }
 		[Inject] private ILog _logger { get; set; }
 		[Inject] private IJSRuntime _jsRuntime { get; set; }
 
-		public List<Budget> BudgetList { get; set; } = new List<Budget>();
+
+		public Budget Budget { get; set; } = new Budget();
 
 		protected override async Task OnInitializedAsync()
 		{
 			await base.OnInitializedAsync();
 
-			BudgetList = await GetBudgets();
+			Budget = await GetBudgetAsync(Convert.ToInt32(Id));
 		}
 
-		private async Task<List<Budget>> GetBudgets()
+		private async Task<Budget> GetBudgetAsync(int id)
 		{
 			try
 			{
-				var result = await _httpClient.GetAsync("api/budget");
+				var result = await _httpClient.GetAsync($"api/budget/{id}");
 
 				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
 				{
-					return (await result.Content.ReadFromJsonAsync<IList<Budget>>())
-						.OrderBy(e => e.StartDate).ToList();
+					return (await result.Content.ReadFromJsonAsync<Budget>());
 				}
 
-				return new List<Budget>();
+				return new Budget();
 			}
 			catch (Exception ex)
 			{
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 
-				return new List<Budget>();
+				return new Budget();
 			}
 		}
 	}

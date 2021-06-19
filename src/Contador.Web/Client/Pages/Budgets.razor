@@ -4,6 +4,6 @@
 
 @foreach (var budget in BudgetList)
 {
-    <p><a href="">@GetDateString(budget.StartDate)</a></p>
+    <p><a href="/budgets/@budget.Id">@DateTimeHelper.GetMonthYearDateString(budget.StartDate)</a></p>
 }
 

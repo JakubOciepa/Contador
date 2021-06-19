@@ -1,0 +1,11 @@
+﻿@page "/budgets/{id}"
+
+@if (Budget?.Values is object)
+{
+    <h3>@DateTimeHelper.GetMonthYearDateString(Budget.StartDate)</h3>
+
+    @foreach (var categoryInfo in Budget.Values)
+    {
+        <p>@categoryInfo.Key: @categoryInfo.Value.Value</p>
+    }
+}

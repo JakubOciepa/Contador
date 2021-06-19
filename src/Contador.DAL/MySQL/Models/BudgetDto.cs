@@ -32,7 +32,7 @@ namespace Contador.DAL.MySQL.Models
 				Id = Id,
 				StartDate = StartDate,
 				EndDate = EndDate,
-				Values = new Dictionary<string, decimal>(),
+				Values = new Dictionary<string, CategoryBudget>(),
 			};
 		}
 
