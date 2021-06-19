@@ -1,3 +1,9 @@
 ﻿@page "/budgets"
 
 <h1>Budgets</h1>
+
+@foreach (var budget in BudgetList)
+{
+    <p><a href="">@GetDateString(budget.StartDate)</a></p>
+}
+
