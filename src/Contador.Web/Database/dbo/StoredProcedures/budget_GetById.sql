@@ -1,0 +1,6 @@
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE budget_GetById (id_p INTEGER) BEGIN
+SELECT *
+FROM Budget bg
+WHERE bg.Id = id_p;
+END;

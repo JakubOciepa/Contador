@@ -1,0 +1,7 @@
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE budget_Delete (IN id_p INTEGER) BEGIN
+DELETE FROM CategoryBudget
+WHERE BudgetId = id_p;
+DELETE FROM Budget
+WHERE Id = id_p;
+END;

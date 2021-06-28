@@ -138,6 +138,11 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult> Add([FromBody] Expense expense)
 		{
+			if(expense is null)
+			{
+				return BadRequest();
+			}
+
 			if ((await _expenseService.GetAllAsync().CAF())
 				.ReturnedObject
 					.Where(e => e.CreateDate.DayOfYear == expense.CreateDate.DayOfYear
@@ -171,6 +176,11 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> Update([FromRoute] int id, [FromBody] Expense expense)
 		{
+			if(expense is null)
+			{
+				return BadRequest();
+			}
+
 			if (!await ExpenseOfIdExists(id))
 			{
 				return NotFound();

@@ -3,7 +3,7 @@
 using Contador.Core.Models;
 using Contador.DAL.Abstractions;
 
-namespace Contador.DAL.MySql.Repositories
+namespace Contador.DAL.MySQL.Repositories
 {
 	/// <summary>
 	/// Manages users in db.

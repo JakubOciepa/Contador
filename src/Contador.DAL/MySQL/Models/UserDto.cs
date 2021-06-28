@@ -1,7 +1,7 @@
 ﻿
 using Contador.Core.Models;
 
-namespace Contador.DAL.MySql.Models
+namespace Contador.DAL.MySQL.Models
 {
 	/// <summary>
 	/// User info.

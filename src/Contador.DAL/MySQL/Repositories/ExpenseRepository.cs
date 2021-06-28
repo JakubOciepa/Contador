@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Contador.Core.Models;
 using Contador.Core.Utils.Extensions;
 using Contador.DAL.Abstractions;
-using Contador.DAL.MySql.Models;
+using Contador.DAL.MySQL.Models;
 
 using Dapper;
 
-namespace Contador.DAL.MySql.Repositories
+namespace Contador.DAL.MySQL.Repositories
 {
 	/// <summary>
 	/// Manages expenses in db.
@@ -249,7 +249,7 @@ namespace Contador.DAL.MySql.Repositories
 		public async Task<Expense> UpdateAsync(int id, Expense expense)
 		{
 			var param = new DynamicParameters();
-			param.Add(ExpenseDto.ParameterName.Id, expense.Id);
+			param.Add(ExpenseDto.ParameterName.Id, id);
 			param.Add(ExpenseDto.ParameterName.Name, expense.Name);
 			param.Add(ExpenseDto.ParameterName.Value, expense.Value);
 			param.Add(ExpenseDto.ParameterName.Description, expense.Description);

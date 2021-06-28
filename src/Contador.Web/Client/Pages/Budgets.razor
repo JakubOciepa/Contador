@@ -1,0 +1,23 @@
+﻿@page "/budgets"
+
+<h1>Budgets</h1>
+
+<AuthorizeView>
+	<Authorized Context="Auth">
+	<h4>Add budget:</h4>
+		<EditForm Model="@AddBudgetModel" OnValidSubmit="@AddNewBudget">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<label for="budget-value">For:</label>
+			<input type="month" id="budget-value" name="budget-value" @bind-value="@AddBudgetModel.StartDate"/>
+
+			<button type="submit">Add budget</button>
+		</EditForm>
+		
+		@foreach (var budget in BudgetList)
+		{
+			<p><a href="/budgets/@budget.Id">@DateTimeHelper.GetMonthYearDateString(budget.StartDate)</a></p>
+		}
+	</Authorized>
+</AuthorizeView>
