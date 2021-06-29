@@ -44,10 +44,10 @@ namespace Contador.Web.Server
 			services.AddSwaggerGen(c =>
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contador.Api", Version = "v1" }));
 			services.AddTransient<IDbConnection>(db =>
-				new MySqlConnection($"server=localhost;{Configuration["DbContent"]}"));
+				new MySqlConnection($"server=localhost;user=admin;password=12345678;database=Contador"));
 
 			services.AddDbContext<IdentityDatabaseContext>(options
-				=> options.UseMySql($"server=localhost;{Configuration["DbUsers"]}",
+				=> options.UseMySql($"server=localhost;user=admin;password=12345678;database=ContadorUsers",
 				new MySqlServerVersion(new Version(10, 3, 25)), mySqlOptions
 					=> mySqlOptions.CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.NeverAppend))
 					.EnableSensitiveDataLogging().EnableDetailedErrors());
