@@ -4,6 +4,14 @@
 {
 	<h3>@DateTimeHelper.GetMonthYearDateString(Budget.StartDate)</h3>
 
+	<select id="expense-category">
+		<option value="0">–Select a category–</option>
+		@foreach (var category in AvailableCategories)
+			{
+			<option value="@category.Id">@category.Name</option>
+			}
+	</select>
+
 	@foreach (var categoryInfo in Budget.Values)
 	{
 		<p>@categoryInfo.Key: @categoryInfo.Value.Value</p>

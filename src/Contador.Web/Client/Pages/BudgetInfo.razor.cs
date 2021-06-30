@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -23,11 +24,14 @@ namespace Contador.Web.Client.Pages
 
 		public Budget Budget { get; set; } = new Budget();
 
+		public List<ExpenseCategory> AvailableCategories { get; set; } = new List<ExpenseCategory>();
+
 		protected override async Task OnInitializedAsync()
 		{
 			await base.OnInitializedAsync();
 
 			Budget = await GetBudgetAsync(Convert.ToInt32(Id));
+			AvailableCategories = await GetAvailableCategories();
 		}
 
 		private async Task<Budget> GetBudgetAsync(int id)
@@ -48,6 +52,26 @@ namespace Contador.Web.Client.Pages
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 
 				return new Budget();
+			}
+		}
+
+		private async Task<List<ExpenseCategory>> GetAvailableCategories()
+		{
+			try
+			{
+				var result = await _httpClient.GetAsync($"api/expensecategory");
+
+				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
+				{
+					return (await result.Content.ReadFromJsonAsync<List<ExpenseCategory>>());
+				}
+
+				return new List<ExpenseCategory>();
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
+				return new List<ExpenseCategory>();
 			}
 		}
 	}
