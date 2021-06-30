@@ -152,7 +152,7 @@ namespace Contador.Web.Server.Controllers
 				return Conflict(expense);
 			}
 
-			expense.ImagePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts", expense.ImagePath);
+			expense.ImagePath = Path.Combine("Files", "Receipts", expense.ImagePath);
 
 			var result = await _expenseService.AddAsync(expense).CAF();
 
@@ -188,13 +188,13 @@ namespace Contador.Web.Server.Controllers
 
 			if (string.IsNullOrEmpty(expense.ImagePath) is not true)
 			{
-				if (expense.ImagePath?.Contains(Path.Combine(Environment.CurrentDirectory, "Files", "Receipts")) is not true)
+				if (expense.ImagePath?.Contains(Path.Combine("Files", "Receipts")) is not true)
 				{
-					expense.ImagePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts", expense.ImagePath);
+					expense.ImagePath = Path.Combine("Files", "Receipts", expense.ImagePath);
 				}
 				else
 				{
-					expense.ImagePath = Path.Combine(Environment.CurrentDirectory, "Files", "Receipts",
+					expense.ImagePath = Path.Combine("Files", "Receipts",
 						expense.ImagePath.Split(Path.DirectorySeparatorChar).Last());
 				}
 			}
