@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -63,7 +64,9 @@ namespace Contador.Web.Client.Pages
 
 				if (result.IsSuccessStatusCode && result.StatusCode is not HttpStatusCode.NoContent)
 				{
-					return (await result.Content.ReadFromJsonAsync<List<ExpenseCategory>>());
+					var categories = (await result.Content.ReadFromJsonAsync<List<ExpenseCategory>>());
+
+					return categories.Where(c => !Budget.Values.ContainsKey(c.Name)).ToList();
 				}
 
 				return new List<ExpenseCategory>();
