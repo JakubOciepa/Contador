@@ -138,7 +138,7 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult> Add([FromBody] Expense expense)
 		{
-			if(expense is null)
+			if (expense is null)
 			{
 				return BadRequest();
 			}
@@ -152,7 +152,10 @@ namespace Contador.Web.Server.Controllers
 				return Conflict(expense);
 			}
 
-			expense.ImagePath = Path.Combine("Files", "Receipts", expense.ImagePath);
+			if (string.IsNullOrEmpty(expense.ImagePath) is not true)
+			{
+				expense.ImagePath = Path.Combine("Files", "Receipts", expense.ImagePath);
+			}
 
 			var result = await _expenseService.AddAsync(expense).CAF();
 
@@ -176,7 +179,7 @@ namespace Contador.Web.Server.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult> Update([FromRoute] int id, [FromBody] Expense expense)
 		{
-			if(expense is null)
+			if (expense is null)
 			{
 				return BadRequest();
 			}
