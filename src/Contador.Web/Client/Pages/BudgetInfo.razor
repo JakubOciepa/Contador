@@ -4,13 +4,21 @@
 {
 	<h3>@DateTimeHelper.GetMonthYearDateString(Budget.StartDate)</h3>
 
-	<select id="expense-category">
-		<option value="0">–Select a category–</option>
-		@foreach (var category in AvailableCategories)
+	<EditForm Model="@BudgetToAdd" OnValidSubmit="@AddCategoryBudget">
+		<DataAnnotationsValidator/>
+		<ValidationSummary/>
+		<InputSelect id="expense-category" @bind-Value="@BudgetToAdd.CategoryId">
+			<option value="0">–Select a category–</option>
+			@foreach (var category in AvailableCategories)
 			{
-			<option value="@category.Id">@category.Name</option>
+				<option value="@category.Id">@category.Name</option>
 			}
-	</select>
+		</InputSelect>
+		<label for="budget-value">Value:</label>
+		<InputNumber id="budget-value" @bind-Value="@BudgetToAdd.Value" />
+		<button type="submit">Add budget</button>
+	</EditForm>
+
 
 	@foreach (var categoryInfo in Budget.Values)
 	{

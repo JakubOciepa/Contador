@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using Contador.Core.Models;
@@ -27,6 +29,8 @@ namespace Contador.Web.Client.Pages
 
 		public List<ExpenseCategory> AvailableCategories { get; set; } = new List<ExpenseCategory>();
 
+		private AddBudgetInfo BudgetToAdd { get; set; } = new AddBudgetInfo();
+
 		protected override async Task OnInitializedAsync()
 		{
 			await base.OnInitializedAsync();
@@ -34,6 +38,39 @@ namespace Contador.Web.Client.Pages
 			Budget = await GetBudgetAsync(Convert.ToInt32(Id));
 			AvailableCategories = await GetAvailableCategories();
 		}
+
+		private async Task AddCategoryBudget()
+		{
+			var request = new HttpRequestMessage(HttpMethod.Post, "/api/budget/categorybudget");
+
+			try
+			{
+				request.Content = GetHttpStringContent();
+
+				var result = await _httpClient.SendAsync(request);
+
+				if (result is HttpResponseMessage response && response.IsSuccessStatusCode)
+				{
+					Budget = await GetBudgetAsync(Convert.ToInt32(Id));
+					AvailableCategories = await GetAvailableCategories();
+					BudgetToAdd = new AddBudgetInfo();
+
+					this.StateHasChanged();
+				}
+				else if (result.StatusCode is HttpStatusCode.Conflict
+					|| result.StatusCode is HttpStatusCode.BadRequest)
+				{
+					_logger.Write(Core.Common.LogLevel.Error, "Cannot add budget!");
+					await _jsRuntime.InvokeVoidAsync("alert", "Cannot add budget!");
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
+				await _jsRuntime.InvokeVoidAsync("alert", "Cannot add budget!");
+			}
+		}
+
 
 		private async Task<Budget> GetBudgetAsync(int id)
 		{
@@ -76,6 +113,24 @@ namespace Contador.Web.Client.Pages
 				_logger.Write(Core.Common.LogLevel.Error, $"{ex.Message}:\n{ex.StackTrace}");
 				return new List<ExpenseCategory>();
 			}
+		}
+
+		private StringContent GetHttpStringContent()
+		{
+			var body = new
+			{
+				BudgetId = Id,
+				CategoryId = BudgetToAdd.CategoryId,
+				Value = BudgetToAdd.Value
+			};
+
+			return new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+		}
+
+		private class AddBudgetInfo
+		{
+			public int CategoryId { get; set; }
+			public decimal Value { get; set; }
 		}
 	}
 }
